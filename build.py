@@ -154,24 +154,7 @@ def header():
 </header>'''
 
 def footer():
-    en, zh = t("footerNews"); en2, zh2 = t("footerRss")
-    return f'''<footer class="site-footer">
- <div class="wrap footer-in">
-  <p><span class="fw-500">Learn UI PM</span> · <span class="lang-en">{esc(UI["tagline"])}</span> <span class="lang-zh">{esc(UI["taglineZh"])}</span></p>
-  <p class="foot-note">
-   <span class="lang-en">{esc(en)} <a href="/feed.xml">{esc(en2)}</a></span>
-   <span class="lang-zh">{esc(zh)} <a href="/feed.xml">{esc(zh2)}</a></span>
-  </p>
-  <p class="foot-links">
-   <a href="/sources/"><span class="lang-en">Sources &amp; license</span><span class="lang-zh">来源与许可证</span></a><span class="sep">·</span><a href="/api/catalog.json">AI Catalog JSON</a>
-  </p>
-  <p class="foot-src">
-   <span class="lang-en">Original dictionary content keeps its upstream attribution.</span>
-   <span class="lang-zh">原始词典内容保留上游来源与署名，新增页面参考独立管理。</span>
-  </p>
- </div>
-</footer>
-<div class="def-pop" id="def-pop" hidden>
+    return '''<div class="def-pop" id="def-pop" hidden>
  <div class="def-word" id="def-word"></div>
  <div class="def-body" id="def-body"></div>
  <div class="def-src" id="def-src"></div>
