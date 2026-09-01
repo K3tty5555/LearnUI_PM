@@ -4,9 +4,8 @@ Stdlib only. Reads data/ + demos/, writes site/."""
 import json, html, os, shutil, datetime, subprocess, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE_URL = os.environ.get("SITE_URL", "https://learnui.qiaomu.ai").rstrip("/")
+SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
-UMAMI_ID = "481306cd-4dad-4677-8456-f31490684e78"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars"}
 
@@ -219,7 +218,6 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="stylesheet" href="/assets/reference-demos.css">
 <link rel="stylesheet" href="/assets/glass-theme.css">
-<script defer src="https://umami.qiaomu.ai/script.js" data-website-id="{UMAMI_ID}" data-domains="learnui.qiaomu.ai"></script>
 </head>
 <body>
 {body}

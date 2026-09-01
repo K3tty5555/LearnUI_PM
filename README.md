@@ -7,7 +7,7 @@
 > UI 视觉词典的中英双语对照版：看到元素，学会它的真名（Web CSS/ARIA + macOS AppKit/SwiftUI），认出风格，学会它的学名，然后精准地指挥你的 AI 编程代理。
 > A bilingual (EN/中文) visual dictionary of UI: see it, name it, and prompt your coding agent with precision.
 
-[在线演示 Live Demo](https://learnui.qiaomu.ai/) · [风格图鉴 Name That Vibe](https://learnui.qiaomu.ai/styles/) · [词条示例](https://learnui.qiaomu.ai/web/text-scramble/) · [翻译对照表](https://learnui.qiaomu.ai/guides/translate/)
+[在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [翻译对照表](https://K3tty5555.github.io/LearnUI_PM/guides/translate/)
 
 **当前构建：** 240 个静态页面；62 个 UI 标本、44 个风格标本、12 个页面参考、74 个知名网站设计系统；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
@@ -93,7 +93,7 @@ learnui/
 - 页面参考回归：多维筛选、三类选择持久化、状态切换、Markdown/JSON 导出入口通过
 - 桌面与 390px 移动端 Playwright 检查无 JavaScript 错误、无横向溢出
 - 原有搜索、平台筛选、语言切换、随机词条和复制能力保留
-- 线上环境：<https://learnui.qiaomu.ai/> 200，HTTPS + HSTS，Umami 统计链路实测写入成功
+- 公网环境：<https://K3tty5555.github.io/LearnUI_PM/>，由 GitHub Pages 自动部署
 
 ## 限制与版权
 
@@ -115,7 +115,7 @@ learnui/
 
 A faithful content replica of [namethatui.com](https://namethatui.com/) (including the **Name That Vibe** styles atlas) with full Chinese-English parallel text, built for learning. See a UI element or a visual style, learn its real name, and prompt your coding agent with precision.
 
-**Live demo:** <https://learnui.qiaomu.ai/>
+**Live demo:** <https://K3tty5555.github.io/LearnUI_PM/>
 
 - **62 entries** (31 Web + 31 macOS), each with a **live interactive specimen** (real HTML/CSS/JS, not screenshots)
 - **44 visual styles** (Skeuomorphism, Liquid Glass, Neobrutalism, Y2K, Frutiger Aero, Aqua, Swiss Style, Bauhaus, Memphis, Vaporwave, Art Deco, Cyberpunk, Pixel Art, Corporate Memphis, Material Design, Terminal Hacker, plus 20 more: Frutiger Metro, Anti-design, Acid Graphics, Risograph, Zine Collage, Steampunk, Dieselpunk, Biopunk, Afrofuturism, De Stijl, Constructivism, Pop Art, Surrealism, Art Nouveau, Holographic, Isometric 3D, Line Art, Hand-drawn, Fantasy RPG, LCARS): style specimen, full style DNA signals, look-alike comparison, code starting points, copy-ready style brief

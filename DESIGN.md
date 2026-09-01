@@ -128,4 +128,4 @@
 - `sw.js`：静态资源 cache-first，页面 network-first 回退缓存，离线回退到首页；
   构建时由 build.py 注入版本号清旧缓存；页面稳定 8 秒后再注册，避免完整离线库与首屏资源争抢网络
 - nginx：`/sw.js` 与 `/manifest.webmanifest` 强制 `no-cache`，其余静态资源 7d
-- 分析：Umami（`data-domains="learnui.qiaomu.ai"`）
+- 分析：暂不配置站点统计；GitHub Pages 仅负责静态发布

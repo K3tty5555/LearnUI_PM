@@ -9,7 +9,7 @@ import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "https://learnui.qiaomu.ai"
+BASE = "https://K3tty5555.github.io/LearnUI_PM"
 VENDOR = ROOT / "vendor" / "sites"
 OG_DIR = ROOT / "assets" / "og"
 USER_AGENT = "LearnUI-PM sites mirror/1.0"
@@ -109,7 +109,7 @@ def main():
                 print(f"  {completed}/{len(items)}")
 
     manifest = {
-        "source": "https://learnui.qiaomu.ai/sites/",
+        "source": f"{BASE}/sites/",
         "contentSource": "https://github.com/VoltAgent/awesome-design-md",
         "license": "MIT",
         "syncedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),

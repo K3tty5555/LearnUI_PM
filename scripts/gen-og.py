@@ -57,7 +57,7 @@ def text_block(kind, name, zh, tag):
  <h1 class="og-name">{B.esc(name)}</h1>
  <p class="og-zh">{B.esc(zh)}</p>
  <p class="og-tag">{B.esc(tag)}</p>
- <div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">learnui.qiaomu.ai</span></div>
+<div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">K3tty5555.github.io/LearnUI_PM</span></div>
 </div>'''
 
 
@@ -75,7 +75,7 @@ def page_vs(key, a, az, b, bz):
   <p class="og-kind">Compare · 对比</p>
   <div class="og-vsline"><h1 class="og-name">{B.esc(a["name"])}</h1><span class="og-vs">vs</span><h1 class="og-name">{B.esc(b["name"])}</h1></div>
   <p class="og-zh">{B.esc(az.get("name_zh", ""))} 对比 {B.esc(bz.get("name_zh", ""))}</p>
-  <div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">learnui.qiaomu.ai</span></div>
+  <div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">K3tty5555.github.io/LearnUI_PM</span></div>
  </div>
 </div>'''
     return key, shell(body)
