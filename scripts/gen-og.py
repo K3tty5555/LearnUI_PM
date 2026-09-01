@@ -57,7 +57,7 @@ def text_block(kind, name, zh, tag):
  <h1 class="og-name">{B.esc(name)}</h1>
  <p class="og-zh">{B.esc(zh)}</p>
  <p class="og-tag">{B.esc(tag)}</p>
- <div class="og-foot"><span class="og-mark">Learn UI Name <span>界面叫啥</span></span><span class="og-url">learnui.qiaomu.ai</span></div>
+ <div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">learnui.qiaomu.ai</span></div>
 </div>'''
 
 
@@ -75,7 +75,7 @@ def page_vs(key, a, az, b, bz):
   <p class="og-kind">Compare · 对比</p>
   <div class="og-vsline"><h1 class="og-name">{B.esc(a["name"])}</h1><span class="og-vs">vs</span><h1 class="og-name">{B.esc(b["name"])}</h1></div>
   <p class="og-zh">{B.esc(az.get("name_zh", ""))} 对比 {B.esc(bz.get("name_zh", ""))}</p>
-  <div class="og-foot"><span class="og-mark">Learn UI Name <span>界面叫啥</span></span><span class="og-url">learnui.qiaomu.ai</span></div>
+  <div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">learnui.qiaomu.ai</span></div>
  </div>
 </div>'''
     return key, shell(body)
@@ -99,24 +99,25 @@ def jobs():
         A, Bb = B.STYLE_BY_SLUG[a], B.STYLE_BY_SLUG[b]
         x, y = sorted([a, b])
         js.append(page_vs(f"vs-{x}-vs-{y}", A, B.style_zh(A), Bb, B.style_zh(Bb)))
-    js.append(page_generic("_home", "UI Dictionary · 界面叫啥", B.UI["heroTitle"], B.UI["heroTitleZh"], B.UI["heroSub"]))
+    js.append(page_generic("_home", "UI Dictionary · 页面参考", B.UI["heroTitle"], B.UI["heroTitleZh"], B.UI["heroSub"]))
     js.append(page_generic("_styles", "Styles Atlas · 风格图鉴", B.UI["stylesTitle"], B.UI["stylesTitleZh"], B.STYLES_META.get("hubTagline", "")))
-    js.append(page_generic("_quiz", "Quiz · 测验", B.UI["quizTitle"], B.UI["quizTitleZh"], B.UI["quizDesc"]))
-    js.append(page_generic("_default", "Learn UI Name", "Learn UI Name", "界面叫啥", B.UI["tagline"]))
+    js.append(page_generic("_default", "Learn UI PM", "Learn UI PM", "UI 视觉词典", B.UI["tagline"]))
     return js
 
 
 def main():
     from playwright.sync_api import sync_playwright
     todo = jobs()
-    # skip images that already exist (delete assets/og to force full regen)
-    todo = [(k, h) for k, h in todo if not os.path.exists(os.path.join(OUT, k + ".png"))]
+    force = "--force" in sys.argv
+    if not force:
+        todo = [(k, h) for k, h in todo if not os.path.exists(os.path.join(OUT, k + ".png"))]
     if not todo:
         print("all og images exist, nothing to do")
         return
     print(f"generating {len(todo)} og images…")
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        chrome_path = os.environ.get("PLAYWRIGHT_CHROME_PATH")
+        b = p.chromium.launch(executable_path=chrome_path) if chrome_path else p.chromium.launch()
         pg = b.new_page(viewport={"width": 1200, "height": 630})
         for i, (key, html) in enumerate(todo, 1):
             f = os.path.join(TMP, key + ".html")

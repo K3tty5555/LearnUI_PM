@@ -32,13 +32,15 @@
   justify-content: center;
 }
 .demo-alert .alert {
-  width: 208px;
+  width: 240px;
   box-sizing: border-box;
   background: #ececec;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   padding: 14px;
   text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 .demo-alert .alert.entering {
@@ -86,13 +88,15 @@
 }
 .demo-alert .msg {
   margin: 10px 0 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
+  line-height: 1.45;
   color: rgba(0, 0, 0, 0.9);
 }
 .demo-alert .info {
-  margin: 4px 0 0;
-  font-size: 10.5px;
+  margin: 5px 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
   color: rgba(0, 0, 0, 0.6);
 }
 .demo-alert .btns {
@@ -105,9 +109,10 @@
   flex: 1 1 0;
   margin: 0;
   font: inherit;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 0;
+  min-height: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 8px;
   border-radius: 6px;
   cursor: default;
   transition: filter 75ms ease-out;

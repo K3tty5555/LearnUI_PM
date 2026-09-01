@@ -1,23 +1,31 @@
-/* Learn UI Name — service worker. Version stamped by build.py. */
+/* Learn UI PM service worker. Version stamped by build.py. */
 var VERSION = "__SW_VERSION__";
 var SHELL = "learnui-shell-" + VERSION;
 var PAGES = "learnui-pages-" + VERSION;
+var GENERATED_PAGES = __PRECACHE_PAGES__;
 
-var PRECACHE = [
+var PRECACHE = Array.from(new Set([
   "/",
   "/styles/",
-  "/quiz/",
-  "/assets/quiz.js",
+  "/references/",
   "/manifest.webmanifest",
   "/assets/site.css",
+  "/assets/reference-demos.css",
+  "/assets/glass-theme.css",
+  "/assets/demo-i18n.js",
   "/assets/site.js",
+  "/assets/og/style-frutiger-aero.png",
+  "/api/catalog.json",
+  "/api/demo-i18n.json",
+  "/api/taxonomy.json",
   "/assets/fonts/geist-vf.woff2",
   "/assets/fonts/geist-mono-vf.woff2",
-  "/assets/icons/favicon.svg",
+  "/assets/icons/favicon-32.png",
+  "/assets/icons/ai-pm-client-circle-64.png",
   "/assets/icons/icon-192.png",
   "/assets/icons/icon-512.png",
   "/assets/icons/apple-touch-icon.png"
-];
+].concat(GENERATED_PAGES)));
 
 self.addEventListener("install", function (ev) {
   ev.waitUntil(

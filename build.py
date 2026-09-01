@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Learn UI Name static site builder — bilingual (EN/中文) replica of namethatui.com.
+"""Learn UI PM static site builder - bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
-import json, html, os, shutil, datetime
+import json, html, os, shutil, datetime, subprocess, sys
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE_URL = "https://learnui.qiaomu.ai"
-SITE_NAME = "Learn UI Name"
+SITE_URL = os.environ.get("SITE_URL", "https://learnui.qiaomu.ai").rstrip("/")
+SITE_NAME = "Learn UI PM"
 UMAMI_ID = "481306cd-4dad-4677-8456-f31490684e78"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars"}
@@ -45,6 +45,16 @@ STYLES_META = _nn(load_or("data/styles-meta.json", {"hubTagline": "", "governedN
 STYLES_ZH = _nn(load_or("data/zh/styles.json", {}))
 STYLES_META_ZH = _nn(load_or("data/zh/styles-meta-zh.json", {"hubTagline_zh": "", "governedNote_zh": ""}))
 STYLE_BY_SLUG = {s["slug"]: s for s in STYLES}
+PM_REFERENCES = _nn(load_or("data/pm/references.json", []))
+PM_TAXONOMY = _nn(load_or("data/pm/taxonomy.json", {}))
+PM_BY_SLUG = {r["slug"]: r for r in PM_REFERENCES}
+PM_LABELS = {
+    group: {item["id"]: item["label"] for item in items}
+    for group, items in PM_TAXONOMY.items()
+}
+DEMO_I18N = _nn(load_or("data/demo-i18n.json", {"global": {}, "patterns": [], "demos": {}}))
+SITES_META = _nn(load_or("data/sites-manifest.json", {"items": []}))
+SITES = SITES_META.get("items", [])
 
 OUT = os.path.join(ROOT, "site")
 
@@ -97,16 +107,42 @@ def stage(slug, detail=False):
             f'<div class="fragment" data-slug="{esc(slug)}">{demo_fragment(slug)}</div>'
             f'</div></div>')
 
+def select_button(item_id, compact=False):
+    cls = "select-toggle select-toggle-compact" if compact else "btn select-toggle"
+    return (f'<button type="button" class="{cls}" data-select-id="{esc(item_id)}" '
+            f'aria-pressed="false"><span data-select-label>加入参考</span></button>')
+
+def selection_panel():
+    return '''<div class="selection-dock" id="selection-dock" hidden>
+ <button type="button" class="selection-dock-button" id="selection-open" aria-controls="selection-dialog">
+  已选参考 <b id="selection-count">0</b>
+ </button>
+</div>
+<dialog class="selection-dialog" id="selection-dialog" aria-labelledby="selection-title">
+ <div class="selection-head">
+  <div><h2 id="selection-title">参考选择集</h2><p>组合页面、UI 元素和视觉风格，导出给 AI。</p></div>
+  <button type="button" class="icon-button" id="selection-close" aria-label="关闭">×</button>
+ </div>
+ <div class="selection-list" id="selection-list"></div>
+ <div class="selection-empty" id="selection-empty">还没有选择参考。</div>
+ <div class="selection-actions">
+  <button type="button" class="btn" id="selection-copy-md">复制 Markdown</button>
+  <button type="button" class="btn" id="selection-download-json">下载 JSON</button>
+  <button type="button" class="btn btn-danger" id="selection-clear">清空</button>
+ </div>
+ <p class="selection-status" id="selection-status" role="status"></p>
+</dialog>'''
+
 def header():
     en_all, zh_all = t("tabAll"); en_g, zh_g = t("guideCrumb"); en_st, zh_st = t("stylesCrumb")
-    en_qz, zh_qz = t("quizCrumb")
     return f'''<header class="site-header">
  <div class="wrap header-in">
-  <a class="wordmark" href="/">Learn UI Name<span class="wordmark-zh">界面叫啥</span></a>
+  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="28" height="28">Learn UI PM</a>
   <nav class="site-nav">
    <a href="/#dictionary"><span class="lang-en">Dictionary</span><span class="lang-zh nav-zh">词典</span></a>
+   <a href="/references/"><span class="lang-en">References</span><span class="lang-zh nav-zh">页面参考</span></a>
+   <a href="/sites/"><span class="lang-en">Sites</span><span class="lang-zh nav-zh">知名网站</span></a>
    <a href="/styles/"><span class="lang-en">{esc(en_st)}</span><span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
-   <a href="/quiz/"><span class="lang-en">{esc(en_qz)}</span><span class="lang-zh nav-zh">{esc(zh_qz)}</span></a>
    <a href="/#guides"><span class="lang-en">{esc(en_g)}</span><span class="lang-zh nav-zh">{esc(zh_g)}</span></a>
    <a href="/guides/translate/"><span class="lang-en">Translation</span><span class="lang-zh nav-zh">翻译表</span></a>
   </nav>
@@ -119,38 +155,20 @@ def header():
 </header>'''
 
 def footer():
-    en, zh = t("footerNews"); en2, zh2 = t("footerRss"); en3, zh3 = t("builtNote")
-    en_s, zh_s = t("supportTitle"); en_f, zh_f = t("supportFollow"); en_r, zh_r = t("supportReward"); en_x, zh_x = t("supportX")
+    en, zh = t("footerNews"); en2, zh2 = t("footerRss")
     return f'''<footer class="site-footer">
  <div class="wrap footer-in">
-  <p><span class="fw-500">Learn UI Name</span> · <span class="lang-en">{esc(UI["tagline"])}</span> <span class="lang-zh">{esc(UI["taglineZh"])}</span></p>
-  <div class="footer-support">
-   <p class="support-title"><span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span></p>
-   <div class="support-row">
-    <figure class="support-qr">
-     <img src="/assets/img/qrcode-wechat.jpg" alt="WeChat QR" width="88" height="88" loading="lazy">
-     <figcaption><span class="lang-en">{esc(en_f)}</span><span class="lang-zh">{esc(zh_f)}</span></figcaption>
-    </figure>
-    <figure class="support-qr">
-     <img src="/assets/img/qrcode-reward.png" alt="Reward QR" width="88" height="88" loading="lazy">
-     <figcaption><span class="lang-en">{esc(en_r)}</span><span class="lang-zh">{esc(zh_r)}</span></figcaption>
-    </figure>
-    <p class="support-links">
-     <a href="https://x.com/vista8" rel="noopener"><span class="lang-en">{esc(en_x)}</span><span class="lang-zh">{esc(zh_x)}</span></a>
-     <a href="https://github.com/joeseesun" rel="noopener">GitHub @joeseesun</a>
-    </p>
-   </div>
-  </div>
+  <p><span class="fw-500">Learn UI PM</span> · <span class="lang-en">{esc(UI["tagline"])}</span> <span class="lang-zh">{esc(UI["taglineZh"])}</span></p>
   <p class="foot-note">
    <span class="lang-en">{esc(en)} <a href="/feed.xml">{esc(en2)}</a></span>
    <span class="lang-zh">{esc(zh)} <a href="/feed.xml">{esc(zh2)}</a></span>
   </p>
   <p class="foot-links">
-   <a href="https://github.com/joeseesun/learnui" rel="noopener">GitHub</a><span class="sep">·</span><a href="https://tuijian.qiaomu.ai/" rel="noopener">乔木推荐</a><span class="sep">·</span><span class="lang-en">Powered by <a href="https://qiaomu.ai/" rel="noopener">向阳乔木</a></span><span class="lang-zh">Powered by <a href="https://qiaomu.ai/" rel="noopener">向阳乔木</a></span>
+   <a href="/sources/"><span class="lang-en">Sources &amp; license</span><span class="lang-zh">来源与许可证</span></a><span class="sep">·</span><a href="/api/catalog.json">AI Catalog JSON</a>
   </p>
   <p class="foot-src">
-   <span class="lang-en">{esc(en3)} <a href="https://namethatui.com/" rel="noopener">namethatui.com</a></span>
-   <span class="lang-zh">{esc(zh3)} <a href="https://namethatui.com/" rel="noopener">namethatui.com</a></span>
+   <span class="lang-en">Original dictionary content keeps its upstream attribution.</span>
+   <span class="lang-zh">原始词典内容保留上游来源与署名，新增页面参考独立管理。</span>
   </p>
  </div>
 </footer>
@@ -165,14 +183,14 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
     og_url = SITE_URL + og_image
     ld = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
     return f'''<!DOCTYPE html>
-<html lang="zh-CN" data-lang-mode="bilingual">
+<html lang="zh-CN" data-lang-mode="zh">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title_en)} · {esc(title_zh)} — {SITE_NAME}</title>
+<title>LearnUI_PM</title>
 <meta name="description" content="{esc(desc_zh)} {esc(desc_en)}">
 <link rel="canonical" href="{esc(url)}">
-<meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} — {SITE_NAME}">
+<meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} - {SITE_NAME}">
 <meta property="og:description" content="{esc(desc_zh)} {esc(desc_en)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{esc(url)}">
@@ -181,31 +199,32 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{esc(og_url)}">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#e6eff2">
 {ld}
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="alternate" type="application/rss+xml" title="{SITE_NAME} RSS" href="/feed.xml">
-<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/geist-vf.woff2" as="font" type="font/woff2" crossorigin>
 <script>
-// 首开按浏览器语言选模式（中文环境→纯中文，其他→纯英文）；用户手动切换后持久化。
-// 放在样式表前执行，避免语言模式闪烁；JS 禁用时保持 HTML 上的 bilingual 回退。
+// 默认纯中文；用户手动切换后持久化。
 (function(){{try{{
   var m=localStorage.getItem("ntui-lang-mode");
   if(m!=="bilingual"&&m!=="zh"&&m!=="en"){{
-    var ls=navigator.languages||[navigator.language||""];m="en";
-    for(var i=0;i<ls.length;i++){{if(/^zh/i.test(ls[i])){{m="zh";break}}}}
+    m="zh";
   }}
   document.documentElement.setAttribute("data-lang-mode",m);
 }}catch(e){{}}}})();
 </script>
 <link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/reference-demos.css">
+<link rel="stylesheet" href="/assets/glass-theme.css">
 <script defer src="https://umami.qiaomu.ai/script.js" data-website-id="{UMAMI_ID}" data-domains="learnui.qiaomu.ai"></script>
 </head>
 <body>
 {body}
+{selection_panel()}
+<script src="/assets/demo-i18n.js"></script>
 <script src="/assets/site.js"></script>
 </body>
 </html>'''
@@ -231,7 +250,8 @@ def card(e):
     z = ZH[e["slug"]]
     new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if e["slug"] in NEW_SLUGS else ""
     sym = e["api"][0]["symbol"]
-    return f'''<a class="card" data-platform="{e["platform"]}" data-slug="{e["slug"]}" href="{entry_url(e)}">
+    return f'''<article class="catalog-item" data-platform="{e["platform"]}" data-slug="{e["slug"]}">
+<a class="card" href="{entry_url(e)}">
  {stage(e["slug"])}
  <div class="card-meta">
   <h3 class="card-name">
@@ -242,7 +262,9 @@ def card(e):
   <p class="card-symbol">{esc(sym)}</p>
   {bi(e["tagline"], z["tagline_zh"], "p", "card-tag")}
  </div>
-</a>'''
+</a>
+{select_button("entry:" + e["slug"], compact=True)}
+</article>'''
 
 def homepage():
     search_index = []
@@ -262,6 +284,8 @@ def homepage():
     en_s, zh_s = t("surprise")
     en_gt, zh_gt = t("guidesTitle")
     en_vp, zh_vp = t("vibePromo")
+    en_all, zh_all = t("tabAll"); en_web, zh_web = t("tabWeb"); en_mac, zh_mac = t("tabMacos")
+    search_json = json.dumps(search_index, ensure_ascii=False).replace("</", "<\\/")
     body = f'''{header()}
 <main class="wrap">
  <section class="hero">
@@ -274,14 +298,14 @@ def homepage():
    <div class="search-box">
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
     <input id="search" type="search" autocomplete="off"
-     data-ph-en="{esc(en_ph)}" data-ph-zh="{esc(zh_ph)}" placeholder="{esc(zh_ph)} / {esc(en_ph)}" aria-label="Search">
+     data-ph-en="{esc(en_ph)}" data-ph-zh="{esc(zh_ph)}" placeholder="{esc(zh_ph)} / {esc(en_ph)}" aria-label="搜索 UI 元素">
     <kbd class="search-kbd">/</kbd>
    </div>
    <button type="button" id="surprise" class="btn btn-ghost">⚂ <span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span></button>
    <div class="tabs" role="tablist">
-    <button type="button" class="tab active" data-filter="all">All</button>
-    <button type="button" class="tab" data-filter="web">Web</button>
-    <button type="button" class="tab" data-filter="macos">macOS</button>
+    <button type="button" class="tab active" data-filter="all"><span class="lang-en">{esc(en_all)}</span><span class="lang-zh">{esc(zh_all)}</span></button>
+    <button type="button" class="tab" data-filter="web"><span class="lang-en">{esc(en_web)}</span><span class="lang-zh">{esc(zh_web)}</span></button>
+    <button type="button" class="tab" data-filter="macos"><span class="lang-en">{esc(en_mac)}</span><span class="lang-zh">{esc(zh_mac)}</span></button>
    </div>
    <p class="count-note" id="count-note"><span class="lang-en" data-tpl="{esc(UI["entriesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["entriesCountZh"])}">{esc(zh_cnt)}</span></p>
   </div>
@@ -320,7 +344,7 @@ def homepage():
  </section>
 </main>
 {footer()}
-<script id="search-index" type="application/json">{json.dumps(search_index, ensure_ascii=False).replace("</", "<\\/")}</script>'''
+<script id="search-index" type="application/json">{search_json}</script>'''
     return page(UI["heroTitle"], UI["heroTitleZh"], UI["heroSub"], UI["heroSubZh"], body, og_image="/assets/og/_home.png")
 
 def api_table(e, z):
@@ -426,11 +450,12 @@ def entry_page(e):
    <div class="meta-row"><dt>{esc(en_ac)}<span class="lang-zh dt-zh">{esc(zh_ac)}</span></dt>
     <dd><span class="lang-en">{esc(aka_en)}</span><span class="lang-zh zh-line">{esc(aka_zh)}</span></dd></div>
    <div class="meta-row"><dt>{esc(en_fy)}<span class="lang-zh dt-zh">{esc(zh_fy)}</span></dt>
-    <dd><ul class="fuzzy-list">{fuzzy_rows}</ul></dd></div>
+   <dd><ul class="fuzzy-list">{fuzzy_rows}</ul></dd></div>
   </dl>
+  <div class="entry-actions">{select_button("entry:" + e["slug"])}</div>
  </header>
  {stage(e["slug"], detail=True)}
- <p class="stage-hint lang-zh">标本可交互 —— 点点看。Specimen is live — try it.</p>
+ <p class="stage-hint lang-zh">标本可交互，可以直接操作。</p>
  {anatomy}
  <section class="sect">
   <h2 class="section-title"><span class="lang-en">{esc(en_p)}</span><span class="lang-zh">{esc(zh_p)}</span></h2>
@@ -596,18 +621,214 @@ def translate_page():
   <p class="guide-sub mono-sm">/ {esc(UI["translateSubtitle"])} /</p>
   {bi(UI["translateLede"], UI["translateLedeZh"], "p", "entry-tag")}
  </header>
- <div class="search-box table-search">
-  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-  <input id="table-search" type="search" autocomplete="off" placeholder="Filter… / 筛选…" aria-label="Filter">
- </div>
- <div class="table-scroll"><table class="api-table translate-table" id="translate-table">
-  <thead><tr><th>{esc(en_tc)}<span class="lang-zh th-zh">{esc(zh_tc)}</span></th><th>AppKit</th><th>SwiftUI</th></tr></thead>
-  <tbody>{"".join(rows)}</tbody>
- </table></div>
- <p class="count-note"><span class="lang-en" id="table-count" data-tpl="{esc(UI["translateCount"])}">{esc(en_cnt)}</span><span class="lang-zh" id="table-count-zh" data-tpl="{esc(UI["translateCountZh"])}">{esc(zh_cnt)}</span></p>
+ <section class="translate-tool" aria-label="翻译对照表工具">
+  <div class="translate-toolbar">
+   <div class="search-box table-search">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="table-search" type="search" autocomplete="off" placeholder="筛选术语或 API" aria-label="筛选翻译对照表">
+   </div>
+   <p class="translate-count"><span class="lang-en" id="table-count" data-tpl="{esc(UI["translateCount"])}">{esc(en_cnt)}</span><span class="lang-zh" id="table-count-zh" data-tpl="{esc(UI["translateCountZh"])}">{esc(zh_cnt)}</span></p>
+  </div>
+  <div class="table-scroll"><table class="api-table translate-table" id="translate-table">
+   <thead><tr><th>{esc(en_tc)}<span class="lang-zh th-zh">{esc(zh_tc)}</span></th><th>AppKit</th><th>SwiftUI</th></tr></thead>
+   <tbody>{"".join(rows)}</tbody>
+  </table></div>
+ </section>
 </main>
 {footer()}'''
     return page(UI["translateTitle"], "翻译对照表", UI["translateLede"], UI["translateLedeZh"], body, "guides/translate/")
+
+# ---------------- product/page references ----------------
+
+def reference_url(ref):
+    return f'/references/{ref["slug"]}/'
+
+def pm_labels(group, ids):
+    labels = PM_LABELS.get(group, {})
+    return [labels.get(item, item) for item in ids]
+
+def reference_prompt(ref):
+    return "\n".join([
+        ref["promptHints"]["summary"],
+        "适用场景：" + "、".join(ref["scenarios"]) + "。",
+        "页面结构：" + "；".join(ref["structure"]) + "。",
+        "视觉特征：" + "；".join(ref["visualTraits"]) + "。",
+        "关键状态：" + "、".join(pm_labels("states", ref["states"])) + "。",
+        "需要做到：" + "；".join(ref["promptHints"]["do"]) + "。",
+        "避免：" + "；".join(ref["promptHints"]["avoid"]) + "。",
+    ])
+
+def reference_markdown(ref):
+    lines = [
+        f'# {ref["title"]} ({ref["titleEn"]})', "", ref["summary"], "",
+        "## 分类", "",
+        "- 产品类型：" + "、".join(pm_labels("productTypes", ref["productTypes"])),
+        "- 页面类型：" + "、".join(pm_labels("pageTypes", ref["pageTypes"])),
+        "- 布局方式：" + "、".join(pm_labels("layouts", ref["layouts"])),
+        "- 视觉气质：" + "、".join(pm_labels("moods", ref["moods"])),
+        "- 关键状态：" + "、".join(pm_labels("states", ref["states"])), "",
+        "## 页面结构", "",
+    ]
+    lines += [f"- {item}" for item in ref["structure"]]
+    lines += ["", "## 视觉特征", ""]
+    lines += [f"- {item}" for item in ref["visualTraits"]]
+    lines += ["", "## AI 风格说明", "", reference_prompt(ref), ""]
+    return "\n".join(lines)
+
+def reference_card(ref):
+    chips = pm_labels("productTypes", ref["productTypes"][:1]) + pm_labels("pageTypes", ref["pageTypes"][:1]) + pm_labels("layouts", ref["layouts"][:1])
+    return f'''<article class="catalog-item reference-card-item" data-reference-slug="{esc(ref["slug"])}">
+ <a class="reference-card" href="{reference_url(ref)}">
+  {stage(ref["demo"])}
+  <div class="card-meta">
+   <h3>{esc(ref["title"])} <span>{esc(ref["titleEn"])}</span></h3>
+   <p>{esc(ref["summary"])}</p>
+   <div class="reference-card-tags">{"".join(f"<span>{esc(label)}</span>" for label in chips)}</div>
+  </div>
+ </a>
+ {select_button("reference:" + ref["slug"], compact=True)}
+</article>'''
+
+def reference_filter_group(key, title):
+    options = []
+    for item in PM_TAXONOMY.get(key, []):
+        count = sum(1 for ref in PM_REFERENCES if item["id"] in ref.get(key, []))
+        options.append(f'''<label><input type="checkbox" data-ref-filter="{esc(key)}" value="{esc(item["id"])}"><span>{esc(item["label"])}</span><small>{count}</small></label>''')
+    return f'''<details class="reference-filter-group" open>
+ <summary>{esc(title)}</summary>
+ <div>{"".join(options)}</div>
+</details>'''
+
+def references_page():
+    index = [{
+        "slug": ref["slug"], "title": ref["title"], "titleEn": ref["titleEn"],
+        "summary": ref["summary"], "scenarios": ref["scenarios"],
+        "structure": ref["structure"], "visualTraits": ref["visualTraits"],
+        "productTypes": ref["productTypes"], "pageTypes": ref["pageTypes"],
+        "layouts": ref["layouts"], "moods": ref["moods"], "states": ref["states"]
+    } for ref in PM_REFERENCES]
+    filters = "".join([
+        reference_filter_group("productTypes", "产品类型"),
+        reference_filter_group("pageTypes", "页面类型"),
+        reference_filter_group("layouts", "布局方式"),
+        reference_filter_group("moods", "视觉气质"),
+        reference_filter_group("states", "交互状态"),
+    ])
+    cards = "\n".join(reference_card(ref) for ref in PM_REFERENCES)
+    index_json = json.dumps(index, ensure_ascii=False).replace("</", "<\\/")
+    body = f'''{header()}
+<main class="wrap references-page">
+ <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">页面参考</span></nav>
+ <header class="references-head">
+  <div><h1>页面参考</h1><p>按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p></div>
+  <a class="btn" href="/api/catalog.json">查看结构化数据</a>
+ </header>
+ <div class="reference-search-row">
+  <div class="search-box"><input id="reference-search" type="search" autocomplete="off" placeholder="搜索页面、场景或特征" aria-label="搜索页面参考"><kbd class="search-kbd">/</kbd></div>
+  <p id="reference-count" class="count-note">{len(PM_REFERENCES)} 个参考</p>
+  <button type="button" class="btn" id="reference-reset">重置筛选</button>
+ </div>
+ <div class="reference-browser">
+  <aside class="reference-filters" aria-label="页面参考筛选">{filters}</aside>
+  <section>
+   <div class="reference-grid" id="reference-grid">{cards}</div>
+   <div class="no-result" id="reference-no-result" hidden><b>没有符合条件的参考</b><p>减少筛选条件或换一个关键词。</p></div>
+  </section>
+ </div>
+ <script id="reference-index" type="application/json">{index_json}</script>
+</main>
+{footer()}'''
+    return page("Page references", "页面参考", "Filter reusable product page references.",
+                "按产品类型、页面类型、布局、气质和状态筛选页面参考。", body, "references/")
+
+def reference_page(ref):
+    tags = []
+    for group in ("productTypes", "pageTypes", "layouts", "moods"):
+        tags += pm_labels(group, ref[group])
+    states = pm_labels("states", ref["states"])
+    prompt = reference_prompt(ref)
+    md = reference_markdown(ref)
+    structure = "".join(f"<li>{esc(item)}</li>" for item in ref["structure"])
+    traits = "".join(f"<li>{esc(item)}</li>" for item in ref["visualTraits"])
+    dos = "".join(f"<li>{esc(item)}</li>" for item in ref["promptHints"]["do"])
+    avoids = "".join(f"<li>{esc(item)}</li>" for item in ref["promptHints"]["avoid"])
+    body = f'''{header()}
+<main class="wrap entry reference-detail">
+ <nav class="crumbs"><a href="/references/">页面参考</a><span class="crumb-sep">/</span><span class="crumb-cur">{esc(ref["title"])}</span></nav>
+ <header class="entry-head">
+  <h1 class="reference-title">{esc(ref["title"])} <span>{esc(ref["titleEn"])}</span></h1>
+  <p class="entry-tag">{esc(ref["summary"])}</p>
+  <div class="reference-tags">{"".join(f"<span>{esc(tag)}</span>" for tag in tags)}</div>
+  <div class="entry-actions">{select_button("reference:" + ref["slug"])}</div>
+ </header>
+ {stage(ref["demo"], detail=True)}
+ <p class="stage-hint">标本可交互，可以切换不同状态。</p>
+ <div class="reference-detail-grid">
+  <section><h2>适用场景</h2><p>{esc("、".join(ref["scenarios"]))}</p></section>
+  <section><h2>关键状态</h2><div class="reference-tags">{"".join(f"<span>{esc(state)}</span>" for state in states)}</div></section>
+  <section><h2>布局结构</h2><ol>{structure}</ol></section>
+  <section><h2>视觉特征</h2><ul>{traits}</ul></section>
+ </div>
+ <section class="sect reference-guidance">
+  <h2>实现约束</h2>
+  <div class="guidance-cols"><div><h3>需要做到</h3><ul>{dos}</ul></div><div><h3>避免</h3><ul>{avoids}</ul></div></div>
+ </section>
+ <section class="sect">
+  <h2>AI 风格说明</h2>
+  <div class="copy-block"><button type="button" class="btn btn-copy" data-copy="reference-prompt" data-done-zh="已复制">复制</button><div class="copy-text"><p id="reference-prompt">{esc(prompt)}</p></div></div>
+ </section>
+ <section class="sect reference-detail-actions">
+  <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
+  <template id="md-source">{esc(md)}</template>
+  <span>来源：{esc(ref["source"]["label"])}，{esc(ref["source"]["license"])} License</span>
+ </section>
+</main>
+{footer()}'''
+    return page(ref["titleEn"], ref["title"], ref["summary"], ref["summary"], body,
+                f'references/{ref["slug"]}/')
+
+def sources_page():
+    body = f'''{header()}
+<main class="wrap entry sources-page">
+ <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">来源与许可证</span></nav>
+ <header class="entry-head"><h1 class="reference-title">来源与许可证 <span>Sources &amp; License</span></h1><p class="entry-tag">原始内容与新增内容分开管理，便于识别来源和同步上游。</p></header>
+ <section class="sect"><h2>上游内容</h2><p>UI 词典、指南和部分视觉风格来自 <a href="https://github.com/joeseesun/learnui" rel="noopener">joeseesun/learnui</a>。其英文源内容复刻自 <a href="https://namethatui.com/" rel="noopener">namethatui.com</a>，版权归原作者。</p></section>
+ <section class="sect"><h2>本项目新增内容</h2><p><code>data/pm/</code>、<code>demos/pm/</code> 及页面参考功能为独立新增内容，不覆盖上游数据文件。</p></section>
+ <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。</p></section>
+ <section class="sect"><h2>许可证</h2><p>代码与本地新增示例按仓库中的 <a href="/LICENSE.txt">MIT License</a> 使用。原始内容的版权边界以 README 和上游说明为准。</p></section>
+</main>
+{footer()}'''
+    return page("Sources and license", "来源与许可证", "Content sources and licenses.",
+                "项目内容来源、上游关系和许可证说明。", body, "sources/")
+
+def vendor_site_fragment(name):
+    path = os.path.join(ROOT, "vendor", "sites", name)
+    if not os.path.isfile(path):
+        return '<main class="wrap"><p class="no-result">Site mirror is missing. Run scripts/sync-sites.py.</p></main>'
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+def sites_hub_page():
+    hub = vendor_site_fragment("index.html")
+    for site in SITES:
+        hub = hub.replace(f'/assets/og/site-{site["slug"]}.png',
+                          f'/assets/site-thumbs/site-{site["slug"]}.webp')
+    hub = hub.replace('loading="lazy" decoding="async"',
+                      'loading="eager" decoding="async" fetchpriority="high"', 1)
+    body = f'''{header()}
+{hub}
+{footer()}'''
+    return page("UI of famous websites", "知名网站 UI",
+                "Browse design systems extracted from famous websites.",
+                "浏览 74 个知名网站的设计系统、视觉解读和 DESIGN.md。",
+                body, "sites/", og_image="/assets/og/site-claude.png")
+
+def site_detail_page(site):
+    body = f'''{header()}
+{vendor_site_fragment(site["slug"] + ".html")}
+{footer()}'''
+    return page(site["nameEn"], site["nameZh"], site["summaryEn"], site["summaryZh"],
+                body, f'sites/{site["slug"]}/', og_image=f'/assets/og/site-{site["slug"]}.png')
 
 # ---------------- styles atlas (Name That Vibe) ----------------
 
@@ -625,7 +846,8 @@ def style_card(s):
     hay = " ".join([s.get("name") or "", z.get("name_zh") or "", s.get("tagline") or "", z.get("tagline_zh") or ""] +
                    (s.get("aliases") or []) + (z.get("aliases_zh") or [])).lower()
     new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if s["slug"] in STYLE_NEW_SLUGS else ""
-    return f'''<a class="style-card" data-search="{esc(hay)}" href="{style_url(s)}">
+    return f'''<article class="catalog-item style-catalog-item" data-search="{esc(hay)}" data-slug="{s["slug"]}">
+<a class="style-card" href="{style_url(s)}">
  {stage("style-" + s["slug"])}
  <div class="card-meta">
   <h3 class="card-name">
@@ -634,7 +856,9 @@ def style_card(s):
   </h3>
   {bi(first_para(s.get("tagline", "")), first_para(z.get("tagline_zh", "")), "p", "card-tag")}
  </div>
-</a>'''
+</a>
+{select_button("style:" + s["slug"], compact=True)}
+</article>'''
 
 def styles_hub_page():
     en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
@@ -828,9 +1052,10 @@ def style_page(s):
   </h1>
   {paras(s.get("tagline", ""), z.get("tagline_zh", ""), "entry-tag")}
   {scope}
+  <div class="entry-actions">{select_button("style:" + s["slug"])}</div>
  </header>
  {stage("style-" + s["slug"], detail=True)}
- <p class="stage-hint lang-zh">标本可交互 —— 点点看。Specimen is live — try it.</p>
+ <p class="stage-hint lang-zh">标本可交互，可以直接操作。</p>
  {aliases}
  {dna}
  {confused}
@@ -954,91 +1179,63 @@ def vs_page(a_slug, b_slug):
     return page(title_en, title_zh, en_d[:150], zh_d[:80], body, path,
                 og_image=f"/assets/og/vs-{x}-vs-{y}.png", jsonld=ld)
 
-def specimen_page(demo_slug):
-    """Standalone embeddable page holding one demo fragment — used by the quiz iframes.
-    Reuses site.css's .stage/.stage-center/.fragment so demos render exactly as on cards."""
-    return f'''<!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<link rel="stylesheet" href="/assets/site.css">
-<style>html,body{{height:100%;margin:0;background:#fff}}
-.spec-stage{{height:100%;border:0;border-radius:0;background:#fff}}
-.spec-stage .stage-center{{padding:16px}}</style>
-</head><body>
-<div class="stage spec-stage"><div class="stage-center"><div class="fragment" data-slug="{esc(demo_slug)}">{demo_fragment(demo_slug)}</div></div></div>
-</body></html>'''
-
-def quiz_items():
+def catalog_data():
     items = []
     for e in ENTRIES:
         z = ZH[e["slug"]]
-        items.append({"s": e["slug"], "k": "c", "en": e["name"], "zh": z["name_zh"], "u": entry_url(e)})
+        items.append({
+            "id": "entry:" + e["slug"], "type": "ui-element", "slug": e["slug"],
+            "name": e["name"], "nameZh": z["name_zh"], "url": entry_url(e),
+            "summary": z["tagline_zh"], "tags": {"platform": [e["platform"]]},
+            "prompt": z["prompt_zh"],
+            "source": {"kind": "upstream", "label": "joeseesun/learnui"}
+        })
     for s in STYLES:
         z = style_zh(s)
-        items.append({"s": "style-" + s["slug"], "k": "s", "en": s["name"],
-                      "zh": z.get("name_zh", s["name"]), "u": style_url(s)})
-    return items
+        items.append({
+            "id": "style:" + s["slug"], "type": "visual-style", "slug": s["slug"],
+            "name": s["name"], "nameZh": z.get("name_zh", s["name"]), "url": style_url(s),
+            "summary": first_para(z.get("tagline_zh", s.get("tagline", ""))),
+            "tags": {}, "prompt": z.get("brief_zh", s.get("brief", "")),
+            "source": {"kind": "upstream", "label": "joeseesun/learnui"}
+        })
+    for ref in PM_REFERENCES:
+        items.append({
+            "id": "reference:" + ref["slug"], "type": "page-reference", "slug": ref["slug"],
+            "name": ref["titleEn"], "nameZh": ref["title"], "url": reference_url(ref),
+            "summary": ref["summary"],
+            "tags": {key: ref[key] for key in ("productTypes", "pageTypes", "layouts", "moods", "states")},
+            "scenarios": ref["scenarios"], "structure": ref["structure"],
+            "visualTraits": ref["visualTraits"], "prompt": reference_prompt(ref),
+            "source": ref["source"]
+        })
+    for site in SITES:
+        items.append({
+            "id": "site:" + site["slug"], "type": "site-reference", "slug": site["slug"],
+            "name": site["nameEn"], "nameZh": site["nameZh"],
+            "url": f'/sites/{site["slug"]}/', "summary": site["summaryZh"],
+            "tags": {"category": [site["category"]]}, "prompt": site["summaryZh"],
+            "source": {"kind": "external", "label": "awesome-design-md", "license": "MIT"}
+        })
+    return {
+        "schemaVersion": 1,
+        "language": "zh-CN",
+        "description": "供 AI 和选择导出功能读取的 LearnUI 结构化目录。",
+        "taxonomy": PM_TAXONOMY,
+        "items": items
+    }
 
-def quiz_page():
-    en_b, zh_b = t("indexCrumb"); en_q, zh_q = t("quizCrumb")
-    en_ti, zh_ti = t("quizTitle"); en_d, zh_d = t("quizDesc")
-    items = quiz_items()
-    n_c = sum(1 for i in items if i["k"] == "c"); n_s = len(items) - n_c
-    data = json.dumps({"items": items,
-        "i18n": {k: [UI[k], UI.get(k + "Zh", "")] for k in
-                 ["quizSession","quizStreak","quizMastery","quizReset","quizNext","quizViewEntry",
-                  "quizWhatIs","quizWhichIs","quizCorrect","quizWrong","quizAnswerWas",
-                  "quizAllDone","quizKeepGoing"]}},
-        ensure_ascii=False)
-    def mode_btn(m, key, n):
-        en, zh = t(key)
-        act = ' active' if m == "mixed" else ""
-        return (f'<button type="button" class="qmode{act}" data-qmode="{m}">'
-                f'<span class="lang-en">{esc(en)}</span><span class="lang-zh">{esc(zh)}</span>'
-                f'<span class="qmode-n">{n}</span></button>')
-    en_s, zh_s = t("quizSession"); en_st2, zh_st2 = t("quizStreak"); en_m, zh_m = t("quizMastery"); en_r, zh_r = t("quizReset")
-    body = f'''{header()}
-<main class="wrap quiz-wrap">
- <nav class="crumbs" aria-label="Breadcrumb">
-  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
-  <span class="crumb-sep">/</span>
-  <span><span class="lang-en">{esc(en_q)}</span><span class="lang-zh">{esc(zh_q)}</span></span>
- </nav>
- <section class="hero quiz-hero">
-  <h1><span class="lang-en">{esc(en_ti)}</span><span class="lang-zh">{esc(zh_ti)}</span></h1>
-  <p class="hero-desc"><span class="lang-en">{esc(en_d)}</span> <span class="lang-zh">{esc(zh_d)}</span></p>
- </section>
- <div class="quiz-bar">
-  <div class="quiz-modes" role="group" aria-label="Quiz mode">
-   {mode_btn("components", "quizModeComponents", n_c)}
-   {mode_btn("styles", "quizModeStyles", n_s)}
-   {mode_btn("mixed", "quizModeMixed", len(items))}
-  </div>
-  <div class="quiz-stats">
-   <span class="qstat"><span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span> <b id="q-session">0/0</b></span>
-   <span class="qstat"><span class="lang-en">{esc(en_st2)}</span><span class="lang-zh">{esc(zh_st2)}</span> <b id="q-streak">0</b></span>
-   <span class="qstat qstat-mastery"><span class="lang-en">{esc(en_m)}</span><span class="lang-zh">{esc(zh_m)}</span>
-    <span class="qbar"><i id="q-mastery-fill"></i></span><b id="q-mastery-n">0/{len(items)}</b></span>
-   <button type="button" class="qreset" id="q-reset"><span class="lang-en">{esc(en_r)}</span><span class="lang-zh">{esc(zh_r)}</span></button>
-  </div>
- </div>
- <div class="quiz-card" id="quiz-card">
-  <p class="quiz-q" id="quiz-q"></p>
-  <div class="quiz-stage" id="quiz-stage"></div>
-  <div class="quiz-choices" id="quiz-choices"></div>
-  <div class="quiz-foot">
-   <span class="quiz-fb" id="quiz-fb" role="status"></span>
-   <span class="quiz-foot-r">
-    <a class="quiz-link" id="quiz-link" href="#" hidden></a>
-    <button type="button" class="quiz-next" id="quiz-next" hidden></button>
-   </span>
-  </div>
- </div>
-</main>
-{footer()}
-<script>window.QUIZ_DATA = {data};</script>
-<script src="/assets/quiz.js"></script>'''
-    return page(en_q, zh_q, en_d[:150], zh_d[:80], body, "quiz/", og_image="/assets/og/_quiz.png")
+def catalog_readme():
+    return '''# LearnUI AI 数据入口
+
+优先读取 `catalog.json`。它包含页面参考、UI 元素和视觉风格的统一字段，不需要扫描整个仓库。
+
+- `type=page-reference`：页面级结构、使用场景、状态和视觉说明。
+- `type=ui-element`：现有 UI 词典条目和实现 Prompt。
+- `type=visual-style`：现有视觉风格和 Style Brief。
+- `type=site-reference`：知名网站的设计系统、分类和中文风格解读。
+- `taxonomy.json`：页面参考筛选所使用的稳定分类 ID。
+'''
 
 def write(path, content):
     full = os.path.join(OUT, path)
@@ -1047,10 +1244,19 @@ def write(path, content):
         f.write(content)
 
 def build():
+    subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate-data.py")], check=True)
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     os.makedirs(OUT)
     write("index.html", homepage())
+    write("references/index.html", references_page())
+    for ref in PM_REFERENCES:
+        write(f'references/{ref["slug"]}/index.html', reference_page(ref))
+    write("sources/index.html", sources_page())
+    if SITES:
+        write("sites/index.html", sites_hub_page())
+        for site in SITES:
+            write(f'sites/{site["slug"]}/index.html', site_detail_page(site))
     for e in ENTRIES:
         write(f'{e["platform"]}/{e["slug"]}/index.html', entry_page(e))
     for slug in GUIDES:
@@ -1060,10 +1266,6 @@ def build():
         write("styles/index.html", styles_hub_page())
         for s in STYLES:
             write(f'styles/{s["slug"]}/index.html', style_page(s))
-    # quiz + standalone specimen embeds (used by quiz iframes)
-    write("quiz/index.html", quiz_page())
-    for it in quiz_items():
-        write(f'specimen/{it["s"]}/index.html', specimen_page(it["s"]))
     # style look-alike comparison pages ("X vs Y")
     for a, b in vs_pairs():
         write(vs_url(a, b).lstrip("/") + "index.html", vs_page(a, b))
@@ -1073,19 +1275,35 @@ def build():
 <main class="wrap">
  <section class="hero">
   <h1>404</h1>
-  <p class="hero-desc"><span class="lang-en">This page doesn't exist. Try the dictionary, the styles atlas, or the quiz.</span>
-  <span class="lang-zh">页面不存在。去词典、风格图鉴或测验看看。</span></p>
-  <p class="hero-desc"><a href="/">Dictionary</a> · <a href="/styles/">Styles</a> · <a href="/quiz/">Quiz</a></p>
+  <p class="hero-desc"><span class="lang-en">This page doesn't exist. Try the dictionary, page references, or the styles atlas.</span>
+  <span class="lang-zh">页面不存在。去词典、页面参考或风格图鉴看看。</span></p>
+  <p class="hero-desc"><a href="/">Dictionary</a> · <a href="/references/">References</a> · <a href="/styles/">Styles</a></p>
  </section>
 </main>
 {footer()}''', "404.html"))
     # static assets
     shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
     shutil.copyfile(os.path.join(ROOT, "manifest.webmanifest"), os.path.join(OUT, "manifest.webmanifest"))
+    shutil.copyfile(os.path.join(ROOT, "LICENSE"), os.path.join(OUT, "LICENSE.txt"))
+    write("assets/demo-i18n.js", "window.DEMO_I18N=" + json.dumps(DEMO_I18N, ensure_ascii=False) + ";")
+    write("api/catalog.json", json.dumps(catalog_data(), ensure_ascii=False, indent=2))
+    write("api/taxonomy.json", json.dumps(PM_TAXONOMY, ensure_ascii=False, indent=2))
+    write("api/demo-i18n.json", json.dumps(DEMO_I18N, ensure_ascii=False, indent=2))
+    write("api/README.md", catalog_readme())
     with open(os.path.join(ROOT, "sw.js"), encoding="utf-8") as f:
         sw = f.read()
     version = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H%M%S")
-    write("sw.js", sw.replace("__SW_VERSION__", version))
+    offline_pages = ["/", "/references/", "/sources/", "/styles/"] + \
+        [reference_url(ref) for ref in PM_REFERENCES] + \
+        (["/sites/"] + [f'/sites/{site["slug"]}/' for site in SITES] +
+         [f'/assets/site-thumbs/site-{site["slug"]}.webp' for site in SITES] if SITES else []) + \
+        [entry_url(e) for e in ENTRIES] + \
+        [style_url(s) for s in STYLES] + \
+        [f"/guides/{slug}/" for slug in GUIDES] + ["/guides/translate/"] + \
+        [vs_url(a, b) for a, b in vs_pairs()]
+    sw = sw.replace("__SW_VERSION__", version)
+    sw = sw.replace("__PRECACHE_PAGES__", json.dumps(sorted(set(offline_pages)), ensure_ascii=False))
+    write("sw.js", sw)
     # feed
     items = []
     date = datetime.datetime.now(datetime.timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
@@ -1105,14 +1323,17 @@ def build():
 <description>{esc((s.get("tagline") or "")[:200])}</description></item>''')
     write("feed.xml", f'''<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>Learn UI Name · 界面叫啥</title>
+<title>Learn UI PM</title>
 <link>{SITE_URL}/</link>
-<description>{esc(UI["tagline"])} — bilingual UI dictionary</description>
+<description>{esc(UI["tagline"])} - bilingual UI dictionary</description>
 {"".join(items)}
 </channel></rss>''')
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
-    urls = ["/"] + [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
-           [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/", "/quiz/"]
+    urls = ["/", "/references/", "/sources/"] + \
+           [reference_url(ref) for ref in PM_REFERENCES] + \
+           (["/sites/"] + [f'/sites/{site["slug"]}/' for site in SITES] if SITES else []) + \
+           [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
+           [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/"]
     if STYLES:
         urls += ["/styles/"] + [f'/styles/{s["slug"]}/' for s in STYLES] + \
                 [vs_url(a, b) for a, b in vs_pairs()]

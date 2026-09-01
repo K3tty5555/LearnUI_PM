@@ -1,0 +1,52 @@
+{
+  "productTypes": [
+    {"id": "b2b-admin", "label": "B 端后台"},
+    {"id": "data-dashboard", "label": "数据看板"},
+    {"id": "ai-tool", "label": "AI 工具"},
+    {"id": "education", "label": "教育产品"},
+    {"id": "mobile", "label": "移动端"},
+    {"id": "marketing", "label": "营销页"}
+  ],
+  "pageTypes": [
+    {"id": "list", "label": "列表"},
+    {"id": "detail", "label": "详情"},
+    {"id": "form", "label": "表单"},
+    {"id": "settings", "label": "配置"},
+    {"id": "workspace", "label": "工作台"},
+    {"id": "modal-drawer", "label": "弹窗 / 抽屉"},
+    {"id": "wizard", "label": "向导"},
+    {"id": "result", "label": "结果页"},
+    {"id": "dashboard", "label": "仪表盘"},
+    {"id": "timeline", "label": "时间轴"},
+    {"id": "board", "label": "看板"},
+    {"id": "landing", "label": "落地页"}
+  ],
+  "layouts": [
+    {"id": "sidebar", "label": "侧边栏"},
+    {"id": "split", "label": "双栏"},
+    {"id": "three-column", "label": "三栏"},
+    {"id": "card-flow", "label": "卡片流"},
+    {"id": "table", "label": "表格"},
+    {"id": "timeline", "label": "时间轴"},
+    {"id": "workbench", "label": "工作台"},
+    {"id": "single-column", "label": "单栏"}
+  ],
+  "moods": [
+    {"id": "restrained", "label": "克制"},
+    {"id": "professional", "label": "专业"},
+    {"id": "lightweight", "label": "轻量"},
+    {"id": "dense", "label": "密集"},
+    {"id": "immersive", "label": "沉浸"},
+    {"id": "technical", "label": "科技"},
+    {"id": "warm", "label": "温和"}
+  ],
+  "states": [
+    {"id": "default", "label": "默认"},
+    {"id": "loading", "label": "加载"},
+    {"id": "empty", "label": "空结果"},
+    {"id": "error", "label": "错误"},
+    {"id": "processing", "label": "处理中"},
+    {"id": "pending", "label": "待确认"},
+    {"id": "success", "label": "成功反馈"}
+  ]
+}

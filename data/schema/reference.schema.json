@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://learnui.local/schema/reference.schema.json",
+  "title": "LearnUI PM 页面参考",
+  "type": "object",
+  "required": ["slug", "title", "titleEn", "summary", "productTypes", "pageTypes", "layouts", "moods", "states", "scenarios", "structure", "visualTraits", "promptHints", "demo", "source"],
+  "properties": {
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "title": {"type": "string", "minLength": 2},
+    "titleEn": {"type": "string", "minLength": 2},
+    "summary": {"type": "string", "minLength": 8},
+    "productTypes": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "pageTypes": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "layouts": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "moods": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+    "states": {"type": "array", "minItems": 3, "items": {"type": "string"}, "uniqueItems": true},
+    "scenarios": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "structure": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "visualTraits": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "promptHints": {
+      "type": "object",
+      "required": ["summary", "do", "avoid"],
+      "properties": {
+        "summary": {"type": "string"},
+        "do": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "avoid": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "demo": {"type": "string", "pattern": "^pm/"},
+    "source": {
+      "type": "object",
+      "required": ["kind", "label", "license"],
+      "properties": {
+        "kind": {"enum": ["original", "upstream", "adapted", "external"]},
+        "label": {"type": "string"},
+        "url": {"type": "string"},
+        "license": {"type": "string"}
+      }
+    }
+  },
+  "additionalProperties": false
+}

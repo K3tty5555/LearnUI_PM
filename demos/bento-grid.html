@@ -29,7 +29,9 @@
 </div>
 <style>
 .demo-bento-grid {
-  font-family: var(--font-sans);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 .demo-bento-grid .ben-card {
   width: 240px;
@@ -76,6 +78,7 @@
   margin: 0;
   font-size: 9px;
   font-weight: 500;
+  letter-spacing: 0;
   line-height: 1.3;
   color: #94a3b8;
 }
@@ -83,7 +86,9 @@
   margin: 2px 0 0;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-variant-numeric: tabular-nums;
   line-height: 1.3;
   color: #334155;
 }
@@ -91,6 +96,9 @@
   margin: 2px 0 0;
   font-size: 12.5px;
   font-weight: 600;
+  letter-spacing: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-variant-numeric: tabular-nums;
   line-height: 1.3;
   color: #334155;
 }
@@ -122,6 +130,8 @@
 .demo-bento-grid .ben-note {
   margin: 0;
   font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1.3;
   color: #64748b;
   white-space: nowrap;

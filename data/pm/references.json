@@ -1,0 +1,254 @@
+[
+  {
+    "slug": "operations-order-list",
+    "title": "运营订单列表",
+    "titleEn": "Operations Order List",
+    "summary": "适合高频查询、批量处理和异常追踪的后台列表。",
+    "productTypes": ["b2b-admin"],
+    "pageTypes": ["list"],
+    "layouts": ["sidebar", "table"],
+    "moods": ["professional", "dense", "restrained"],
+    "states": ["default", "loading", "empty", "error"],
+    "scenarios": ["高频扫描", "条件筛选", "批量操作"],
+    "structure": ["左侧业务导航", "顶部筛选与主操作", "高密度数据表格", "底部分页"],
+    "visualTraits": ["表头和行状态对齐", "颜色只表达语义状态", "次要字段降低对比度"],
+    "promptHints": {
+      "summary": "构建一个面向运营人员的高密度订单列表。",
+      "do": ["固定关键列并让表头保持可见", "筛选条件可回显和清空", "批量操作只在选中记录后出现"],
+      "avoid": ["把每一行做成独立卡片", "只用颜色区分订单状态"]
+    },
+    "demo": "pm/operations-order-list",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "executive-metrics-dashboard",
+    "title": "经营指标看板",
+    "titleEn": "Executive Metrics Dashboard",
+    "summary": "用于快速判断趋势、异常和指标关系的数据总览。",
+    "productTypes": ["data-dashboard", "b2b-admin"],
+    "pageTypes": ["dashboard"],
+    "layouts": ["sidebar", "workbench"],
+    "moods": ["professional", "restrained", "dense"],
+    "states": ["default", "loading", "error"],
+    "scenarios": ["经营复盘", "趋势判断", "异常定位"],
+    "structure": ["时间范围与口径说明", "核心指标带", "趋势主图", "异常与构成明细"],
+    "visualTraits": ["数字与单位分层", "图表颜色保持克制", "异常项优先于装饰信息"],
+    "promptHints": {
+      "summary": "构建一个经营指标看板，先展示结论，再提供下钻依据。",
+      "do": ["标明时间范围和数据口径", "为趋势变化提供同比或环比", "加载失败时保留其他可用模块"],
+      "avoid": ["堆叠无解释的大数字卡片", "每张图使用不同配色"]
+    },
+    "demo": "pm/executive-metrics-dashboard",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "ai-research-workspace",
+    "title": "AI 研究工作台",
+    "titleEn": "AI Research Workspace",
+    "summary": "把资料、对话和生成结果放在同一任务上下文中的三栏工作台。",
+    "productTypes": ["ai-tool"],
+    "pageTypes": ["workspace"],
+    "layouts": ["three-column", "workbench"],
+    "moods": ["technical", "immersive", "professional"],
+    "states": ["default", "processing", "error", "success"],
+    "scenarios": ["资料研究", "AI 生成", "结果校对"],
+    "structure": ["左侧资料树", "中部对话与任务流", "右侧结果预览与引用"],
+    "visualTraits": ["三栏宽度由任务优先级决定", "生成状态与内容区紧密相连", "引用可回到原文"],
+    "promptHints": {
+      "summary": "构建一个资料、AI 对话和可编辑结果并行的研究工作台。",
+      "do": ["明确区分用户输入、模型输出和引用", "生成中允许取消", "保留失败输入用于重试"],
+      "avoid": ["让聊天气泡占据全部页面", "用无限动画代替具体处理状态"]
+    },
+    "demo": "pm/ai-research-workspace",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "course-learning-catalog",
+    "title": "课程学习目录",
+    "titleEn": "Course Learning Catalog",
+    "summary": "兼顾课程发现、学习进度和继续学习入口的教育产品首页。",
+    "productTypes": ["education"],
+    "pageTypes": ["list", "workspace"],
+    "layouts": ["sidebar", "card-flow"],
+    "moods": ["warm", "lightweight", "professional"],
+    "states": ["default", "loading", "empty"],
+    "scenarios": ["课程发现", "继续学习", "进度回顾"],
+    "structure": ["继续学习主入口", "分类与难度筛选", "课程卡片流", "个人学习进度"],
+    "visualTraits": ["课程封面服务于识别而非装饰", "进度信息靠近继续按钮", "筛选条件保持简短"],
+    "promptHints": {
+      "summary": "构建一个以继续学习和课程发现为核心的课程目录。",
+      "do": ["优先展示上次学习位置", "区分未开始、学习中和已完成", "空结果给出清除筛选入口"],
+      "avoid": ["每张课程卡展示过多营销文案", "把学习进度藏进详情页"]
+    },
+    "demo": "pm/course-learning-catalog",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "mobile-task-inbox",
+    "title": "移动任务收件箱",
+    "titleEn": "Mobile Task Inbox",
+    "summary": "面向单手操作的任务收集、分组和快速完成页面。",
+    "productTypes": ["mobile"],
+    "pageTypes": ["list"],
+    "layouts": ["single-column"],
+    "moods": ["lightweight", "restrained", "warm"],
+    "states": ["default", "empty", "success"],
+    "scenarios": ["快速记录", "今日处理", "完成反馈"],
+    "structure": ["日期与未完成计数", "快速新增", "按时间分组的任务列表", "底部主导航"],
+    "visualTraits": ["触控目标不小于 44px", "完成状态不能只靠删除线表达", "主要操作位于拇指可达区"],
+    "promptHints": {
+      "summary": "构建一个适合单手操作的移动任务收件箱。",
+      "do": ["快速新增后保持输入上下文", "完成动作提供可撤销反馈", "离线时保留本地编辑"],
+      "avoid": ["在小屏上堆叠多层筛选", "依赖悬停显示关键操作"]
+    },
+    "demo": "pm/mobile-task-inbox",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "product-launch-landing",
+    "title": "产品发布落地页",
+    "titleEn": "Product Launch Landing Page",
+    "summary": "用清晰价值、真实产品画面和单一行动路径完成产品介绍。",
+    "productTypes": ["marketing"],
+    "pageTypes": ["landing"],
+    "layouts": ["split", "single-column"],
+    "moods": ["professional", "immersive", "restrained"],
+    "states": ["default", "loading", "error", "success"],
+    "scenarios": ["产品发布", "线索收集", "功能说明"],
+    "structure": ["首屏价值与真实产品视觉", "关键能力证据", "使用方式", "单一转化入口"],
+    "visualTraits": ["首屏只承担一个主要信息", "产品本体在首屏可见", "不同区段使用不同信息构图"],
+    "promptHints": {
+      "summary": "构建一个直接展示产品价值和真实界面的发布落地页。",
+      "do": ["首屏保留下一段内容提示", "只设置一个主要 CTA 意图", "表单错误就地说明"],
+      "avoid": ["用抽象渐变代替产品画面", "重复排列相同三列卡片"]
+    },
+    "demo": "pm/product-launch-landing",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "customer-account-detail",
+    "title": "客户账户详情",
+    "titleEn": "Customer Account Detail",
+    "summary": "汇总客户身份、健康状态、关键关系和最近活动的详情页。",
+    "productTypes": ["b2b-admin"],
+    "pageTypes": ["detail"],
+    "layouts": ["split", "timeline"],
+    "moods": ["professional", "dense", "restrained"],
+    "states": ["default", "loading", "error"],
+    "scenarios": ["客户跟进", "风险判断", "操作追溯"],
+    "structure": ["身份与状态摘要", "关键指标和负责人", "主要业务信息", "活动时间轴"],
+    "visualTraits": ["状态与更新时间同时展示", "详情字段按任务分组", "危险操作与常规操作分开"],
+    "promptHints": {
+      "summary": "构建一个便于客户成功人员扫描和跟进的账户详情页。",
+      "do": ["在页头给出账户健康状态", "记录关键字段的更新时间", "活动时间轴支持按类型筛选"],
+      "avoid": ["把所有字段放进同一张大卡片", "让危险操作与编辑按钮并列"]
+    },
+    "demo": "pm/customer-account-detail",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "workspace-permission-settings",
+    "title": "工作区权限配置",
+    "titleEn": "Workspace Permission Settings",
+    "summary": "用于配置角色、成员范围和敏感权限的后台表单。",
+    "productTypes": ["b2b-admin"],
+    "pageTypes": ["form", "settings"],
+    "layouts": ["sidebar", "single-column"],
+    "moods": ["professional", "restrained"],
+    "states": ["default", "pending", "error", "success"],
+    "scenarios": ["角色配置", "权限确认", "变更保存"],
+    "structure": ["配置导航", "角色基本信息", "分组权限矩阵", "固定保存区"],
+    "visualTraits": ["标签位于控件上方", "继承权限有明确来源", "高风险选项附带影响说明"],
+    "promptHints": {
+      "summary": "构建一个能解释权限影响并防止误操作的角色配置页。",
+      "do": ["显示未保存变更", "高风险权限二次确认", "错误信息紧邻对应字段"],
+      "avoid": ["用 placeholder 代替字段标签", "保存失败后清空用户输入"]
+    },
+    "demo": "pm/workspace-permission-settings",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "data-import-wizard",
+    "title": "数据导入向导",
+    "titleEn": "Data Import Wizard",
+    "summary": "把上传、字段映射、校验和提交拆成可恢复的连续流程。",
+    "productTypes": ["b2b-admin", "data-dashboard"],
+    "pageTypes": ["wizard", "form"],
+    "layouts": ["single-column"],
+    "moods": ["professional", "restrained"],
+    "states": ["default", "processing", "error", "success"],
+    "scenarios": ["文件上传", "字段映射", "数据校验"],
+    "structure": ["可返回的进度导航", "当前步骤表单", "校验摘要", "上一步与继续操作"],
+    "visualTraits": ["步骤名称直接描述任务", "错误按行和字段定位", "提交前显示影响范围"],
+    "promptHints": {
+      "summary": "构建一个可恢复的数据导入向导。",
+      "do": ["返回上一步时保留输入", "校验错误提供定位和下载", "导入中显示处理数量"],
+      "avoid": ["只用 Step 1 这类无意义标签", "失败后要求重新上传文件"]
+    },
+    "demo": "pm/data-import-wizard",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "approval-activity-timeline",
+    "title": "审批活动时间轴",
+    "titleEn": "Approval Activity Timeline",
+    "summary": "按时间展示审批节点、处理人、意见和当前等待对象。",
+    "productTypes": ["b2b-admin"],
+    "pageTypes": ["timeline", "detail"],
+    "layouts": ["timeline", "split"],
+    "moods": ["professional", "dense"],
+    "states": ["default", "pending", "error", "success"],
+    "scenarios": ["进度追踪", "责任定位", "审批处理"],
+    "structure": ["当前审批摘要", "主要时间轴", "关联单据侧栏", "处理操作区"],
+    "visualTraits": ["当前节点最突出", "历史节点可快速扫描", "意见与系统事件视觉区分"],
+    "promptHints": {
+      "summary": "构建一个能快速回答当前卡在哪里的审批时间轴。",
+      "do": ["显示当前等待对象和已等待时长", "系统事件与人工意见分开", "处理失败保留填写内容"],
+      "avoid": ["所有节点使用相同强调级别", "只显示状态不显示处理人"]
+    },
+    "demo": "pm/approval-activity-timeline",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "issue-triage-board",
+    "title": "问题分诊看板",
+    "titleEn": "Issue Triage Board",
+    "summary": "按处理阶段组织问题，并保留优先级、负责人和阻塞信息。",
+    "productTypes": ["b2b-admin", "ai-tool"],
+    "pageTypes": ["board", "workspace"],
+    "layouts": ["workbench", "card-flow"],
+    "moods": ["dense", "professional", "technical"],
+    "states": ["default", "loading", "empty", "error"],
+    "scenarios": ["问题分诊", "任务协作", "优先级调整"],
+    "structure": ["范围和筛选工具栏", "按阶段分列的看板", "紧凑问题卡", "详情抽屉入口"],
+    "visualTraits": ["列宽稳定避免拖动抖动", "卡片只保留分诊所需字段", "阻塞原因直接可见"],
+    "promptHints": {
+      "summary": "构建一个用于快速分诊问题的横向看板。",
+      "do": ["拖动后立即确认目标状态", "保留键盘操作路径", "空列提示可接受的下一步"],
+      "avoid": ["把完整问题描述塞进卡片", "仅靠卡片颜色表示优先级"]
+    },
+    "demo": "pm/issue-triage-board",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  },
+  {
+    "slug": "bulk-operation-result",
+    "title": "批量操作结果",
+    "titleEn": "Bulk Operation Result",
+    "summary": "同时说明成功、失败和可继续处理项的结果反馈页。",
+    "productTypes": ["b2b-admin"],
+    "pageTypes": ["result"],
+    "layouts": ["single-column", "table"],
+    "moods": ["professional", "restrained"],
+    "states": ["processing", "success", "error"],
+    "scenarios": ["批量导入", "批量修改", "失败重试"],
+    "structure": ["结果结论与数量", "成功和失败构成", "失败明细", "下载与重试操作"],
+    "visualTraits": ["结论文字优先于图标", "成功和失败数量可核对", "主要操作根据结果变化"],
+    "promptHints": {
+      "summary": "构建一个能处理部分成功场景的批量操作结果页。",
+      "do": ["明确总数、成功数和失败数", "允许只重试失败项", "保留可下载的错误明细"],
+      "avoid": ["部分成功时只显示绿色成功页", "用短暂 toast 承载全部结果"]
+    },
+    "demo": "pm/bulk-operation-result",
+    "source": {"kind": "original", "label": "LearnUI PM 原创示例", "license": "MIT"}
+  }
+]

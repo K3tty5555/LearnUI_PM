@@ -35,14 +35,24 @@
 (function () {
   var ROOT = document.currentScript.parentElement.querySelector(':scope > .demo');
   var churn = ROOT.querySelector('.scr-churn');
-  var FINAL = 'NAME THAT UI';
-  var GLYPHS = '!<>-_/[]{}=+*^?#@%&ABCDEFGHKMNPRSTUVX0123456789';
+  var FINAL_EN = 'NAME THAT UI';
+  var FINAL_ZH = '这是什么 UI';
+  var GLYPHS_EN = '!<>-_/[]{}=+*^?#@%&ABCDEFGHKMNPRSTUVX0123456789';
+  var GLYPHS_ZH = '界面控件按钮菜单状态布局样式交互输入输出数据用户项目加载成功错误确认取消搜索筛选列表详情表单配置';
   var media = window.matchMedia('(prefers-reduced-motion: reduce)');
   var rafId = 0;
   var holdId = 0;
 
+  function isChinese() {
+    return document.documentElement.getAttribute('data-lang-mode') === 'zh';
+  }
+
+  function finalText() {
+    return isChinese() ? FINAL_ZH : FINAL_EN;
+  }
+
   function renderFinal() {
-    churn.textContent = FINAL;
+    churn.textContent = finalText();
   }
 
   function stop() {
@@ -53,7 +63,8 @@
   function play() {
     stop();
     if (media.matches) { renderFinal(); return; }
-    var chars = FINAL.split('');
+    var chars = finalText().split('');
+    var glyphs = isChinese() ? GLYPHS_ZH : GLYPHS_EN;
     var start = performance.now();
     function frame(now) {
       var t = now - start;
@@ -66,7 +77,7 @@
           out += c;
         } else {
           done = false;
-          out += GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length));
+          out += glyphs.charAt(Math.floor(Math.random() * glyphs.length));
         }
       }
       churn.textContent = out;
@@ -84,6 +95,7 @@
   if (media.addEventListener) {
     media.addEventListener('change', play);
   }
+  document.addEventListener('learnui:languagechange', play);
   play();
 })();
 </script>
