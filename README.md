@@ -9,7 +9,7 @@
 
 [在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [翻译对照表](https://K3tty5555.github.io/LearnUI_PM/guides/translate/)
 
-**当前构建：** 240 个静态页面；62 个 UI 标本、44 个风格标本、12 个页面结构参考、74 个品牌设计规范；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
+**当前构建：** 240 个静态页面；62 个 UI 标本、44 个风格标本、12 个页面参考、74 个知名网站设计规范；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
@@ -28,9 +28,9 @@
 - **双击查词**：双击任意英文单词，弹出通俗英文释义
 - **一键复制**：Prompt、调试 Prompt、风格 brief、代码片段、整页 Markdown
 - **PWA**：可安装到主屏，离线可读（service worker 缓存）
-- **12 个页面结构参考**：覆盖后台、数据看板、AI 工具、教育产品、移动端和营销页，每个示例包含至少 3 个关键状态
-- **74 个品牌设计规范**：来自 `VoltAgent/awesome-design-md`，在页面参考内按品牌、行业和视觉特征浏览，并提供完整 DESIGN.md
-- **参考选择集**：页面结构、品牌设计规范、UI 元素和视觉风格可以混合选择，导出 Markdown 或 JSON
+- **12 个页面参考**：覆盖后台、数据看板、AI 工具、教育产品、移动端和营销页，每个示例包含至少 3 个关键状态
+- **74 个知名网站设计规范**：来自 `VoltAgent/awesome-design-md`，按品牌、行业和视觉特征浏览，并提供完整 DESIGN.md
+- **参考选择集**：页面参考、知名网站、UI 元素和视觉风格可以混合选择，导出 Markdown 或 JSON
 - **AI 数据入口**：构建后优先读取 `/api/catalog.json` 和 `/api/taxonomy.json`，无需扫描整个项目
 - **74 个知名网站**：按行业浏览、搜索并查看品牌 mock、中文风格解读、色板、字体和可复制 DESIGN.md
 
@@ -91,7 +91,7 @@ learnui/
 
 ## 实测验证
 
-- 页面参考回归：多维筛选、四类选择持久化、状态切换、Markdown/JSON 导出入口通过
+- 页面参考与知名网站回归：筛选、四类选择持久化、状态切换、Markdown/JSON 导出入口通过
 - 桌面与 390px 移动端 Playwright 检查无 JavaScript 错误、无横向溢出
 - 原有搜索、平台筛选、语言切换、随机词条和复制能力保留
 - 公网环境：<https://K3tty5555.github.io/LearnUI_PM/>，由 GitHub Pages 自动部署

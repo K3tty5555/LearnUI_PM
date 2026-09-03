@@ -211,41 +211,6 @@
     el.appendChild(document.createTextNode(after));
   }
 
-  /* ---------- page references: structural and brand-system views ---------- */
-  var referenceViewTabs = Array.prototype.slice.call(document.querySelectorAll("[data-reference-view]"));
-  if (referenceViewTabs.length) {
-    var referenceViewPanels = {
-      pages: document.getElementById("reference-pages-panel"),
-      systems: document.getElementById("reference-systems-panel")
-    };
-    var initialReferenceView = new URLSearchParams(location.search).get("view") === "systems" ? "systems" : "pages";
-
-    function setReferenceView(view, focus) {
-      referenceViewTabs.forEach(function (tab) {
-        var selected = tab.getAttribute("data-reference-view") === view;
-        tab.classList.toggle("active", selected);
-        tab.setAttribute("aria-selected", selected ? "true" : "false");
-        tab.tabIndex = selected ? 0 : -1;
-        if (selected && focus) tab.focus();
-      });
-      Object.keys(referenceViewPanels).forEach(function (key) {
-        if (referenceViewPanels[key]) referenceViewPanels[key].hidden = key !== view;
-      });
-      syncURL({ view: view === "systems" ? "systems" : null });
-    }
-
-    referenceViewTabs.forEach(function (tab, index) {
-      tab.addEventListener("click", function () { setReferenceView(tab.getAttribute("data-reference-view"), false); });
-      tab.addEventListener("keydown", function (event) {
-        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-        event.preventDefault();
-        var next = event.key === "ArrowRight" ? (index + 1) % referenceViewTabs.length : (index - 1 + referenceViewTabs.length) % referenceViewTabs.length;
-        setReferenceView(referenceViewTabs[next].getAttribute("data-reference-view"), true);
-      });
-    });
-    setReferenceView(initialReferenceView, false);
-  }
-
   /* ---------- homepage search / tabs / surprise ---------- */
   var indexEl = document.getElementById("search-index");
   if (indexEl) {
@@ -433,7 +398,8 @@
       siteCards.forEach(function (card) {
         var matches = (!siteCategory || card.getAttribute("data-cat") === siteCategory)
           && (!query || (card.getAttribute("data-search") || "").indexOf(query) !== -1);
-        card.hidden = !matches;
+        var item = card.closest(".site-reference-item") || card;
+        item.hidden = !matches;
         if (matches) visible++;
       });
       if (siteNoResult) siteNoResult.hidden = visible !== 0;
@@ -516,7 +482,7 @@
         card.hidden = !ok;
         if (ok) visible++;
       });
-      refCount.textContent = visible + " / " + refCards.length + " 个页面结构";
+      refCount.textContent = visible + " / " + refCards.length + " 个参考";
       refEmpty.hidden = visible !== 0;
     }
 
@@ -621,7 +587,7 @@
       link.href = item.url;
       link.textContent = item.nameZh + (item.name ? " / " + item.name : "");
       var type = document.createElement("span");
-      type.textContent = item.type === "page-reference" ? "页面结构" : item.type === "site-reference" ? "品牌设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
+      type.textContent = item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
       var remove = document.createElement("button");
       remove.type = "button";
       remove.className = "icon-button";
@@ -664,7 +630,7 @@
     var lines = ["# UI 参考说明", "", "请结合以下参考生成原型。优先遵守页面结构、关键状态和视觉约束，不要机械复制单个示例。", ""];
     selectedItems().forEach(function (item) {
       lines.push("## " + item.nameZh + (item.name ? " (" + item.name + ")" : ""), "");
-      lines.push("- 类型：" + (item.type === "page-reference" ? "页面结构" : item.type === "site-reference" ? "品牌设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
+      lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
       lines.push("- 链接：" + location.origin + item.url);
       if (item.summary) lines.push("- 说明：" + item.summary);
       if (item.prompt) lines.push("", item.prompt);

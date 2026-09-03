@@ -54,18 +54,6 @@ PM_LABELS = {
 DEMO_I18N = _nn(load_or("data/demo-i18n.json", {"global": {}, "patterns": [], "demos": {}}))
 SITES_META = _nn(load_or("data/sites-manifest.json", {"items": []}))
 SITES = SITES_META.get("items", [])
-SITE_CATEGORY_ZH = {
-    "AI & LLM Platforms": "AI 与大模型平台",
-    "Developer Tools & IDEs": "开发者工具与 IDE",
-    "Backend, Database & DevOps": "后端、数据库与 DevOps",
-    "Productivity & SaaS": "生产力与 SaaS",
-    "Design & Creative Tools": "设计与创意工具",
-    "Fintech & Crypto": "金融科技与加密货币",
-    "E-commerce & Retail": "电商与零售",
-    "Media & Consumer Tech": "媒体与消费科技",
-    "Automotive": "汽车",
-    "Retro Web": "复古网页",
-}
 
 OUT = os.path.join(ROOT, "site")
 
@@ -131,7 +119,7 @@ def selection_panel():
 </div>
 <dialog class="selection-dialog" id="selection-dialog" aria-labelledby="selection-title">
  <div class="selection-head">
-  <div><h2 id="selection-title">参考选择集</h2><p>组合页面结构、品牌规范、UI 元素和视觉风格，导出给 AI。</p></div>
+  <div><h2 id="selection-title">参考选择集</h2><p>组合页面参考、知名网站、UI 元素和视觉风格，导出给 AI。</p></div>
   <button type="button" class="icon-button" id="selection-close" aria-label="关闭">×</button>
  </div>
  <div class="selection-list" id="selection-list"></div>
@@ -692,50 +680,6 @@ def reference_filter_group(key, title):
  <div>{"".join(options)}</div>
 </details>'''
 
-def site_reference_card(site):
-    category = site["category"]
-    category_zh = SITE_CATEGORY_ZH.get(category, category)
-    hay = " ".join([
-        site["nameEn"], site["nameZh"], site["summaryEn"], site["summaryZh"],
-        category, category_zh,
-    ]).lower()
-    return f'''<article class="catalog-item sites-card site-reference-item" data-search="{esc(hay)}" data-cat="{esc(category)}">
- <a class="style-card" href="/sites/{esc(site["slug"])}/">
-  <div class="stage stage-card pe-none stage-lazy" data-slug="site-{esc(site["slug"])}"><div class="stage-center"><img class="stage-fallback" src="/assets/site-thumbs/site-{esc(site["slug"])}.webp" alt="" loading="lazy" decoding="async"></div></div>
-  <div class="card-meta">
-   <h3 class="card-name"><span class="lang-en">{esc(site["nameEn"])}</span><span class="lang-zh card-name-zh">{esc(site["nameZh"])}</span><span class="tag tag-platform">DESIGN.md</span></h3>
-   {bi(site["summaryEn"], site["summaryZh"], "p", "card-tag")}
-   <p class="site-reference-category"><span class="lang-en">{esc(category)}</span><span class="lang-zh">{esc(category_zh)}</span></p>
-  </div>
- </a>
- {select_button("site:" + site["slug"], compact=True)}
-</article>'''
-
-def site_reference_panel():
-    categories = []
-    for site in SITES:
-        if site["category"] not in categories:
-            categories.append(site["category"])
-    tabs = ['''<button type="button" class="cat-tab active" data-cat="" aria-pressed="true" aria-controls="reference-sites"><span class="lang-en">All</span><span class="lang-zh">全部</span></button>''']
-    for category in categories:
-        tabs.append(f'''<button type="button" class="cat-tab" data-cat="{esc(category)}" aria-pressed="false" aria-controls="reference-sites"><span class="lang-en">{esc(category)}</span><span class="lang-zh">{esc(SITE_CATEGORY_ZH.get(category, category))}</span></button>''')
-    cards = "\n".join(site_reference_card(site) for site in SITES)
-    return f'''<section id="reference-systems-panel" class="reference-view-panel" role="tabpanel" aria-labelledby="reference-systems-tab" hidden>
- <div class="reference-source-note">
-  <div><strong>来自 awesome-design-md 的品牌设计规范</strong><p>每份参考都包含真实网站的页面预览、色板、字体、组件、布局规则与完整 DESIGN.md。</p></div>
-  <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener" target="_blank">查看 GitHub 来源</a>
- </div>
- <div class="site-tools reference-site-tools">
-  <div class="site-search-row">
-   <div class="search-box"><input id="site-search" type="search" autocomplete="off" data-ph-en="Search brands, industries, or visual traits" data-ph-zh="搜索品牌、行业或视觉特征" placeholder="搜索品牌、行业或视觉特征" aria-label="搜索品牌设计规范"><kbd class="search-kbd">/</kbd></div>
-   <p class="count-note" id="site-count" role="status" aria-live="polite" aria-atomic="true"><span data-tpl="{{n}} 个品牌设计规范">{len(SITES)} 个品牌设计规范</span></p>
-  </div>
-  <div class="cat-tabs" role="group" aria-label="按行业筛选品牌设计规范">{"".join(tabs)}</div>
- </div>
- <div class="style-grid reference-site-grid" id="reference-sites" aria-live="polite">{cards}</div>
- <div class="no-result" id="site-no-result" hidden><b>没有符合条件的品牌规范</b><p>换一个品牌、行业或视觉关键词。</p></div>
-</section>'''
-
 def references_page():
     index = [{
         "slug": ref["slug"], "title": ref["title"], "titleEn": ref["titleEn"],
@@ -757,28 +701,21 @@ def references_page():
 <main class="wrap references-page">
  <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">页面参考</span></nav>
  <header class="references-head">
-  <div><h1>页面参考</h1><p>先选页面结构，再叠加真实品牌的设计规范。组合后可直接导出给 AI。</p></div>
+  <div><h1>页面参考</h1><p>按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p></div>
   <a class="btn" href="/api/catalog.json">查看结构化数据</a>
  </header>
- <div class="reference-view-switch" role="tablist" aria-label="参考类型">
-  <button type="button" id="reference-pages-tab" class="reference-view-tab active" role="tab" aria-selected="true" aria-controls="reference-pages-panel" data-reference-view="pages"><span>页面结构</span><b>{len(PM_REFERENCES)}</b></button>
-  <button type="button" id="reference-systems-tab" class="reference-view-tab" role="tab" aria-selected="false" aria-controls="reference-systems-panel" data-reference-view="systems" tabindex="-1"><span>品牌设计规范</span><b>{len(SITES)}</b></button>
+ <div class="reference-search-row">
+  <div class="search-box"><input id="reference-search" type="search" autocomplete="off" data-ph-en="Search pages, scenarios, or traits" data-ph-zh="搜索页面、场景或特征" placeholder="搜索页面、场景或特征" aria-label="搜索页面参考"><kbd class="search-kbd">/</kbd></div>
+  <p id="reference-count" class="count-note">{len(PM_REFERENCES)} 个参考</p>
+  <button type="button" class="btn" id="reference-reset">重置筛选</button>
  </div>
- <section id="reference-pages-panel" class="reference-view-panel" role="tabpanel" aria-labelledby="reference-pages-tab">
-  <div class="reference-search-row">
-   <div class="search-box"><input id="reference-search" type="search" autocomplete="off" data-ph-en="Search pages, scenarios, or traits" data-ph-zh="搜索页面、场景或特征" placeholder="搜索页面、场景或特征" aria-label="搜索页面结构"><kbd class="search-kbd">/</kbd></div>
-   <p id="reference-count" class="count-note">{len(PM_REFERENCES)} 个页面结构</p>
-   <button type="button" class="btn" id="reference-reset">重置筛选</button>
-  </div>
-  <div class="reference-browser">
-   <aside class="reference-filters" aria-label="页面结构筛选">{filters}</aside>
-   <section>
-    <div class="reference-grid" id="reference-grid">{cards}</div>
-    <div class="no-result" id="reference-no-result" hidden><b>没有符合条件的页面结构</b><p>减少筛选条件或换一个关键词。</p></div>
-   </section>
-  </div>
- </section>
- {site_reference_panel()}
+ <div class="reference-browser">
+  <aside class="reference-filters" aria-label="页面参考筛选">{filters}</aside>
+  <section>
+   <div class="reference-grid" id="reference-grid">{cards}</div>
+   <div class="no-result" id="reference-no-result" hidden><b>没有符合条件的参考</b><p>减少筛选条件或换一个关键词。</p></div>
+  </section>
+ </div>
  <script id="reference-index" type="application/json">{index_json}</script>
 </main>
 {footer()}'''
@@ -852,6 +789,25 @@ def vendor_site_fragment(name):
     with open(path, encoding="utf-8") as f:
         return f.read()
 
+def add_site_selection_controls(hub):
+    for site in SITES:
+        href = f'href="/sites/{site["slug"]}/"'
+        href_pos = hub.find(href)
+        if href_pos == -1:
+            continue
+        card_start = hub.rfind('<a class="style-card sites-card"', 0, href_pos)
+        card_end = hub.find('</a>', href_pos)
+        if card_start == -1 or card_end == -1:
+            continue
+        card_end += len('</a>')
+        card = hub[card_start:card_end]
+        wrapped = f'''<article class="catalog-item site-reference-item">
+{card}
+{select_button("site:" + site["slug"], compact=True)}
+</article>'''
+        hub = hub[:card_start] + wrapped + hub[card_end:]
+    return hub
+
 def sites_hub_page():
     hub = vendor_site_fragment("index.html")
     for site in SITES:
@@ -859,10 +815,13 @@ def sites_hub_page():
                           f'/assets/site-thumbs/site-{site["slug"]}.webp')
     hub = hub.replace('loading="lazy" decoding="async"',
                       'loading="eager" decoding="async" fetchpriority="high"', 1)
+    hub = hub.replace('UI of famous websites', 'Design systems of famous websites', 1)
+    hub = hub.replace('知名网站 UI', '知名网站设计规范', 1)
+    hub = add_site_selection_controls(hub)
     body = f'''{header()}
 {hub}
 {footer()}'''
-    return page("UI of famous websites", "知名网站 UI",
+    return page("Design systems of famous websites", "知名网站设计规范",
                 "Browse design systems extracted from famous websites.",
                 "浏览 74 个知名网站的设计系统、视觉解读和 DESIGN.md。",
                 body, "sites/", og_image="/assets/og/site-claude.png")
@@ -1274,7 +1233,7 @@ def catalog_data():
 def catalog_readme():
     return '''# LearnUI AI 数据入口
 
-优先读取 `catalog.json`。它包含页面结构、品牌设计规范、UI 元素和视觉风格的统一字段，不需要扫描整个仓库。
+优先读取 `catalog.json`。它包含页面参考、知名网站设计规范、UI 元素和视觉风格的统一字段，不需要扫描整个仓库。
 
 - `type=page-reference`：页面级结构、使用场景、状态和视觉说明。
 - `type=ui-element`：现有 UI 词典条目和实现 Prompt。
