@@ -1,19 +1,21 @@
 /* Learn UI PM service worker. Version stamped by build.py. */
 var VERSION = "__SW_VERSION__";
+var ASSET_VERSION = "__ASSET_VERSION__";
 var SHELL = "learnui-shell-" + VERSION;
 var PAGES = "learnui-pages-" + VERSION;
 var GENERATED_PAGES = __PRECACHE_PAGES__;
+function revision(path) { return path + "?v=" + ASSET_VERSION; }
 
 var PRECACHE = Array.from(new Set([
   "/",
   "/styles/",
   "/references/",
   "/manifest.webmanifest",
-  "/assets/site.css",
-  "/assets/reference-demos.css",
-  "/assets/glass-theme.css",
-  "/assets/demo-i18n.js",
-  "/assets/site.js",
+  revision("/assets/site.css"),
+  revision("/assets/reference-demos.css"),
+  revision("/assets/glass-theme.css"),
+  revision("/assets/demo-i18n.js"),
+  revision("/assets/site.js"),
   "/assets/og/style-frutiger-aero.png",
   "/api/catalog.json",
   "/api/demo-i18n.json",
@@ -50,9 +52,11 @@ self.addEventListener("fetch", function (ev) {
   if (req.method !== "GET") return;
   var url = new URL(req.url);
   if (url.origin !== location.origin) return;
+  var scopePath = new URL(self.registration.scope).pathname.replace(/\/$/, "");
+  var assetsPath = scopePath + "/assets/";
 
   // Static assets: cache-first, then network (and fill cache).
-  if (url.pathname.indexOf("/assets/") === 0 || url.pathname === "/manifest.webmanifest") {
+  if (url.pathname.indexOf(assetsPath) === 0 || url.pathname === scopePath + "/manifest.webmanifest") {
     ev.respondWith(
       caches.match(req).then(function (hit) {
         return hit || fetch(req).then(function (res) {

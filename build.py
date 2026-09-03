@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Learn UI PM static site builder - bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
-import json, html, os, shutil, datetime, subprocess, sys
+import json, html, os, shutil, datetime, subprocess, sys, hashlib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
@@ -76,6 +76,16 @@ SITE_VIBE_RULES = [
     ("cinematic", "Cinematic & photography-led", "沉浸影像", ["cinematic", "photography", "full-bleed", "immersive", "video", "电影", "摄影", "全幅", "沉浸", "影像"]),
     ("retro", "Retro web", "复古网页", ["1996", "2001", "retro", "y2k", "复古", "千禧", "目录时代"]),
 ]
+
+def static_asset_version():
+    digest = hashlib.sha256()
+    for path in ("assets/site.css", "assets/reference-demos.css", "assets/glass-theme.css", "assets/site.js"):
+        with open(os.path.join(ROOT, path), "rb") as handle:
+            digest.update(handle.read())
+    digest.update(json.dumps(DEMO_I18N, ensure_ascii=False, sort_keys=True).encode("utf-8"))
+    return digest.hexdigest()[:12]
+
+ASSET_VERSION = static_asset_version()
 
 OUT = os.path.join(ROOT, "site")
 
@@ -220,15 +230,15 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
   document.documentElement.setAttribute("data-lang-mode",m);
 }}catch(e){{}}}})();
 </script>
-<link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/reference-demos.css">
-<link rel="stylesheet" href="/assets/glass-theme.css">
+<link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}">
+<link rel="stylesheet" href="/assets/reference-demos.css?v={ASSET_VERSION}">
+<link rel="stylesheet" href="/assets/glass-theme.css?v={ASSET_VERSION}">
 </head>
 <body>
 {body}
 {selection_panel()}
-<script src="/assets/demo-i18n.js"></script>
-<script src="/assets/site.js"></script>
+<script src="/assets/demo-i18n.js?v={ASSET_VERSION}"></script>
+<script src="/assets/site.js?v={ASSET_VERSION}"></script>
 </body>
 </html>'''
 
@@ -862,7 +872,10 @@ def sites_hub_page():
     <label class="site-filter-select"><span>行业</span><select id="site-category" aria-label="按行业筛选">{"".join(category_options)}</select></label>
     <label class="site-filter-select"><span>设计气质</span><select id="site-vibe" aria-label="按设计气质筛选">{"".join(vibe_options)}</select></label>
    </div>
-   <p class="site-result-count" id="site-count" role="status" aria-live="polite" aria-atomic="true"><span class="lang-en" data-tpl="Showing {{shown}} of {{total}} results">Showing 12 of {len(SITES)} results</span><span class="lang-zh" data-tpl="显示 {{shown}} / {{total}} 个结果">显示 12 / {len(SITES)} 个结果</span></p>
+   <div class="site-filter-meta">
+    <p class="site-result-count" id="site-count" role="status" aria-live="polite" aria-atomic="true"><span class="lang-en" data-tpl="Showing {{shown}} of {{total}} results">Showing 12 of {len(SITES)} results</span><span class="lang-zh" data-tpl="显示 {{shown}} / {{total}} 个结果">显示 12 / {len(SITES)} 个结果</span></p>
+    <button type="button" class="site-reset" id="site-reset" hidden><span class="lang-en">Reset filters</span><span class="lang-zh">重置筛选</span></button>
+   </div>
   </div>
  </section>
  <section class="style-grid sites-grid" id="sites" aria-live="polite">{cards}</section>
@@ -1356,6 +1369,7 @@ def build():
         [f"/guides/{slug}/" for slug in GUIDES] + ["/guides/translate/"] + \
         [vs_url(a, b) for a, b in vs_pairs()]
     sw = sw.replace("__SW_VERSION__", version)
+    sw = sw.replace("__ASSET_VERSION__", ASSET_VERSION)
     sw = sw.replace("__PRECACHE_PAGES__", json.dumps(sorted(set(offline_pages)), ensure_ascii=False))
     write("sw.js", sw)
     # feed

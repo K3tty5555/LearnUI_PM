@@ -10,6 +10,7 @@
 - 触发条件：推送到 `main`，或在 Actions 页面手动执行
 - 构建命令：`python3 build.py`
 - 项目路径处理：`python3 scripts/prepare-pages.py site --base /LearnUI_PM`
+- 静态资源版本：构建器为 CSS/JS URL 注入内容哈希，避免新页面命中旧浏览器缓存
 - 发布目录：`site/`
 
 推送代码后，Actions 会自动构建并发布。构建器默认使用
