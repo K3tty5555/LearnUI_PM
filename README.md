@@ -29,7 +29,7 @@
 - **一键复制**：Prompt、调试 Prompt、风格 brief、代码片段、整页 Markdown
 - **PWA**：可安装到主屏，离线可读（service worker 缓存）
 - **12 个页面参考**：覆盖后台、数据看板、AI 工具、教育产品、移动端和营销页，每个示例包含至少 3 个关键状态
-- **74 个知名网站设计规范**：来自 `VoltAgent/awesome-design-md`，按品牌、行业和视觉特征浏览，并提供完整 DESIGN.md
+- **74 个知名网站设计规范**：来自 `VoltAgent/awesome-design-md`，可按品牌、行业和设计气质筛选，默认分批展示并提供完整 DESIGN.md
 - **参考选择集**：页面参考、知名网站、UI 元素和视觉风格可以混合选择，导出 Markdown 或 JSON
 - **AI 数据入口**：构建后优先读取 `/api/catalog.json` 和 `/api/taxonomy.json`，无需扫描整个项目
 - **74 个知名网站**：按行业浏览、搜索并查看品牌 mock、中文风格解读、色板、字体和可复制 DESIGN.md

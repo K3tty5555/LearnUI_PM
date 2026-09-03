@@ -54,6 +54,28 @@ PM_LABELS = {
 DEMO_I18N = _nn(load_or("data/demo-i18n.json", {"global": {}, "patterns": [], "demos": {}}))
 SITES_META = _nn(load_or("data/sites-manifest.json", {"items": []}))
 SITES = SITES_META.get("items", [])
+SITE_CATEGORY_ZH = {
+    "AI & LLM Platforms": "AI 与大模型平台",
+    "Developer Tools & IDEs": "开发者工具与 IDE",
+    "Backend, Database & DevOps": "后端、数据库与 DevOps",
+    "Productivity & SaaS": "生产力与 SaaS",
+    "Design & Creative Tools": "设计与创意工具",
+    "Fintech & Crypto": "金融科技与加密货币",
+    "E-commerce & Retail": "电商与零售",
+    "Media & Consumer Tech": "媒体与消费科技",
+    "Automotive": "汽车",
+    "Retro Web": "复古网页",
+}
+SITE_VIBE_RULES = [
+    ("minimal", "Minimal & restrained", "极简克制", ["minimal", "restraint", "restrained", "austere", "subtraction", "monochrome", "克制", "极简", "禁欲", "黑白"]),
+    ("dark", "Dark & immersive", "暗色沉浸", ["dark", "near-black", "black canvas", "night", "深色", "近黑", "暗色", "夜间", "纯黑"]),
+    ("editorial", "Editorial typography", "编辑排版", ["editorial", "magazine", "publication", "serif", "编辑", "杂志", "衬线", "印刷"]),
+    ("bold", "Bold & high contrast", "鲜明高对比", ["high-contrast", "saturated", "colossal", "electric", "高对比", "高饱和", "巨型", "电光"]),
+    ("playful", "Playful & illustrative", "趣味插画", ["playful", "friendly", "hand-drawn", "illustration", "pastel", "sticker", "手绘", "插画", "粉彩", "友好"]),
+    ("technical", "Technical & product-led", "技术产品感", ["developer", "engineering", "terminal", "code", "database", "documentation", "技术", "工程", "终端", "代码", "数据库", "文档"]),
+    ("cinematic", "Cinematic & photography-led", "沉浸影像", ["cinematic", "photography", "full-bleed", "immersive", "video", "电影", "摄影", "全幅", "沉浸", "影像"]),
+    ("retro", "Retro web", "复古网页", ["1996", "2001", "retro", "y2k", "复古", "千禧", "目录时代"]),
+]
 
 OUT = os.path.join(ROOT, "site")
 
@@ -789,37 +811,64 @@ def vendor_site_fragment(name):
     with open(path, encoding="utf-8") as f:
         return f.read()
 
-def add_site_selection_controls(hub):
-    for site in SITES:
-        href = f'href="/sites/{site["slug"]}/"'
-        href_pos = hub.find(href)
-        if href_pos == -1:
-            continue
-        card_start = hub.rfind('<a class="style-card sites-card"', 0, href_pos)
-        card_end = hub.find('</a>', href_pos)
-        if card_start == -1 or card_end == -1:
-            continue
-        card_end += len('</a>')
-        card = hub[card_start:card_end]
-        wrapped = f'''<article class="catalog-item site-reference-item">
-{card}
-{select_button("site:" + site["slug"], compact=True)}
+def site_vibes(site):
+    hay = " ".join([site["summaryEn"], site["summaryZh"]]).lower()
+    return [vibe_id for vibe_id, _, _, keywords in SITE_VIBE_RULES
+            if any(keyword.lower() in hay for keyword in keywords)]
+
+def site_hub_card(site):
+    category = site["category"]
+    category_zh = SITE_CATEGORY_ZH.get(category, category)
+    vibes = site_vibes(site)
+    hay = " ".join([
+        site["nameEn"], site["nameZh"], site["summaryEn"], site["summaryZh"],
+        category, category_zh,
+    ]).lower()
+    return f'''<article class="catalog-item site-reference-item" data-search="{esc(hay)}" data-cat="{esc(category)}" data-vibes="{esc(" ".join(vibes))}">
+ <a class="style-card sites-card" href="/sites/{esc(site["slug"])}/">
+  <div class="stage stage-card pe-none stage-lazy" data-slug="site-{esc(site["slug"])}"><div class="stage-center"><img class="stage-fallback" src="/assets/site-thumbs/site-{esc(site["slug"])}.webp" alt="" loading="lazy" decoding="async"></div></div>
+  <div class="card-meta">
+   <h3 class="card-name"><span class="lang-en">{esc(site["nameEn"])}</span><span class="lang-zh card-name-zh">{esc(site["nameZh"])}</span><span class="tag tag-platform">{esc(category)}</span></h3>
+   {bi(site["summaryEn"], site["summaryZh"], "p", "card-tag")}
+  </div>
+ </a>
+ {select_button("site:" + site["slug"], compact=True)}
 </article>'''
-        hub = hub[:card_start] + wrapped + hub[card_end:]
-    return hub
 
 def sites_hub_page():
-    hub = vendor_site_fragment("index.html")
+    categories = []
     for site in SITES:
-        hub = hub.replace(f'/assets/og/site-{site["slug"]}.png',
-                          f'/assets/site-thumbs/site-{site["slug"]}.webp')
-    hub = hub.replace('loading="lazy" decoding="async"',
-                      'loading="eager" decoding="async" fetchpriority="high"', 1)
-    hub = hub.replace('UI of famous websites', 'Design systems of famous websites', 1)
-    hub = hub.replace('知名网站 UI', '知名网站设计规范', 1)
-    hub = add_site_selection_controls(hub)
+        if site["category"] not in categories:
+            categories.append(site["category"])
+    category_options = ['''<option value="">全部行业</option>'''] + [
+        f'''<option value="{esc(category)}">{esc(SITE_CATEGORY_ZH.get(category, category))}</option>'''
+        for category in categories
+    ]
+    vibe_options = ['''<option value="">全部设计气质</option>''']
+    for vibe_id, _, label_zh, _ in SITE_VIBE_RULES:
+        count = sum(1 for site in SITES if vibe_id in site_vibes(site))
+        vibe_options.append(f'''<option value="{esc(vibe_id)}">{esc(label_zh)}（{count}）</option>''')
+    cards = "\n".join(site_hub_card(site) for site in SITES)
     body = f'''{header()}
-{hub}
+<main class="wrap sites-hub-page">
+ <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Sites</span><span class="lang-zh">知名网站</span></span></nav>
+ <section class="hero sites-hero">
+  <h1 class="hero-title"><span class="lang-en">Design systems of famous websites</span><span class="lang-zh hero-title-zh">知名网站设计规范</span></h1>
+  <p class="lang-en hero-sub">Browse real website previews and the DESIGN.md behind their color, type, components, and layout decisions.</p>
+  <p class="lang-zh hero-sub">查看真实网站预览，以及色彩、字体、组件和布局决策背后的完整 DESIGN.md。</p>
+  <div class="site-tools">
+   <div class="site-filter-row">
+    <div class="search-box site-search-box"><input id="site-search" type="search" autocomplete="off" data-ph-en="Search a brand or visual trait" data-ph-zh="搜索品牌或视觉特征" placeholder="搜索品牌或视觉特征" aria-label="搜索知名网站设计规范"><kbd class="search-kbd">/</kbd></div>
+    <label class="site-filter-select"><span>行业</span><select id="site-category" aria-label="按行业筛选">{"".join(category_options)}</select></label>
+    <label class="site-filter-select"><span>设计气质</span><select id="site-vibe" aria-label="按设计气质筛选">{"".join(vibe_options)}</select></label>
+   </div>
+   <p class="site-result-count" id="site-count" role="status" aria-live="polite" aria-atomic="true"><span class="lang-en" data-tpl="Showing {{shown}} of {{total}} results">Showing 12 of {len(SITES)} results</span><span class="lang-zh" data-tpl="显示 {{shown}} / {{total}} 个结果">显示 12 / {len(SITES)} 个结果</span></p>
+  </div>
+ </section>
+ <section class="style-grid sites-grid" id="sites" aria-live="polite">{cards}</section>
+ <div class="site-more-row"><button type="button" class="btn site-more" id="site-more"><span class="lang-en">Load more</span><span class="lang-zh">加载更多</span><b id="site-more-count"></b></button></div>
+ <div class="no-result" id="site-no-result" hidden><b>没有符合条件的网站</b><p>换一个品牌、行业或设计气质。</p></div>
+</main>
 {footer()}'''
     return page("Design systems of famous websites", "知名网站设计规范",
                 "Browse design systems extracted from famous websites.",
