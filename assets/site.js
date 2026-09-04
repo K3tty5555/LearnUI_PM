@@ -126,7 +126,7 @@
   document.querySelectorAll(".site-nav a").forEach(function (link) {
     var href = link.getAttribute("href") || "";
     var path = location.pathname;
-    var current = (href === "/" && path === "/")
+    var current = (href === "/#top" && path === "/")
       || (href === "/references/" && path.indexOf("/references/") === 0)
       || (href === "/sites/" && path.indexOf("/sites/") === 0)
       || (href === "/styles/" && path.indexOf("/styles/") === 0)
