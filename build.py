@@ -165,7 +165,7 @@ def selection_panel():
 </dialog>'''
 
 def header():
-    en_all, zh_all = t("tabAll"); en_g, zh_g = t("guideCrumb"); en_st, zh_st = t("stylesCrumb")
+    en_st, zh_st = t("stylesCrumb")
     return f'''<header class="site-header">
  <div class="wrap header-in">
   <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="28" height="28">Learn UI PM</a>
@@ -174,7 +174,6 @@ def header():
    <a href="/references/"><span class="lang-en">References</span><span class="lang-zh nav-zh">页面参考</span></a>
    <a href="/sites/"><span class="lang-en">Sites</span><span class="lang-zh nav-zh">知名网站</span></a>
    <a href="/styles/"><span class="lang-en">{esc(en_st)}</span><span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
-   <a href="/#guides"><span class="lang-en">{esc(en_g)}</span><span class="lang-zh nav-zh">{esc(zh_g)}</span></a>
    <a href="/guides/translate/"><span class="lang-en">Translation</span><span class="lang-zh nav-zh">翻译表</span></a>
   </nav>
   <div class="lang-switch" role="group" aria-label="Language">
@@ -291,11 +290,9 @@ def homepage():
             "fuzzy": e["fuzzy"], "fuzzy_zh": z["fuzzy_zh"],
         })
     cards = "\n".join(card(e) for e in ENTRIES)
-    g1, g2 = GUIDES["appkit-vs-swiftui"], GUIDES["swift-vs-electron"]
     en_cnt, zh_cnt = t("entriesCount", n=len(ENTRIES))
     en_ph, zh_ph = t("searchPlaceholder")
     en_s, zh_s = t("surprise")
-    en_gt, zh_gt = t("guidesTitle")
     en_vp, zh_vp = t("vibePromo")
     en_all, zh_all = t("tabAll"); en_web, zh_web = t("tabWeb"); en_mac, zh_mac = t("tabMacos")
     search_json = json.dumps(search_index, ensure_ascii=False).replace("</", "<\\/")
@@ -335,26 +332,6 @@ def homepage():
    <button type="button" data-q="角落里弹出来的小消息">「角落里弹出来的小消息」</button>
   </div>
  </div>
- <section id="guides" class="guides">
-  <h2 class="hero-title"><span class="lang-en">{esc(en_gt)}</span><span class="lang-zh hero-title-zh">{esc(zh_gt)}</span></h2>
-  <div class="guide-grid">
-   <a class="guide-card" href="/guides/appkit-vs-swiftui/">
-    <span class="guide-kind">Guide</span>
-    <span class="guide-title">{esc(g1["title"])}</span>
-    {bi(UI["guide1Desc"], UI["guide1DescZh"], "span", "guide-desc")}
-   </a>
-   <a class="guide-card" href="/guides/swift-vs-electron/">
-    <span class="guide-kind">Guide</span>
-    <span class="guide-title">{esc(g2["title"])}</span>
-    {bi(UI["guide2Desc"], UI["guide2DescZh"], "span", "guide-desc")}
-   </a>
-   <a class="guide-card" href="/guides/translate/">
-    <span class="guide-kind">Guide</span>
-    <span class="guide-title">{esc(UI["translateTitle"])}</span>
-    {bi(UI["guide3Desc"], UI["guide3DescZh"], "span", "guide-desc")}
-   </a>
-  </div>
- </section>
 </main>
 {footer()}
 <script id="search-index" type="application/json">{search_json}</script>'''

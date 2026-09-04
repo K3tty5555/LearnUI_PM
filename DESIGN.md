@@ -75,7 +75,7 @@
   supporting = 灰边，variable = 虚线边，avoid = 灰边 + 删除线
 - **对比标本（vs-pair）**：双栏舞台 + 标签；下方 because / wouldBecomeIf 双卡片
 - **表格（翻译表/对比表）**：发丝横线分隔、无竖线、表头 Geist Mono 小号大写 `--gray-400`
-- **栏目 Hero**：顶部导航的六个落点（`/`、`/references/`、`/sites/`、`/styles/`、`/#guides`、
+- **栏目 Hero**：顶部导航的五个落点（`/`、`/references/`、`/sites/`、`/styles/`、
   `/guides/translate/`）共用 `.hero-title` 角色。标题和说明占满内容列，保持块级纵向层级；搜索、筛选、计数和
   次级操作统一进入其下方工具行。禁止在标题同一行并排 CTA，避免标题父容器按内容收缩而产生视觉字号偏差
 - **页眉**：白底 85% 透明 + backdrop blur saturate(1.8)，下发丝边；
@@ -90,6 +90,7 @@
 - 详情页：单列 760px 阅读列宽（DNA/对比区段通栏），demo 舞台通栏
 - 间距节奏：hero 72px 顶距、区段 48px 顶距、卡片内 14px
 - 分组用发丝线 + 留白，不滥用卡片嵌卡片
+- AppKit / SwiftUI 与 Swift / Electron 指南详情页保留为可直链的阅读资料，不在首页或全局导航中设独立栏目入口
 - 一个页面一个视觉焦点；留白服务层级
 
 ## 7. 深度层级
