@@ -170,7 +170,7 @@ def header():
  <div class="wrap header-in">
   <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="28" height="28">Learn UI PM</a>
   <nav class="site-nav">
-   <a href="/#dictionary"><span class="lang-en">Dictionary</span><span class="lang-zh nav-zh">词典</span></a>
+   <a href="/"><span class="lang-en">Dictionary</span><span class="lang-zh nav-zh">词典</span></a>
    <a href="/references/"><span class="lang-en">References</span><span class="lang-zh nav-zh">页面参考</span></a>
    <a href="/sites/"><span class="lang-en">Sites</span><span class="lang-zh nav-zh">知名网站</span></a>
    <a href="/styles/"><span class="lang-en">{esc(en_st)}</span><span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
