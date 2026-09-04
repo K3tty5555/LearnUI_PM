@@ -75,6 +75,9 @@
   supporting = 灰边，variable = 虚线边，avoid = 灰边 + 删除线
 - **对比标本（vs-pair）**：双栏舞台 + 标签；下方 because / wouldBecomeIf 双卡片
 - **表格（翻译表/对比表）**：发丝横线分隔、无竖线、表头 Geist Mono 小号大写 `--gray-400`
+- **栏目 Hero**：顶部导航的六个落点（`/`、`/references/`、`/sites/`、`/styles/`、`/#guides`、
+  `/guides/translate/`）共用 `.hero-title` 角色。标题和说明占满内容列，保持块级纵向层级；搜索、筛选、计数和
+  次级操作统一进入其下方工具行。禁止在标题同一行并排 CTA，避免标题父容器按内容收缩而产生视觉字号偏差
 - **页眉**：白底 85% 透明 + backdrop blur saturate(1.8)，下发丝边；
   左 wordmark「Learn UI PM」，右导航 + 语言切换；移动端导航横向滚动
 
@@ -82,6 +85,8 @@
 
 - 容器 `max-width: 1080px` 居中，页边距 24px（移动端 16px）
 - 首页标本网格：`repeat(auto-fill, minmax(300px, 1fr))`，gap 28px 24px
+- 栏目 Hero 的标题父容器必须使用完整内容宽度；桌面 1080px 容器内为 1032px 可用宽度，不因右侧按钮、
+  文案长度或 flex intrinsic sizing 改变
 - 详情页：单列 760px 阅读列宽（DNA/对比区段通栏），demo 舞台通栏
 - 间距节奏：hero 72px 顶距、区段 48px 顶距、卡片内 14px
 - 分组用发丝线 + 留白，不滥用卡片嵌卡片
@@ -112,6 +117,7 @@
 - ≥1024px：3 列网格；≥760px：2 列；<760px：1 列，demo 舞台高 180px
 - 详情页 760px 列宽自适应；双语段落不并排
 - 页眉移动端：wordmark 中文与导航中文隐藏，导航横向滚动
+- 栏目标题移动端使用 40px；工具行允许换行，搜索框独占一行，计数和次级操作进入后续行且不得横向溢出
 - 对比标本（vs-pair）移动端变单列
 - 禁 `h-screen`，用 `min-height: 100dvh`；flex 文本子项 `min-width: 0`
 
@@ -130,3 +136,13 @@
   构建时由 build.py 注入版本号清旧缓存；页面稳定 8 秒后再注册，避免完整离线库与首屏资源争抢网络
 - nginx：`/sw.js` 与 `/manifest.webmanifest` 强制 `no-cache`，其余静态资源 7d
 - 分析：暂不配置站点统计；GitHub Pages 仅负责静态发布
+
+## 12. 规范作用域与优先级
+
+- 本文件始终管理 Learn UI PM 的站点外壳：页眉、导航、栏目 Hero、筛选工具、内容网格、选择抽屉和全局响应式行为
+- `vendor/sites/*.html` 中嵌入的品牌 DESIGN.md 只管理对应品牌的标本、品牌解读和基于该品牌生成的页面，
+  不得把品牌字体、色板、形状或装饰扩散到站点外壳
+- 品牌范围内的优先级为：具体页面规范 > 该品牌 DESIGN.md > 本站通用标本规则；缺少更具体页面规范时，
+  使用该品牌 DESIGN.md。ElevenLabs 使用 `vendor/sites/elevenlabs.html` 内的完整规范作为品牌缺省值
+- ElevenLabs 的 Waldenburg / Inter、米白画布、墨色胶囊和粉彩氛围光只属于 ElevenLabs 品牌范围；
+  Learn UI PM 外壳仍使用本文件定义的 Geist、冷灰玻璃与 `--blue` 功能色

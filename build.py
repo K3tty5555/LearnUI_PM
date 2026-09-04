@@ -732,14 +732,15 @@ def references_page():
     body = f'''{header()}
 <main class="wrap references-page">
  <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">页面参考</span></nav>
- <header class="references-head">
-  <div><h1 class="hero-title"><span class="lang-en">Page references</span><span class="lang-zh hero-title-zh">页面参考</span></h1><p>按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p></div>
-  <a class="btn" href="/api/catalog.json">查看结构化数据</a>
+ <header class="hero references-head">
+  <h1 class="hero-title"><span class="lang-en">Page references</span><span class="lang-zh hero-title-zh">页面参考</span></h1>
+  <p class="hero-sub">按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p>
  </header>
  <div class="reference-search-row">
   <div class="search-box"><input id="reference-search" type="search" autocomplete="off" data-ph-en="Search pages, scenarios, or traits" data-ph-zh="搜索页面、场景或特征" placeholder="搜索页面、场景或特征" aria-label="搜索页面参考"><kbd class="search-kbd">/</kbd></div>
   <p id="reference-count" class="count-note">{len(PM_REFERENCES)} 个参考</p>
   <button type="button" class="btn" id="reference-reset">重置筛选</button>
+  <a class="btn" href="/api/catalog.json">查看结构化数据</a>
  </div>
  <div class="reference-browser">
   <aside class="reference-filters" aria-label="页面参考筛选">{filters}</aside>

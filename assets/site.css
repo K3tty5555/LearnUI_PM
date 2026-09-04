@@ -531,10 +531,8 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 /* ---------- page references ---------- */
 .references-page { padding-bottom: 72px; }
 .references-head {
-  padding: 28px 0 20px; display: flex; align-items: end; justify-content: space-between; gap: 24px;
-  border-bottom: 1px solid var(--line);
+  padding-top: 32px;
 }
-.references-head p { margin: 10px 0 0; max-width: 680px; color: var(--gray-600); }
 .reference-search-row { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .reference-search-row .count-note { white-space: nowrap; }
 .reference-browser { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 28px; align-items: start; }
@@ -616,7 +614,6 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
   .search-kbd { display: none; }
   .vs-pair, .vs-why { grid-template-columns: 1fr; }
   .vibe-promo { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .references-head { align-items: start; flex-direction: column; }
   .reference-search-row { flex-wrap: wrap; }
   .reference-search-row .search-box { max-width: none; width: 100%; }
   .reference-browser { grid-template-columns: 1fr; gap: 0; }
