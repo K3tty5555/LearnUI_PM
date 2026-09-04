@@ -123,18 +123,24 @@
   });
   applyMode(mode());
 
-  document.querySelectorAll(".site-nav a").forEach(function (link) {
-    var href = link.getAttribute("href") || "";
-    var path = location.pathname;
-    var current = (href === "/#top" && path === "/")
-      || (href === "/references/" && path.indexOf("/references/") === 0)
-      || (href === "/sites/" && path.indexOf("/sites/") === 0)
-      || (href === "/styles/" && path.indexOf("/styles/") === 0)
-      || (href === "/#guides" && path.indexOf("/guides/") === 0 && path !== "/guides/translate/")
-      || (href === "/guides/translate/" && path === "/guides/translate/");
-    link.classList.toggle("current", current);
-    if (current) link.setAttribute("aria-current", "page");
-  });
+  function updateNavCurrent() {
+    document.querySelectorAll(".site-nav a").forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      var path = location.pathname;
+      var current = (href === "/#top" && path === "/" && location.hash !== "#guides")
+        || (href === "/references/" && path.indexOf("/references/") === 0)
+        || (href === "/sites/" && path.indexOf("/sites/") === 0)
+        || (href === "/styles/" && path.indexOf("/styles/") === 0)
+        || (href === "/#guides" && ((path === "/" && location.hash === "#guides")
+          || (path.indexOf("/guides/") === 0 && path !== "/guides/translate/")))
+        || (href === "/guides/translate/" && path === "/guides/translate/");
+      link.classList.toggle("current", current);
+      if (current) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  }
+  updateNavCurrent();
+  window.addEventListener("hashchange", updateNavCurrent);
 
   if (window.MutationObserver) {
     new MutationObserver(function (mutations) {

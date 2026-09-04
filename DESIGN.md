@@ -41,7 +41,8 @@
 - 代码/术语/标本签：**Geist Mono**（自托管，`assets/fonts/geist-mono-vf.woff2`）
 - 中文：系统栈 `-apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif`
 - 字重只用 400 / 500 / 600；禁用斜体；强调用字重/颜色/下划线
-- H1 `letter-spacing: -0.045em`（clamp 40–64px）；详情页 H1 `-0.03em`（clamp 28–40px）
+- 顶部栏目落地标题统一使用 H1 角色：600 字重、`letter-spacing: -0.045em`、`line-height: 1.04`、clamp 40–64px；详情页 H1 使用 `-0.03em`、clamp 28–40px
+- 纯中文或纯英文模式下，唯一可见的栏目标题使用完整 H1 尺寸；仅在双语对照模式中将第二语言缩小为辅助层级
 - 正文 15px/1.7；中文对照行 −1 档 + `--gray-500`，形成「原文 + 注」层次
 - 数字与 API 符号一律 Geist Mono
 - 中西文之间留盘古之白；中文用全角标点

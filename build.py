@@ -336,7 +336,7 @@ def homepage():
   </div>
  </div>
  <section id="guides" class="guides">
-  <h2 class="section-title"><span class="lang-en">{esc(en_gt)}</span><span class="lang-zh">{esc(zh_gt)}</span></h2>
+  <h2 class="hero-title"><span class="lang-en">{esc(en_gt)}</span><span class="lang-zh hero-title-zh">{esc(zh_gt)}</span></h2>
   <div class="guide-grid">
    <a class="guide-card" href="/guides/appkit-vs-swiftui/">
     <span class="guide-kind">Guide</span>
@@ -630,7 +630,7 @@ def translate_page():
   <span class="crumb-cur"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh">翻译对照表</span></span>
  </nav>
  <header class="entry-head">
-  <h1 class="entry-title"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh entry-title-zh">翻译对照表</span></h1>
+  <h1 class="hero-title"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh hero-title-zh">翻译对照表</span></h1>
   <p class="guide-sub mono-sm">/ {esc(UI["translateSubtitle"])} /</p>
   {bi(UI["translateLede"], UI["translateLedeZh"], "p", "entry-tag")}
  </header>
@@ -733,7 +733,7 @@ def references_page():
 <main class="wrap references-page">
  <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">页面参考</span></nav>
  <header class="references-head">
-  <div><h1>页面参考</h1><p>按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p></div>
+  <div><h1 class="hero-title"><span class="lang-en">Page references</span><span class="lang-zh hero-title-zh">页面参考</span></h1><p>按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p></div>
   <a class="btn" href="/api/catalog.json">查看结构化数据</a>
  </header>
  <div class="reference-search-row">
@@ -942,7 +942,7 @@ def styles_hub_page():
   <span class="crumb-cur"><span class="lang-en">{esc(en_sc)}</span><span class="lang-zh">{esc(zh_sc)}</span></span>
  </nav>
  <section class="hero" style="padding-top:32px">
-  <h1 class="hero-title" style="font-size:clamp(32px,4.6vw,48px)"><span class="lang-en">{esc(UI["stylesTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["stylesTitleZh"])}</span></h1>
+  <h1 class="hero-title"><span class="lang-en">{esc(UI["stylesTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["stylesTitleZh"])}</span></h1>
   {paras(STYLES_META.get("hubTagline", ""), STYLES_META_ZH.get("hubTagline_zh", ""), "hero-sub")}
   <div class="atlas-note">
    <h2><span class="lang-en">{esc(en_gv)}</span> <span class="lang-zh" style="font-weight:400;font-size:12.5px">{esc(zh_gv)}</span></h2>

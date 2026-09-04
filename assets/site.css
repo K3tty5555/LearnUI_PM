@@ -119,7 +119,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
   letter-spacing: -0.045em; line-height: 1.04; color: var(--fg); text-wrap: balance;
 }
 .hero-title-zh { display: block; margin-top: 10px; font-size: 0.44em; font-weight: 500; letter-spacing: -0.01em; color: var(--gray-500); }
-[data-lang-mode="zh"] .hero-title-zh { font-size: 0.75em; margin-top: 0; color: var(--fg); letter-spacing: -0.03em; }
+[data-lang-mode="zh"] .hero-title-zh { font-size: 1em; margin-top: 0; color: var(--fg); font-weight: 600; letter-spacing: inherit; }
 .hero-sub { max-width: 640px; margin: 20px 0 0; font-size: 15.5px; line-height: 1.75; color: var(--gray-600); }
 .hero-sub.lang-zh { margin-top: 6px; font-size: 14px; color: var(--gray-500); }
 [data-lang-mode="zh"] .hero-sub.lang-zh { color: var(--gray-600); }
@@ -217,6 +217,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 
 /* ---------- guides / sections ---------- */
 .guides { padding: 24px 0 80px; border-top: 1px solid var(--line); }
+.guides > .hero-title { margin: 40px 0 20px; }
 .section-title { margin: 40px 0 20px; font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gray-400); }
 .section-title .lang-zh { margin-left: 10px; letter-spacing: 0.06em; color: var(--gray-400); }
 .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
@@ -438,7 +439,6 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .sites-card .stage-card { height: 220px; }
 .sites-card .stage-fallback { border-radius: calc(var(--radius) - 1px); }
 .sites-hero { padding-top: 32px; }
-.sites-hero .hero-title { font-size: clamp(32px, 4.6vw, 48px); }
 .site-filter-row { display: grid; grid-template-columns: minmax(280px, 1fr) 190px 190px; gap: 10px; align-items: end; }
 .site-search-box { width: 100%; max-width: none; }
 .site-filter-select { min-width: 0; display: grid; gap: 5px; }
@@ -534,7 +534,6 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
   padding: 28px 0 20px; display: flex; align-items: end; justify-content: space-between; gap: 24px;
   border-bottom: 1px solid var(--line);
 }
-.references-head h1 { margin: 0; font-size: clamp(30px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.03em; }
 .references-head p { margin: 10px 0 0; max-width: 680px; color: var(--gray-600); }
 .reference-search-row { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .reference-search-row .count-note { white-space: nowrap; }
