@@ -214,10 +214,10 @@
 .pm-demo {
   position: relative;
   isolation: isolate;
-  border-color: rgba(255, 255, 255, .9);
-  background: #dce9ed;
-  color: #173039;
-  box-shadow: 0 14px 36px rgba(35, 71, 84, .16), inset 0 1px 0 rgba(255, 255, 255, .92);
+  border-color: rgba(255,255,255,.9);
+  background: #e1e1e8;
+  color: #27272d;
+  box-shadow: 0 14px 36px rgba(63,63,63,.16), inset 0 1px 0 rgba(255,255,255,.92);
 }
 .pm-demo::before,
 .pm-demo::after {
@@ -228,14 +228,14 @@
 }
 .pm-demo::before {
   inset: -18%;
-  background: #dce9ed url("/assets/og/style-frutiger-aero.png") 20% 15% / cover no-repeat;
-  filter: blur(17px) saturate(.78);
+  background: radial-gradient(ellipse at 20% 15%, #fff, transparent 60%), linear-gradient(145deg, #c9c9d3, #ececf1 55%, #d4d4de);
+  filter: none;
   opacity: .72;
   transform: scale(1.08);
 }
 .pm-demo::after {
   inset: 0;
-  background: rgba(225, 239, 243, .3);
+  background: rgba(236,236,236,.3);
 }
 .pm-demo > * { position: relative; z-index: 1; }
 .pm-demo-frame,
@@ -244,7 +244,7 @@
 .pm-phone-wrap,
 .pm-launch-frame,
 .pm-board-frame {
-  background: rgba(231, 242, 245, .2) !important;
+  background: rgba(239,239,239,.2) !important;
 }
 .pm-demo-toolbar,
 .pm-mini-nav,
@@ -268,26 +268,26 @@
 .pm-result-frame,
 .pm-result-counts div,
 .pm-table-wrap {
-  border-color: rgba(255, 255, 255, .72) !important;
-  background: rgba(248, 252, 253, .56) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .82), 0 8px 24px rgba(48, 79, 91, .08);
-  backdrop-filter: blur(13px) saturate(1.16);
-  -webkit-backdrop-filter: blur(13px) saturate(1.16);
+  border-color: rgba(255,255,255,.72) !important;
+  background: rgba(251,251,251,.56) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.82), 0 8px 24px rgba(73,73,73,.08);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .pm-demo-toolbar {
-  background: rgba(244, 250, 251, .64) !important;
-  box-shadow: inset 0 -1px 0 rgba(70, 103, 115, .12), inset 0 1px 0 rgba(255, 255, 255, .9);
+  background: rgba(248,248,248,.64) !important;
+  box-shadow: inset 0 -1px 0 rgba(96,96,96,.12), inset 0 1px 0 rgba(255,255,255,.9);
 }
 .pm-mini-nav,
 .pm-three-pane nav,
 .pm-settings-frame > nav {
-  background: rgba(235, 246, 248, .46) !important;
+  background: rgba(243,243,243,.46) !important;
 }
 .pm-mini-nav .on,
 .pm-three-pane nav .on,
 .pm-settings-frame > nav .on {
-  background: rgba(255, 255, 255, .58) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+  background: rgba(255,255,255,.58) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
 }
 .pm-demo button,
 .pm-mini-input,
@@ -296,30 +296,30 @@
 .pm-settings-frame input:not([type]),
 .pm-mapping select,
 .pm-composer {
-  border-color: rgba(255, 255, 255, .82) !important;
-  background: rgba(250, 253, 254, .58) !important;
-  color: #29444e;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 5px 16px rgba(43, 77, 89, .06);
-  backdrop-filter: blur(9px) saturate(1.12);
-  -webkit-backdrop-filter: blur(9px) saturate(1.12);
+  border-color: rgba(255,255,255,.82) !important;
+  background: rgba(252,252,252,.58) !important;
+  color: #3b3b43;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 5px 16px rgba(70,70,70,.06);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
-.pm-demo button:hover { border-color: rgba(35, 87, 103, .5) !important; background: rgba(255, 255, 255, .78) !important; }
+.pm-demo button:hover { border-color: rgba(75,75,75,.5) !important; background: rgba(255,255,255,.78) !important; }
 .pm-demo button.primary,
 .pm-quick-add button,
 .pm-state-switch button.active {
-  border-color: rgba(19, 48, 58, .9) !important;
-  background: rgba(19, 48, 58, .88) !important;
+  border-color: rgba(42,42,42,.9) !important;
+  background: rgba(42,42,42,.88) !important;
   color: #f7fbfc !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 8px 18px rgba(19, 48, 58, .18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 8px 18px rgba(42,42,42,.18);
 }
 .pm-state-switch {
-  border-color: rgba(255, 255, 255, .72);
-  background: rgba(255, 255, 255, .32);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .75);
+  border-color: rgba(255,255,255,.72);
+  background: rgba(255,255,255,.32);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
 }
-.pm-state-switch button { background: transparent !important; color: #50666f; box-shadow: none; }
-.pm-state-switch button + button { border-left-color: rgba(91, 121, 132, .2) !important; }
-.pm-mini-table th { background: rgba(238, 247, 249, .48); color: #526770; }
+.pm-state-switch button { background: transparent !important; color: #62626d; box-shadow: none; }
+.pm-state-switch button + button { border-left-color: rgba(115,115,115,.2) !important; }
+.pm-mini-table th { background: rgba(245,245,245,.48); color: #62626d; }
 .pm-mini-table th,
 .pm-mini-table td,
 .pm-task-list label,
@@ -328,7 +328,7 @@
 .pm-settings-frame main > header,
 .pm-approval-frame > header,
 .pm-chart-grid aside p {
-  border-color: rgba(255, 255, 255, .62) !important;
+  border-color: rgba(255,255,255,.62) !important;
 }
 .pm-chat p,
 .pm-chat.answer p,
@@ -336,47 +336,47 @@
 .pm-form-note,
 .pm-processing,
 .pm-course-grid i {
-  border-color: rgba(255, 255, 255, .66) !important;
-  background: rgba(255, 255, 255, .44) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
+  border-color: rgba(255,255,255,.66) !important;
+  background: rgba(255,255,255,.44) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
 }
 .pm-continue {
-  background: rgba(20, 50, 60, .82) !important;
+  background: rgba(43,43,43,.82) !important;
   color: #f7fbfc;
 }
 .pm-status.success,
 .pm-demo-message.success,
 .pm-form-note.success,
 .pm-result-icon {
-  border: 1px solid rgba(94, 183, 139, .3);
-  background: rgba(218, 247, 231, .58) !important;
+  border: 1px solid rgba(139,139,139,.3);
+  background: rgba(232,232,232,.58) !important;
 }
 .pm-status.pending,
 .pm-form-note.pending {
-  border: 1px solid rgba(202, 154, 47, .3);
-  background: rgba(255, 243, 203, .58) !important;
+  border: 1px solid rgba(134,134,134,.3);
+  background: rgba(234,234,234,.58) !important;
 }
-.pm-status.muted { border: 1px solid rgba(89, 115, 125, .2); background: rgba(234, 241, 243, .55) !important; }
+.pm-status.muted { border: 1px solid rgba(110,110,110,.2); background: rgba(239,239,239,.55) !important; }
 .pm-demo-message.error,
 .pm-inline-error,
 .pm-form-note.error {
-  border: 1px solid rgba(190, 80, 80, .24);
-  background: rgba(255, 232, 232, .56) !important;
+  border: 1px solid rgba(117,117,117,.24);
+  background: rgba(240,240,240,.56) !important;
 }
-.pm-bars i { background: rgba(28, 80, 96, .82); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24); }
-.pm-bars i:nth-child(3n + 2) { background: rgba(36, 131, 125, .78); }
-.pm-bars i:nth-child(3n) { background: rgba(201, 143, 45, .72); }
+.pm-bars i { background: rgba(68,68,68,.82); box-shadow: inset 0 1px 0 rgba(255,255,255,.24); }
+.pm-bars i:nth-child(3n + 2) { background: rgba(97,97,97,.78); }
+.pm-bars i:nth-child(3n) { background: rgba(130,130,130,.72); }
 .pm-result-icon { color: #176b3a; }
 .pm-timeline article::before {
-  border-color: rgba(255, 255, 255, .86);
-  background: rgba(244, 250, 251, .9);
-  box-shadow: 0 0 0 1px rgba(54, 88, 100, .22);
+  border-color: rgba(255,255,255,.86);
+  background: rgba(248,248,248,.9);
+  box-shadow: 0 0 0 1px rgba(81,81,81,.22);
 }
-.pm-timeline .current::before { border-color: rgba(24, 59, 70, .9); background: rgba(24, 59, 70, .88); }
+.pm-timeline .current::before { border-color: rgba(51,51,51,.9); background: rgba(51,51,51,.88); }
 .pm-skeleton-list i,
 .pm-skeleton-grid i {
-  background: rgba(255, 255, 255, .45);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
+  background: rgba(255,255,255,.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.72);
   animation: pm-glass-pulse 1.25s ease-in-out infinite alternate;
 }
 @keyframes pm-glass-pulse { to { opacity: .42; transform: translateY(1px); } }

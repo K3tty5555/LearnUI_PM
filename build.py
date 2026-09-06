@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Learn UI PM static site builder - bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
-import json, html, os, shutil, datetime, subprocess, sys, hashlib
+import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
@@ -131,11 +131,26 @@ def demo_fragment(slug):
     with open(path, encoding="utf-8") as f:
         return f.read()
 
-def stage(slug, detail=False):
-    cls = "stage stage-detail" if detail else "stage stage-card"
-    pe = "" if detail else " pe-none"
-    inert = "" if detail else " inert"
-    return (f'<div class="{cls}{pe}"{inert}><div class="stage-center">'
+def stage(slug, detail=False, eager=False):
+    if not detail:
+        thumbnail = esc(slug.replace("/", "-"))
+        preview_zh = f"/assets/demo-thumbs/{thumbnail}-zh.webp"
+        preview_en = f"/assets/demo-thumbs/{thumbnail}-en.webp"
+        if eager:
+            def inline_preview(language):
+                with open(os.path.join(ROOT, "assets/demo-thumbs", thumbnail + "-" + language + ".webp"), "rb") as asset:
+                    return "data:image/webp;base64," + base64.b64encode(asset.read()).decode("ascii")
+            preview_zh, preview_en = inline_preview("zh"), inline_preview("en")
+        state = "" if eager else " preview-pending"
+        source_attr = f'srcset="{preview_en}" data-preview-en' if eager else f'data-preview-en="{preview_en}"'
+        image_attr = f'src="{preview_zh}"' if eager else f'data-src="{preview_zh}"'
+        return (f'<div class="stage stage-card pe-none{state}" inert>'
+                f'<picture data-preview><source media="(max-width: 0px)" {source_attr}>'
+                f'<img class="stage-preview" {image_attr} width="600" height="360" alt="" decoding="async"></picture>'
+                '<span class="preview-loading"><span class="lang-zh">预览加载中…</span><span class="lang-en">Loading preview…</span></span>'
+                '<span class="stage-preview-error" hidden>打开详情查看标本</span>'
+                f'<noscript><img class="stage-preview" src="/assets/demo-thumbs/{thumbnail}-zh.webp" width="600" height="360" loading="lazy" alt=""><style>.preview-loading{{display:none}}</style></noscript></div>')
+    return (f'<div class="stage stage-detail"><div class="stage-center">'
             f'<div class="fragment" data-slug="{esc(slug)}">{demo_fragment(slug)}</div>'
             f'</div></div>')
 
@@ -226,6 +241,10 @@ def footer():
 
 def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/og/_default.png", jsonld=""):
     body = body.replace('<main ', '<main id="main-content" tabindex="-1" ', 1)
+    chrome_css = "\n".join(open(os.path.join(ROOT, "assets", name), encoding="utf-8").read() for name in ("site.css", "workspace.css"))
+    chrome_js = open(os.path.join(ROOT, "assets/site.js"), encoding="utf-8").read()
+    demo_assets = '<link rel="stylesheet" href="/assets/reference-demos.css?v=' + ASSET_VERSION + '">' if 'data-pm-demo' in body else ''
+    demo_js = ('<script>window.DEMO_I18N=' + json.dumps(DEMO_I18N, ensure_ascii=False).replace('</', '<\\/') + ';</script>') if 'class="fragment" data-slug=' in body else ''
     url = SITE_URL + "/" + path
     og_url = SITE_URL + og_image
     ld = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
@@ -246,7 +265,7 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{esc(og_url)}">
-<meta name="theme-color" content="#f7f8f5">
+<meta name="theme-color" content="#f7f7f8">
 {ld}
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="alternate" type="application/rss+xml" title="{SITE_NAME} RSS" href="/feed.xml">
@@ -263,16 +282,15 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
   document.documentElement.setAttribute("data-lang-mode",m);
 }}catch(e){{}}}})();
 </script>
-<link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}">
-<link rel="stylesheet" href="/assets/reference-demos.css?v={ASSET_VERSION}">
-<link rel="stylesheet" href="/assets/workspace.css?v={ASSET_VERSION}">
+<style data-site-theme="monochrome-glass">{chrome_css}</style>
+{demo_assets}
 </head>
 <body id="top">
 {body}
 {selection_panel()}
 {global_search_panel()}
-<script src="/assets/demo-i18n.js?v={ASSET_VERSION}"></script>
-<script src="/assets/site.js?v={ASSET_VERSION}"></script>
+{demo_js}
+<script data-site-runtime="{ASSET_VERSION}">{chrome_js}</script>
 </body>
 </html>'''
 
@@ -299,7 +317,7 @@ def card(e):
     sym = e["api"][0]["symbol"]
     return f'''<article class="catalog-item" data-platform="{e["platform"]}" data-slug="{e["slug"]}">
 <a class="card" href="{entry_url(e)}">
- {stage(e["slug"])}
+ {stage(e["slug"], eager=e in ENTRIES[:3])}
  <div class="card-meta">
   <h3 class="card-name">
    <span class="lang-en">{esc(e["name"])}{new}</span>
@@ -338,7 +356,7 @@ def homepage():
    <h1><span class="lang-zh">好界面，<br>从说清楚开始。</span><span class="lang-en">Great interfaces.<br>The right words.</span></h1>
    <p class="home-description"><span class="lang-zh">认出组件，找到风格，把灵感变成 AI 听得懂的设计语言。</span><span class="lang-en">Name the component. Find the style. Turn inspiration into a design brief your AI understands.</span></p>
    <div class="intro-actions"><a href="/references/" class="btn btn-primary"><span class="lang-zh">寻找页面灵感</span><span class="lang-en">Explore page references</span>{icon("arrow",16)}</a><a class="intro-secondary" href="#library"><span class="lang-zh">从 UI 元素开始</span><span class="lang-en">Explore UI elements</span></a></div>
-   <p class="intro-note"><span class="lang-zh">真实交互标本 · 中英双语 · 可复制 AI 提示词</span><span class="lang-en">Live specimens · Bilingual · Ready-to-use prompts</span></p>
+   <p class="intro-note"><span class="lang-zh">详情可交互 · 中英双语 · 可复制 AI 提示词</span><span class="lang-en">Interactive details · Bilingual · Ready-to-use prompts</span></p>
   </div>
   <div class="hero-specimen">
    <div class="specimen-caption"><span><span class="lang-zh">一个熟悉的界面，有一个准确的名字。</span><span class="lang-en">A familiar interface. A precise name.</span></span><span class="specimen-live"><span class="lang-zh">试试看</span><span class="lang-en">Try it</span></span></div>
@@ -1380,26 +1398,18 @@ def build():
     # static assets
     shutil.copytree(os.path.join(ROOT, "assets"), os.path.join(OUT, "assets"))
     shutil.copyfile(os.path.join(ROOT, "manifest.webmanifest"), os.path.join(OUT, "manifest.webmanifest"))
+    shutil.copyfile(os.path.join(ROOT, "offline.html"), os.path.join(OUT, "offline.html"))
     shutil.copyfile(os.path.join(ROOT, "LICENSE"), os.path.join(OUT, "LICENSE.txt"))
     write("assets/demo-i18n.js", "window.DEMO_I18N=" + json.dumps(DEMO_I18N, ensure_ascii=False) + ";")
-    write("api/catalog.json", json.dumps(catalog_data(), ensure_ascii=False, indent=2))
+    write("api/catalog.json", json.dumps(catalog_data(), ensure_ascii=False, separators=(",", ":")))
     write("api/taxonomy.json", json.dumps(PM_TAXONOMY, ensure_ascii=False, indent=2))
     write("api/demo-i18n.json", json.dumps(DEMO_I18N, ensure_ascii=False, indent=2))
     write("api/README.md", catalog_readme())
     with open(os.path.join(ROOT, "sw.js"), encoding="utf-8") as f:
         sw = f.read()
     version = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d%H%M%S")
-    offline_pages = ["/", "/references/", "/sources/", "/styles/"] + \
-        [reference_url(ref) for ref in PM_REFERENCES] + \
-        (["/sites/"] + [f'/sites/{site["slug"]}/' for site in SITES] +
-         [f'/assets/site-thumbs/site-{site["slug"]}.webp' for site in SITES] if SITES else []) + \
-        [entry_url(e) for e in ENTRIES] + \
-        [style_url(s) for s in STYLES] + \
-        [f"/guides/{slug}/" for slug in GUIDES] + ["/guides/translate/"] + \
-        [vs_url(a, b) for a, b in vs_pairs()]
     sw = sw.replace("__SW_VERSION__", version)
     sw = sw.replace("__ASSET_VERSION__", ASSET_VERSION)
-    sw = sw.replace("__PRECACHE_PAGES__", json.dumps(sorted(set(offline_pages)), ensure_ascii=False))
     write("sw.js", sw)
     # feed
     items = []

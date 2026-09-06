@@ -34,3 +34,7 @@ cd site && python3 -m http.server 8000
 ## 2026-09-06 改版
 
 全站外壳使用 `assets/workspace.css`；原 `glass-theme.css` 已移除。浏览器通过 CSS/JS 内容哈希获取新资源；Service Worker 同步缓存新外壳。本地开发不注册 Service Worker，避免旧离线页面干扰验证。项目路径转换继续由 `scripts/prepare-pages.py` 统一处理。
+
+## 玻璃主题与加载优化
+
+共享外壳 CSS/JS 由构建器内联到 HTML；独立源文件仍随站点发布，便于调试。目录预览位于 `assets/demo-thumbs/`，生成后提交。Service Worker 安装只读取 `offline.html`，不预取全站；回访页面从缓存立即返回，后台更新。GitHub Pages 首次 TCP 连接延迟独立于页面渲染，应单独测量。

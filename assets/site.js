@@ -14,6 +14,32 @@
     });
   }
 
+  /* Only fetch previews near the viewport, including after filtering. */
+  function loadPreview(picture) {
+    var image = picture.querySelector("img[data-src]");
+    if (!image || image.hasAttribute("src")) return;
+    var stage = picture.closest(".stage");
+    image.addEventListener("load", function () { stage.classList.remove("preview-pending"); });
+    image.addEventListener("error", function () {
+      stage.classList.remove("preview-pending");
+      picture.hidden = true;
+      stage.querySelector(".stage-preview-error").hidden = false;
+    });
+    var source = picture.querySelector("source[data-preview-en]");
+    source.srcset = source.getAttribute("data-preview-en");
+    image.src = image.getAttribute("data-src");
+  }
+  if ("IntersectionObserver" in window) {
+    var previewObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { loadPreview(entry.target); previewObserver.unobserve(entry.target); }
+      });
+    }, { rootMargin: "240px" });
+    document.querySelectorAll("picture[data-preview]").forEach(function (picture) { previewObserver.observe(picture); });
+  } else {
+    document.querySelectorAll("picture[data-preview]").forEach(loadPreview);
+  }
+
   /* ---------- language mode ---------- */
   var MODE_KEY = "ntui-lang-mode";
   // 首次访问（无本地偏好）按浏览器语言决定：中文环境 → 纯中文，其他 → 纯英文。
@@ -113,6 +139,7 @@
     });
     var languageSelect = document.getElementById("mobile-language");
     if (languageSelect) languageSelect.value = m;
+    document.querySelectorAll("source[data-preview-en]").forEach(function (source) { source.media = m === "en" ? "all" : "(max-width: 0px)"; });
     translateDemos(m);
     document.dispatchEvent(new CustomEvent("learnui:languagechange", { detail: { mode: m } }));
   }
@@ -600,6 +627,14 @@
 
   function renderSelection() {
     if (!selectionList) return;
+    if (!catalog) {
+      refreshSelectionButtons();
+      document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
+      selectionDock.hidden = !selectedIds.length;
+      selectionCount.textContent = selectedIds.length;
+      selectionEmpty.hidden = !!selectedIds.length;
+      return;
+    }
     var items = selectedItems();
     selectionList.textContent = "";
     items.forEach(function (item) {
@@ -673,7 +708,11 @@
       if (index === -1) selectedIds.push(id);
       else selectedIds.splice(index, 1);
       saveSelection();
-      renderSelection();
+      refreshSelectionButtons();
+      document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
+      selectionDock.hidden = !selectedIds.length;
+      selectionCount.textContent = selectedIds.length;
+      if (catalog) renderSelection();
     });
   });
 
@@ -681,6 +720,7 @@
     document.getElementById("selection-open").addEventListener("click", function () {
       if (selectionDialog.showModal) selectionDialog.showModal();
       else selectionDialog.setAttribute("open", "");
+      ensureCatalog();
     });
     document.getElementById("selection-close").addEventListener("click", function () { selectionDialog.close(); });
     selectionDialog.addEventListener("click", function (event) {
@@ -707,23 +747,41 @@
     });
   }
 
-  fetch("/api/catalog.json").then(function (response) {
-    if (!response.ok) throw new Error("catalog unavailable");
-    return response.json();
-  }).then(function (data) {
-    catalog = data;
+  var catalogPromise = null;
+  function ensureCatalog() {
+    if (catalog) return Promise.resolve(catalog);
+    if (catalogPromise) return catalogPromise;
+    catalogFailed = false;
     if (globalDialog && globalDialog.open) globalSearch();
-    data.items.forEach(function (item) { catalogById[item.id] = item; });
-    selectedIds = selectedIds.filter(function (id) { return Boolean(catalogById[id]); });
-    saveSelection();
-    renderSelection();
-  }).catch(function () {
-    refreshSelectionButtons();
-    document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
-    catalogFailed = true;
-    document.getElementById("global-search-status").textContent = "参考库暂时加载失败，请刷新页面重试。";
-    setSelectionStatus("参考库加载失败，请刷新页面后重试导出。");
-  });
+    if (selectionDialog.open && selectedIds.length) {
+      selectionEmpty.hidden = true;
+      selectionStatus.textContent = "正在读取你的参考…";
+    }
+    catalogPromise = fetch("/api/catalog.json").then(function (response) {
+      if (!response.ok) throw new Error("catalog unavailable");
+      return response.json();
+    }).then(function (data) {
+      catalog = data;
+      data.items.forEach(function (item) { catalogById[item.id] = item; });
+      selectedIds = selectedIds.filter(function (id) { return Boolean(catalogById[id]); });
+      saveSelection();
+      renderSelection();
+      if (globalDialog.open) globalSearch();
+      selectionStatus.textContent = "";
+      return data;
+    }).catch(function () {
+      catalogPromise = null;
+      catalogFailed = true;
+      if (globalDialog.open) globalSearch();
+      selectionStatus.textContent = "参考库加载失败，请关闭后重新打开重试。";
+      return null;
+    });
+    return catalogPromise;
+  }
+  refreshSelectionButtons();
+  document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
+  selectionDock.hidden = !selectedIds.length;
+  selectionCount.textContent = selectedIds.length;
 
   /* ---------- collection context and global command search ---------- */
   function copyText(value) {
@@ -745,7 +803,7 @@
     try { localStorage.setItem("learnui-project-brief", projectBrief.value); } catch (e) {}
   });
   document.querySelectorAll("[data-open-selection]").forEach(function (button) {
-    button.addEventListener("click", function () { selectionDialog.showModal(); });
+    button.addEventListener("click", function () { selectionDialog.showModal(); ensureCatalog(); });
   });
   document.getElementById("selection-copy-md").disabled = true;
   document.getElementById("selection-download-json").disabled = true;
@@ -785,6 +843,7 @@
     if (globalDialog.open) return;
     globalDialog.showModal();
     globalSearch();
+    ensureCatalog();
     globalInput.focus();
   }
   document.querySelectorAll("[data-global-search]").forEach(function (button) { button.addEventListener("click", openGlobalSearch); });
@@ -803,6 +862,7 @@
     }
   });
   globalDialog.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") { event.preventDefault(); globalDialog.close(); return; }
     var results = Array.prototype.slice.call(globalResults.querySelectorAll("a"));
     var index = results.indexOf(document.activeElement);
     if (event.key === "ArrowDown" && results.length) { event.preventDefault(); results[(index + 1) % results.length].focus(); }

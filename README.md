@@ -13,13 +13,13 @@
 
 ## 这是什么
 
-[namethatui.com](https://namethatui.com/) 的**完整内容复刻 + 中英双语对照版**，为学习目的而建。原站是「UI 视觉词典」——每个词条给出一个活的界面标本、它的正式名称、一句人话解释，和一段可以直接喂给 AI 编程代理的 prompt。它的子站 **Name That Vibe**（`/styles`）是「视觉风格图鉴」——每种风格给出标本、3–8 条定义性信号（style DNA）、和一段可粘贴的风格 brief。
+[namethatui.com](https://namethatui.com/) 的**完整内容复刻 + 中英双语对照版**，为学习目的而建。原站是「UI 视觉词典」——每个词条详情给出一个活的界面标本、它的正式名称、一句人话解释，和一段可以直接喂给 AI 编程代理的 prompt。它的子站 **Name That Vibe**（`/styles`）是「视觉风格图鉴」——每种风格给出标本、3–8 条定义性信号（style DNA）、和一段可粘贴的风格 brief。
 
 当前项目在保留上述上游能力的基础上，新增面向产品经理、设计师和 AI 原型开发者的**页面参考库**。使用路径是：浏览真实 HTML 示例，按产品类型、页面类型、布局、视觉气质和交互状态筛选，选择一个或多个参考，再导出结构化 Markdown 或 JSON。新增内容位于 `data/pm/` 和 `demos/pm/`，不与上游词典数据混写。
 
 本站保留原站全部内容，并为每一段英文配上中文对照：
 
-- **62 个词条**：31 个 Web + 31 个 macOS，每个都有可交互的活体标本（不是截图，是真 HTML/CSS/JS）
+- **62 个词条**：31 个 Web + 31 个 macOS，每个都有可交互的活体标本（详情页为真实 HTML/CSS/JS，目录使用轻量预览）
 - **62 个详情页**：解剖（每个部件的名字）、Prompt、调试 Prompt、代码符号表、相关词条
 - **44 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
 - **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron、翻译对照表（63 条 plain name → AppKit → SwiftUI）
@@ -87,7 +87,7 @@ learnui/
 
 ## 设计
 
-「设计参考工作台」：浅纸色画布、鼠尾草导航和墨绿操作色，真实标本保留各自的外观。桌面使用常驻侧栏，手机使用紧凑双行导航。首页的命令面板可以直接操作，全库搜索支持 `⌘K` / `Ctrl+K`，`/` 聚焦当前栏目的搜索。
+「设计参考工作台」：雾白与墨黑配色、透明玻璃导航和银灰高光，目录使用轻量预览，详情标本保留各自的外观和交互。桌面使用常驻侧栏，手机使用紧凑双行导航。首页的命令面板可以直接操作，全库搜索支持 `⌘K` / `Ctrl+K`，`/` 聚焦当前栏目的搜索。
 
 参考集常驻可见，支持混合收藏 192 个参考中的任意内容，填写项目目标，复制 Markdown 或下载 JSON。品牌预览明确标注为风格复现，示例文案与数据不代表品牌事实。
 
@@ -153,3 +153,7 @@ Edit `data/*.json` (English source), `data/zh/*.json` (Chinese), or `demos/<slug
 Code (builder, specimen reimplementations, styles, translations) is [MIT](LICENSE). English source content in `data/` is replicated from [namethatui.com](https://namethatui.com/) for learning purposes and remains © its original author.
 
 Maintained by 向阳乔木 · [qiaomu.ai](https://qiaomu.ai/) · X [@vista8](https://x.com/vista8) · GitHub [@joeseesun](https://github.com/joeseesun)
+
+## 加载性能
+
+共享外壳 CSS/JS 随 HTML 提供，目录不启动标本脚本，全库数据在首次搜索或打开参考集时获取。首页前三张预览直接内嵌，其余按视口加载。PWA 仅缓存访问过的资源，不预下载整站。修改标本后使用 `scripts/gen-demo-previews.py` 更新双语 WebP（生成工具需要 Playwright/Pillow，普通构建仍无依赖）。测试结果和托管网络限制见 [性能验证](docs/performance-glass.md)。
