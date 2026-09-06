@@ -378,3 +378,12 @@ picture[data-preview] { position: absolute; inset: 0; }
 .stage-preview:not([src]) { visibility: hidden; }
 .preview-loading { display: none; position: absolute; inset: 0; place-items: center; color: var(--gray-500); font-size: 11px; }
 .preview-pending .preview-loading { display: grid; }
+/* Live dictionary specimens keep the glass stage and link behavior. */
+.live-specimen-frame { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; background: transparent; pointer-events: none; opacity: 0; }
+[data-live-demo].is-live .live-specimen-frame { opacity: 1; }
+[data-live-demo].is-live > picture, [data-live-demo].is-live > .preview-loading { visibility: hidden; }
+.live-demo-error { display: none; }
+[data-live-state="error"] .live-demo-error { display: block; position: absolute; bottom: 7px; left: 8px; right: 8px; text-align: center; font-size: 10px; color: var(--gray-600); background: rgba(255,255,255,.8); }
+.live-demo-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--gray-500); font-size: 11px; }
+.live-demo-still *, .live-demo-still *::before, .live-demo-still *::after { animation: none !important; transition: none !important; }
+[data-live-demo].is-live > .live-demo-still, [data-live-demo].is-live > .live-demo-loading, [data-live-state="error"] > .live-demo-loading { visibility: hidden; }

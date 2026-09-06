@@ -19,7 +19,7 @@
 
 本站保留原站全部内容，并为每一段英文配上中文对照：
 
-- **62 个词条**：31 个 Web + 31 个 macOS，每个都有可交互的活体标本（详情页为真实 HTML/CSS/JS，目录使用轻量预览）
+- **62 个词条**：31 个 Web + 31 个 macOS，目录直接播放原始 HTML/CSS/JS 动效，详情页保留交互；离屏或切到后台时演示停止运行。
 - **62 个详情页**：解剖（每个部件的名字）、Prompt、调试 Prompt、代码符号表、相关词条
 - **44 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
 - **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron、翻译对照表（63 条 plain name → AppKit → SwiftUI）
@@ -87,7 +87,7 @@ learnui/
 
 ## 设计
 
-「设计参考工作台」：雾白与墨黑配色、透明玻璃导航和银灰高光，目录使用轻量预览，详情标本保留各自的外观和交互。桌面使用常驻侧栏，手机使用紧凑双行导航。首页的命令面板可以直接操作，全库搜索支持 `⌘K` / `Ctrl+K`，`/` 聚焦当前栏目的搜索。
+「设计参考工作台」：雾白与墨黑配色、透明玻璃导航和银灰高光，UI 词典按视口运行真实动态标本，详情页保留完整交互。桌面使用常驻侧栏，手机使用紧凑双行导航。首页的命令面板可以直接操作，全库搜索支持 `⌘K` / `Ctrl+K`，`/` 聚焦当前栏目的搜索。
 
 参考集常驻可见，支持混合收藏 192 个参考中的任意内容，填写项目目标，复制 Markdown 或下载 JSON。品牌预览明确标注为风格复现，示例文案与数据不代表品牌事实。
 
@@ -156,4 +156,6 @@ Maintained by 向阳乔木 · [qiaomu.ai](https://qiaomu.ai/) · X [@vista8](htt
 
 ## 加载性能
 
-共享外壳 CSS/JS 随 HTML 提供，目录不启动标本脚本，全库数据在首次搜索或打开参考集时获取。首页前三张预览直接内嵌，其余按视口加载。PWA 仅缓存访问过的资源，不预下载整站。修改标本后使用 `scripts/gen-demo-previews.py` 更新双语 WebP（生成工具需要 Playwright/Pillow，普通构建仍无依赖）。测试结果和托管网络限制见 [性能验证](docs/performance-glass.md)。
+共享外壳 CSS/JS 随 HTML 提供。UI 词典的原始标本在视口附近运行，离屏、筛选隐藏或切到后台即停止。前三个标本代码内嵌，其余从 `api/specimens/` 按需加载。全库数据首次使用时获取，PWA 不预下载整站。其它参考目录保留轻量图片预览。当前动效验证见 [动态标本验证](docs/live-specimens.md)，托管网络限制见 [性能验证](docs/performance-glass.md)。
+
+动态标本回归：`python3 scripts/test-live-demos.py site --base /LearnUI_PM`（需 Playwright/Chromium，支持 `PLAYWRIGHT_CHROME_PATH` 指定本地浏览器）。CI 实测动效变化、全部 62 个标本、移动端、语言切换、减少动态效果、离屏停止与失败重试。

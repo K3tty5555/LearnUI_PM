@@ -35,3 +35,7 @@ README.md、data/、demos/、vendor/sites/、assets/site-thumbs/ 和 DEPLOY.md�
 ## Brand Commitments
 
 用户明确选择雾白与墨黑的第三套配色，并要求玻璃拟态；站点外壳不使用绿色。保持内容和操作的可读性，限制模糊的面积。原始风格、品牌和组件标本按其演示目的保留自身色彩。
+
+## Required Specimen Behavior
+
+用户明确要求 UI 元素词典中的控件动效可见，不能被静态截图替代。目录默认自动播放原始标本动效；性能优化使用按视口加载、离屏停止和后台暂停。尊重用户的减少动态效果偏好，详情页保留交互。

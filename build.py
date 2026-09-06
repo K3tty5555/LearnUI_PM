@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Learn UI PM static site builder - bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
-import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64
+import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
@@ -79,7 +79,7 @@ SITE_VIBE_RULES = [
 
 def static_asset_version():
     digest = hashlib.sha256()
-    for path in ("assets/site.css", "assets/reference-demos.css", "assets/workspace.css", "assets/site.js"):
+    for path in ("assets/site.css", "assets/reference-demos.css", "assets/workspace.css", "assets/site.js", "assets/live-demos.js"):
         with open(os.path.join(ROOT, path), "rb") as handle:
             digest.update(handle.read())
     digest.update(json.dumps(DEMO_I18N, ensure_ascii=False, sort_keys=True).encode("utf-8"))
@@ -153,6 +153,27 @@ def stage(slug, detail=False, eager=False):
     return (f'<div class="stage stage-detail"><div class="stage-center">'
             f'<div class="fragment" data-slug="{esc(slug)}">{demo_fragment(slug)}</div>'
             f'</div></div>')
+
+def specimen_payload(entry):
+    return {"slug": entry["slug"], "html": demo_fragment(entry["slug"])}
+
+
+def live_stage(entry):
+    payload = specimen_payload(entry)
+    revision = hashlib.sha256(payload["html"].encode("utf-8")).hexdigest()[:12]
+    first_row = entry in ENTRIES[:3]
+    # The first row paints actual HTML immediately. Scripts execute only inside
+    # visible isolated frames, never in all 62 catalog cards at once.
+    still = re.sub(r"<script\b[^>]*>[\s\S]*?</script>", "", payload["html"], flags=re.I) if first_row else ""
+    initial = f'<div class="stage-center live-demo-still">{still}</div>' if first_row else ''
+    return (f'<div class="stage stage-card pe-none" data-live-demo="{esc(entry["slug"])}"'
+            f' data-live-name="{esc(entry["name"])}" data-live-state="idle"'
+            f' data-live-source="/api/specimens/{esc(entry["slug"])}.json?v={revision}" inert>'
+            + initial +
+            ('<span class="live-demo-loading"><span class="lang-zh">动效加载中…</span><span class="lang-en">Loading animation…</span></span>' if not first_row else '') +
+            '<span class="live-demo-error"><span class="lang-zh">动效加载失败，点开详情查看</span><span class="lang-en">Animation unavailable. Open the detail to retry.</span></span>'
+            f'<noscript><img class="stage-preview" src="/assets/demo-thumbs/{esc(entry["slug"])}-zh.webp" width="600" height="360" loading="lazy" alt=""><style>.live-demo-loading{{display:none}}</style></noscript></div>')
+
 
 def select_button(item_id, compact=False):
     cls = "select-toggle select-toggle-compact" if compact else "btn select-toggle"
@@ -243,6 +264,11 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
     body = body.replace('<main ', '<main id="main-content" tabindex="-1" ', 1)
     chrome_css = "\n".join(open(os.path.join(ROOT, "assets", name), encoding="utf-8").read() for name in ("site.css", "workspace.css"))
     chrome_js = open(os.path.join(ROOT, "assets/site.js"), encoding="utf-8").read()
+    if 'data-live-demo=' in body:
+        live_data = {"translations": DEMO_I18N, "items": {entry["slug"]: specimen_payload(entry) for entry in ENTRIES[:3]}}
+        safe_json = json.dumps(live_data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+        body += '<script id="live-demo-data" type="application/json">' + safe_json + '</script>'
+        chrome_js += "\n" + open(os.path.join(ROOT, "assets/live-demos.js"), encoding="utf-8").read()
     demo_assets = '<link rel="stylesheet" href="/assets/reference-demos.css?v=' + ASSET_VERSION + '">' if 'data-pm-demo' in body else ''
     demo_js = ('<script>window.DEMO_I18N=' + json.dumps(DEMO_I18N, ensure_ascii=False).replace('</', '<\\/') + ';</script>') if 'class="fragment" data-slug=' in body else ''
     url = SITE_URL + "/" + path
@@ -317,7 +343,7 @@ def card(e):
     sym = e["api"][0]["symbol"]
     return f'''<article class="catalog-item" data-platform="{e["platform"]}" data-slug="{e["slug"]}">
 <a class="card" href="{entry_url(e)}">
- {stage(e["slug"], eager=e in ENTRIES[:3])}
+ {live_stage(e)}
  <div class="card-meta">
   <h3 class="card-name">
    <span class="lang-en">{esc(e["name"])}{new}</span>
@@ -356,7 +382,7 @@ def homepage():
    <h1><span class="lang-zh">好界面，<br>从说清楚开始。</span><span class="lang-en">Great interfaces.<br>The right words.</span></h1>
    <p class="home-description"><span class="lang-zh">认出组件，找到风格，把灵感变成 AI 听得懂的设计语言。</span><span class="lang-en">Name the component. Find the style. Turn inspiration into a design brief your AI understands.</span></p>
    <div class="intro-actions"><a href="/references/" class="btn btn-primary"><span class="lang-zh">寻找页面灵感</span><span class="lang-en">Explore page references</span>{icon("arrow",16)}</a><a class="intro-secondary" href="#library"><span class="lang-zh">从 UI 元素开始</span><span class="lang-en">Explore UI elements</span></a></div>
-   <p class="intro-note"><span class="lang-zh">详情可交互 · 中英双语 · 可复制 AI 提示词</span><span class="lang-en">Interactive details · Bilingual · Ready-to-use prompts</span></p>
+   <p class="intro-note"><span class="lang-zh">动态控件标本 · 中英双语 · 可复制 AI 提示词</span><span class="lang-en">Live UI specimens · Bilingual · Ready-to-use prompts</span></p>
   </div>
   <div class="hero-specimen">
    <div class="specimen-caption"><span><span class="lang-zh">一个熟悉的界面，有一个准确的名字。</span><span class="lang-en">A familiar interface. A precise name.</span></span><span class="specimen-live"><span class="lang-zh">试试看</span><span class="lang-en">Try it</span></span></div>
@@ -1373,6 +1399,7 @@ def build():
             write(f'sites/{site["slug"]}/index.html', site_detail_page(site))
     for e in ENTRIES:
         write(f'{e["platform"]}/{e["slug"]}/index.html', entry_page(e))
+        write(f'api/specimens/{e["slug"]}.json', json.dumps(specimen_payload(e), ensure_ascii=False, separators=(",", ":")))
     for slug in GUIDES:
         write(f"guides/{slug}/index.html", guide_page(slug))
     write("guides/translate/index.html", translate_page())

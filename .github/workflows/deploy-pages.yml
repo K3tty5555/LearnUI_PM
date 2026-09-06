@@ -36,6 +36,12 @@ jobs:
         run: python3 scripts/verify-site.py site --base /LearnUI_PM
       - name: Verify catalog performance budgets
         run: python3 scripts/verify-performance.py site
+      - name: Install animation test browser
+        run: |
+          python3 -m pip install playwright==1.58.0
+          python3 -m playwright install --with-deps chromium
+      - name: Verify live specimen behavior
+        run: python3 scripts/test-live-demos.py site --base /LearnUI_PM
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

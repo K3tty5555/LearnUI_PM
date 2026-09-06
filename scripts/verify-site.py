@@ -29,7 +29,7 @@ def verify(root, base):
     class PageLinks(HTMLParser):
         def handle_starttag(self, tag, attrs):
             for name, value in attrs:
-                if name in ('href', 'src', 'data-src', 'data-preview-en'):
+                if name in ('href', 'src', 'data-src', 'data-preview-en', 'data-live-source'):
                     check(value, self.source)
 
     pages = list(root.rglob('*.html'))
