@@ -10,3 +10,9 @@ site/
 # python
 __pycache__/
 *.pyc
+
+# Local design review and browser artifacts
+.playwright-mcp/
+.impeccable/review/
+.impeccable/build/
+.impeccable/config.local.json

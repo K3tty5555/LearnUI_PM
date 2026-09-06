@@ -30,3 +30,7 @@ cd site && python3 -m http.server 8000
 
 - 本项目只维护 GitHub 仓库和 GitHub Pages，不维护其它域名、VPS、DNS、证书或第三方统计服务。
 - `site/` 是构建产物，已加入 `.gitignore`，不要手工提交；源文件修改后重新运行 `python3 build.py` 即可生成。
+
+## 2026-09-06 改版
+
+全站外壳使用 `assets/workspace.css`；原 `glass-theme.css` 已移除。浏览器通过 CSS/JS 内容哈希获取新资源；Service Worker 同步缓存新外壳。本地开发不注册 Service Worker，避免旧离线页面干扰验证。项目路径转换继续由 `scripts/prepare-pages.py` 统一处理。

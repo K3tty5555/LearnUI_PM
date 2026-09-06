@@ -79,7 +79,7 @@ SITE_VIBE_RULES = [
 
 def static_asset_version():
     digest = hashlib.sha256()
-    for path in ("assets/site.css", "assets/reference-demos.css", "assets/glass-theme.css", "assets/site.js"):
+    for path in ("assets/site.css", "assets/reference-demos.css", "assets/workspace.css", "assets/site.js"):
         with open(os.path.join(ROOT, path), "rb") as handle:
             digest.update(handle.read())
     digest.update(json.dumps(DEMO_I18N, ensure_ascii=False, sort_keys=True).encode("utf-8"))
@@ -134,7 +134,8 @@ def demo_fragment(slug):
 def stage(slug, detail=False):
     cls = "stage stage-detail" if detail else "stage stage-card"
     pe = "" if detail else " pe-none"
-    return (f'<div class="{cls}{pe}"><div class="stage-center">'
+    inert = "" if detail else " inert"
+    return (f'<div class="{cls}{pe}"{inert}><div class="stage-center">'
             f'<div class="fragment" data-slug="{esc(slug)}">{demo_fragment(slug)}</div>'
             f'</div></div>')
 
@@ -144,18 +145,19 @@ def select_button(item_id, compact=False):
             f'aria-pressed="false"><span data-select-label>加入参考</span></button>')
 
 def selection_panel():
-    return '''<div class="selection-dock" id="selection-dock" hidden>
+    return f'''<div class="selection-dock" id="selection-dock" hidden>
  <button type="button" class="selection-dock-button" id="selection-open" aria-controls="selection-dialog">
   已选参考 <b id="selection-count">0</b>
  </button>
 </div>
 <dialog class="selection-dialog" id="selection-dialog" aria-labelledby="selection-title">
  <div class="selection-head">
-  <div><h2 id="selection-title">参考选择集</h2><p>组合页面参考、知名网站、UI 元素和视觉风格，导出给 AI。</p></div>
-  <button type="button" class="icon-button" id="selection-close" aria-label="关闭">×</button>
+  <div><h2 id="selection-title">我的参考集</h2><p>组合页面参考、知名网站、UI 元素和视觉风格，导出给 AI。</p></div>
+  <button type="button" class="icon-button" id="selection-close" aria-label="关闭">{icon("close")}</button>
  </div>
  <div class="selection-list" id="selection-list"></div>
- <div class="selection-empty" id="selection-empty">还没有选择参考。</div>
+ <div class="selection-empty" id="selection-empty"><strong>你的下一份设计，从这里开始。</strong><p>在任意标本旁点击「加入参考」，就能把页面、品牌、组件和风格组合成一份 AI 设计说明。</p><a href="/references/" class="btn">浏览页面参考</a></div>
+ <label class="collection-brief" for="collection-brief">这次想做什么？<textarea id="collection-brief" rows="3" placeholder="例如：为项目管理工具设计一个清晰、轻量的任务看板。"></textarea><span>选填，会一起写入导出的设计说明。</span></label>
  <div class="selection-actions">
   <button type="button" class="btn" id="selection-copy-md">复制 Markdown</button>
   <button type="button" class="btn" id="selection-download-json">下载 JSON</button>
@@ -164,34 +166,66 @@ def selection_panel():
  <p class="selection-status" id="selection-status" role="status"></p>
 </dialog>'''
 
+def global_search_panel():
+    return f'''<dialog class="global-search-dialog" id="global-search-dialog" aria-labelledby="global-search-title">
+ <div class="global-search-head"><h2 id="global-search-title"><span class="lang-zh">搜索参考库</span><span class="lang-en">Search the library</span></h2><button type="button" class="icon-button" id="global-search-close" aria-label="关闭搜索">{icon("close")}</button></div>
+ <label class="global-search-field">{icon("search",20)}<input type="search" id="global-search-input" placeholder="搜索组件、风格、品牌或页面…" data-ph-zh="搜索组件、风格、品牌或页面…" data-ph-en="Search components, styles, brands, or pages…" autocomplete="off" aria-label="搜索整个参考库"></label>
+ <p class="global-search-status" id="global-search-status" role="status">输入关键词，搜索所有参考。</p><div class="global-search-results" id="global-search-results"></div>
+ <div class="global-search-footer"><span>↑ ↓ 选择 · Enter 打开</span><span>Esc 关闭</span></div>
+</dialog>'''
+
+
+def icon(name, size=18):
+    paths = {
+        "grid": '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+        "page": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',
+        "globe": '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/>',
+        "style": '<circle cx="9" cy="9" r="6"/><rect x="9" y="9" width="12" height="12" rx="2"/>',
+        "book": '<path d="M12 5v16M12 5C8 2 4 3 2 4v15c4-2 7-1 10 2 3-3 6-4 10-2V4c-2-1-6-2-10 1Z"/>',
+        "search": '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+        "bookmark": '<path d="M6 4h12v17l-6-4-6 4V4Z"/>',
+        "arrow": '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+        "shuffle": '<path d="m18 3 3 3-3 3m0 6 3 3-3 3M3 6h3c5 0 7 12 12 12h3M3 18h3c2 0 4-3 6-6s4-6 6-6h3"/>',
+        "close": '<path d="m6 6 12 12M6 18 18 6"/>',
+    }
+    return f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths.get(name, paths["grid"])}</svg>'
+
+
 def header():
-    en_st, zh_st = t("stylesCrumb")
-    return f'''<header class="site-header">
+    links = [("/#top", "grid", "UI elements", "UI 元素", len(ENTRIES)),
+             ("/references/", "page", "Page references", "页面参考", len(PM_REFERENCES)),
+             ("/sites/", "globe", "Website systems", "知名网站", len(SITES)),
+             ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES)),
+             ("/guides/translate/", "book", "Terminology", "术语对照", "")]
+    nav = "".join(f'<a href="{url}">{icon(glyph)}<span class="nav-label"><span class="lang-en">{en}</span><span class="lang-zh nav-zh">{zh}</span></span><span class="nav-count">{count}</span></a>' for url, glyph, en, zh, count in links)
+    return f'''<a class="skip-link" href="#main-content">跳转到内容</a>
+<header class="site-header">
  <div class="wrap header-in">
-  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="28" height="28">Learn UI PM</a>
-  <nav class="site-nav">
-   <a href="/#top"><span class="lang-en">Dictionary</span><span class="lang-zh nav-zh">词典</span></a>
-   <a href="/references/"><span class="lang-en">References</span><span class="lang-zh nav-zh">页面参考</span></a>
-   <a href="/sites/"><span class="lang-en">Sites</span><span class="lang-zh nav-zh">知名网站</span></a>
-   <a href="/styles/"><span class="lang-en">{esc(en_st)}</span><span class="lang-zh nav-zh">{esc(zh_st)}</span></a>
-   <a href="/guides/translate/"><span class="lang-en">Translation</span><span class="lang-zh nav-zh">翻译表</span></a>
-  </nav>
-  <div class="lang-switch" role="group" aria-label="Language">
-   <button type="button" data-mode="bilingual" class="ls-btn">对照</button>
-   <button type="button" data-mode="en" class="ls-btn">EN</button>
-   <button type="button" data-mode="zh" class="ls-btn">中文</button>
+  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="32" height="32"><span>Learn UI<span class="wordmark-pm">PM</span></span></a>
+  <p class="sidebar-caption"><span class="lang-zh">把好设计，说清楚。</span><span class="lang-en">Find the words for good UI.</span></p>
+  <button class="global-search-open" type="button" data-global-search>{icon("search")}<span class="lang-zh">搜索所有参考</span><span class="lang-en">Search library</span><kbd>⌘ K</kbd></button>
+  <select id="mobile-language" class="mobile-language" aria-label="阅读语言"><option value="zh">中文</option><option value="bilingual">对照</option><option value="en">EN</option></select>
+  <nav class="site-nav" aria-label="主导航">{nav}</nav>
+  <button class="sidebar-selection" type="button" data-open-selection>{icon("bookmark")}<span class="lang-zh">我的参考集</span><span class="lang-en">My collection</span><b data-selection-total>0</b></button>
+  <div class="sidebar-bottom">
+   <p><span class="lang-zh">找到灵感，组合参考，交给 AI。</span><span class="lang-en">Discover. Collect. Create with AI.</span></p>
+   <div class="lang-switch" role="group" aria-label="阅读语言">
+    <button type="button" data-mode="zh" class="ls-btn">中文</button><button type="button" data-mode="bilingual" class="ls-btn">对照</button><button type="button" data-mode="en" class="ls-btn">EN</button>
+   </div>
+   <a class="source-link" href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span>{icon("arrow", 14)}</a>
   </div>
  </div>
 </header>'''
 
 def footer():
-    return '''<div class="def-pop" id="def-pop" hidden>
+    return '''<footer class="library-footer"><span>Learn UI PM <span class="lang-zh">· 让灵感有据可依</span><span class="lang-en">· A shared language for design</span></span><div><a href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span></a><a href="#top"><span class="lang-zh">回到顶部</span><span class="lang-en">Back to top</span></a></div></footer><div class="def-pop" id="def-pop" hidden>
  <div class="def-word" id="def-word"></div>
  <div class="def-body" id="def-body"></div>
  <div class="def-src" id="def-src"></div>
 </div>'''
 
 def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/og/_default.png", jsonld=""):
+    body = body.replace('<main ', '<main id="main-content" tabindex="-1" ', 1)
     url = SITE_URL + "/" + path
     og_url = SITE_URL + og_image
     ld = f'<script type="application/ld+json">{jsonld}</script>' if jsonld else ""
@@ -200,7 +234,7 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LearnUI_PM</title>
+<title>{esc(title_zh)} · Learn UI PM</title>
 <meta name="description" content="{esc(desc_zh)} {esc(desc_en)}">
 <link rel="canonical" href="{esc(url)}">
 <meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} - {SITE_NAME}">
@@ -212,7 +246,7 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{esc(og_url)}">
-<meta name="theme-color" content="#e6eff2">
+<meta name="theme-color" content="#f7f8f5">
 {ld}
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="alternate" type="application/rss+xml" title="{SITE_NAME} RSS" href="/feed.xml">
@@ -231,11 +265,12 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 </script>
 <link rel="stylesheet" href="/assets/site.css?v={ASSET_VERSION}">
 <link rel="stylesheet" href="/assets/reference-demos.css?v={ASSET_VERSION}">
-<link rel="stylesheet" href="/assets/glass-theme.css?v={ASSET_VERSION}">
+<link rel="stylesheet" href="/assets/workspace.css?v={ASSET_VERSION}">
 </head>
 <body id="top">
 {body}
 {selection_panel()}
+{global_search_panel()}
 <script src="/assets/demo-i18n.js?v={ASSET_VERSION}"></script>
 <script src="/assets/site.js?v={ASSET_VERSION}"></script>
 </body>
@@ -297,13 +332,28 @@ def homepage():
     en_all, zh_all = t("tabAll"); en_web, zh_web = t("tabWeb"); en_mac, zh_mac = t("tabMacos")
     search_json = json.dumps(search_index, ensure_ascii=False).replace("</", "<\\/")
     body = f'''{header()}
-<main class="wrap">
- <section class="hero">
-  <h1 class="hero-title"><span class="lang-en">{esc(UI["heroTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["heroTitleZh"])}</span></h1>
-  {bi(UI["heroSub"], UI["heroSubZh"], "p", "hero-sub")}
-  <p class="vibe-promo"><span class="tag tag-new">{esc(UI["newBadge"])}</span>
-   <a class="lang-en" href="/styles/">{esc(en_vp)} →</a>
-   <a class="lang-zh" href="/styles/">{esc(zh_vp)} →</a></p>
+<main class="wrap home-page">
+ <section class="home-intro">
+  <div class="home-intro-copy">
+   <h1><span class="lang-zh">好界面，<br>从说清楚开始。</span><span class="lang-en">Great interfaces.<br>The right words.</span></h1>
+   <p class="home-description"><span class="lang-zh">认出组件，找到风格，把灵感变成 AI 听得懂的设计语言。</span><span class="lang-en">Name the component. Find the style. Turn inspiration into a design brief your AI understands.</span></p>
+   <div class="intro-actions"><a href="/references/" class="btn btn-primary"><span class="lang-zh">寻找页面灵感</span><span class="lang-en">Explore page references</span>{icon("arrow",16)}</a><a class="intro-secondary" href="#library"><span class="lang-zh">从 UI 元素开始</span><span class="lang-en">Explore UI elements</span></a></div>
+   <p class="intro-note"><span class="lang-zh">真实交互标本 · 中英双语 · 可复制 AI 提示词</span><span class="lang-en">Live specimens · Bilingual · Ready-to-use prompts</span></p>
+  </div>
+  <div class="hero-specimen">
+   <div class="specimen-caption"><span><span class="lang-zh">一个熟悉的界面，有一个准确的名字。</span><span class="lang-en">A familiar interface. A precise name.</span></span><span class="specimen-live"><span class="lang-zh">试试看</span><span class="lang-en">Try it</span></span></div>
+   <div class="hero-command">
+    <button type="button" class="hero-command-search" data-global-search>{icon("search")}<span class="lang-zh">你想做什么？</span><span class="lang-en">What would you like to do?</span><kbd>⌘ K</kbd></button>
+    <a href="/references/">{icon("page")}<span class="lang-zh">寻找一个页面参考</span><span class="lang-en">Find a page reference</span>{icon("arrow",15)}</a>
+    <a href="/styles/">{icon("style")}<span class="lang-zh">探索一种视觉风格</span><span class="lang-en">Explore a visual style</span>{icon("arrow",15)}</a>
+    <button type="button" data-open-selection>{icon("bookmark")}<span class="lang-zh">打开我的参考集</span><span class="lang-en">Open my collection</span>{icon("arrow",15)}</button>
+   </div>
+   <div class="specimen-definition"><a href="/web/command-palette/"><strong>Command palette</strong><span class="lang-zh">命令面板</span><span class="lang-en">Search and run actions in one place.</span></a>{select_button("entry:command-palette")}</div>
+  </div>
+ </section>
+ <div class="collection-shortcuts"><a href="/references/"><span class="lang-zh">想搭页面</span><span class="lang-en">Build a page</span><strong>{len(PM_REFERENCES)} <span class="lang-zh">个页面参考</span><span class="lang-en">references</span></strong>{icon("arrow",16)}</a><a href="/sites/"><span class="lang-zh">想找灵感</span><span class="lang-en">Find inspiration</span><strong>{len(SITES)} <span class="lang-zh">个品牌规范</span><span class="lang-en">websites</span></strong>{icon("arrow",16)}</a><a href="/styles/"><span class="lang-zh">想定风格</span><span class="lang-en">Set the style</span><strong>{len(STYLES)} <span class="lang-zh">种视觉风格</span><span class="lang-en">visual styles</span></strong>{icon("arrow",16)}</a></div>
+ <section class="hero library-head" id="library">
+  <div class="library-title"><h2><span class="lang-zh">UI 元素词典</span><span class="lang-en">UI dictionary</span></h2><span class="library-help"><span class="lang-zh">点开标本，了解它的名字与用法</span><span class="lang-en">Open a specimen to learn its name and use</span></span></div>
   <div class="controls">
    <div class="search-box">
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -311,16 +361,16 @@ def homepage():
      data-ph-en="{esc(en_ph)}" data-ph-zh="{esc(zh_ph)}" placeholder="{esc(zh_ph)} / {esc(en_ph)}" aria-label="搜索 UI 元素">
     <kbd class="search-kbd">/</kbd>
    </div>
-   <button type="button" id="surprise" class="btn btn-ghost">⚂ <span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span></button>
-   <div class="tabs" role="tablist">
+   <button type="button" id="surprise" class="btn btn-ghost">{icon("shuffle",16)} <span class="lang-en">{esc(en_s)}</span><span class="lang-zh">{esc(zh_s)}</span></button>
+   <div class="tabs" role="group" aria-label="平台筛选">
     <button type="button" class="tab active" data-filter="all"><span class="lang-en">{esc(en_all)}</span><span class="lang-zh">{esc(zh_all)}</span></button>
     <button type="button" class="tab" data-filter="web"><span class="lang-en">{esc(en_web)}</span><span class="lang-zh">{esc(zh_web)}</span></button>
     <button type="button" class="tab" data-filter="macos"><span class="lang-en">{esc(en_mac)}</span><span class="lang-zh">{esc(zh_mac)}</span></button>
    </div>
-   <p class="count-note" id="count-note"><span class="lang-en" data-tpl="{esc(UI["entriesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["entriesCountZh"])}">{esc(zh_cnt)}</span></p>
+   <p class="count-note" id="count-note" role="status"><span class="lang-en" data-tpl="{esc(UI["entriesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["entriesCountZh"])}">{esc(zh_cnt)}</span></p>
   </div>
  </section>
- <section id="dictionary" class="grid" aria-live="polite">
+ <section id="dictionary" class="grid" aria-label="UI 元素标本">
 {cards}
  </section>
  <div id="no-result" class="no-result" hidden>
@@ -588,7 +638,7 @@ def translate_page():
         thing_html = esc(r["thing"])
         slug = linkable.get(r["thing"])
         if slug:
-            plat = "macos"
+            plat = next((entry["platform"] for entry in ENTRIES if entry["slug"] == slug), "macos")
             thing_html = f'<a class="thing-link" href="/{plat}/{slug}/">{esc(r["thing"])}</a>'
         note = f'<span class="table-note">{esc(note_en)}</span>' if note_en else ""
         rows.append(f'''<tr data-search="{esc((r["thing"] + " " + zh + " " + r["appkit"] + " " + r["swiftui"]).lower())}">
@@ -717,7 +767,7 @@ def references_page():
   <div class="search-box"><input id="reference-search" type="search" autocomplete="off" data-ph-en="Search pages, scenarios, or traits" data-ph-zh="搜索页面、场景或特征" placeholder="搜索页面、场景或特征" aria-label="搜索页面参考"><kbd class="search-kbd">/</kbd></div>
   <p id="reference-count" class="count-note">{len(PM_REFERENCES)} 个参考</p>
   <button type="button" class="btn" id="reference-reset">重置筛选</button>
-  <a class="btn" href="/api/catalog.json">查看结构化数据</a>
+
  </div>
  <div class="reference-browser">
   <aside class="reference-filters" aria-label="页面参考筛选">{filters}</aside>
@@ -842,8 +892,8 @@ def sites_hub_page():
  <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Sites</span><span class="lang-zh">知名网站</span></span></nav>
  <section class="hero sites-hero">
   <h1 class="hero-title"><span class="lang-en">Design systems of famous websites</span><span class="lang-zh hero-title-zh">知名网站设计规范</span></h1>
-  <p class="lang-en hero-sub">Browse real website previews and the DESIGN.md behind their color, type, components, and layout decisions.</p>
-  <p class="lang-zh hero-sub">查看真实网站预览，以及色彩、字体、组件和布局决策背后的完整 DESIGN.md。</p>
+  <p class="lang-en hero-sub">Explore brand-style reconstructions and the DESIGN.md behind their color, type, components, and layout decisions.</p>
+  <p class="lang-zh hero-sub">浏览品牌风格复现，了解色彩、字体、组件和布局背后的完整 DESIGN.md。预览中的文案与数据仅作演示。</p>
   <div class="site-tools">
    <div class="site-filter-row">
     <div class="search-box site-search-box"><input id="site-search" type="search" autocomplete="off" data-ph-en="Search a brand or visual trait" data-ph-zh="搜索品牌或视觉特征" placeholder="搜索品牌或视觉特征" aria-label="搜索知名网站设计规范"><kbd class="search-kbd">/</kbd></div>
@@ -869,6 +919,7 @@ def sites_hub_page():
 def site_detail_page(site):
     detail = vendor_site_fragment(site["slug"] + ".html")
     detail = detail.replace('</header>', f'''<div class="entry-actions site-reference-actions">{select_button("site:" + site["slug"])}</div></header>''', 1)
+    detail = detail.replace('<div class="brand-mock-frame">', '<p class="brand-preview-note"><span class="lang-zh">品牌风格复现 · 以下文案与数据为演示内容，非官网截图或品牌事实。样例按钮用于展示外观。</span><span class="lang-en">Brand-style reconstruction. Sample copy and metrics are illustrative, not an official website capture or brand claims. Buttons demonstrate appearance.</span></p><div class="brand-mock-frame">', 1)
     body = f'''{header()}
 {detail}
 {footer()}'''
@@ -922,11 +973,11 @@ def styles_hub_page():
  <section class="hero" style="padding-top:32px">
   <h1 class="hero-title"><span class="lang-en">{esc(UI["stylesTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["stylesTitleZh"])}</span></h1>
   {paras(STYLES_META.get("hubTagline", ""), STYLES_META_ZH.get("hubTagline_zh", ""), "hero-sub")}
-  <div class="atlas-note">
+  <details class="atlas-note"><summary><span class="lang-zh">关于风格分类与收录标准</span><span class="lang-en">About the style classification</span></summary>
    <h2><span class="lang-en">{esc(en_gv)}</span> <span class="lang-zh" style="font-weight:400;font-size:12.5px">{esc(zh_gv)}</span></h2>
    {paras(STYLES_META.get("governedNote", ""), STYLES_META_ZH.get("governedNote_zh", ""), "")}
    <div class="research-chips">{chips}</div>
-  </div>
+  </details>
   <div class="controls">
    <div class="search-box">
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>

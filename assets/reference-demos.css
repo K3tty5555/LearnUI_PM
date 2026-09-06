@@ -197,9 +197,9 @@
 .pm-result-counts b { font: 600 1.35em var(--font-mono); }
 
 @container (max-width: 500px) {
-  .pm-state-switch { display: none; }
+  .stage-card .pm-state-switch { display: none; }
   .pm-demo-toolbar { min-height: 24px; }
-  .pm-demo-frame { pointer-events: none; }
+  .stage-card .pm-demo-frame { pointer-events: none; }
   .pm-mini-nav, .pm-settings-frame > nav { display: none; }
   .pm-app-layout, .pm-settings-frame { grid-template-columns: 1fr; }
   .pm-three-pane { grid-template-columns: .8fr 1.5fr 1fr; }

@@ -13,7 +13,7 @@ var PRECACHE = Array.from(new Set([
   "/manifest.webmanifest",
   revision("/assets/site.css"),
   revision("/assets/reference-demos.css"),
-  revision("/assets/glass-theme.css"),
+  revision("/assets/workspace.css"),
   revision("/assets/demo-i18n.js"),
   revision("/assets/site.js"),
   "/assets/og/style-frutiger-aero.png",

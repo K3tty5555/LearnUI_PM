@@ -32,6 +32,8 @@ jobs:
         run: python3 build.py
       - name: Prepare project-site paths
         run: python3 scripts/prepare-pages.py site --base /LearnUI_PM
+      - name: Verify generated links and assets
+        run: python3 scripts/verify-site.py site --base /LearnUI_PM
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

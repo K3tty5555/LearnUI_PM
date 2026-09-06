@@ -4,7 +4,7 @@
 
   /* ---------- service worker (PWA) ---------- */
   var isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-  if ("serviceWorker" in navigator && (location.protocol === "https:" || isLocal)) {
+  if ("serviceWorker" in navigator && location.protocol === "https:" && !isLocal) {
     window.addEventListener("load", function () {
       // The offline library is large. Warm it after the visible page has settled
       // so precaching never competes with the first useful screen.
@@ -111,6 +111,8 @@
         : input.getAttribute("data-ph-zh") + " / " + input.getAttribute("data-ph-en");
       input.setAttribute("placeholder", ph);
     });
+    var languageSelect = document.getElementById("mobile-language");
+    if (languageSelect) languageSelect.value = m;
     translateDemos(m);
     document.dispatchEvent(new CustomEvent("learnui:languagechange", { detail: { mode: m } }));
   }
@@ -127,7 +129,7 @@
     document.querySelectorAll(".site-nav a").forEach(function (link) {
       var href = link.getAttribute("href") || "";
       var path = location.pathname;
-      var current = (href === "/#top" && path === "/")
+      var current = (href === "/#top" && (path === "/" || path.indexOf("/web/") === 0 || path.indexOf("/macos/") === 0))
         || (href === "/references/" && path.indexOf("/references/") === 0)
         || (href === "/sites/" && path.indexOf("/sites/") === 0)
         || (href === "/styles/" && path.indexOf("/styles/") === 0)
@@ -163,7 +165,7 @@
   document.addEventListener("keydown", function (ev) {
     var tag = (ev.target.tagName || "").toLowerCase();
     var typing = tag === "input" || tag === "textarea" || ev.target.isContentEditable;
-    if ((ev.key === "/" && !typing) || ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "k")) {
+    if (ev.key === "/" && !typing && !document.querySelector("dialog[open]")) {
       var inputs = ["search", "style-search", "reference-search", "site-search", "table-search"].map(function (id) {
         return document.getElementById(id);
       }).filter(function (input) { return input && input.offsetParent !== null; });
@@ -560,6 +562,7 @@
   var selectionEmpty = document.getElementById("selection-empty");
   var selectionStatus = document.getElementById("selection-status");
   var catalog = null;
+  var catalogFailed = false;
   var catalogById = {};
 
   function loadSelection() {
@@ -589,6 +592,7 @@
       var active = selectedIds.indexOf(button.getAttribute("data-select-id")) !== -1;
       button.classList.toggle("selected", active);
       button.setAttribute("aria-pressed", active ? "true" : "false");
+      button.setAttribute("aria-label", (active ? "移除参考：" : "加入参考：") + ((catalogById[button.getAttribute("data-select-id")] || {}).nameZh || button.getAttribute("data-select-id")));
       var label = button.querySelector("[data-select-label]");
       if (label) label.textContent = active ? "已加入" : "加入参考";
     });
@@ -610,7 +614,7 @@
       remove.type = "button";
       remove.className = "icon-button";
       remove.setAttribute("aria-label", "移除 " + item.nameZh);
-      remove.textContent = "×";
+      remove.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg>';
       remove.addEventListener("click", function () {
         selectedIds = selectedIds.filter(function (id) { return id !== item.id; });
         saveSelection();
@@ -626,6 +630,8 @@
     selectionEmpty.hidden = items.length !== 0;
     selectionDock.hidden = items.length === 0;
     selectionCount.textContent = items.length;
+    document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
+    ["selection-copy-md", "selection-download-json"].forEach(function (id) { document.getElementById(id).disabled = !items.length; });
     refreshSelectionButtons();
   }
 
@@ -635,6 +641,7 @@
       schemaVersion: 1,
       language: "zh-CN",
       purpose: "用于 AI 原型生成的 UI 参考说明",
+      projectBrief: document.getElementById("collection-brief").value.trim(),
       items: items,
       combinedGuidance: {
         structures: items.reduce(function (all, item) { return all.concat(item.structure || []); }, []),
@@ -646,6 +653,8 @@
 
   function exportMarkdown() {
     var lines = ["# UI 参考说明", "", "请结合以下参考生成原型。优先遵守页面结构、关键状态和视觉约束，不要机械复制单个示例。", ""];
+    var brief = document.getElementById("collection-brief").value.trim();
+    if (brief) lines.push("## 项目目标", "", brief, "");
     selectedItems().forEach(function (item) {
       lines.push("## " + item.nameZh + (item.name ? " (" + item.name + ")" : ""), "");
       lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
@@ -684,7 +693,7 @@
       setSelectionStatus("选择集已清空");
     });
     document.getElementById("selection-copy-md").addEventListener("click", function () {
-      navigator.clipboard.writeText(exportMarkdown()).then(function () { setSelectionStatus("Markdown 已复制"); });
+      copyText(exportMarkdown()).then(function () { setSelectionStatus("Markdown 已复制，可以粘贴给 AI 了。"); }).catch(function () { setSelectionStatus("复制失败，请重试或下载 JSON。"); });
     });
     document.getElementById("selection-download-json").addEventListener("click", function () {
       var blob = new Blob([JSON.stringify(exportPayload(), null, 2)], { type: "application/json;charset=utf-8" });
@@ -703,12 +712,113 @@
     return response.json();
   }).then(function (data) {
     catalog = data;
+    if (globalDialog && globalDialog.open) globalSearch();
     data.items.forEach(function (item) { catalogById[item.id] = item; });
     selectedIds = selectedIds.filter(function (id) { return Boolean(catalogById[id]); });
     saveSelection();
     renderSelection();
   }).catch(function () {
     refreshSelectionButtons();
+    document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
+    catalogFailed = true;
+    document.getElementById("global-search-status").textContent = "参考库暂时加载失败，请刷新页面重试。";
+    setSelectionStatus("参考库加载失败，请刷新页面后重试导出。");
+  });
+
+  /* ---------- collection context and global command search ---------- */
+  function copyText(value) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(value);
+    return new Promise(function (resolve, reject) {
+      var input = document.createElement("textarea");
+      input.value = value;
+      input.style.cssText = "position:fixed;opacity:0;left:0;top:0";
+      (document.querySelector("dialog[open]") || document.body).appendChild(input);
+      input.select();
+      var ok = document.execCommand("copy");
+      input.remove();
+      if (ok) resolve(); else reject(new Error("Clipboard unavailable"));
+    });
+  }
+  var projectBrief = document.getElementById("collection-brief");
+  try { projectBrief.value = localStorage.getItem("learnui-project-brief") || ""; } catch (e) {}
+  projectBrief.addEventListener("input", function () {
+    try { localStorage.setItem("learnui-project-brief", projectBrief.value); } catch (e) {}
+  });
+  document.querySelectorAll("[data-open-selection]").forEach(function (button) {
+    button.addEventListener("click", function () { selectionDialog.showModal(); });
+  });
+  document.getElementById("selection-copy-md").disabled = true;
+  document.getElementById("selection-download-json").disabled = true;
+  window.addEventListener("storage", function (event) {
+    if (event.key === selectionKey) { selectedIds = loadSelection(); renderSelection(); }
+  });
+  var globalDialog = document.getElementById("global-search-dialog");
+  var globalInput = document.getElementById("global-search-input");
+  var globalResults = document.getElementById("global-search-results");
+  var globalStatus = document.getElementById("global-search-status");
+  function globalSearch() {
+    globalResults.textContent = "";
+    if (!catalog) { globalStatus.textContent = catalogFailed ? "参考库加载失败，请刷新页面重试。" : "参考库正在加载，请稍后重试。"; return; }
+    var q = globalInput.value.trim().toLowerCase();
+    var matches = catalog.items.filter(function (item) {
+      return !q || [item.name, item.nameZh, item.summary, item.type].concat(item.visualTraits || []).join(" ").toLowerCase().indexOf(q) !== -1;
+    });
+    globalStatus.textContent = q ? (matches.length ? "找到 " + matches.length + " 个参考" : "没有找到相关参考。试试「按钮」「Linear」或「极简」。") : "从 " + catalog.items.length + " 个参考中开始探索，或输入关键词搜索。";
+    matches.slice(0, 30).forEach(function (item) {
+      var link = document.createElement("a");
+      link.className = "global-search-result";
+      link.href = item.url;
+      var content = document.createElement("div");
+      var title = document.createElement("strong");
+      title.textContent = mode() === "en" ? item.name : (item.nameZh + (item.name !== item.nameZh ? " · " + item.name : ""));
+      var description = document.createElement("p");
+      description.textContent = item.summary || item.name;
+      var type = document.createElement("span");
+      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "page-reference":"页面参考", "site-reference":"知名网站"}[item.type] || "视觉风格";
+      content.append(title, description);
+      link.append(content, type);
+      globalResults.appendChild(link);
+    });
+    if (matches.length > 30) globalStatus.textContent += "，显示前 30 项，请缩小搜索范围。";
+  }
+  function openGlobalSearch() {
+    if (globalDialog.open) return;
+    globalDialog.showModal();
+    globalSearch();
+    globalInput.focus();
+  }
+  document.querySelectorAll("[data-global-search]").forEach(function (button) { button.addEventListener("click", openGlobalSearch); });
+  document.getElementById("global-search-close").addEventListener("click", function () { globalDialog.close(); });
+  globalDialog.addEventListener("click", function (event) {
+    if (event.target !== globalDialog) return;
+    var r = globalDialog.getBoundingClientRect();
+    if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) globalDialog.close();
+  });
+  globalInput.addEventListener("input", debounce(globalSearch, 80));
+  document.addEventListener("keydown", function (event) {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      if (selectionDialog.open) return;
+      if (globalDialog.open) globalDialog.close(); else openGlobalSearch();
+    }
+  });
+  globalDialog.addEventListener("keydown", function (event) {
+    var results = Array.prototype.slice.call(globalResults.querySelectorAll("a"));
+    var index = results.indexOf(document.activeElement);
+    if (event.key === "ArrowDown" && results.length) { event.preventDefault(); results[(index + 1) % results.length].focus(); }
+    if (event.key === "ArrowUp" && results.length) { event.preventDefault(); if (index <= 0) globalInput.focus(); else results[index - 1].focus(); }
+    if (event.key === "Enter" && document.activeElement === globalInput && results.length) { event.preventDefault(); results[0].click(); }
+  });
+  var mobileLanguage = document.getElementById("mobile-language");
+  if (mobileLanguage) {
+    mobileLanguage.value = mode();
+    mobileLanguage.addEventListener("change", function () { document.querySelector('.ls-btn[data-mode="' + mobileLanguage.value + '"]').click(); });
+  }
+  document.querySelectorAll(".tab[data-filter]").forEach(function (button) {
+    button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
+    button.addEventListener("click", function () {
+      document.querySelectorAll(".tab[data-filter]").forEach(function (tab) { tab.setAttribute("aria-pressed", tab === button ? "true" : "false"); });
+    });
   });
 
   /* ---------- copy buttons ---------- */
@@ -720,7 +830,7 @@
     btn.classList.add("done");
     if (en) en.textContent = btn.getAttribute("data-done-en") || "Copied";
     if (zh) zh.textContent = btn.getAttribute("data-done-zh") || "已复制";
-    if (!en && !zh) btn.textContent = btn.getAttribute("data-done-en") || "Copied";
+    if (!en && !zh) btn.textContent = mode() === "en" ? (btn.getAttribute("data-done-en") || "Copied") : (btn.getAttribute("data-done-zh") || "已复制");
     setTimeout(function () {
       btn.classList.remove("done");
       if (en) en.textContent = oEn;
@@ -731,7 +841,7 @@
     btn.addEventListener("click", function () {
       var target = document.getElementById(btn.getAttribute("data-copy"));
       if (!target) return;
-      navigator.clipboard.writeText(target.textContent).then(function () { flash(btn); }, function () {});
+      copyText(target.textContent).then(function () { flash(btn); }, function () { btn.textContent = "复制失败，请重试"; });
     });
   });
   var copyMd = document.getElementById("copy-md");
@@ -739,7 +849,7 @@
     copyMd.addEventListener("click", function () {
       var tpl = document.getElementById("md-source");
       if (!tpl) return;
-      navigator.clipboard.writeText(tpl.innerHTML).then(function () { flash(copyMd); }, function () {});
+      copyText(tpl.content.textContent).then(function () { flash(copyMd); }, function () { copyMd.textContent = "复制失败，请重试"; });
     });
   }
 

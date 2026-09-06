@@ -24,7 +24,7 @@
 - **44 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
 - **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron、翻译对照表（63 条 plain name → AppKit → SwiftUI）
 - **三种阅读模式**：纯中文（默认）/ 中英对照 / 纯英文，页眉一键切换
-- **全站搜索**：中英文模糊描述都能搜（试试「三个点」「mac 窗口按钮」），`/` 或 `⌘K` 聚焦、Esc 清空、匹配高亮、`?q=` 深链
+- **全站搜索**：中英文模糊描述都能搜（试试「三个点」「mac 窗口按钮」），`/` 聚焦栏目搜索，`⌘K` / `Ctrl+K` 搜索全库、Esc 清空、匹配高亮、`?q=` 深链
 - **双击查词**：双击任意英文单词，弹出通俗英文释义
 - **一键复制**：Prompt、调试 Prompt、风格 brief、代码片段、整页 Markdown
 - **PWA**：可安装到主屏，离线可读（service worker 缓存）
@@ -81,13 +81,17 @@ learnui/
 ├── vendor/sites/       # /sites/ 的本地主内容镜像
 ├── assets/             # site.css / site.js / 自托管 Geist 字体 / PWA 图标
 ├── manifest.webmanifest + sw.js  # PWA（构建时注入版本号）
-├── DESIGN.md           # 设计系统锚点（Vercel 式黑白）
+├── DESIGN.md           # 设计参考工作台的视觉与交互规范
 └── site/               # 构建产物，含 api/catalog.json（git 忽略）
 ```
 
 ## 设计
 
-「冷静的玻璃拟态」：单张本地产品截图只在页面边缘提供低饱和蓝绿折射，中央内容区保持中性冷灰；导航、筛选、控制条和选择抽屉使用半透明表面、内高光与细边框。Geist/Geist Mono 字体自托管，标本保留被模仿系统的外观，不被站点主题覆盖。完整设计约束见 [DESIGN.md](DESIGN.md)。
+「设计参考工作台」：浅纸色画布、鼠尾草导航和墨绿操作色，真实标本保留各自的外观。桌面使用常驻侧栏，手机使用紧凑双行导航。首页的命令面板可以直接操作，全库搜索支持 `⌘K` / `Ctrl+K`，`/` 聚焦当前栏目的搜索。
+
+参考集常驻可见，支持混合收藏 192 个参考中的任意内容，填写项目目标，复制 Markdown 或下载 JSON。品牌预览明确标注为风格复现，示例文案与数据不代表品牌事实。
+
+产品事实见 [PRODUCT.md](PRODUCT.md)，当前视觉与交互规范见 [DESIGN.md](DESIGN.md)。
 
 ## 实测验证
 
@@ -123,7 +127,7 @@ A faithful content replica of [namethatui.com](https://namethatui.com/) (includi
 - **62 detail pages**: anatomy of every part, copy-ready agent prompt, debug prompt, API symbol table, related entries
 - **3 guides**: AppKit vs SwiftUI, Swift vs Electron, and a 63-row Translation Table
 - **3 reading modes**: 中文 (default) / bilingual / English, persisted in localStorage
-- **Full-text search** in English and Chinese (`/` or `⌘K` to focus, match highlighting, `?q=` deep links), **double-click any word** for a plain-English definition, **copy page as Markdown**
+- **Full-text search** in English and Chinese (`/` to search the current section and `⌘K` / `Ctrl+K` to search the library, match highlighting, `?q=` deep links), **double-click any word** for a plain-English definition, **copy page as Markdown**
 - **PWA**: installable, offline-readable
 
 ## Quick start
