@@ -349,7 +349,7 @@ body {
 .hero-command > a:first-of-type { background: rgba(255,255,255,.7); box-shadow: inset 0 1px 0 #fff; }
 .hero-command > a:hover, .hero-command > button:hover { background: rgba(255,255,255,.86); }
 .btn-primary, .selection-dock-button, #selection-copy-md { background: linear-gradient(160deg, #45454d, #242428); box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 4px 10px rgba(25,25,35,.09); color: #fff; }
-.btn-primary:hover { background: #3b3b43; }
+.btn-primary:hover { background: linear-gradient(160deg, #4b4b54, #2d2d32); }
 .btn:not(.btn-primary):not(#selection-copy-md), .lang-switch, .tabs { background: rgba(255,255,255,.4); }
 .ls-btn.active, .tab.active { background: rgba(255,255,255,.86); }
 .stage { background: linear-gradient(145deg, rgba(255,255,255,.65), rgba(239,239,246,.34)); border-color: rgba(255,255,255,.95); box-shadow: inset 0 1px 0 #fff, 0 4px 15px rgba(38,38,56,.025); }
