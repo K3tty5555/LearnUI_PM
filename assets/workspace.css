@@ -387,3 +387,4 @@ picture[data-preview] { position: absolute; inset: 0; }
 .live-demo-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--gray-500); font-size: 11px; }
 .live-demo-still *, .live-demo-still *::before, .live-demo-still *::after { animation: none !important; transition: none !important; }
 [data-live-demo].is-live > .live-demo-still, [data-live-demo].is-live > .live-demo-loading, [data-live-state="error"] > .live-demo-loading { visibility: hidden; }
+.site-auto-note { margin: 10px 0 0; color: var(--gray-500); font-size: 10px; }

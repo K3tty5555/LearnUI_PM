@@ -428,6 +428,9 @@
     var siteParams = new URLSearchParams(location.search);
     var sitePageSize = 12;
     var siteLimit = sitePageSize;
+    var siteAutoPending = false;
+    var siteMoreRow = document.getElementById("site-more-row");
+    var siteAutoNote = document.getElementById("site-auto-note");
 
     var applySites = function (resetLimit) {
       if (resetLimit) siteLimit = sitePageSize;
@@ -453,6 +456,7 @@
       }
       if (siteMore) siteMore.parentElement.hidden = shown >= matched.length;
       if (siteMoreCount) siteMoreCount.textContent = shown < matched.length ? "+" + Math.min(sitePageSize, matched.length - shown) : "";
+      if (siteAutoNote) siteAutoNote.hidden = shown >= matched.length || matched.length === 0;
       if (siteReset) siteReset.hidden = !query && !category && !vibe;
     };
     var applySitesD = debounce(applySites, 80);
@@ -468,7 +472,28 @@
       if (!select) return;
       select.addEventListener("change", function () { applySites(true); syncSitesD(); });
     });
-    if (siteMore) siteMore.addEventListener("click", function () { siteLimit += sitePageSize; applySites(false); });
+    function loadNextSites() {
+      if (siteAutoPending || !siteMore || siteMore.parentElement.hidden) return;
+      siteAutoPending = true;
+      if (siteAutoNote) siteAutoNote.textContent = mode() === "en" ? "Loading more…" : "正在加载更多…";
+      siteLimit += sitePageSize;
+      applySites(false);
+      window.setTimeout(function () {
+        siteAutoPending = false;
+        if (siteAutoNote) siteAutoNote.textContent = mode() === "en" ? "Scroll to load more automatically" : "向下滚动，自动加载更多";
+      }, 120);
+    }
+    if (siteMore) siteMore.addEventListener("click", loadNextSites);
+    if (siteMoreRow && "IntersectionObserver" in window) {
+      var siteLoaderObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) { if (entry.isIntersecting) loadNextSites(); });
+      }, { rootMargin: "0px 0px 420px 0px" });
+      siteLoaderObserver.observe(siteMoreRow);
+    } else if (siteMoreRow) {
+      window.addEventListener("scroll", debounce(function () {
+        if (siteMoreRow.getBoundingClientRect().top < innerHeight + 420) loadNextSites();
+      }, 120), { passive: true });
+    }
     if (siteReset) siteReset.addEventListener("click", function () {
       siteInput.value = "";
       if (siteCategorySelect) siteCategorySelect.value = "";

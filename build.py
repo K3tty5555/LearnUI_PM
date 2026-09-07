@@ -951,7 +951,7 @@ def sites_hub_page():
   </div>
  </section>
  <section class="style-grid sites-grid" id="sites" aria-live="polite">{cards}</section>
- <div class="site-more-row"><button type="button" class="btn site-more" id="site-more"><span class="lang-en">Load more</span><span class="lang-zh">加载更多</span><b id="site-more-count"></b></button></div>
+ <div class="site-more-row" id="site-more-row"><button type="button" class="btn site-more" id="site-more"><span class="lang-en">Load more</span><span class="lang-zh">加载更多</span><b id="site-more-count"></b></button><p class="site-auto-note" id="site-auto-note" role="status" aria-live="polite"><span class="lang-zh">向下滚动，自动加载更多</span><span class="lang-en">Scroll to load more automatically</span></p></div>
  <div class="no-result" id="site-no-result" hidden><b>没有符合条件的网站</b><p>换一个品牌、行业或设计气质。</p></div>
 </main>
 {footer()}'''

@@ -40,3 +40,8 @@ cd site && python3 -m http.server 8000
 共享外壳 CSS/JS 由构建器内联到 HTML；独立源文件仍随站点发布，便于调试。目录预览位于 `assets/demo-thumbs/`，生成后提交。Service Worker 安装只读取 `offline.html`，不预取全站；回访页面从缓存立即返回，后台更新。GitHub Pages 首次 TCP 连接延迟独立于页面渲染，应单独测量。
 
 UI 词典已恢复按视口运行的原始动效，演示源由构建器生成到 `api/specimens/`。发布工作流安装 Playwright/Chromium 并运行 `scripts/test-live-demos.py`，实际验证动效、离屏停止、移动端与错误恢复。普通站点构建仍只使用 Python 标准库。
+
+
+## 知名网站自动加载
+
+`/sites/` 在接近列表底部时自动展示下一批品牌；手动“加载更多”按钮保留为无观察器或键盘使用场景的兜底。搜索、行业和设计气质筛选会重置批次并保持 URL 状态。
