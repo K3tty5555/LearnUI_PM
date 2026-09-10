@@ -310,6 +310,8 @@
     "The quarterly review meeting has been rescheduled to Friday afternoon": "季度复盘会议已改到周五下午。",
     "Release notes: this update reworks the sync engine, fixes twelve reported issues with offline edits, and adds keyboard shortcuts for every panel in the app.": "更新说明：本次更新重构了同步引擎，修复了 12 个离线编辑问题，并为所有面板增加了键盘快捷键。",
     "Spatial card layouts": "空间卡片布局",
+    "Card browsing modes": "卡片浏览模式",
+    "The same course collection can use depth to explain order, focus, and browsing.": "同一组课程卡片可以用纵深解释顺序、焦点和浏览方式。",
     "Six ways to give a card collection depth, order, and a clear focus state.": "用六种方式让卡片集合拥有纵深、顺序和清晰的聚焦状态。",
     "Depth stack": "深度叠层展开",
     "Fan spread": "扇形展开",

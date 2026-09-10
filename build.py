@@ -833,6 +833,7 @@ def reference_page(ref):
     states = pm_labels("states", ref["states"])
     prompt = reference_prompt(ref)
     md = reference_markdown(ref)
+    spatial_case = spatial_card_case() if ref.get("slug") == "course-learning-catalog" else ""
     structure = "".join(f"<li>{esc(item)}</li>" for item in ref["structure"])
     traits = "".join(f"<li>{esc(item)}</li>" for item in ref["visualTraits"])
     dos = "".join(f"<li>{esc(item)}</li>" for item in ref["promptHints"]["do"])
@@ -848,6 +849,7 @@ def reference_page(ref):
  </header>
  {stage(ref["demo"], detail=True)}
  <p class="stage-hint">标本可交互，可以切换不同状态。</p>
+ {spatial_case}
  <div class="reference-detail-grid">
   <section><h2>适用场景</h2><p>{esc("、".join(ref["scenarios"]))}</p></section>
   <section><h2>关键状态</h2><div class="reference-tags">{"".join(f"<span>{esc(state)}</span>" for state in states)}</div></section>
@@ -1042,10 +1044,10 @@ def styles_hub_page():
                 STYLES_META_ZH.get("hubTagline_zh", "")[:80], body, "styles/", og_image="/assets/og/_styles.png")
 
 def spatial_card_case():
-    """Embedded interaction case for the existing Isometric 3D style page."""
+    """Embedded interaction case for the course catalog page reference."""
     return f'''<section class="sect spatial-card-case" style="max-width:none">
- <h2 class="section-title"><span class="lang-en">Six spatial card layouts</span><span class="lang-zh">六种立体感卡片布局</span></h2>
- {bi("A card collection can use depth to explain order, focus, and browsing.", "一组卡片可以用纵深解释顺序、焦点和浏览方式。", "p", "spatial-card-case-lede")}
+ <h2 class="section-title"><span class="lang-en">Card browsing modes</span><span class="lang-zh">卡片浏览模式</span></h2>
+ {bi("The same course collection can use depth to explain order, focus, and browsing.", "同一组课程卡片可以用纵深解释顺序、焦点和浏览方式。", "p", "spatial-card-case-lede")}
  <div class="spatial-card-case-demo"><div class="fragment" data-slug="style-spatial-card-layouts">{demo_fragment("style-spatial-card-layouts")}</div></div>
  <p class="spatial-card-case-note"><span class="lang-en">Use the controls to compare the same content across six spatial relationships.</span><span class="lang-zh">用右侧控制切换同一组内容的六种空间关系。</span></p>
 </section>'''
@@ -1185,7 +1187,7 @@ def style_page(s):
         scope = paras(s["scope"], z.get("scope_zh", ""), "guide-para")
 
     md = style_markdown(s, z)
-    spatial_case = spatial_card_case() if s.get("slug") == "isometric-3d" else ""
+    spatial_case = ""
     body = f'''{header()}
 <main class="wrap entry">
  <nav class="crumbs">
@@ -1206,7 +1208,6 @@ def style_page(s):
  </header>
  {stage("style-" + s["slug"], detail=True)}
  <p class="stage-hint lang-zh">标本可交互，可以直接操作。</p>
- {spatial_case}
  {aliases}
  {dna}
  {confused}
