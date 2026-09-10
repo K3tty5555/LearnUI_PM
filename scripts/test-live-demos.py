@@ -52,7 +52,9 @@ def run(site, base):
             report['text_scramble_states'] = moving('text-scramble', '.scr-churn', '(el)=>el.textContent', 24)
             report['spring_positions'] = moving('spring', '.spr-ball-spring', '(el)=>getComputedStyle(el).transform')
             report['easing_positions'] = moving('easing', '.eas-ball', '(el)=>getComputedStyle(el).transform', 14)
-            assert page.locator('[data-live-demo]').count() == 62
+            catalog = json.loads((site / 'api/catalog.json').read_text())
+            expected_ui_elements = sum(item['type'] == 'ui-element' for item in catalog['items'])
+            assert page.locator('[data-live-demo]').count() == expected_ui_elements
             report['initial_active'] = page.locator('.live-specimen-frame').count()
             assert report['initial_active'] <= 12
             assert not any('/api/specimens/text-scramble.json' in request['name'] for request in page.evaluate("performance.getEntriesByType('resource').map(r=>({name:r.name}))")), 'First-row animation must not need a network request'
