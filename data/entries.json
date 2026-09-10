@@ -289,6 +289,81 @@
   "demo": "web/bento-grid"
  },
  {
+  "slug": "spatial-card-layouts",
+  "platform": "web",
+  "name": "Spatial Card Layouts",
+  "tagline": "A card collection arranged in space so depth explains order, focus, and browsing",
+  "aka": [
+   "3D card layout",
+   "spatial card gallery",
+   "card browsing modes",
+   "depth card carousel",
+   "interactive card layout"
+  ],
+  "fuzzy": [
+   "cards that fan out in 3D",
+   "a stack of cards that opens in space",
+   "carousel cards around a cylinder",
+   "cards arranged on a sphere",
+   "a spiral card gallery",
+   "a wave grid of cards"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "perspective + transform-style: preserve-3d",
+    "note": "the depth stage that lets cards separate along the z-axis"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "translate3d() + rotateY()",
+    "note": "position each card in a fan, ring, sphere, helix, or wave"
+   },
+   {
+    "framework": "JS",
+    "symbol": "aria-pressed + data-mode",
+    "note": "switch layouts without changing the card content or DOM order"
+   },
+   {
+    "framework": "A11y",
+    "symbol": "prefers-reduced-motion",
+    "note": "keep the selected arrangement while shortening spatial transitions"
+   }
+  ],
+  "prompt": "Build a spatial card layout specimen with the same six cards and six switchable modes: depth stack spread, fan spread, cylindrical layout, spherical layout, helix layout, and wave grid. Keep the card content and DOM reading order unchanged between modes. Use perspective, transform-style: preserve-3d, translate3d, rotateY, scale, and soft offset shadows to create depth. Add a labelled button group with aria-pressed for the active mode, make the focused card legible through contrast or scale as well as depth, and provide a compact one-column fallback on small screens. Honor prefers-reduced-motion by keeping the final arrangement and shortening transitions.",
+  "debugPrompt": "Debug my spatial card layout (six CSS 3D browsing modes). Rule out: cards disappearing because the perspective stage clips or overflow hides the depth; visual order diverging from DOM order; every card competing with the focused card; transforms being overwritten by a shared shorthand; layout buttons without aria-pressed or keyboard focus; 3D movement becoming the only selection cue; mobile overflow from fixed offsets; and reduced-motion users still receiving long spatial transitions. The symptom:",
+  "description": "“A group of cards that opens, fans out, wraps around a ring, or rises in a spiral” is a spatial card layout. It is an interaction pattern for browsing a collection, not a visual style. The six arrangements here use the same cards so the difference is easy to compare: depth stack spread, fan spread, cylindrical layout, spherical layout, helix layout, and wave grid.",
+  "parts": [
+   {
+    "id": "spatial-stage",
+    "name": "Spatial stage",
+    "api": "perspective + transform-style",
+    "description": "“The invisible space the cards live in” is the spatial stage. It establishes perspective and preserves 3D transforms without changing the content order.",
+    "prompt": "the spatial stage: a bounded container with perspective, transform-style: preserve-3d, overflow rules that keep cards visible, and a flat fallback on narrow screens"
+   },
+   {
+    "id": "focused-card",
+    "name": "Focused card",
+    "api": "translateZ() + z-index",
+    "description": "“The card that comes forward” is the focused card. It should gain depth and a second cue such as contrast, scale, or a visible label.",
+    "prompt": "the focused card: move it forward with translateZ or translate3d, raise its z-index, and strengthen contrast or scale so depth is not the only selection cue"
+   },
+   {
+    "id": "layout-switcher",
+    "name": "Layout switcher",
+    "api": "aria-pressed + data-mode",
+    "description": "“The six buttons that change the arrangement” are the layout switcher. They change spatial rules while keeping the same cards and reading order.",
+    "prompt": "the layout switcher: a labelled button group with aria-pressed, one active mode at a time, keyboard focus, and a status sentence explaining the current spatial relationship"
+   }
+  ],
+  "related": [
+   "masonry",
+   "bento-grid",
+   "drag-and-drop"
+  ],
+  "demo": "style-spatial-card-layouts"
+ },
+ {
   "slug": "hamburger-menu",
   "platform": "web",
   "name": "Hamburger Menu (Nav Drawer)",
