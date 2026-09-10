@@ -1,0 +1,136 @@
+<div class="demo demo-style-spatial-card-layouts">
+  <div class="sc-player">
+    <div class="sc-viewport mode-depth" data-mode="depth" aria-label="Spatial card layout specimen">
+      <div class="sc-orbit" aria-hidden="true"></div>
+      <div class="sc-card" style="--i:0" data-card="A"><span class="sc-card-index">A</span><span class="sc-card-title">Overview</span><span class="sc-card-bars"><i></i><i></i><i></i></span></div>
+      <div class="sc-card" style="--i:1" data-card="B"><span class="sc-card-index">B</span><span class="sc-card-title">Signals</span><span class="sc-card-bars"><i></i><i></i><i></i></span></div>
+      <div class="sc-card" style="--i:2" data-card="C"><span class="sc-card-index">C</span><span class="sc-card-title">Notes</span><span class="sc-card-bars"><i></i><i></i><i></i></span></div>
+      <div class="sc-card" style="--i:3" data-card="D"><span class="sc-card-index">D</span><span class="sc-card-title">People</span><span class="sc-card-bars"><i></i><i></i><i></i></span></div>
+      <div class="sc-card" style="--i:4" data-card="E"><span class="sc-card-index">E</span><span class="sc-card-title">Archive</span><span class="sc-card-bars"><i></i><i></i><i></i></span></div>
+      <div class="sc-card" style="--i:5" data-card="F"><span class="sc-card-index">F</span><span class="sc-card-title">Actions</span><span class="sc-card-bars"><i></i><i></i><i></i></span></div>
+      <span class="sc-focus" aria-hidden="true">Select a card</span>
+    </div>
+    <div class="sc-controls">
+      <p class="sc-kicker">Spatial card layouts</p>
+      <p class="sc-lede">Six ways to give a card collection depth, order, and a clear focus state.</p>
+      <div class="sc-modes" role="group" aria-label="Card layout modes">
+        <button type="button" class="is-active" data-mode="depth" aria-pressed="true">Depth stack</button>
+        <button type="button" data-mode="fan" aria-pressed="false">Fan spread</button>
+        <button type="button" data-mode="cylinder" aria-pressed="false">Cylinder</button>
+        <button type="button" data-mode="sphere" aria-pressed="false">Sphere</button>
+        <button type="button" data-mode="helix" aria-pressed="false">Helix</button>
+        <button type="button" data-mode="wave" aria-pressed="false">Wave grid</button>
+      </div>
+      <p class="sc-status" role="status" aria-live="polite">Depth stack: pull the cards apart along the z-axis.</p>
+    </div>
+  </div>
+</div>
+<style>
+.demo-style-spatial-card-layouts { --sc-ink:#242428; --sc-muted:#696973; --sc-line:#d6d6dd; --sc-paper:#fff; --sc-ground:#e9e9ed; width:min(760px,100%); color:var(--sc-ink); font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif); }
+.demo-style-spatial-card-layouts .sc-player { display:grid; grid-template-columns:minmax(0,1fr) 190px; gap:14px; align-items:stretch; }
+.demo-style-spatial-card-layouts .sc-viewport { position:relative; min-height:292px; overflow:hidden; isolation:isolate; perspective:900px; border:1px solid var(--sc-line); border-radius:12px; background:radial-gradient(circle at 52% 42%, #fff 0 16%, transparent 60%), linear-gradient(145deg,#f4f4f6,#e2e2e7); box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 16px 30px rgba(36,36,40,.08); transform-style:preserve-3d; }
+.demo-style-spatial-card-layouts .sc-viewport::before { content:""; position:absolute; inset:18px; border:1px solid rgba(105,105,115,.13); border-radius:10px; pointer-events:none; }
+.demo-style-spatial-card-layouts .sc-orbit { position:absolute; left:50%; top:53%; width:190px; height:100px; transform:translate(-50%,-50%) rotateX(66deg); border:1px solid rgba(105,105,115,.22); border-radius:50%; box-shadow:0 25px 32px rgba(36,36,40,.08); transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .3s ease; }
+.demo-style-spatial-card-layouts .sc-card { --dx:0px; --dy:0px; --dz:0px; --angle:0deg; --rx:0deg; --ry:0deg; --scale:1; position:absolute; left:50%; top:50%; width:76px; height:108px; padding:10px 9px; border:1px solid rgba(255,255,255,.92); border-radius:9px; background:linear-gradient(150deg,#fff 0 68%,#f0f0f3 100%); box-shadow:0 12px 18px rgba(36,36,40,.16), inset 0 1px 0 #fff; transform-style:preserve-3d; transform:translate(-50%,-50%) translate3d(var(--dx),var(--dy),var(--dz)) rotateY(var(--ry)) rotate(var(--angle)) scale(var(--scale)); transition:transform .62s cubic-bezier(.16,1,.3,1),opacity .4s ease,box-shadow .45s ease; z-index:calc(20 - var(--i)); }
+.demo-style-spatial-card-layouts .sc-card::after { content:""; position:absolute; inset:6px; border:1px solid rgba(36,36,40,.07); border-radius:5px; pointer-events:none; }
+.demo-style-spatial-card-layouts .sc-card:nth-child(2n) { background:linear-gradient(150deg,#fff 0 68%,#edf5f4 100%); }
+.demo-style-spatial-card-layouts .sc-card:nth-child(3n) { background:linear-gradient(150deg,#fff 0 68%,#f1eef6 100%); }
+.demo-style-spatial-card-layouts .sc-card-index { display:block; width:20px; height:20px; border-radius:5px; background:#242428; color:#fff; font:600 10px/20px var(--font-mono,monospace); text-align:center; }
+.demo-style-spatial-card-layouts .sc-card:nth-child(2n) .sc-card-index { background:#447d78; }
+.demo-style-spatial-card-layouts .sc-card:nth-child(3n) .sc-card-index { background:#75608b; }
+.demo-style-spatial-card-layouts .sc-card-title { display:block; margin-top:15px; font-size:9px; font-weight:600; letter-spacing:-.01em; }
+.demo-style-spatial-card-layouts .sc-card-bars { display:grid; gap:4px; margin-top:12px; }
+.demo-style-spatial-card-layouts .sc-card-bars i { display:block; height:3px; border-radius:2px; background:#d9d9df; }
+.demo-style-spatial-card-layouts .sc-card-bars i:nth-child(1) { width:80%; background:#a7a7b1; }
+.demo-style-spatial-card-layouts .sc-card-bars i:nth-child(2) { width:58%; }
+.demo-style-spatial-card-layouts .sc-card-bars i:nth-child(3) { width:68%; }
+.demo-style-spatial-card-layouts .sc-focus { position:absolute; left:50%; bottom:18px; transform:translateX(-50%); padding:5px 9px; border:1px solid rgba(36,36,40,.16); border-radius:5px; background:rgba(255,255,255,.78); color:var(--sc-muted); font:10px/1.2 var(--font-mono,monospace); transition:opacity .3s ease; }
+.demo-style-spatial-card-layouts .sc-controls { min-width:0; padding:15px 14px; border:1px solid var(--sc-line); border-radius:12px; background:rgba(255,255,255,.55); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); }
+.demo-style-spatial-card-layouts .sc-kicker { margin:0; font:600 12px/1.3 var(--font-mono,monospace); letter-spacing:.04em; }
+.demo-style-spatial-card-layouts .sc-lede { margin:8px 0 14px; color:var(--sc-muted); font-size:11px; line-height:1.55; }
+.demo-style-spatial-card-layouts .sc-modes { display:grid; gap:5px; }
+.demo-style-spatial-card-layouts .sc-modes button { min-height:30px; padding:5px 8px; border:1px solid var(--sc-line); border-radius:6px; background:#fff; color:var(--sc-muted); font:500 10.5px/1.2 var(--font-sans,sans-serif); text-align:left; cursor:pointer; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .12s ease; }
+.demo-style-spatial-card-layouts .sc-modes button:hover, .demo-style-spatial-card-layouts .sc-modes button:focus-visible { border-color:#777782; color:var(--sc-ink); outline:2px solid rgba(36,36,40,.18); outline-offset:2px; }
+.demo-style-spatial-card-layouts .sc-modes button:active { transform:scale(.98); }
+.demo-style-spatial-card-layouts .sc-modes button.is-active { border-color:var(--sc-ink); background:var(--sc-ink); color:#fff; }
+.demo-style-spatial-card-layouts .sc-status { min-height:31px; margin:14px 0 0; color:var(--sc-muted); font-size:10px; line-height:1.5; }
+/* Each mode describes a different spatial relationship, not a cosmetic skin. */
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(2) { --dx:-35px; --dy:-7px; --dz:-22px; --ry:-8deg; }
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(3) { --dx:-20px; --dy:-4px; --dz:-44px; --ry:-8deg; }
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(4) { --dx:-5px; --dy:-1px; --dz:-66px; --ry:-8deg; }
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(5) { --dx:10px; --dy:2px; --dz:-88px; --ry:-8deg; }
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(6) { --dx:25px; --dy:5px; --dz:-110px; --ry:-8deg; }
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(7) { --dx:40px; --dy:8px; --dz:-132px; --ry:-8deg; }
+.demo-style-spatial-card-layouts .mode-depth .sc-card:nth-child(2) { z-index:25; }
+.demo-style-spatial-card-layouts .mode-depth .sc-orbit { opacity:.35; transform:translate(-50%,-50%) rotateX(66deg); }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(2) { --dx:-60px; --dy:13px; --angle:-23deg; }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(3) { --dx:-36px; --dy:4px; --angle:-14deg; }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(4) { --dx:-12px; --dy:-2px; --angle:-6deg; }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(5) { --dx:12px; --dy:-2px; --angle:6deg; }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(6) { --dx:36px; --dy:4px; --angle:14deg; }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(7) { --dx:60px; --dy:13px; --angle:23deg; }
+.demo-style-spatial-card-layouts .mode-fan .sc-card:nth-child(4) { z-index:25; }
+.demo-style-spatial-card-layouts .mode-fan .sc-orbit { opacity:.2; transform:translate(-50%,-50%) rotateX(66deg) scaleX(1.25); }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(2) { --dx:-78px; --dy:20px; --ry:48deg; --scale:.78; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(3) { --dx:-54px; --dy:8px; --ry:35deg; --scale:.88; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(4) { --dx:-24px; --dy:-1px; --ry:20deg; --scale:.96; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(5) { --dx:18px; --dy:-1px; --ry:-18deg; --scale:1; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(6) { --dx:50px; --dy:8px; --ry:-35deg; --scale:.88; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(7) { --dx:75px; --dy:20px; --ry:-48deg; --scale:.78; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-card:nth-child(5) { z-index:26; }
+.demo-style-spatial-card-layouts .mode-cylinder .sc-orbit { opacity:.55; transform:translate(-50%,-50%) rotateX(66deg) scaleX(1.28); }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(2) { --dx:-82px; --dy:30px; --ry:62deg; --scale:.58; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(3) { --dx:-58px; --dy:-34px; --ry:46deg; --scale:.72; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(4) { --dx:-30px; --dy:54px; --ry:28deg; --scale:.8; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(5) { --dx:28px; --dy:-50px; --ry:-28deg; --scale:.8; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(6) { --dx:58px; --dy:22px; --ry:-46deg; --scale:.72; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(7) { --dx:82px; --dy:48px; --ry:-62deg; --scale:.58; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-card:nth-child(4) { z-index:26; }
+.demo-style-spatial-card-layouts .mode-sphere .sc-orbit { opacity:.65; transform:translate(-50%,-50%) rotateX(66deg) scale(1.22); }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(2) { --dx:-46px; --dy:56px; --ry:32deg; --angle:-12deg; --scale:.68; }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(3) { --dx:42px; --dy:36px; --ry:-26deg; --angle:11deg; --scale:.76; }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(4) { --dx:-34px; --dy:16px; --ry:24deg; --angle:-9deg; --scale:.84; }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(5) { --dx:36px; --dy:-12px; --ry:-20deg; --angle:8deg; --scale:.92; }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(6) { --dx:-22px; --dy:-40px; --ry:16deg; --angle:-6deg; --scale:1; }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(7) { --dx:26px; --dy:-68px; --ry:-14deg; --angle:5deg; --scale:1.06; }
+.demo-style-spatial-card-layouts .mode-helix .sc-card:nth-child(6) { z-index:26; }
+.demo-style-spatial-card-layouts .mode-helix .sc-orbit { opacity:.3; transform:translate(-50%,-50%) rotateX(66deg) rotateZ(20deg) scaleY(1.3); }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(2) { --dx:-72px; --dy:-48px; --dz:-6px; --scale:.82; }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(3) { --dx:0px; --dy:-48px; --dz:20px; --scale:.82; }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(4) { --dx:72px; --dy:-48px; --dz:-12px; --scale:.82; }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(5) { --dx:-72px; --dy:48px; --dz:18px; --scale:.82; }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(6) { --dx:0px; --dy:48px; --dz:-5px; --scale:.82; }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(7) { --dx:72px; --dy:48px; --dz:24px; --scale:.82; }
+.demo-style-spatial-card-layouts .mode-wave .sc-card:nth-child(5) { z-index:27; }
+.demo-style-spatial-card-layouts .mode-wave .sc-orbit { opacity:.12; transform:translate(-50%,-50%) rotateX(66deg) scaleX(1.45); }
+@media (max-width:680px) { .demo-style-spatial-card-layouts .sc-player { grid-template-columns:1fr; } .demo-style-spatial-card-layouts .sc-controls { padding:12px; } .demo-style-spatial-card-layouts .sc-modes { grid-template-columns:repeat(3,minmax(0,1fr)); } .demo-style-spatial-card-layouts .sc-modes button { text-align:center; } }
+@media (prefers-reduced-motion:reduce) { .demo-style-spatial-card-layouts .sc-card, .demo-style-spatial-card-layouts .sc-orbit, .demo-style-spatial-card-layouts .sc-modes button { transition-duration:.01ms; } }
+</style>
+<script>
+(function () {
+  var root = document.querySelector('.demo-style-spatial-card-layouts');
+  if (!root) return;
+  var viewport = root.querySelector('.sc-viewport');
+  var status = root.querySelector('.sc-status');
+  var descriptions = {
+    depth: 'Depth stack: pull the cards apart along the z-axis.',
+    fan: 'Fan spread: open the cards from one shared pivot.',
+    cylinder: 'Cylinder: wrap the collection into a rotating ring.',
+    sphere: 'Sphere: distribute cards across a rounded orbit.',
+    helix: 'Helix: keep order while the cards climb in space.',
+    wave: 'Wave grid: keep the grid and send depth through it.'
+  };
+  root.querySelectorAll('[data-mode]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var mode = button.getAttribute('data-mode');
+      viewport.className = 'sc-viewport mode-' + mode;
+      root.querySelectorAll('.sc-modes button').forEach(function (item) {
+        var active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      status.textContent = descriptions[mode];
+    });
+  });
+}());
+</script>

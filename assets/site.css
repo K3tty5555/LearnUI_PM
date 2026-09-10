@@ -257,6 +257,15 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .fuzzy-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
 .stage-detail { height: 400px; background: var(--bg-2); }
 .stage-hint { margin: 10px 2px 0; font-size: 12px; color: var(--gray-400); }
+.spatial-card-case { margin-top: 34px; }
+.spatial-card-case .section-title { margin-top: 0; }
+.spatial-card-case-lede { max-width: 680px; margin: -6px 0 16px; color: var(--gray-600); font-size: 14px; line-height: 1.7; }
+.spatial-card-case-lede.lang-zh { margin-top: 2px; color: var(--gray-500); font-size: 13px; }
+.spatial-card-case-demo { overflow: hidden; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); box-shadow: inset 0 1px 0 rgba(255,255,255,.85); }
+.spatial-card-case-demo > .fragment { display: block; width: 100%; height: auto; }
+.spatial-card-case-demo .demo-style-spatial-card-layouts { margin: 0 auto; }
+.spatial-card-case-note { margin: 9px 2px 0; color: var(--gray-400); font-size: 12px; line-height: 1.55; }
+.spatial-card-case-note .lang-zh { margin-left: 8px; }
 
 /* ---------- sections ---------- */
 .sect { margin-top: 48px; max-width: 760px; }

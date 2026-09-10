@@ -1041,6 +1041,15 @@ def styles_hub_page():
     return page(UI["stylesTitle"], UI["stylesTitleZh"], STYLES_META.get("hubTagline", "")[:150],
                 STYLES_META_ZH.get("hubTagline_zh", "")[:80], body, "styles/", og_image="/assets/og/_styles.png")
 
+def spatial_card_case():
+    """Embedded interaction case for the existing Isometric 3D style page."""
+    return f'''<section class="sect spatial-card-case" style="max-width:none">
+ <h2 class="section-title"><span class="lang-en">Six spatial card layouts</span><span class="lang-zh">六种立体感卡片布局</span></h2>
+ {bi("A card collection can use depth to explain order, focus, and browsing.", "一组卡片可以用纵深解释顺序、焦点和浏览方式。", "p", "spatial-card-case-lede")}
+ <div class="spatial-card-case-demo"><div class="fragment" data-slug="style-spatial-card-layouts">{demo_fragment("style-spatial-card-layouts")}</div></div>
+ <p class="spatial-card-case-note"><span class="lang-en">Use the controls to compare the same content across six spatial relationships.</span><span class="lang-zh">用右侧控制切换同一组内容的六种空间关系。</span></p>
+</section>'''
+
 def style_page(s):
     z = style_zh(s)
     en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
@@ -1176,6 +1185,7 @@ def style_page(s):
         scope = paras(s["scope"], z.get("scope_zh", ""), "guide-para")
 
     md = style_markdown(s, z)
+    spatial_case = spatial_card_case() if s.get("slug") == "isometric-3d" else ""
     body = f'''{header()}
 <main class="wrap entry">
  <nav class="crumbs">
@@ -1196,6 +1206,7 @@ def style_page(s):
  </header>
  {stage("style-" + s["slug"], detail=True)}
  <p class="stage-hint lang-zh">标本可交互，可以直接操作。</p>
+ {spatial_case}
  {aliases}
  {dna}
  {confused}
