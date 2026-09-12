@@ -150,7 +150,8 @@ def stage(slug, detail=False, eager=False):
                 '<span class="preview-loading"><span class="lang-zh">预览加载中…</span><span class="lang-en">Loading preview…</span></span>'
                 '<span class="stage-preview-error" hidden>打开详情查看标本</span>'
                 f'<noscript><img class="stage-preview" src="/assets/demo-thumbs/{thumbnail}-zh.webp" width="600" height="360" loading="lazy" alt=""><style>.preview-loading{{display:none}}</style></noscript></div>')
-    return (f'<div class="stage stage-detail"><div class="stage-center">'
+    safe_slug = re.sub(r"[^a-z0-9_-]", "-", slug.lower())
+    return (f'<div class="stage stage-detail stage-detail-{safe_slug}"><div class="stage-center">'
             f'<div class="fragment" data-slug="{esc(slug)}">{demo_fragment(slug)}</div>'
             f'</div></div>')
 
@@ -428,7 +429,7 @@ def homepage():
  </div>
 </main>
 {footer()}
-<script id="search-index" type="application/json">{search_json}</script>'''
+<script id="search-index" type="application/json" data-src="/api/search-index.json"></script>'''
     return page(UI["heroTitle"], UI["heroTitleZh"], UI["heroSub"], UI["heroSubZh"], body, og_image="/assets/og/_home.png")
 
 def api_table(e, z):
@@ -531,9 +532,9 @@ def entry_page(e):
   </h1>
   {bi(e["tagline"], z["tagline_zh"], "p", "entry-tag")}
   <dl class="entry-meta">
-   <div class="meta-row"><dt>{esc(en_ac)}<span class="lang-zh dt-zh">{esc(zh_ac)}</span></dt>
+   <div class="meta-row"><dt><span class="lang-en">{esc(en_ac)}</span><span class="lang-zh dt-zh">{esc(zh_ac)}</span></dt>
     <dd><span class="lang-en">{esc(aka_en)}</span><span class="lang-zh zh-line">{esc(aka_zh)}</span></dd></div>
-   <div class="meta-row"><dt>{esc(en_fy)}<span class="lang-zh dt-zh">{esc(zh_fy)}</span></dt>
+   <div class="meta-row"><dt><span class="lang-en">{esc(en_fy)}</span><span class="lang-zh dt-zh">{esc(zh_fy)}</span></dt>
    <dd><ul class="fuzzy-list">{fuzzy_rows}</ul></dd></div>
   </dl>
   <div class="entry-actions">{select_button("entry:" + e["slug"])}</div>
@@ -1347,6 +1348,19 @@ def vs_page(a_slug, b_slug):
     return page(title_en, title_zh, en_d[:150], zh_d[:80], body, path,
                 og_image=f"/assets/og/vs-{x}-vs-{y}.png", jsonld=ld)
 
+def search_index_data():
+    items = []
+    for e in ENTRIES:
+        z = ZH[e["slug"]]
+        items.append({
+            "slug": e["slug"], "platform": e["platform"], "url": entry_url(e),
+            "name": e["name"], "name_zh": z["name_zh"], "tagline": e["tagline"],
+            "tagline_zh": z["tagline_zh"], "symbol": e["api"][0]["symbol"],
+            "aka": e["aka"], "aka_zh": z["aka_zh"],
+            "fuzzy": e["fuzzy"], "fuzzy_zh": z["fuzzy_zh"],
+        })
+    return items
+
 def catalog_data():
     items = []
     for e in ENTRIES:
@@ -1457,6 +1471,7 @@ def build():
     shutil.copyfile(os.path.join(ROOT, "LICENSE"), os.path.join(OUT, "LICENSE.txt"))
     write("assets/demo-i18n.js", "window.DEMO_I18N=" + json.dumps(DEMO_I18N, ensure_ascii=False) + ";")
     write("api/catalog.json", json.dumps(catalog_data(), ensure_ascii=False, separators=(",", ":")))
+    write("api/search-index.json", json.dumps(search_index_data(), ensure_ascii=False, separators=(",", ":")))
     write("api/taxonomy.json", json.dumps(PM_TAXONOMY, ensure_ascii=False, indent=2))
     write("api/demo-i18n.json", json.dumps(DEMO_I18N, ensure_ascii=False, indent=2))
     write("api/README.md", catalog_readme())

@@ -247,7 +247,7 @@
   /* ---------- homepage search / tabs / surprise ---------- */
   var indexEl = document.getElementById("search-index");
   if (indexEl) {
-    var INDEX = JSON.parse(indexEl.textContent);
+    function setupSearch(INDEX) {
     var bySlug = {};
     INDEX.forEach(function (it) { bySlug[it.slug] = it; });
     var cards = Array.prototype.slice.call(document.querySelectorAll(".catalog-item[data-platform]"));
@@ -255,7 +255,7 @@
     var noResult = document.getElementById("no-result");
     var countNote = document.getElementById("count-note");
     var tabBtns = Array.prototype.slice.call(document.querySelectorAll(".tab[data-filter]"));
-    var state = { q: "", platform: "all" };
+    var state = { q: searchInput ? searchInput.value : "", platform: "all" };
 
     function score(item, q) {
       var s = 0;
@@ -358,7 +358,7 @@
       searchInput.value = qq;
       state.q = qq;
     }
-    if (qp || qq) apply();
+    if (qp || qq || state.q) apply();
 
     // no-result example chips
     document.querySelectorAll(".no-result-examples button[data-q]").forEach(function (btn) {
@@ -381,6 +381,28 @@
         var pick = pool[Math.floor(Math.random() * pool.length)];
         if (pick) location.href = pick.url;
       });
+    }
+    }
+    var searchSource = indexEl.getAttribute("data-src");
+    if (searchSource) {
+      var loadSearch = function () {
+        if (indexEl.dataset.loaded === "true" || indexEl.dataset.loading === "true") return;
+        indexEl.dataset.loading = "true";
+        fetch(searchSource).then(function (response) {
+          if (!response.ok) throw new Error("search index unavailable");
+          return response.json();
+        }).then(function (data) { indexEl.dataset.loaded = "true"; setupSearch(data); }).catch(function () {
+          delete indexEl.dataset.loading;
+        });
+      };
+      var searchInput = document.getElementById("search");
+      if (searchInput) searchInput.addEventListener("focus", loadSearch, { once: true });
+      var params = new URLSearchParams(location.search);
+      if (params.get("q") || params.get("platform")) loadSearch();
+      else if (window.requestIdleCallback) requestIdleCallback(loadSearch, { timeout: 1200 });
+      else setTimeout(loadSearch, 900);
+    } else {
+      setupSearch(JSON.parse(indexEl.textContent));
     }
   }
 

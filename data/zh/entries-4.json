@@ -602,7 +602,12 @@
   "name_zh": "容器变形（7 种模式）",
   "tagline_zh": "容器改变形状、大小或排版，但内容始终保持连续",
   "description_zh": "容器变形指同一个 UI 对象在不同状态之间改变形状、尺寸或内部排版，而不是消失后换成另一个盒子。可以根据变化重点分成七种常见模式：轮廓变化、尺寸变化、内容展开、内容重排，以及完成后的反向收回。",
-  "aka_zh": ["容器变换", "变形卡片", "共享容器过渡", "iOS 容器过渡"],
+  "aka_zh": [
+   "容器变换",
+   "变形卡片",
+   "共享容器过渡",
+   "iOS 容器过渡"
+  ],
   "fuzzy_zh": [
    "小圆点拉长成状态胶囊",
    "胶囊向下展开成详情卡片",
@@ -621,123 +626,332 @@
   "prompt_zh": "做一个容器变形示例，包含七个可切换模式：Circle to Pill（居中的小圆点水平拉长，先出现图标再出现文字）；Pill to Card（单行状态胶囊向下展开，同时保留顶部信息）；Compact to Expanded（同一个控件展开成完整面板并重新排列操作）；Corner Radius Morph（尺寸不变，只把胶囊圆角变成卡片圆角）；Size Morph（从固定左上角向右下方变大，保持内容层级）；Content Reflow（从上下堆叠变成左右排版，阅读顺序不变）；Reverse Collapse（先恢复文字和按钮，再缩回原来的小圆点，同时保留完成状态）。尽量使用 transform 或 clip-path，默认状态要可见，每个过渡都能被打断并尊重 prefers-reduced-motion。",
   "debugPrompt_zh": "调试我的容器变形过渡。检查起点和终点形状是否明确；容器是否有稳定锚点；图标、标题、详情和按钮是否按顺序出现；布局变化时是否跳动或重叠；动画被打断或反向时是否从当前状态继续；反向收回后是否保留完成状态；以及 prefers-reduced-motion 是否减少位移但仍显示最终状态。症状是：",
   "parts_zh": {
-   "circle-to-pill": {"name_zh": "圆点变胶囊", "description_zh": "小圆入口向两侧拉长，变成可读的状态胶囊。", "prompt_zh": "居中的小圆点向左右展开成胶囊，先显示图标，再显示标签"},
-   "pill-to-card": {"name_zh": "胶囊展开成卡片", "description_zh": "单行状态胶囊向下展开成详情卡片，同时保留顶部信息。", "prompt_zh": "状态胶囊向下展开成卡片，保留图标和标题，再显示详情和操作"},
-   "compact-to-expanded": {"name_zh": "紧凑态展开", "description_zh": "小控件展开成同一任务的完整面板。", "prompt_zh": "同一个控件展开成完整面板，让封面、进度和快捷操作移动到最终位置"},
-   "corner-radius-morph": {"name_zh": "圆角形态过渡", "description_zh": "盒子尺寸不变，只从胶囊圆角过渡到卡片圆角。", "prompt_zh": "保持容器尺寸稳定，让四个角从全圆角缓动到 16px 卡片圆角"},
-   "size-morph": {"name_zh": "尺寸变形", "description_zh": "容器从固定锚点变大，同时保持内容层级。", "prompt_zh": "固定左上角，容器向右下方变大，保持内部对齐，最后突出主要数值"},
-   "content-reflow": {"name_zh": "内容重排", "description_zh": "可用宽度变化时，同一组内容从上下堆叠重新排成一行。", "prompt_zh": "让标题、说明、状态和操作从上下结构平滑重排为左右结构，阅读顺序不变"},
-   "reverse-collapse": {"name_zh": "反向收回", "description_zh": "完成卡片按顺序回到最初的小入口。", "prompt_zh": "先恢复按钮和文字，再缩小卡片，最后回到原来的小圆点，但保留完成勾选"}
+   "circle-to-pill": {
+    "name_zh": "圆点变胶囊",
+    "description_zh": "小圆入口向两侧拉长，变成可读的状态胶囊。",
+    "prompt_zh": "居中的小圆点向左右展开成胶囊，先显示图标，再显示标签"
+   },
+   "pill-to-card": {
+    "name_zh": "胶囊展开成卡片",
+    "description_zh": "单行状态胶囊向下展开成详情卡片，同时保留顶部信息。",
+    "prompt_zh": "状态胶囊向下展开成卡片，保留图标和标题，再显示详情和操作"
+   },
+   "compact-to-expanded": {
+    "name_zh": "紧凑态展开",
+    "description_zh": "小控件展开成同一任务的完整面板。",
+    "prompt_zh": "同一个控件展开成完整面板，让封面、进度和快捷操作移动到最终位置"
+   },
+   "corner-radius-morph": {
+    "name_zh": "圆角形态过渡",
+    "description_zh": "盒子尺寸不变，只从胶囊圆角过渡到卡片圆角。",
+    "prompt_zh": "保持容器尺寸稳定，让四个角从全圆角缓动到 16px 卡片圆角"
+   },
+   "size-morph": {
+    "name_zh": "尺寸变形",
+    "description_zh": "容器从固定锚点变大，同时保持内容层级。",
+    "prompt_zh": "固定左上角，容器向右下方变大，保持内部对齐，最后突出主要数值"
+   },
+   "content-reflow": {
+    "name_zh": "内容重排",
+    "description_zh": "可用宽度变化时，同一组内容从上下堆叠重新排成一行。",
+    "prompt_zh": "让标题、说明、状态和操作从上下结构平滑重排为左右结构，阅读顺序不变"
+   },
+   "reverse-collapse": {
+    "name_zh": "反向收回",
+    "description_zh": "完成卡片按顺序回到最初的小入口。",
+    "prompt_zh": "先恢复按钮和文字，再缩小卡片，最后回到原来的小圆点，但保留完成勾选"
+   }
   }
  },
  "otp-input": {
   "name_zh": "验证码输入框 OTP Input（一次性代码）",
   "tagline_zh": "用于输入短验证码的分段式输入框",
   "description_zh": "OTP Input（一次性代码输入框）把短验证码视觉上拆成多个格子，但实际仍应保持一个连贯的输入、粘贴、校验和辅助技术体验。分段只是视觉提示，用户仍应能像输入一个值一样快速完成操作。",
-  "aka_zh": ["一次性代码输入框", "验证码输入框", "PIN 输入框"],
-  "fuzzy_zh": ["登录验证码的六个小格子", "每个数字都有自己位置的输入框", "输入后自动跳到下一个格子的验证码框", "支持粘贴验证码的输入框"],
-  "api_notes_zh": ["让移动键盘和密码管理器提供帮助", "让辅助技术把它读成一个字段，而不是六个互不相关的输入框", "把粘贴的数字拆到各个格子，并按可预期的顺序移动焦点", "不用只靠颜色，也要让当前格子足够明显"],
+  "aka_zh": [
+   "一次性代码输入框",
+   "验证码输入框",
+   "PIN 输入框"
+  ],
+  "fuzzy_zh": [
+   "登录验证码的六个小格子",
+   "每个数字都有自己位置的输入框",
+   "输入后自动跳到下一个格子的验证码框",
+   "支持粘贴验证码的输入框"
+  ],
+  "api_notes_zh": [
+   "让移动键盘和密码管理器提供帮助",
+   "让辅助技术把它读成一个字段，而不是六个互不相关的输入框",
+   "把粘贴的数字拆到各个格子，并按可预期的顺序移动焦点",
+   "不用只靠颜色，也要让当前格子足够明显"
+  ],
   "prompt_zh": "构建一个可访问的 OTP 输入框，显示六个格子但维护一个逻辑值：使用 numeric inputmode 和 autocomplete=one-time-code；粘贴时分配字符；退格先清空当前格，再移动到上一个格子；焦点移动可预期。只向辅助技术暴露一次组标签；每个格子至少 44px 高；显示清晰的 focus-visible 焦点环；遵守 prefers-reduced-motion。",
   "debugPrompt_zh": "调试我的 OTP 输入框。检查：移动键盘是否使用数字模式；autocomplete 是否能填充整段代码；粘贴是否只分配允许的数字；输入是否恰好前进一个格子；退格是否先清除再向后移动；方向键和焦点恢复是否正常；屏幕阅读器是否听到一个有标签的代码字段，而不是六个令人困惑的字段；无效和完成状态是否会播报；reduced-motion 是否仍保留插入光标和焦点环。症状：",
   "parts_zh": {
-   "code-slots": {"name_zh": "代码格", "description_zh": "显示验证码中每个数字或字符的独立小格。", "prompt_zh": "六个等宽数字代码格，当前格显示清晰的插入光标"},
-   "focus-slot": {"name_zh": "当前格", "description_zh": "接收下一个字符并承担键盘焦点提示的格子。", "prompt_zh": "当前 OTP 格显示 2px focus-visible 焦点环和稳定插入光标"},
-   "otp-status": {"name_zh": "校验状态", "description_zh": "确认代码完成，或说明代码为何被拒绝的短消息。", "prompt_zh": "使用 inline status 区域播报代码已接受、未完成或无效，不让布局跳动"}
+   "code-slots": {
+    "name_zh": "代码格",
+    "description_zh": "显示验证码中每个数字或字符的独立小格。",
+    "prompt_zh": "六个等宽数字代码格，当前格显示清晰的插入光标"
+   },
+   "focus-slot": {
+    "name_zh": "当前格",
+    "description_zh": "接收下一个字符并承担键盘焦点提示的格子。",
+    "prompt_zh": "当前 OTP 格显示 2px focus-visible 焦点环和稳定插入光标"
+   },
+   "otp-status": {
+    "name_zh": "校验状态",
+    "description_zh": "确认代码完成，或说明代码为何被拒绝的短消息。",
+    "prompt_zh": "使用 inline status 区域播报代码已接受、未完成或无效，不让布局跳动"
+   }
   }
  },
  "duration-picker": {
   "name_zh": "时长选择器 Duration Picker",
   "tagline_zh": "用于选择一段时间长度的紧凑控件",
   "description_zh": "时长选择器选择的是一段时间长度，而不是某个钟点。它通常把小时和分钟与步进按钮、常用预设组合起来，再用通俗文字总结结果，让用户容易确认最终时长。",
-  "aka_zh": ["时间间隔选择器", "小时和分钟选择器", "时长选择控件"],
-  "fuzzy_zh": ["小时和分钟的组合控件", "选择会议时长的小选择器", "用两个数字字段设置时间跨度", "选择 15、30 或 60 分钟的控件"],
-  "api_notes_zh": ["用 min、max、step 和标签约束每个单位", "让单位和限制对辅助技术清晰可懂", "把分钟规范化，并在需要时进位到小时", "让变化中的数字不把布局顶来顶去"],
+  "aka_zh": [
+   "时间间隔选择器",
+   "小时和分钟选择器",
+   "时长选择控件"
+  ],
+  "fuzzy_zh": [
+   "小时和分钟的组合控件",
+   "选择会议时长的小选择器",
+   "用两个数字字段设置时间跨度",
+   "选择 15、30 或 60 分钟的控件"
+  ],
+  "api_notes_zh": [
+   "用 min、max、step 和标签约束每个单位",
+   "让单位和限制对辅助技术清晰可懂",
+   "把分钟规范化，并在需要时进位到小时",
+   "让变化中的数字不把布局顶来顶去"
+  ],
   "prompt_zh": "构建一个小时和分钟时长选择器。为每个数字控件提供标签、合理的 min/max/step；把 60 分钟进位为 1 小时；支持键盘增减；提供常用预设；始终显示总时长。使用等宽数字、清晰的边界禁用状态和简洁校验消息；预设反馈遵守 prefers-reduced-motion。",
   "debugPrompt_zh": "调试我的时长选择器。检查：小时和分钟是否分别有标签；值是否限制在有效范围；60 分钟是否进位到小时；键盘和鼠标步进是否一致；预设是否同时更新两个单位；零时长是否有明确处理；错误消息是否不让表单跳动；屏幕阅读器是否听到单位和总时长；reduced-motion 用户是否仍能看见选中的预设。症状：",
   "parts_zh": {
-   "unit-field": {"name_zh": "单位字段", "description_zh": "用于输入小时或分钟的带标签数字字段。", "prompt_zh": "紧凑数字字段，明确标注 Hours 或 Minutes，并显示单位后缀"},
-   "duration-presets": {"name_zh": "时长预设", "description_zh": "一步设置选择器的常用时长。", "prompt_zh": "15 分钟、30 分钟和 1 小时预设按钮，保留持续的选中状态"},
-   "duration-summary": {"name_zh": "时长摘要", "description_zh": "确认合计时长的可读句子。", "prompt_zh": "把 Total duration: 45 minutes 这样的实时摘要放在控件旁边"}
+   "unit-field": {
+    "name_zh": "单位字段",
+    "description_zh": "用于输入小时或分钟的带标签数字字段。",
+    "prompt_zh": "紧凑数字字段，明确标注 Hours 或 Minutes，并显示单位后缀"
+   },
+   "duration-presets": {
+    "name_zh": "时长预设",
+    "description_zh": "一步设置选择器的常用时长。",
+    "prompt_zh": "15 分钟、30 分钟和 1 小时预设按钮，保留持续的选中状态"
+   },
+   "duration-summary": {
+    "name_zh": "时长摘要",
+    "description_zh": "确认合计时长的可读句子。",
+    "prompt_zh": "把 Total duration: 45 minutes 这样的实时摘要放在控件旁边"
+   }
   }
  },
  "animated-counter": {
   "name_zh": "动态数字计数器 Animated Counter",
   "tagline_zh": "用短暂计数过程让数值变化更容易被注意到",
   "description_zh": "动态数字计数器把数字变化变成一段短而易读的过渡。当变化本身很重要，例如完成任务数或价格更新，它能帮助用户注意到新值；但不应让用户等待才能读到结果。",
-  "aka_zh": ["里程表计数器", "数字补间", "数字递增动画"],
-  "fuzzy_zh": ["滚动到最终数字的统计值", "从 0 数到 100 的指标", "会动的价格或数据", "数值变化时翻动的数字"],
-  "api_notes_zh": ["用有边界的帧循环补间数字", "让变化中的数字保持对齐，不推动指标布局", "只播报最终稳定值，不播报每一帧", "减少动态效果时直接跳到最终值"],
+  "aka_zh": [
+   "里程表计数器",
+   "数字补间",
+   "数字递增动画"
+  ],
+  "fuzzy_zh": [
+   "滚动到最终数字的统计值",
+   "从 0 数到 100 的指标",
+   "会动的价格或数据",
+   "数值变化时翻动的数字"
+  ],
+  "api_notes_zh": [
+   "用有边界的帧循环补间数字",
+   "让变化中的数字保持对齐，不推动指标布局",
+   "只播报最终稳定值，不播报每一帧",
+   "减少动态效果时直接跳到最终值"
+  ],
   "prompt_zh": "构建一个动态数字计数器，用 450ms 的 ease-out 从旧值过渡到新值。使用等宽数字保持对齐；格式化货币和分隔符时不让布局跳动；aria-live 只暴露稳定后的值；值再次变化时取消正在进行的补间；在 prefers-reduced-motion 下立即渲染最终值。",
   "debugPrompt_zh": "调试我的动态数字计数器。检查：数字格式变化是否影响宽度；新值到来时动画是否干净取消；元素离屏时 requestAnimationFrame 是否停止；屏幕阅读器是否不会听到每个中间数字；数字减少时是否同样有明确动画；NaN 和缺失值是否有清晰兜底；reduced-motion 是否立即显示稳定值。症状：",
   "parts_zh": {
-   "counter-value": {"name_zh": "稳定值", "description_zh": "用户最终需要读取和据此行动的格式化数字。", "prompt_zh": "动画结束后只在一个 live region 中放置最终格式化数字"},
-   "digit-track": {"name_zh": "数字轨道", "description_zh": "过渡期间移动并保持对齐的视觉数字。", "prompt_zh": "使用等宽数字右对齐，每位变化时保持稳定宽度"},
-   "counter-trigger": {"name_zh": "数值触发器", "description_zh": "启动新一轮计数的事件或数据更新。", "prompt_zh": "一个有明确标签的更新操作，提供旧值和新值"}
+   "counter-value": {
+    "name_zh": "稳定值",
+    "description_zh": "用户最终需要读取和据此行动的格式化数字。",
+    "prompt_zh": "动画结束后只在一个 live region 中放置最终格式化数字"
+   },
+   "digit-track": {
+    "name_zh": "数字轨道",
+    "description_zh": "过渡期间移动并保持对齐的视觉数字。",
+    "prompt_zh": "使用等宽数字右对齐，每位变化时保持稳定宽度"
+   },
+   "counter-trigger": {
+    "name_zh": "数值触发器",
+    "description_zh": "启动新一轮计数的事件或数据更新。",
+    "prompt_zh": "一个有明确标签的更新操作，提供旧值和新值"
+   }
   }
  },
  "scroll-progress-indicator": {
   "name_zh": "滚动进度指示器 Scroll Progress Indicator",
   "tagline_zh": "显示读者在长页面中已经阅读到哪里",
   "description_zh": "滚动进度指示器给长页面的读者一个轻量的位置感。它是导航辅助，不是任务完成度量表；计算范围和无障碍标签都应明确描述阅读进度。",
-  "aka_zh": ["阅读进度", "滚动进度条", "文章进度"],
-  "fuzzy_zh": ["阅读时逐渐填满的细线", "文章顶部的进度条", "页面位置指示器", "读者进度提示"],
-  "api_notes_zh": ["根据可阅读文档的范围推导进度", "固定提示而不影响页面布局", "在百分比有帮助时暴露有意义的数值", "移除平滑过渡但保留位置提示"],
+  "aka_zh": [
+   "阅读进度",
+   "滚动进度条",
+   "文章进度"
+  ],
+  "fuzzy_zh": [
+   "阅读时逐渐填满的细线",
+   "文章顶部的进度条",
+   "页面位置指示器",
+   "读者进度提示"
+  ],
+  "api_notes_zh": [
+   "根据可阅读文档的范围推导进度",
+   "固定提示而不影响页面布局",
+   "在百分比有帮助时暴露有意义的数值",
+   "移除平滑过渡但保留位置提示"
+  ],
   "prompt_zh": "为长文章构建滚动进度指示器。根据视口底部相对于可阅读起点和终点的位置计算进度；渲染固定在顶部的 3px 进度条，用 transform scaleX 而不是 width；只在有帮助时暴露可访问百分比；不遮挡焦点目标；高效地节流或调度更新；在 prefers-reduced-motion 下关闭平滑动画。",
   "debugPrompt_zh": "调试我的滚动进度指示器。检查：分母是否排除了视口高度；进度是否在合理位置从 0 到 100；短页面是否不会显示误导性的部分进度；fixed 定位是否遮住跳转链接或焦点环；更新是否使用 passive 和节流；嵌套滚动容器是否有明确处理；reduced-motion 是否只去掉平滑过渡而保留提示。症状：",
   "parts_zh": {
-   "progress-track": {"name_zh": "进度轨道", "description_zh": "承载阅读提示的安静背景线。", "prompt_zh": "页面顶部固定 3px 轨道，与背景保持足够对比"},
-   "progress-fill": {"name_zh": "进度填充", "description_zh": "随读者位置增长的已填充部分。", "prompt_zh": "使用 transform scaleX 和 transform-origin:left center 从左侧填充"},
-   "reading-range": {"name_zh": "阅读范围", "description_zh": "用于计算有意义进度的起点和终点。", "prompt_zh": "从文章起点到可读终点计算进度，排除视口下方空白尾部"}
+   "progress-track": {
+    "name_zh": "进度轨道",
+    "description_zh": "承载阅读提示的安静背景线。",
+    "prompt_zh": "页面顶部固定 3px 轨道，与背景保持足够对比"
+   },
+   "progress-fill": {
+    "name_zh": "进度填充",
+    "description_zh": "随读者位置增长的已填充部分。",
+    "prompt_zh": "使用 transform scaleX 和 transform-origin:left center 从左侧填充"
+   },
+   "reading-range": {
+    "name_zh": "阅读范围",
+    "description_zh": "用于计算有意义进度的起点和终点。",
+    "prompt_zh": "从文章起点到可读终点计算进度，排除视口下方空白尾部"
+   }
   }
  },
  "code-block": {
   "name_zh": "代码块 Code Block",
   "tagline_zh": "带有上下文、复制功能和逐行结构的可读代码示例",
   "description_zh": "代码块把源代码呈现为一个可读、可复制的整体。好的代码块会保留空白、标明语言、把长行限制在示例内部，并保证即使没有语法颜色也能理解代码。",
-  "aka_zh": ["代码片段", "语法高亮代码块", "预格式化代码"],
-  "fuzzy_zh": ["里面放着代码的深色盒子", "带复制按钮的代码示例", "开发者示例面板", "带行号和语法高亮的文字"],
-  "api_notes_zh": ["保留空白，并把代码作为文本暴露", "复制源代码，而不是复制高亮后的标记", "标明语言并播报复制反馈", "保持缩进可读，同时不让长行撑破页面"],
+  "aka_zh": [
+   "代码片段",
+   "语法高亮代码块",
+   "预格式化代码"
+  ],
+  "fuzzy_zh": [
+   "里面放着代码的深色盒子",
+   "带复制按钮的代码示例",
+   "开发者示例面板",
+   "带行号和语法高亮的文字"
+  ],
+  "api_notes_zh": [
+   "保留空白，并把代码作为文本暴露",
+   "复制源代码，而不是复制高亮后的标记",
+   "标明语言并播报复制反馈",
+   "保持缩进可读，同时不让长行撑破页面"
+  ],
   "prompt_zh": "构建一个代码块，包含语言标签、可选行号、复制按钮、只在代码区域内滚动的横向溢出，以及不降低对比度的语法高亮。使用真实的 pre/code 结构；复制纯源文本；在 status 区域播报 Copied；保留键盘焦点；提供可读的浅色回退方案。",
   "debugPrompt_zh": "调试我的代码块。检查：复制得到的是纯源代码而不是渲染后的 HTML；长行在代码块内部滚动；行号不会被复制；语言标签是否关联到示例；复制按钮是否有明显焦点环并能重置反馈；键盘用户能否完整操作；没有颜色时高亮是否仍不隐藏含义。症状：",
   "parts_zh": {
-   "code-context": {"name_zh": "代码上下文栏", "description_zh": "告诉读者语言和用途，并提供操作的紧凑页眉。", "prompt_zh": "紧凑页眉左侧放语言名，右上角对齐复制按钮"},
-   "code-source": {"name_zh": "代码源文", "description_zh": "保留缩进和换行的源文本。", "prompt_zh": "使用 tab-size:2 的 pre/code 区域，可选中文本，横向溢出只在本地滚动"},
-   "copy-feedback": {"name_zh": "复制反馈", "description_zh": "告诉用户源代码已经进入剪贴板的短确认。", "prompt_zh": "使用 polite status 显示 Copied 1.5 秒，不推动代码布局"}
+   "code-context": {
+    "name_zh": "代码上下文栏",
+    "description_zh": "告诉读者语言和用途，并提供操作的紧凑页眉。",
+    "prompt_zh": "紧凑页眉左侧放语言名，右上角对齐复制按钮"
+   },
+   "code-source": {
+    "name_zh": "代码源文",
+    "description_zh": "保留缩进和换行的源文本。",
+    "prompt_zh": "使用 tab-size:2 的 pre/code 区域，可选中文本，横向溢出只在本地滚动"
+   },
+   "copy-feedback": {
+    "name_zh": "复制反馈",
+    "description_zh": "告诉用户源代码已经进入剪贴板的短确认。",
+    "prompt_zh": "使用 polite status 显示 Copied 1.5 秒，不推动代码布局"
+   }
   }
  },
  "destructive-action": {
   "name_zh": "危险操作 Destructive Action（危险按钮）",
   "tagline_zh": "明确标记可能删除或不可逆改变数据的操作",
   "description_zh": "危险操作会删除数据，或造成难以撤销的改变。这个模式由后果和沟通方式定义：准确命名动作，在必要时让用户重新考虑，并让进度和恢复路径可见。",
-  "aka_zh": ["危险按钮", "删除操作", "不可逆操作"],
-  "fuzzy_zh": ["红色的删除按钮", "会移除项目的按钮", "危险操作的确认按钮", "删除对话框里的最终按钮"],
-  "api_notes_zh": ["把后果和恢复路径连接起来", "不要让危险操作意外成为表单提交", "根据可逆性和代价决定是否打断，并匹配撤销", "让危险、焦点和禁用状态彼此清楚"],
+  "aka_zh": [
+   "危险按钮",
+   "删除操作",
+   "不可逆操作"
+  ],
+  "fuzzy_zh": [
+   "红色的删除按钮",
+   "会移除项目的按钮",
+   "危险操作的确认按钮",
+   "删除对话框里的最终按钮"
+  ],
+  "api_notes_zh": [
+   "把后果和恢复路径连接起来",
+   "不要让危险操作意外成为表单提交",
+   "根据可逆性和代价决定是否打断，并匹配撤销",
+   "让危险、焦点和禁用状态彼此清楚"
+  ],
   "prompt_zh": "为删除已保存项目构建危险操作模式。使用具体动词；在最终操作前解释后果；确认界面默认聚焦 Cancel，并保留危险操作；防止误触发提交；请求期间显示禁用或加载状态；操作可逆时提供 Undo。颜色只是辅助警示，不能成为唯一提示。",
   "debugPrompt_zh": "调试我的危险操作。检查：标签是否写明确切后果；Cancel 和危险操作的焦点顺序是否有意设计；按 Enter 是否会意外删除；加载中是否防止重复请求；错误是否说明恢复方法；危险颜色是否满足对比度；键盘和屏幕阅读器用户是否得到同样警示；服务器可恢复时是否出现撤销路径。症状：",
   "parts_zh": {
-   "danger-label": {"name_zh": "后果标签", "description_zh": "让结果明确的动词和对象。", "prompt_zh": "使用 Delete project 这样的具体标签，而不是含糊的 Delete 或 Remove"},
-   "confirm-surface": {"name_zh": "确认界面", "description_zh": "重复后果并提供安全退出的受保护上下文。", "prompt_zh": "alertdialog 中写出项目名、后果、Cancel 和最终危险操作"},
-   "undo-feedback": {"name_zh": "撤销反馈", "description_zh": "可逆删除后的短暂恢复窗口。", "prompt_zh": "toast 显示 Project deleted，带 Undo 操作和可见倒计时"}
+   "danger-label": {
+    "name_zh": "后果标签",
+    "description_zh": "让结果明确的动词和对象。",
+    "prompt_zh": "使用 Delete project 这样的具体标签，而不是含糊的 Delete 或 Remove"
+   },
+   "confirm-surface": {
+    "name_zh": "确认界面",
+    "description_zh": "重复后果并提供安全退出的受保护上下文。",
+    "prompt_zh": "alertdialog 中写出项目名、后果、Cancel 和最终危险操作"
+   },
+   "undo-feedback": {
+    "name_zh": "撤销反馈",
+    "description_zh": "可逆删除后的短暂恢复窗口。",
+    "prompt_zh": "toast 显示 Project deleted，带 Undo 操作和可见倒计时"
+   }
   }
  },
  "ai-status-orb": {
   "name_zh": "AI 状态球 AI Status Orb",
   "tagline_zh": "用紧凑的动态焦点表达 AI 系统当前处于什么状态",
   "description_zh": "AI 状态球是对话式或生成式系统的视觉状态指示器。球只是承载物，产品含义来自明确的状态词、附近的文字标签，以及表达聆听、处理中或输出的动效；它不应把系统伪装成人。",
-  "aka_zh": ["语音助手球", "AI 状态指示器", "对话状态球"],
-  "fuzzy_zh": ["AI 思考时发光的球", "会聆听和说话的球", "语音助手状态动画", "屏幕中央的 AI 动态存在感"],
-  "api_notes_zh": ["在视觉旁用文字说明状态", "把 idle、listening、thinking、speaking 和 error 映射到明确动效", "限制光晕范围，只在独立焦点区域做动画", "冻结脉冲，但保留清晰的状态标记"],
+  "aka_zh": [
+   "语音助手球",
+   "AI 状态指示器",
+   "对话状态球"
+  ],
+  "fuzzy_zh": [
+   "AI 思考时发光的球",
+   "会聆听和说话的球",
+   "语音助手状态动画",
+   "屏幕中央的 AI 动态存在感"
+  ],
+  "api_notes_zh": [
+   "在视觉旁用文字说明状态",
+   "把 idle、listening、thinking、speaking 和 error 映射到明确动效",
+   "限制光晕范围，只在独立焦点区域做动画",
+   "冻结脉冲，但保留清晰的状态标记"
+  ],
   "prompt_zh": "构建一个 AI 状态球，包含 Idle、Listening、Thinking、Speaking 和 Error 五种明确状态。每个视觉状态都配有可见文字标签和 role=status 播报；活动状态只使用有边界的分层光晕和缓慢缩放/脉冲；隐藏时停止或暂停动画；控件支持键盘；在 prefers-reduced-motion 下冻结球体并保留静态状态标记。",
   "debugPrompt_zh": "调试我的 AI 状态球。检查：动画是否由明确状态机驱动，而不是散落的布尔值；Idle 是否和 Thinking、Speaking 有区别；状态是否通过文字和 aria-live 播报且不会重复每一帧；焦点和指针控件是否可用；离屏和隐藏状态是否停止昂贵工作；错误是否有恢复操作；reduced-motion 是否冻结运动但保留状态区别。症状：",
   "parts_zh": {
-   "orb-core": {"name_zh": "球体核心", "description_zh": "给状态指示器提供稳定视觉锚点的中心形状。", "prompt_zh": "64px 状态球，中心安静，分层光照有边界，不做全屏发光"},
-   "state-motion": {"name_zh": "状态动效", "description_zh": "分配给每个 AI 状态的不同动效语法。", "prompt_zh": "Idle 静止，Listening 缓慢呼吸，Thinking 旋转克制光环，Speaking 随活动响应，Error 保持清晰静态警示"},
-   "state-label": {"name_zh": "状态标签", "description_zh": "让视觉状态可理解、可搜索的文字。", "prompt_zh": "球旁持续显示 Listening 或 Thinking 等文字标签，并礼貌播报"}
+   "orb-core": {
+    "name_zh": "球体核心",
+    "description_zh": "给状态指示器提供稳定视觉锚点的中心形状。",
+    "prompt_zh": "64px 状态球，中心安静，分层光照有边界，不做全屏发光"
+   },
+   "state-motion": {
+    "name_zh": "状态动效",
+    "description_zh": "分配给每个 AI 状态的不同动效语法。",
+    "prompt_zh": "Idle 静止，Listening 缓慢呼吸，Thinking 旋转克制光环，Speaking 随活动响应，Error 保持清晰静态警示"
+   },
+   "state-label": {
+    "name_zh": "状态标签",
+    "description_zh": "让视觉状态可理解、可搜索的文字。",
+    "prompt_zh": "球旁持续显示 Listening 或 Thinking 等文字标签，并礼貌播报"
+   }
   }
- }
-,
-"agent-processing-state": {
-  "name_zh": "Agent 处理状态 Agent Processing State",
+ },
+ "agent-processing-state": {
+  "name_zh": "Agent 处理状态",
   "tagline_zh": "让用户看见 AI Agent 在输入和结果之间正在做什么的状态序列",
   "description_zh": "Agent 处理状态让 Prompt 到结果之间的等待过程变得可理解。它用排队、思考、调用工具、等待、完成或失败等词说明当前阶段，让用户能决定继续等待、取消还是重试。这是产品状态界面，不是私有思维链的逐字记录。",
   "aka_zh": [
@@ -752,7 +966,12 @@
    "工具调用时的状态行",
    "Prompt 和回答之间的进度状态"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "构建一个 Agent 处理状态，用紧凑的步骤序列展示排队、思考、调用工具和完成/失败。当前步骤要最突出，配上直白的状态文字；用 role=\"status\" 只播报有意义的状态变化；在适用时提供取消或重试；开启 prefers-reduced-motion 时仍保留完整步骤序列。",
   "debugPrompt_zh": "调试我的 Agent 处理状态。检查所有状态是否来自一个明确的状态机；回答或错误后活动步骤不能卡住；aria-live 不能逐帧重复播报；工具调用要说清动作和目标；取消和重试始终可达；隐藏或离屏后停止动画；减少动态效果时仍有清晰的静态状态标记。症状：",
   "parts_zh": {
@@ -778,8 +997,8 @@
    }
   }
  },
-"streaming-response": {
-  "name_zh": "流式响应 Streaming Response",
+ "streaming-response": {
+  "name_zh": "流式响应",
   "tagline_zh": "让生成中的文字逐步出现，同时保持可停止、可重试和可复制",
   "description_zh": "流式响应让 AI 回答一边生成一边呈现，同时保持操作可中断。它把部分内容、生成状态、取消、重试和稳定的完成状态组合在一起。动效应表达真实的数据到达，不应在服务端停止后继续假装生成。",
   "aka_zh": [
@@ -794,7 +1013,12 @@
    "部分回答旁边的停止按钮",
    "可以中途取消的生成结果"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "构建一个流式 AI 响应区域，把可读的分段内容追加到真实文章中；生成时显示克制的活动标记，并在恰当状态提供停止、重试和复制。用 AbortController 取消请求；停止或出错后保留已生成内容；礼貌地播报重要节点；不要用无限打字动画伪造活动。",
   "debugPrompt_zh": "调试我的流式响应。检查分段是否按顺序追加且不重复；停止操作是否真的中止请求并清除忙碌状态；网络错误是否保留部分内容并提供重试；aria-live 是否逐 token 播报；完成后光标是否消失；复制是否返回纯文本；响应是否造成横向溢出。症状：",
   "parts_zh": {
@@ -820,8 +1044,8 @@
    }
   }
  },
-"agent-approval-card": {
-  "name_zh": "Agent 操作确认卡 Agent Approval Card",
+ "agent-approval-card": {
+  "name_zh": "Agent 操作确认卡",
   "tagline_zh": "在 Agent 执行计划或动作前，留出人工查看和批准的检查点",
   "description_zh": "Agent 操作确认卡在 Agent 执行命令、修改数据或联系外部服务前建立一个明确的人工检查点。它让拟执行的动作和影响范围可查看，并记录批准、拒绝或失败状态。",
   "aka_zh": [
@@ -836,7 +1060,12 @@
    "批准或拒绝面板",
    "带确认按钮的 AI 计划"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "为高影响的工具调用构建 Agent 操作确认卡。确认前展示 Agent 计划、目标、影响范围和待回答问题。View plan、Reject、Approve 三个操作要有清晰区别且键盘可达；说明批准会授权什么；防止重复提交；点击后替换为明确的已批准、已拒绝或失败状态。",
   "debugPrompt_zh": "调试我的 Agent 操作确认卡。检查批准的后果和目标是否在操作前可见；Approve 不会误提交外层表单；焦点顺序先落在更安全的操作；处理中阻止重复点击；拒绝和服务端失败保留计划以便恢复；状态变化会播报；动作已执行后不会再次显示确认卡。症状：",
   "parts_zh": {
@@ -862,8 +1091,8 @@
    }
   }
  },
-"diff-viewer": {
-  "name_zh": "差异查看器 Diff Viewer",
+ "diff-viewer": {
+  "name_zh": "差异查看器",
   "tagline_zh": "让新增、删除和修改行可以安全审阅的逐行对比界面",
   "description_zh": "差异查看器让用户在应用 AI 生成的文件改动前先进行检查。它把新增、删除、上下文、行号和恢复操作放在同一个审阅界面里，避免盲目信任生成的补丁。",
   "aka_zh": [
@@ -878,7 +1107,12 @@
    "代码审查里的变更面板",
    "应用修改前的补丁预览"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "为 AI 生成的文件改动构建差异查看器。展示文件路径、改动数量、行号，以及放在真实等宽区域中的新增/删除行；长行在查看器内横向滚动。绿色和红色只做辅助信号，提供复制、应用或撤销操作，并播报结果；复制时不要把行号或差异标记当成源代码。",
   "debugPrompt_zh": "调试我的差异查看器。检查新增和删除不依赖颜色也能区分；行号保持对齐；长代码在查看器内部滚动；复制按意图返回补丁或选中的源代码；应用操作不能执行两次；拒绝改动后原文件保持不变；键盘焦点可见；文件名和结果会播报。症状：",
   "parts_zh": {
@@ -904,8 +1138,8 @@
    }
   }
  },
-"agent-input-composer": {
-  "name_zh": "Agent 输入编排器 Agent Input Composer",
+ "agent-input-composer": {
+  "name_zh": "Agent 输入编排器",
   "tagline_zh": "把 Prompt 与模型、Skill、附件上下文组合在一起的任务输入区",
   "description_zh": "Agent 输入编排器不只是一个聊天文本框。它收集会改变 Agent 工作方式的上下文：模型、Skill、文件、工具和增强选项。好的输入区让这些上下文始终可见，并在加载和失败时保留草稿。",
   "aka_zh": [
@@ -920,7 +1154,12 @@
    "带增强 Prompt 按钮的输入区",
    "发送前选择模型的地方"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "构建 Agent 输入编排器：带标签的多行 Prompt 字段、模型选择、Skill 选择、附件控件和可选的增强 Prompt 操作。使用真实表单；提交前显示所选上下文；明确 Enter 与 Shift+Enter 的行为；错误后保留输入；处理中显示忙碌和禁用状态；不要隐藏用户草稿。",
   "debugPrompt_zh": "调试我的 Agent 输入编排器。检查 Enter 和 Shift+Enter 是否符合标签说明；模型和 Skill 菜单是否正确暴露展开与选中状态；附件能否在提交前移除；增强操作不会未经确认覆盖草稿；处理中阻止重复提交；错误保留 Prompt；所有控件都有键盘名称和可见焦点。症状：",
   "parts_zh": {
@@ -946,8 +1185,8 @@
    }
   }
  },
-"inline-citations": {
-  "name_zh": "行内引用 Inline Citations",
+ "inline-citations": {
+  "name_zh": "行内引用",
   "tagline_zh": "把来源放在论断旁边，让 AI 回答可以在上下文中核查",
   "description_zh": "行内引用把来源证据绑定到 AI 回答中的具体论断。标记、预览和来源链接组成一个交互：读者无需离开回答就能快速查看上下文，同时不会把引用编号本身误当成证据。",
   "aka_zh": [
@@ -962,7 +1201,12 @@
    "附在论断上的来源",
    "打开原文的引用标记"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "为 AI 回答构建行内引用。在有依据的论断旁放置紧凑的编号或标签标记，让每个标记可用键盘访问，并打开含标题、摘录和 Open source 操作的来源预览。引用不能只靠颜色区分；来源失败时保留回答；不要暗示超出引用证据的确定性。",
   "debugPrompt_zh": "调试我的行内引用。检查每个标记有唯一的可访问名称且指向正确来源；键盘焦点能稳定打开和关闭预览；引用不会造成段落布局跳动；缺失来源说明失败原因；外部链接说明目的地；标记或预览不可用时回答仍可读。症状：",
   "parts_zh": {
@@ -988,8 +1232,8 @@
    }
   }
  },
-"agent-task-list": {
-  "name_zh": "Agent 任务清单 Agent Task List",
+ "agent-task-list": {
+  "name_zh": "Agent 任务清单",
   "tagline_zh": "展示 Agent 计划中待处理、当前、完成和阻塞工作的紧凑清单",
   "description_zh": "Agent 任务清单把长时间运行的 Agent 变成可理解的计划。它展示做过什么、现在做什么以及哪里受阻，并在运行结束后保留原始顺序供复盘。",
   "aka_zh": [
@@ -1004,7 +1248,12 @@
    "Agent 运行进度面板",
    "显示哪个工具步骤被阻塞的列表"
   ],
-  "api_notes_zh": [null, null, null, null],
+  "api_notes_zh": [
+   null,
+   null,
+   null,
+   null
+  ],
   "prompt_zh": "为多步骤运行构建 Agent 任务清单。展示有序任务及待处理、当前、完成、跳过和阻塞状态；突出当前任务；提供简短结果或阻塞原因；在适用时提供取消、重试或继续。完成后保留计划供审计；不依赖颜色或动效表达状态。",
   "debugPrompt_zh": "调试我的 Agent 任务清单。检查任务顺序稳定；同一时间只有一个当前任务；完成后不删除计划；阻塞任务说明所需权限、输入或恢复操作；重试不会重复行；aria-current 和播报与可见状态一致；减少动态效果时仍能区分待处理、当前和完成。症状：",
   "parts_zh": {

@@ -640,3 +640,27 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .vs-more a { color: var(--blue); }
 .vs-links { margin: 28px 0 48px; font-size: 13.5px; color: var(--gray-500); }
 .vs-links a { color: var(--blue); }
+/* Agent interaction specimens use the detail stage width instead of floating as a narrow island. */
+.stage-detail-agent-processing-state,
+.stage-detail-streaming-response,
+.stage-detail-agent-approval-card,
+.stage-detail-diff-viewer,
+.stage-detail-agent-input-composer,
+.stage-detail-inline-citations,
+.stage-detail-agent-task-list { height: 340px; }
+.stage-detail-agent-processing-state .fragment > .demo,
+.stage-detail-streaming-response .fragment > .demo,
+.stage-detail-agent-approval-card .fragment > .demo,
+.stage-detail-diff-viewer .fragment > .demo,
+.stage-detail-agent-input-composer .fragment > .demo,
+.stage-detail-inline-citations .fragment > .demo,
+.stage-detail-agent-task-list .fragment > .demo { width: 100%; max-width: 760px; }
+@media (max-width: 760px) {
+  .stage-detail-agent-processing-state,
+  .stage-detail-streaming-response,
+  .stage-detail-agent-approval-card,
+  .stage-detail-diff-viewer,
+  .stage-detail-agent-input-composer,
+  .stage-detail-inline-citations,
+  .stage-detail-agent-task-list { height: 300px; }
+}
