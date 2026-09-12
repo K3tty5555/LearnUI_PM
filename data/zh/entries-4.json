@@ -735,4 +735,299 @@
    "state-label": {"name_zh": "状态标签", "description_zh": "让视觉状态可理解、可搜索的文字。", "prompt_zh": "球旁持续显示 Listening 或 Thinking 等文字标签，并礼貌播报"}
   }
  }
+,
+"agent-processing-state": {
+  "name_zh": "Agent 处理状态 Agent Processing State",
+  "tagline_zh": "让用户看见 AI Agent 在输入和结果之间正在做什么的状态序列",
+  "description_zh": "Agent 处理状态让 Prompt 到结果之间的等待过程变得可理解。它用排队、思考、调用工具、等待、完成或失败等词说明当前阶段，让用户能决定继续等待、取消还是重试。这是产品状态界面，不是私有思维链的逐字记录。",
+  "aka_zh": [
+   "代理活动状态",
+   "思考状态",
+   "代理进度状态",
+   "工具执行状态"
+  ],
+  "fuzzy_zh": [
+   "AI 工作时显示思考中的面板",
+   "展示 AI 正在做什么的步骤",
+   "工具调用时的状态行",
+   "Prompt 和回答之间的进度状态"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "构建一个 Agent 处理状态，用紧凑的步骤序列展示排队、思考、调用工具和完成/失败。当前步骤要最突出，配上直白的状态文字；用 role=\"status\" 只播报有意义的状态变化；在适用时提供取消或重试；开启 prefers-reduced-motion 时仍保留完整步骤序列。",
+  "debugPrompt_zh": "调试我的 Agent 处理状态。检查所有状态是否来自一个明确的状态机；回答或错误后活动步骤不能卡住；aria-live 不能逐帧重复播报；工具调用要说清动作和目标；取消和重试始终可达；隐藏或离屏后停止动画；减少动态效果时仍有清晰的静态状态标记。症状：",
+  "parts_zh": {
+   "processing-step-list": {
+    "name_zh": "处理步骤列表",
+    "description_zh": "Agent 可能经过的有序阶段。",
+    "prompt_zh": "一个列出 Agent 阶段的有序列表，区分已完成、当前和待处理"
+   },
+   "active-step": {
+    "name_zh": "当前步骤",
+    "description_zh": "此刻正在执行的唯一阶段。",
+    "prompt_zh": "一个活动行，用简短动词短语描述当前工作，例如正在搜索资料或准备回答"
+   },
+   "processing-status": {
+    "name_zh": "处理状态",
+    "description_zh": "对有意义的阶段变化进行简短播报。",
+    "prompt_zh": "一个礼貌的状态区域，只播报阶段变化，不叙述每个 token"
+   },
+   "processing-recovery": {
+    "name_zh": "取消或重试操作",
+    "description_zh": "等待可取消或工作失败时的恢复路径。",
+    "prompt_zh": "执行中显示取消，错误后显示重试，并保留原始请求"
+   }
+  }
+ },
+"streaming-response": {
+  "name_zh": "流式响应 Streaming Response",
+  "tagline_zh": "让生成中的文字逐步出现，同时保持可停止、可重试和可复制",
+  "description_zh": "流式响应让 AI 回答一边生成一边呈现，同时保持操作可中断。它把部分内容、生成状态、取消、重试和稳定的完成状态组合在一起。动效应表达真实的数据到达，不应在服务端停止后继续假装生成。",
+  "aka_zh": [
+   "流式文本",
+   "增量响应",
+   "Token 流式输出",
+   "实时 AI 回答"
+  ],
+  "fuzzy_zh": [
+   "AI 回答一行一行出现",
+   "模型工作时自动打字的文字",
+   "部分回答旁边的停止按钮",
+   "可以中途取消的生成结果"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "构建一个流式 AI 响应区域，把可读的分段内容追加到真实文章中；生成时显示克制的活动标记，并在恰当状态提供停止、重试和复制。用 AbortController 取消请求；停止或出错后保留已生成内容；礼貌地播报重要节点；不要用无限打字动画伪造活动。",
+  "debugPrompt_zh": "调试我的流式响应。检查分段是否按顺序追加且不重复；停止操作是否真的中止请求并清除忙碌状态；网络错误是否保留部分内容并提供重试；aria-live 是否逐 token 播报；完成后光标是否消失；复制是否返回纯文本；响应是否造成横向溢出。症状：",
+  "parts_zh": {
+   "response-body": {
+    "name_zh": "响应正文",
+    "description_zh": "新分段到达时持续增长、仍可阅读的回答。",
+    "prompt_zh": "一个按服务器分段顺序追加内容的 article，已完成文字可选择"
+   },
+   "stream-caret": {
+    "name_zh": "流式标记",
+    "description_zh": "显示流仍在活动中的克制标记。",
+    "prompt_zh": "一个小光标或活动标记，完成或出错后停止"
+   },
+   "stream-controls": {
+    "name_zh": "流式控制",
+    "description_zh": "停止、重试和复制回答的操作。",
+    "prompt_zh": "运行中显示停止，错误后显示重试，有内容时提供复制"
+   },
+   "stream-status": {
+    "name_zh": "流式状态",
+    "description_zh": "播报生成节点的简短状态文字。",
+    "prompt_zh": "在响应旁显示生成中、已停止或已完成等礼貌状态"
+   }
+  }
+ },
+"agent-approval-card": {
+  "name_zh": "Agent 操作确认卡 Agent Approval Card",
+  "tagline_zh": "在 Agent 执行计划或动作前，留出人工查看和批准的检查点",
+  "description_zh": "Agent 操作确认卡在 Agent 执行命令、修改数据或联系外部服务前建立一个明确的人工检查点。它让拟执行的动作和影响范围可查看，并记录批准、拒绝或失败状态。",
+  "aka_zh": [
+   "人工确认卡",
+   "工具调用确认卡",
+   "Agent 动作批准",
+   "计划审阅卡"
+  ],
+  "fuzzy_zh": [
+   "AI 询问我是否批准它要做的事",
+   "Agent 执行命令前的审阅步骤",
+   "批准或拒绝面板",
+   "带确认按钮的 AI 计划"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "为高影响的工具调用构建 Agent 操作确认卡。确认前展示 Agent 计划、目标、影响范围和待回答问题。View plan、Reject、Approve 三个操作要有清晰区别且键盘可达；说明批准会授权什么；防止重复提交；点击后替换为明确的已批准、已拒绝或失败状态。",
+  "debugPrompt_zh": "调试我的 Agent 操作确认卡。检查批准的后果和目标是否在操作前可见；Approve 不会误提交外层表单；焦点顺序先落在更安全的操作；处理中阻止重复点击；拒绝和服务端失败保留计划以便恢复；状态变化会播报；动作已执行后不会再次显示确认卡。症状：",
+  "parts_zh": {
+   "approval-summary": {
+    "name_zh": "计划摘要",
+    "description_zh": "Agent 提议执行什么的简短说明。",
+    "prompt_zh": "一个以动词开头的计划摘要，包含目标、范围和预期结果"
+   },
+   "approval-details": {
+    "name_zh": "计划详情",
+    "description_zh": "做决定前可以查看的扩展上下文。",
+    "prompt_zh": "一个 View plan 展开区，按可读分组展示命令、文件或受影响记录"
+   },
+   "approval-actions": {
+    "name_zh": "决定操作",
+    "description_zh": "风险强调不同的拒绝和批准控件。",
+    "prompt_zh": "一个克制的拒绝按钮和一个明确写出后果的批准操作"
+   },
+   "approval-status": {
+    "name_zh": "决定状态",
+    "description_zh": "用户决定后的持久结果。",
+    "prompt_zh": "状态区域变为已批准、已拒绝或失败，并提供恢复动作"
+   }
+  }
+ },
+"diff-viewer": {
+  "name_zh": "差异查看器 Diff Viewer",
+  "tagline_zh": "让新增、删除和修改行可以安全审阅的逐行对比界面",
+  "description_zh": "差异查看器让用户在应用 AI 生成的文件改动前先进行检查。它把新增、删除、上下文、行号和恢复操作放在同一个审阅界面里，避免盲目信任生成的补丁。",
+  "aka_zh": [
+   "文件差异",
+   "代码差异",
+   "补丁查看器",
+   "变更对比"
+  ],
+  "fuzzy_zh": [
+   "显示改动的绿行和红行",
+   "带新增删除行的文件对比",
+   "代码审查里的变更面板",
+   "应用修改前的补丁预览"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "为 AI 生成的文件改动构建差异查看器。展示文件路径、改动数量、行号，以及放在真实等宽区域中的新增/删除行；长行在查看器内横向滚动。绿色和红色只做辅助信号，提供复制、应用或撤销操作，并播报结果；复制时不要把行号或差异标记当成源代码。",
+  "debugPrompt_zh": "调试我的差异查看器。检查新增和删除不依赖颜色也能区分；行号保持对齐；长代码在查看器内部滚动；复制按意图返回补丁或选中的源代码；应用操作不能执行两次；拒绝改动后原文件保持不变；键盘焦点可见；文件名和结果会播报。症状：",
+  "parts_zh": {
+   "diff-header": {
+    "name_zh": "差异头部",
+    "description_zh": "文件身份和改动行摘要。",
+    "prompt_zh": "紧凑的头部，显示文件名、新增数、删除数和审阅状态"
+   },
+   "diff-rows": {
+    "name_zh": "差异行",
+    "description_zh": "保留每处改动上下文的逐行内容。",
+    "prompt_zh": "使用行号、上下文行和非颜色差异标记的等宽差异视图"
+   },
+   "diff-actions": {
+    "name_zh": "差异操作",
+    "description_zh": "复制、应用或撤销补丁的控件。",
+    "prompt_zh": "提供复制补丁以及带处理中和恢复反馈的应用、撤销操作"
+   },
+   "diff-status": {
+    "name_zh": "差异状态",
+    "description_zh": "操作完成后的结果。",
+    "prompt_zh": "显示准备审阅、已应用或无法应用等礼貌状态"
+   }
+  }
+ },
+"agent-input-composer": {
+  "name_zh": "Agent 输入编排器 Agent Input Composer",
+  "tagline_zh": "把 Prompt 与模型、Skill、附件上下文组合在一起的任务输入区",
+  "description_zh": "Agent 输入编排器不只是一个聊天文本框。它收集会改变 Agent 工作方式的上下文：模型、Skill、文件、工具和增强选项。好的输入区让这些上下文始终可见，并在加载和失败时保留草稿。",
+  "aka_zh": [
+   "AI Prompt 编排器",
+   "Agent 聊天输入",
+   "助手输入框",
+   "Prompt 工作区"
+  ],
+  "fuzzy_zh": [
+   "带模型和 Skill 控制的 AI 输入框",
+   "能接受文件和工具的聊天框",
+   "带增强 Prompt 按钮的输入区",
+   "发送前选择模型的地方"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "构建 Agent 输入编排器：带标签的多行 Prompt 字段、模型选择、Skill 选择、附件控件和可选的增强 Prompt 操作。使用真实表单；提交前显示所选上下文；明确 Enter 与 Shift+Enter 的行为；错误后保留输入；处理中显示忙碌和禁用状态；不要隐藏用户草稿。",
+  "debugPrompt_zh": "调试我的 Agent 输入编排器。检查 Enter 和 Shift+Enter 是否符合标签说明；模型和 Skill 菜单是否正确暴露展开与选中状态；附件能否在提交前移除；增强操作不会未经确认覆盖草稿；处理中阻止重复提交；错误保留 Prompt；所有控件都有键盘名称和可见焦点。症状：",
+  "parts_zh": {
+   "composer-prompt": {
+    "name_zh": "Prompt 字段",
+    "description_zh": "提交前始终可编辑的多行草稿。",
+    "prompt_zh": "带标签的多行文本框，明确说明 Enter 发送还是换行"
+   },
+   "composer-context": {
+    "name_zh": "上下文控件",
+    "description_zh": "影响请求的模型、Skill 和附件控件。",
+    "prompt_zh": "紧凑控件，在发送前显示所选模型、Skill 和附件"
+   },
+   "composer-enhance": {
+    "name_zh": "增强 Prompt",
+    "description_zh": "提出更清晰写法、但不静默替换草稿的可选操作。",
+    "prompt_zh": "一个增强 Prompt 操作，先预览变化，让用户选择接受或保留原文"
+   },
+   "composer-submit": {
+    "name_zh": "提交控件",
+    "description_zh": "启动 Agent 并显示处理中状态的操作。",
+    "prompt_zh": "一个说明动作的提交按钮，请求期间禁用，失败后提供重试"
+   }
+  }
+ },
+"inline-citations": {
+  "name_zh": "行内引用 Inline Citations",
+  "tagline_zh": "把来源放在论断旁边，让 AI 回答可以在上下文中核查",
+  "description_zh": "行内引用把来源证据绑定到 AI 回答中的具体论断。标记、预览和来源链接组成一个交互：读者无需离开回答就能快速查看上下文，同时不会把引用编号本身误当成证据。",
+  "aka_zh": [
+   "引用标记",
+   "来源引用",
+   "脚注标记",
+   "回答引用"
+  ],
+  "fuzzy_zh": [
+   "AI 回答旁边的小来源编号",
+   "生成文字里的可点击参考",
+   "附在论断上的来源",
+   "打开原文的引用标记"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "为 AI 回答构建行内引用。在有依据的论断旁放置紧凑的编号或标签标记，让每个标记可用键盘访问，并打开含标题、摘录和 Open source 操作的来源预览。引用不能只靠颜色区分；来源失败时保留回答；不要暗示超出引用证据的确定性。",
+  "debugPrompt_zh": "调试我的行内引用。检查每个标记有唯一的可访问名称且指向正确来源；键盘焦点能稳定打开和关闭预览；引用不会造成段落布局跳动；缺失来源说明失败原因；外部链接说明目的地；标记或预览不可用时回答仍可读。症状：",
+  "parts_zh": {
+   "citation-marker": {
+    "name_zh": "引用标记",
+    "description_zh": "放在论断旁边的紧凑来源链接。",
+    "prompt_zh": "一个带可访问名称的短编号或标签链接，例如来源 2"
+   },
+   "citation-preview": {
+    "name_zh": "来源预览",
+    "description_zh": "帮助读者决定是否打开来源的短摘录。",
+    "prompt_zh": "聚焦的预览区，显示来源标题、摘录、日期和 Open source 操作"
+   },
+   "citation-source-link": {
+    "name_zh": "打开来源链接",
+    "description_zh": "通往完整文档或原文段落的路径。",
+    "prompt_zh": "清楚说明目的并安全打开的外部链接"
+   },
+   "citation-status": {
+    "name_zh": "引用状态",
+    "description_zh": "来源正在加载或不可用时的回退。",
+    "prompt_zh": "简短的加载或不可用说明，同时保留被引用论断"
+   }
+  }
+ },
+"agent-task-list": {
+  "name_zh": "Agent 任务清单 Agent Task List",
+  "tagline_zh": "展示 Agent 计划中待处理、当前、完成和阻塞工作的紧凑清单",
+  "description_zh": "Agent 任务清单把长时间运行的 Agent 变成可理解的计划。它展示做过什么、现在做什么以及哪里受阻，并在运行结束后保留原始顺序供复盘。",
+  "aka_zh": [
+   "Agent 检查清单",
+   "任务进度列表",
+   "执行计划",
+   "AI 待办清单"
+  ],
+  "fuzzy_zh": [
+   "AI 将要采取的步骤清单",
+   "带完成和待处理任务的计划",
+   "Agent 运行进度面板",
+   "显示哪个工具步骤被阻塞的列表"
+  ],
+  "api_notes_zh": [null, null, null, null],
+  "prompt_zh": "为多步骤运行构建 Agent 任务清单。展示有序任务及待处理、当前、完成、跳过和阻塞状态；突出当前任务；提供简短结果或阻塞原因；在适用时提供取消、重试或继续。完成后保留计划供审计；不依赖颜色或动效表达状态。",
+  "debugPrompt_zh": "调试我的 Agent 任务清单。检查任务顺序稳定；同一时间只有一个当前任务；完成后不删除计划；阻塞任务说明所需权限、输入或恢复操作；重试不会重复行；aria-current 和播报与可见状态一致；减少动态效果时仍能区分待处理、当前和完成。症状：",
+  "parts_zh": {
+   "task-row": {
+    "name_zh": "任务行",
+    "description_zh": "带稳定名称和状态的有序步骤。",
+    "prompt_zh": "带动词任务名、状态标记和可选结果详情的有序行"
+   },
+   "task-active": {
+    "name_zh": "当前任务",
+    "description_zh": "当前正在接收处理的步骤。",
+    "prompt_zh": "一个带清晰当前标记和简短进度详情的活动任务"
+   },
+   "task-blocker": {
+    "name_zh": "阻塞详情",
+    "description_zh": "任务无法继续的原因。",
+    "prompt_zh": "用直白文字说明缺少的权限、输入或恢复动作"
+   },
+   "task-actions": {
+    "name_zh": "任务操作",
+    "description_zh": "与当前状态相关的取消、重试或继续控件。",
+    "prompt_zh": "紧邻阻塞或失败步骤的上下文操作"
+   }
+  }
+ }
 }

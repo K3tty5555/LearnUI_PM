@@ -6,7 +6,7 @@ import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
-NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb"}
+NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
 
 def load(p):
@@ -163,7 +163,7 @@ def live_stage(entry):
     revision = hashlib.sha256(payload["html"].encode("utf-8")).hexdigest()[:12]
     first_row = entry in ENTRIES[:3]
     # The first row paints actual HTML immediately. Scripts execute only inside
-    # visible isolated frames, never in all 62 catalog cards at once.
+    # visible isolated frames, never in all 78 catalog cards at once.
     still = re.sub(r"<script\b[^>]*>[\s\S]*?</script>", "", payload["html"], flags=re.I) if first_row else ""
     initial = f'<div class="stage-center live-demo-still">{still}</div>' if first_row else ''
     return (f'<div class="stage stage-card pe-none" data-live-demo="{esc(entry["slug"])}"'

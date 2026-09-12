@@ -4724,4 +4724,566 @@
   "related": ["progress-indicators", "skeleton-spinner", "empty-state", "container-morph", "toast"],
   "demo": "web/ai-status-orb"
  }
+,
+{
+ "slug": "agent-processing-state",
+ "platform": "web",
+ "name": "Agent Processing State",
+ "tagline": "A visible status sequence that explains what an AI agent is doing between input and result",
+ "aka": [
+  "agent activity status",
+  "thinking state",
+  "agent progress status",
+  "tool execution status"
+ ],
+ "fuzzy": [
+  "the thinking panel while the agent works",
+  "the steps showing what the AI is doing",
+  "a status row for tool calls",
+  "the progress state between prompt and answer"
+ ],
+ "api": [
+  {
+   "framework": "ARIA",
+   "symbol": "role=status + aria-live",
+   "note": "announce meaningful state changes, not every animation frame"
+  },
+  {
+   "framework": "Motion",
+   "symbol": "state machine",
+   "note": "keep queued, thinking, tool, success, and error states explicit"
+  },
+  {
+   "framework": "HTML",
+   "symbol": "<ol> + data-state",
+   "note": "preserve a readable step sequence when motion is disabled"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "prefers-reduced-motion",
+   "note": "replace pulse with a static active marker"
+  }
+ ],
+ "prompt": "Build an AI agent processing state as a compact step sequence: queued, thinking, using a tool, and complete/error. Keep one current step visually prominent, pair it with plain-language status text, announce only meaningful changes in role=\"status\", expose a cancel or retry action when relevant, and preserve the full sequence when prefers-reduced-motion is enabled.",
+ "debugPrompt": "Debug my AI processing state. Check that every state comes from one explicit state machine; the active step cannot get stuck after a response or error; aria-live does not repeat every token; tool calls name the action and target; cancel and retry remain reachable; hidden/offscreen animation stops; and reduced motion leaves a clear static state marker. The symptom:",
+ "description": "An Agent Processing State makes the interval between a prompt and a result legible. It names the current phase—queued, thinking, calling a tool, waiting, complete, or failed—so users can decide whether to wait, cancel, or retry. The state sequence is a product status surface, not a transcript of private chain-of-thought.",
+ "parts": [
+  {
+   "id": "processing-step-list",
+   "name": "Processing step list",
+   "api": "<ol> + data-state",
+   "description": "The ordered phases the agent can pass through.",
+   "prompt": "an ordered list of named agent phases with completed, active, and pending states"
+  },
+  {
+   "id": "active-step",
+   "name": "Active step",
+   "api": "data-state=\"active\"",
+   "description": "The one phase currently doing work.",
+   "prompt": "one active row with a short verb phrase such as Searching sources or Preparing answer"
+  },
+  {
+   "id": "processing-status",
+   "name": "Processing status",
+   "api": "role=status",
+   "description": "A concise live announcement for meaningful transitions.",
+   "prompt": "a polite status region that announces phase changes without narrating every token"
+  },
+  {
+   "id": "processing-recovery",
+   "name": "Cancel or retry action",
+   "api": "button",
+   "description": "A recovery path when waiting is optional or work fails.",
+   "prompt": "a visible Cancel during work and Retry after an error, preserving the original request"
+  }
+ ],
+ "related": [
+  "ai-status-orb",
+  "progress-indicators",
+  "skeleton-spinner",
+  "streaming-response",
+  "agent-approval-card"
+ ],
+ "demo": "web/agent-processing-state"
+},
+{
+ "slug": "streaming-response",
+ "platform": "web",
+ "name": "Streaming Response",
+ "tagline": "A response surface that reveals generated text as it arrives and stays interruptible",
+ "aka": [
+  "streaming text",
+  "incremental response",
+  "token streaming",
+  "live AI answer"
+ ],
+ "fuzzy": [
+  "the AI answer appearing one line at a time",
+  "text that types itself while the model works",
+  "a stop button beside a partial answer",
+  "the response that can be cancelled mid-generation"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "aria-live=\"polite\"",
+   "note": "announce completed chunks without making every token noisy"
+  },
+  {
+   "framework": "Web API",
+   "symbol": "ReadableStream",
+   "note": "consume chunks and handle abort/error events"
+  },
+  {
+   "framework": "Web API",
+   "symbol": "AbortController",
+   "note": "let users stop an in-flight generation"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "white-space + caret",
+   "note": "keep partial text readable without layout jumps"
+  }
+ ],
+ "prompt": "Build a streaming AI response surface that appends readable chunks into a real article, shows a subtle active marker while generation is running, and exposes Stop, Retry, and Copy actions at the right states. Use AbortController for cancellation, keep the partial answer after Stop or Error, announce meaningful milestones politely, and never replace content with an endless typing animation.",
+ "debugPrompt": "Debug my streaming response. Check that chunks append in order without duplicating text; Stop actually aborts the request and clears the busy state; a network error preserves partial content and exposes Retry; aria-live is not announcing every token; the caret disappears when complete; Copy returns plain text; and the response does not cause horizontal overflow. The symptom:",
+ "description": "Streaming Response presents an AI answer incrementally while keeping the work interruptible. It combines partial content, a visible generation state, cancellation, retry, and a stable final state. The animation communicates real delivery progress; it should not simulate activity after the server has stopped sending data.",
+ "parts": [
+  {
+   "id": "response-body",
+   "name": "Response body",
+   "api": "<article>",
+   "description": "The growing answer that remains readable while new chunks arrive.",
+   "prompt": "an article that appends server chunks in order and keeps completed text selectable"
+  },
+  {
+   "id": "stream-caret",
+   "name": "Streaming marker",
+   "api": "CSS animation",
+   "description": "A restrained marker that shows the stream is still active.",
+   "prompt": "a small caret or live marker that stops when the response completes or errors"
+  },
+  {
+   "id": "stream-controls",
+   "name": "Stream controls",
+   "api": "AbortController",
+   "description": "Actions for stopping, retrying, and copying the response.",
+   "prompt": "Stop while running, Retry after an error, and Copy when there is content"
+  },
+  {
+   "id": "stream-status",
+   "name": "Stream status",
+   "api": "role=status",
+   "description": "Short status text for generation milestones.",
+   "prompt": "a polite status such as Generating, Stopped, or Complete beside the response"
+  }
+ ],
+ "related": [
+  "agent-processing-state",
+  "code-block",
+  "skeleton-spinner",
+  "empty-state"
+ ],
+ "demo": "web/streaming-response"
+},
+{
+ "slug": "agent-approval-card",
+ "platform": "web",
+ "name": "Agent Approval Card",
+ "tagline": "A human-in-the-loop checkpoint for reviewing and approving an agent plan or action",
+ "aka": [
+  "human approval card",
+  "tool confirmation card",
+  "agent action approval",
+  "plan review card"
+ ],
+ "fuzzy": [
+  "the card asking me to approve what the AI will do",
+  "a review step before the agent runs a command",
+  "the approve or reject panel",
+  "the AI plan with a confirmation button"
+ ],
+ "api": [
+  {
+   "framework": "ARIA",
+   "symbol": "role=group + aria-describedby",
+   "note": "connect the action to its consequence and scope"
+  },
+  {
+   "framework": "HTML",
+   "symbol": "button type=\"button\"",
+   "note": "keep Approve from becoming an accidental form submit"
+  },
+  {
+   "framework": "UX",
+   "symbol": "confirm + reject + view plan",
+   "note": "show impact before an irreversible or external action"
+  },
+  {
+   "framework": "Motion",
+   "symbol": "pending / approved / rejected",
+   "note": "make the decision state persistent after the click"
+  }
+ ],
+ "prompt": "Build an Agent Approval Card for a high-impact tool call. Show the agent plan, target, affected scope, and any questions before the final action. Keep View plan, Reject, and Approve as distinct keyboard-reachable controls; explain what approval authorizes; prevent duplicate submissions; and replace the pending card with an explicit approved, rejected, or failed state.",
+ "debugPrompt": "Debug my agent approval card. Check that the consequence and target are visible before approval; Approve cannot submit a surrounding form accidentally; focus order starts on the safer action; duplicate clicks are blocked while pending; rejection and server failure preserve the plan for recovery; status changes are announced; and the card does not appear after the action already ran. The symptom:",
+ "description": "An Agent Approval Card creates a deliberate human checkpoint before an agent executes a command, changes data, or contacts an external service. It makes the proposed action and its scope inspectable, then records an explicit approval, rejection, or failure state.",
+ "parts": [
+  {
+   "id": "approval-summary",
+   "name": "Plan summary",
+   "api": "aria-describedby",
+   "description": "The short description of what the agent proposes to do.",
+   "prompt": "a concise verb-led plan summary with target, scope, and expected outcome"
+  },
+  {
+   "id": "approval-details",
+   "name": "Plan details",
+   "api": "disclosure",
+   "description": "The expandable context a reviewer may inspect before deciding.",
+   "prompt": "a View plan disclosure with commands, files, or affected records in readable groups"
+  },
+  {
+   "id": "approval-actions",
+   "name": "Decision actions",
+   "api": "button",
+   "description": "Reject and Approve controls with different risk emphasis.",
+   "prompt": "a quiet Reject button and a clearly labeled Approve action that names the consequence"
+  },
+  {
+   "id": "approval-status",
+   "name": "Decision status",
+   "api": "role=status",
+   "description": "The persistent result after the reviewer decides.",
+   "prompt": "a status region that changes to Approved, Rejected, or Failed and offers recovery"
+  }
+ ],
+ "related": [
+  "destructive-action",
+  "agent-processing-state",
+  "command-palette",
+  "approval-activity-timeline"
+ ],
+ "demo": "web/agent-approval-card"
+},
+{
+ "slug": "diff-viewer",
+ "platform": "web",
+ "name": "Diff Viewer",
+ "tagline": "A line-aware comparison surface that makes additions, deletions, and changes safe to review",
+ "aka": [
+  "file diff",
+  "code diff",
+  "patch viewer",
+  "change comparison"
+ ],
+ "fuzzy": [
+  "the green and red lines showing what changed",
+  "a file comparison with added and removed rows",
+  "the code review change panel",
+  "the patch preview before applying edits"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<ins> / <del> + <pre>",
+   "note": "keep additions and deletions meaningful to assistive tech"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "aria-label + role=status",
+   "note": "name the file and announce apply results"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "tab-size + overflow",
+   "note": "contain long lines without collapsing indentation"
+  },
+  {
+   "framework": "UX",
+   "symbol": "apply / revert",
+   "note": "make the next action explicit and reversible when possible"
+  }
+ ],
+ "prompt": "Build a Diff Viewer for an AI-generated file change. Show the file path, change count, line numbers, and additions/deletions in a real preformatted surface with horizontal overflow. Keep green and red as reinforcement rather than the only signal, provide Copy and Apply or Revert actions, and announce the result without copying line numbers or diff markers as source code.",
+ "debugPrompt": "Debug my diff viewer. Check that additions and deletions are distinguishable without color; line numbers remain aligned; long code scrolls inside the viewer; Copy returns a useful patch or selected source by intent; Apply cannot run twice; rejected changes leave the original intact; keyboard focus is visible; and the file name and result are announced. The symptom:",
+ "description": "A Diff Viewer lets users inspect an agent’s proposed file changes before applying them. It treats additions, deletions, context, line numbers, and recovery actions as one review surface, so a generated patch can be verified instead of trusted blindly.",
+ "parts": [
+  {
+   "id": "diff-header",
+   "name": "Diff header",
+   "api": "aria-label",
+   "description": "The file identity and summary of changed lines.",
+   "prompt": "a compact header naming the file and showing additions, deletions, and review state"
+  },
+  {
+   "id": "diff-rows",
+   "name": "Diff rows",
+   "api": "<ins> / <del>",
+   "description": "Line-aware rows that preserve context around each change.",
+   "prompt": "a preformatted two-tone diff with line numbers, context rows, and non-color change markers"
+  },
+  {
+   "id": "diff-actions",
+   "name": "Diff actions",
+   "api": "button",
+   "description": "Controls for copying, applying, or reverting a patch.",
+   "prompt": "Copy patch plus Apply and Revert actions with a pending state and recovery message"
+  },
+  {
+   "id": "diff-status",
+   "name": "Diff status",
+   "api": "role=status",
+   "description": "The result after an action completes.",
+   "prompt": "a polite status such as Ready to review, Applied, or Could not apply"
+  }
+ ],
+ "related": [
+  "code-block",
+  "agent-approval-card",
+  "destructive-action",
+  "streaming-response"
+ ],
+ "demo": "web/diff-viewer"
+},
+{
+ "slug": "agent-input-composer",
+ "platform": "web",
+ "name": "Agent Input Composer",
+ "tagline": "A task input surface that combines a prompt with model, skill, and attachment context",
+ "aka": [
+  "AI prompt composer",
+  "agent chat input",
+  "assistant input box",
+  "prompt workspace"
+ ],
+ "fuzzy": [
+  "the AI input with model and skill controls",
+  "a chat box that accepts files and tools",
+  "the prompt field with an enhance button",
+  "where I choose a model before asking the agent"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<form> + <textarea>",
+   "note": "submit with a real form and preserve text on failure"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "aria-describedby + aria-expanded",
+   "note": "name attachments, menus, and enhancement state"
+  },
+  {
+   "framework": "Web API",
+   "symbol": "FormData + File",
+   "note": "keep attachment metadata visible before upload"
+  },
+  {
+   "framework": "Keyboard",
+   "symbol": "Enter / Shift+Enter",
+   "note": "make submit and newline behavior explicit"
+  }
+ ],
+ "prompt": "Build an Agent Input Composer with a labeled multiline prompt field, model selector, Skill picker, attachment control, and optional Enhance prompt action. Keep the composer a real form, show selected context before submission, make Enter versus Shift+Enter explicit, preserve input after errors, and expose busy, disabled, and retry states without hiding the user’s draft.",
+ "debugPrompt": "Debug my Agent Input Composer. Check that Enter and Shift+Enter behave as labeled; the model and Skill menus expose expanded and selected state; attachments can be removed before submit; enhancement does not overwrite the draft without a clear action; submit is blocked while pending; errors preserve the prompt; and every control has a keyboard name and visible focus. The symptom:",
+ "description": "An Agent Input Composer is more than a chat textarea. It gathers the prompt and the context that changes how an agent should work: model, Skill, files, tools, and enhancement options. Good composers keep that context visible and preserve the draft through loading and failure.",
+ "parts": [
+  {
+   "id": "composer-prompt",
+   "name": "Prompt field",
+   "api": "<textarea>",
+   "description": "The multiline draft that remains editable until submission.",
+   "prompt": "a labeled textarea with an explicit Enter-to-send or Shift+Enter-to-newline hint"
+  },
+  {
+   "id": "composer-context",
+   "name": "Context controls",
+   "api": "combobox + listbox",
+   "description": "Model, Skill, and attachment controls that shape the request.",
+   "prompt": "compact controls that show selected model, Skill, and attached files before sending"
+  },
+  {
+   "id": "composer-enhance",
+   "name": "Enhance prompt",
+   "api": "button",
+   "description": "An optional action that proposes a clearer prompt without silently replacing it.",
+   "prompt": "an Enhance prompt action that previews changes and lets the user accept or keep the original"
+  },
+  {
+   "id": "composer-submit",
+   "name": "Submit control",
+   "api": "<button type=submit>",
+   "description": "The action that starts the agent run and exposes its busy state.",
+   "prompt": "a submit button that names the action, disables during the request, and exposes Retry after failure"
+  }
+ ],
+ "related": [
+  "combobox",
+  "command-palette",
+  "streaming-response",
+  "agent-processing-state"
+ ],
+ "demo": "web/agent-input-composer"
+},
+{
+ "slug": "inline-citations",
+ "platform": "web",
+ "name": "Inline Citations",
+ "tagline": "Source references placed beside a claim so an AI answer can be checked in context",
+ "aka": [
+  "citation chips",
+  "source references",
+  "footnote markers",
+  "answer citations"
+ ],
+ "fuzzy": [
+  "the little source numbers beside an AI answer",
+  "clickable references inside generated text",
+  "the sources attached to a claim",
+  "a citation marker that opens the original passage"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<sup> + <a>",
+   "note": "use a real link or button with a clear accessible name"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "aria-describedby + aria-current",
+   "note": "connect a claim to its source and active preview"
+  },
+  {
+   "framework": "UX",
+   "symbol": "source preview + open source",
+   "note": "offer quick context without trapping the reader"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "text-decoration + focus-visible",
+   "note": "keep markers readable in dense prose"
+  }
+ ],
+ "prompt": "Build inline citations for an AI answer. Place compact numbered or labeled source markers immediately beside supported claims, make each marker keyboard reachable, and open a source preview with title, excerpt, and Open source action. Keep the citation distinguishable without color, preserve the answer when a source fails, and avoid implying confidence beyond the cited evidence.",
+ "debugPrompt": "Debug my inline citations. Check that every marker has a unique accessible name and points to the right source; keyboard focus opens and closes the preview predictably; citations do not shift the paragraph layout; missing sources explain the failure; external links identify their destination; and the answer remains readable when markers or previews are unavailable. The symptom:",
+ "description": "Inline Citations attach source evidence to the specific claims of an AI answer. A marker, preview, and source link form one interaction: readers can verify context quickly without leaving the answer or treating a citation number as proof by itself.",
+ "parts": [
+  {
+   "id": "citation-marker",
+   "name": "Citation marker",
+   "api": "<sup> + <a>",
+   "description": "The compact reference placed beside a claim.",
+   "prompt": "a small numbered or labeled link with an accessible name such as Source 2"
+  },
+  {
+   "id": "citation-preview",
+   "name": "Source preview",
+   "api": "aria-describedby",
+   "description": "A short excerpt that helps readers decide whether to open the source.",
+   "prompt": "a focused preview showing source title, excerpt, date, and Open source action"
+  },
+  {
+   "id": "citation-source-link",
+   "name": "Open source link",
+   "api": "<a rel=noopener>",
+   "description": "The path to the full document or original passage.",
+   "prompt": "a clear external link that names where it leads and opens safely"
+  },
+  {
+   "id": "citation-status",
+   "name": "Citation status",
+   "api": "role=status",
+   "description": "The fallback when a source is loading or unavailable.",
+   "prompt": "a concise loading or unavailable message that keeps the cited claim visible"
+  }
+ ],
+ "related": [
+  "streaming-response",
+  "command-palette",
+  "empty-state",
+  "hover-card"
+ ],
+ "demo": "web/inline-citations"
+},
+{
+ "slug": "agent-task-list",
+ "platform": "web",
+ "name": "Agent Task List",
+ "tagline": "A compact checklist that shows an agent’s planned, active, completed, and blocked work",
+ "aka": [
+  "agent checklist",
+  "task progress list",
+  "execution plan",
+  "AI todo list"
+ ],
+ "fuzzy": [
+  "the checklist of steps the AI will take",
+  "a plan with completed and pending tasks",
+  "the agent run progress panel",
+  "a list showing which tool step is blocked"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<ol> + <button>",
+   "note": "keep task order and actions semantic"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "aria-current + aria-live",
+   "note": "identify the active task and announce completion once"
+  },
+  {
+   "framework": "UX",
+   "symbol": "task status vocabulary",
+   "note": "separate pending, active, done, skipped, and blocked"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "text-decoration + marker",
+   "note": "do not rely on a checkmark or color alone"
+  }
+ ],
+ "prompt": "Build an Agent Task List for a multi-step run. Show ordered task names with pending, active, complete, skipped, and blocked states; keep the current task prominent; include a short result or blocker; and expose Cancel, Retry, or Continue actions where appropriate. Preserve the plan after completion so users can audit what happened, and make status understandable without color or motion.",
+ "debugPrompt": "Debug my Agent Task List. Check that task order is stable; only one task is active; completion does not erase the plan; blocked tasks explain what is needed; retries do not duplicate rows; aria-current and live announcements match the visible state; and reduced motion still distinguishes pending, active, and complete. The symptom:",
+ "description": "An Agent Task List turns a long-running agent run into a legible plan. It shows what has happened, what is happening now, and where work is blocked, while keeping the original sequence available for review after the run finishes.",
+ "parts": [
+  {
+   "id": "task-row",
+   "name": "Task row",
+   "api": "<li> + data-state",
+   "description": "One ordered step with a stable name and state.",
+   "prompt": "an ordered row with a verb-led task name, status marker, and optional result detail"
+  },
+  {
+   "id": "task-active",
+   "name": "Active task",
+   "api": "aria-current=\"step\"",
+   "description": "The step currently receiving work.",
+   "prompt": "one active task with a clear current marker and concise progress detail"
+  },
+  {
+   "id": "task-blocker",
+   "name": "Blocker detail",
+   "api": "aria-describedby",
+   "description": "The reason a task cannot continue.",
+   "prompt": "a plain-language blocker with the missing permission, input, or recovery action"
+  },
+  {
+   "id": "task-actions",
+   "name": "Task actions",
+   "api": "button",
+   "description": "Cancel, Retry, or Continue controls tied to the current state.",
+   "prompt": "contextual actions that remain beside the blocked or failed step"
+  }
+ ],
+ "related": [
+  "agent-processing-state",
+  "progress-indicators",
+  "approval-activity-timeline",
+  "empty-state"
+ ],
+ "demo": "web/agent-task-list"
+}
 ]
