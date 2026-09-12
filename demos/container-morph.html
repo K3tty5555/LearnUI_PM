@@ -1,0 +1,162 @@
+<div class="demo demo-container-morph" data-morph="circle-pill">
+  <div class="cm-bar">
+    <div class="cm-tabs" role="group">
+      <button type="button" data-morph-tab="circle-pill" data-en="Circle to Pill" data-zh="圆点变胶囊">Circle to Pill</button>
+      <button type="button" data-morph-tab="pill-card" data-en="Pill to Card" data-zh="胶囊变卡片">Pill to Card</button>
+      <button type="button" data-morph-tab="compact-expanded" data-en="Compact to Panel" data-zh="紧凑态展开">Compact to Panel</button>
+      <button type="button" data-morph-tab="corner-radius" data-en="Corner Radius" data-zh="圆角过渡">Corner Radius</button>
+      <button type="button" data-morph-tab="size" data-en="Size Morph" data-zh="尺寸变形">Size Morph</button>
+      <button type="button" data-morph-tab="reflow" data-en="Reflow" data-zh="内容重排">Reflow</button>
+      <button type="button" data-morph-tab="reverse" data-en="Collapse" data-zh="反向收回">Collapse</button>
+    </div>
+    <span class="cm-step">01/07</span>
+  </div>
+  <div class="cm-stage">
+    <div class="cm-object">
+      <span class="cm-icon" aria-hidden="true">↻</span>
+      <div class="cm-copy"><strong class="cm-title">Syncing</strong><span class="cm-detail">Files and status appear here</span></div>
+      <span class="cm-number">68.4<span>%</span></span>
+      <span class="cm-progress" aria-hidden="true"><i></i></span>
+      <div class="cm-actions"><span>Open</span><span>Details</span></div>
+    </div>
+  </div>
+  <p class="cm-caption">A dot stretches sideways into a pill.</p>
+</div>
+<style>
+.demo-container-morph{--cm-ink:#1d332d;--cm-muted:#64756f;--cm-line:#c8ddd5;--cm-mint:#d9f1e8;--cm-accent:#16866e;--cm-ease:cubic-bezier(.16,1,.3,1);width:100%;max-width:600px;color:var(--cm-ink);font:12px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-container-morph *{box-sizing:border-box}
+.cm-bar{display:flex;align-items:center;gap:6px;padding-bottom:6px}
+.cm-tabs{flex:1 1 auto;min-width:0;display:flex;gap:4px;overflow:auto;scrollbar-width:none;scroll-behavior:smooth;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10px,#000 calc(100% - 14px),transparent);mask-image:linear-gradient(90deg,transparent,#000 10px,#000 calc(100% - 14px),transparent)}
+.cm-tabs::-webkit-scrollbar{display:none}
+.cm-tabs button{flex:0 0 auto;border:1px solid var(--cm-line);border-radius:999px;background:rgba(255,255,255,.74);color:var(--cm-muted);padding:4px 7px;font:600 9px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;cursor:pointer;white-space:nowrap}
+.cm-tabs button[aria-pressed="true"]{background:var(--cm-ink);border-color:var(--cm-ink);color:#fff}
+.cm-tabs button:focus-visible{outline:2px solid var(--cm-accent);outline-offset:2px}
+.cm-step{flex:0 0 auto;color:var(--cm-muted);font:600 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em}
+.cm-stage{position:relative;display:grid;place-items:center;height:98px;border:1px solid rgba(200,221,213,.75);border-radius:12px;background:linear-gradient(145deg,rgba(244,252,249,.9),rgba(231,246,240,.72));overflow:hidden}
+.cm-stage:before{content:"";position:absolute;inset:7px;border:1px dashed rgba(96,144,129,.18);border-radius:9px}
+.cm-object{position:relative;z-index:1;display:flex;align-items:center;gap:7px;width:228px;height:52px;padding:8px 10px;border:1px solid var(--cm-line);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 6px 16px rgba(26,71,57,.08);overflow:hidden}
+.cm-icon{position:relative;display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--cm-mint);color:var(--cm-accent);font-size:12px;font-weight:700}
+.cm-copy{min-width:0;display:grid;gap:1px}
+.cm-title{font-size:11px;line-height:1.25;white-space:nowrap}
+.cm-detail{display:none;color:var(--cm-muted);font-size:9px;line-height:1.25;white-space:nowrap}
+.cm-number{display:none;font-size:22px;font-weight:750;line-height:1;letter-spacing:-.05em;white-space:nowrap}.cm-number span{font-size:10px;color:var(--cm-accent)}
+.cm-progress{display:none;position:absolute;left:10px;right:10px;bottom:9px;height:3px;border-radius:99px;background:#edf5f1;overflow:hidden}.cm-progress i{display:block;width:68%;height:100%;border-radius:inherit;background:var(--cm-accent)}
+.cm-actions{display:none;gap:4px;margin-left:auto}.cm-actions span{border:1px solid var(--cm-line);border-radius:5px;background:#fff;color:var(--cm-ink);padding:4px 6px;font-size:9px;line-height:1;white-space:nowrap}
+.cm-caption{margin:7px 0 0;color:var(--cm-muted);font:10px/1.35 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;text-align:center}
+
+/* 01 a dot stretches sideways into a readable pill */
+.demo-container-morph[data-morph="circle-pill"] .cm-object{width:160px;height:30px;border-radius:999px;padding:3px 5px;gap:6px}
+.demo-container-morph[data-morph="circle-pill"] .cm-icon{flex-basis:20px;width:20px;height:20px;font-size:11px}
+.demo-container-morph[data-morph="circle-pill"] .cm-title{font-size:10px}
+/* 02 the pill opens downward, header stays put */
+.demo-container-morph[data-morph="pill-card"] .cm-object{width:224px;height:76px;border-radius:14px;align-items:flex-start}
+.demo-container-morph[data-morph="pill-card"] .cm-detail,.demo-container-morph[data-morph="pill-card"] .cm-progress{display:block}
+/* 03 the same control becomes a complete panel */
+.demo-container-morph[data-morph="compact-expanded"] .cm-object{width:256px;height:84px;border-radius:14px;align-items:flex-start}
+.demo-container-morph[data-morph="compact-expanded"] .cm-detail{display:block}
+.demo-container-morph[data-morph="compact-expanded"] .cm-progress{display:block;bottom:30px}
+.demo-container-morph[data-morph="compact-expanded"] .cm-actions{display:flex;position:absolute;right:10px;bottom:8px;margin:0}
+/* 04 same box, corners only */
+.demo-container-morph[data-morph="corner-radius"] .cm-object{width:228px;height:48px;border-radius:14px}
+.demo-container-morph[data-morph="corner-radius"] .cm-detail{display:block}
+/* 05 grows from a fixed top-left anchor */
+.demo-container-morph[data-morph="size"] .cm-object{width:256px;height:84px;border-radius:14px;align-items:flex-start}
+.demo-container-morph[data-morph="size"] .cm-detail{display:block}
+.demo-container-morph[data-morph="size"] .cm-number{display:block;position:absolute;left:10px;bottom:20px}
+.demo-container-morph[data-morph="size"] .cm-progress{display:block}
+/* 06 a vertical stack reflows into one horizontal row */
+.demo-container-morph[data-morph="reflow"] .cm-object{width:256px;height:44px;border-radius:14px;align-items:center}
+.demo-container-morph[data-morph="reflow"] .cm-detail{display:block}
+.demo-container-morph[data-morph="reflow"] .cm-actions{display:flex}
+/* 07 content leaves first, then the container returns to the dot */
+.demo-container-morph[data-morph="reverse"] .cm-object{width:30px;height:30px;border-radius:999px;padding:3px;justify-content:center}
+.demo-container-morph[data-morph="reverse"] .cm-icon{flex-basis:22px;color:transparent}
+.demo-container-morph[data-morph="reverse"] .cm-icon:after{content:"✓";position:absolute;color:var(--cm-accent);font-size:12px}
+.demo-container-morph[data-morph="reverse"] .cm-copy{position:absolute;left:34px;top:8px;width:170px;opacity:0}
+
+.cm-object.is-animating{animation:var(--cm-anim) var(--cm-ease) both}
+.demo-container-morph[data-morph="circle-pill"] .cm-object{--cm-anim:cm-circle-pill 820ms}
+.demo-container-morph[data-morph="pill-card"] .cm-object{--cm-anim:cm-pill-card 660ms}
+.demo-container-morph[data-morph="compact-expanded"] .cm-object{--cm-anim:cm-compact-expanded 700ms}
+.demo-container-morph[data-morph="corner-radius"] .cm-object{--cm-anim:cm-corner-radius 620ms}
+.demo-container-morph[data-morph="size"] .cm-object{--cm-anim:cm-size 700ms}
+.demo-container-morph[data-morph="reflow"] .cm-object{--cm-anim:cm-reflow 720ms}
+.demo-container-morph[data-morph="reverse"] .cm-object{--cm-anim:cm-reverse 780ms}
+@keyframes cm-circle-pill{0%{width:26px;padding-left:3px;padding-right:3px}70%{width:160px}100%{width:160px}}
+@keyframes cm-pill-card{0%{width:150px;height:30px;border-radius:999px}100%{width:224px;height:76px;border-radius:14px}}
+@keyframes cm-compact-expanded{0%{width:140px;height:36px;border-radius:999px}100%{width:256px;height:84px;border-radius:14px}}
+@keyframes cm-corner-radius{0%{border-radius:999px}100%{border-radius:14px}}
+@keyframes cm-size{0%{width:120px;height:44px}100%{width:256px;height:84px}}
+@keyframes cm-reflow{0%{width:132px;height:84px}100%{width:256px;height:44px}}
+@keyframes cm-reverse{0%{width:224px;height:76px;border-radius:14px;padding:8px 10px}60%{width:160px;height:30px;border-radius:999px}100%{width:30px;height:30px;border-radius:999px;padding:3px}}
+
+/* content arrives in a deliberate order instead of appearing all at once */
+.cm-object.is-animating .cm-icon{animation:cm-in 380ms var(--cm-ease) both}
+.cm-object.is-animating .cm-copy{animation:cm-in 380ms 120ms var(--cm-ease) both}
+.cm-object.is-animating .cm-number{animation:cm-in 380ms 260ms var(--cm-ease) both}
+.cm-object.is-animating .cm-progress{animation:cm-in 380ms 220ms var(--cm-ease) both}
+.cm-object.is-animating .cm-actions{animation:cm-in 380ms 300ms var(--cm-ease) both}
+@keyframes cm-in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+.demo-container-morph[data-morph="reverse"] .cm-object.is-animating .cm-copy{animation:cm-out 300ms var(--cm-ease) both}
+.demo-container-morph[data-morph="reverse"] .cm-object.is-animating .cm-icon{animation:cm-in 300ms 260ms var(--cm-ease) both}
+@keyframes cm-out{from{opacity:1}to{opacity:0}}
+
+@media (max-width:400px){.cm-stage{height:88px}.cm-caption{font-size:9px}}
+@media (prefers-reduced-motion:reduce){
+  .demo-container-morph .cm-object.is-animating,
+  .demo-container-morph .cm-object.is-animating .cm-icon,
+  .demo-container-morph .cm-object.is-animating .cm-copy,
+  .demo-container-morph .cm-object.is-animating .cm-number,
+  .demo-container-morph .cm-object.is-animating .cm-progress,
+  .demo-container-morph .cm-object.is-animating .cm-actions{animation:none}
+  .demo-container-morph .cm-tabs{scroll-behavior:auto}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-container-morph');
+  var object=root.querySelector('.cm-object');
+  var caption=root.querySelector('.cm-caption');
+  var step=root.querySelector('.cm-step');
+  var strip=root.querySelector('.cm-tabs');
+  var tabs=[].slice.call(root.querySelectorAll('[data-morph-tab]'));
+  // [zh, en] caption per pattern; kept to one line at the card's width.
+  var copy={
+    'circle-pill':['小圆入口向左右展开，先图标后文字。','A dot stretches sideways into a pill.'],
+    'pill-card':['胶囊向下展开成卡片，顶部信息不动。','A pill opens downward into a card.'],
+    'compact-expanded':['同一个控件展开成完整面板。','A compact control becomes a full panel.'],
+    'corner-radius':['尺寸不变，只有圆角从胶囊变卡片。','Same size; only the corners change.'],
+    'size':['锚定左上角变大，最后突出主数值。','Grows from a fixed top-left anchor.'],
+    'reflow':['上下堆叠平滑重排成左右一行。','A stack reflows into a single row.'],
+    'reverse':['先收内容再缩容器，回到小圆点。','Content collapses, then the container.']
+  };
+  var current='circle-pill', timer, held=false;
+  function chinese(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function render(){
+    var zh=chinese();
+    strip.setAttribute('aria-label',zh?'容器变形模式':'Container morph patterns');
+    tabs.forEach(function(tab){tab.textContent=zh?tab.dataset.zh:tab.dataset.en});
+    caption.textContent=copy[current][zh?0:1];
+  }
+  function schedule(){clearTimeout(timer);if(held)return;timer=setTimeout(next,3000)}
+  function next(){run(tabs[(index(current)+1)%tabs.length].dataset.morphTab)}
+  function index(name){for(var i=0;i<tabs.length;i++){if(tabs[i].dataset.morphTab===name)return i}return 0}
+  function run(name){
+    current=name; root.dataset.morph=name;
+    tabs.forEach(function(tab,i){
+      var on=tab.dataset.morphTab===name;
+      tab.setAttribute('aria-pressed',on?'true':'false');
+      // Keep the active chip visible: the hub card is inert, so nobody can scroll it.
+      if(on){step.textContent='0'+(i+1)+'/07';if(strip.scrollWidth>strip.clientWidth)strip.scrollTo({left:tab.offsetLeft-(strip.clientWidth-tab.offsetWidth)/2});}
+    });
+    object.classList.remove('is-animating'); void object.offsetWidth; object.classList.add('is-animating');
+    render(); schedule();
+  }
+  tabs.forEach(function(tab){tab.addEventListener('click',function(){run(tab.dataset.morphTab)})});
+  // Stop cycling while someone is reading or interacting on the detail page.
+  ['pointerenter','focusin'].forEach(function(e){root.addEventListener(e,function(){held=true;clearTimeout(timer)})});
+  ['pointerleave','focusout'].forEach(function(e){root.addEventListener(e,function(){held=false;schedule()})});
+  document.addEventListener('learnui:languagechange',render);
+  run(current);
+})();
+</script>

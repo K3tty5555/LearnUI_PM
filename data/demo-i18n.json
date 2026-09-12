@@ -329,7 +329,10 @@
     "Notes": "笔记",
     "People": "成员",
     "Archive": "归档",
-    "Actions": "操作"
+    "Actions": "操作",
+    "Syncing": "正在同步",
+    "Files and status appear here": "文件和状态会在这里出现",
+    "Details": "详情"
   },
   "patterns": [
     {"source": "^(\\d+) stars$", "target": "$1 星"},

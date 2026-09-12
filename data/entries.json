@@ -4514,4 +4514,46 @@
   ],
   "demo": "macos/menu-bar-extra"
  }
+,
+ {
+  "slug": "container-morph",
+  "platform": "web",
+  "name": "Container Morph (7 Patterns)",
+  "tagline": "A container changes shape, size, or layout while its content stays continuous",
+  "aka": [
+   "container transform",
+   "morphing card",
+   "shared container transition",
+   "iOS container transition"
+  ],
+  "fuzzy": [
+   "the little dot that stretches into a status pill",
+   "a pill opening into a detail card",
+   "a compact control expanding into a full panel",
+   "a card changing only its corner radius",
+   "a metric card growing without losing its anchor",
+   "content rearranging when the container gets wider",
+   "a completed card shrinking back into its original button"
+  ],
+  "api": [
+   {"framework": "CSS", "symbol": "@keyframes + border-radius", "note": "use transforms and clip/reveal for a smooth shape change"},
+   {"framework": "Web", "symbol": "View Transitions API", "note": "share a named element across compact and expanded states"},
+   {"framework": "React", "symbol": "layout / AnimatePresence", "note": "animate layout changes while keeping content continuity"},
+   {"framework": "SwiftUI", "symbol": "matchedGeometryEffect", "note": "the native shared-element equivalent on iOS"}
+  ],
+  "prompt": "Build a container morph demo with seven selectable patterns: Circle to Pill (a centered dot stretches horizontally, icon then text appear), Pill to Card (a one-line status pill expands downward while keeping its header), Compact to Expanded (the same control opens into a complete panel and reflows its controls), Corner Radius Morph (keep the size but animate the corners from capsule to card), Size Morph (grow from a fixed top-left anchor while preserving the content hierarchy), Content Reflow (change from a vertical stack to a horizontal layout while preserving reading order), and Reverse Collapse (restore the content first, then shrink back to the original dot while keeping the completion state). Use transform/clip-path where possible, keep the default content visible, make each transition interruptible, and honor prefers-reduced-motion.",
+  "debugPrompt": "Debug my container morph transition. Check that the starting and ending shapes are explicit; the container has a stable anchor; icon, title, details, and buttons appear in a deliberate order; layout changes do not pop or overlap; the card can be interrupted and reversed from its current state; the completion state survives a reverse collapse; and prefers-reduced-motion removes spatial movement without hiding the final state. The symptom:",
+  "description": "A container morph is a transition where the same UI object changes shape, size, or internal layout instead of disappearing and being replaced by a new box. The useful distinction is what changes: the outline, the dimensions, the content arrangement, or the direction of the return. These seven patterns cover the common iOS-style status, card, panel, metric, and completion transitions.",
+  "parts": [
+   {"id": "circle-to-pill", "name": "Circle to Pill", "api": "container morph", "description": "A small round entry point stretches sideways into a readable status pill.", "prompt": "a centered dot expanding left and right into a pill; reveal the icon first, then the label"},
+   {"id": "pill-to-card", "name": "Pill to Card", "api": "container morph", "description": "A one-line status pill opens downward into a detail card while retaining its header.", "prompt": "a status pill expanding downward into a card; keep the icon and title in place, then reveal details and actions"},
+   {"id": "compact-to-expanded", "name": "Compact to Expanded", "api": "container morph", "description": "A compact control becomes a full panel for the same task.", "prompt": "the same control expanding into a complete panel; move the cover, progress, and quick actions into their final positions"},
+   {"id": "corner-radius-morph", "name": "Corner Radius Morph", "api": "border-radius", "description": "The box keeps its size but changes from capsule-like corners to card corners.", "prompt": "keep the container size stable while the four corners ease from a full pill radius to a 16px card radius"},
+   {"id": "size-morph", "name": "Size Morph", "api": "layout / transform", "description": "The container grows from a fixed anchor while its content hierarchy remains intact.", "prompt": "pin the top-left anchor, grow the container down and right, preserve internal alignment, and emphasize the primary value at the end"},
+   {"id": "content-reflow", "name": "Content Reflow", "api": "layout transition", "description": "The same content reorganizes from a stack into a row as the available width changes.", "prompt": "smoothly reflow the title, explanation, status, and action from a vertical stack into a horizontal layout without changing reading order"},
+   {"id": "reverse-collapse", "name": "Reverse Collapse", "api": "reverse transition", "description": "A completed card returns to its original small entry point in a deliberate reverse order.", "prompt": "restore the button and text first, shrink the card next, then return to the original dot while retaining the completed checkmark"}
+  ],
+  "related": ["spring", "easing", "panel", "popover", "progress-indicators"],
+  "demo": "web/container-morph"
+ }
 ]
