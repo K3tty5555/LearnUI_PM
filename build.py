@@ -6,7 +6,7 @@ import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
-NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph"}
+NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars"}
 
 def load(p):

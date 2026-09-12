@@ -4555,5 +4555,173 @@
   ],
   "related": ["spring", "easing", "panel", "popover", "progress-indicators"],
   "demo": "web/container-morph"
+ },
+ {
+  "slug": "otp-input",
+  "platform": "web",
+  "name": "OTP Input (One-Time Code)",
+  "tagline": "A segmented field for entering a short verification code",
+  "aka": ["one-time code input", "verification code field", "PIN input"],
+  "fuzzy": ["the six little boxes for a login code", "where each digit has its own slot", "the code field that jumps to the next box", "the verification input with a paste action"],
+  "api": [
+   {"framework": "HTML", "symbol": "inputmode=\"numeric\" + autocomplete=\"one-time-code\"", "note": "let mobile keyboards and password managers help"},
+   {"framework": "ARIA", "symbol": "role=\"group\" + labelled slots", "note": "announce one field, not six unrelated inputs"},
+   {"framework": "JS", "symbol": "paste + roving focus", "note": "split pasted digits across slots and move focus predictably"},
+   {"framework": "CSS", "symbol": ":focus-visible + caret", "note": "make the active slot obvious without relying on color alone"}
+  ],
+  "prompt": "Build an accessible OTP input with six visible slots and one logical value: numeric inputmode, autocomplete=one-time-code, paste support that distributes digits, backspace that moves to the previous filled slot, and predictable roving focus. Expose the group label once to assistive technology, keep each slot at least 44px tall, show a clear focus-visible ring, and respect prefers-reduced-motion.",
+  "debugPrompt": "Debug my OTP input. Check that mobile keyboards use numeric mode; autocomplete can fill the whole code; pasting distributes only allowed digits; typing advances exactly one slot; backspace clears before moving backward; arrow keys and focus restoration work; screen readers hear one labelled code field rather than six confusing fields; invalid and complete states are announced; and reduced-motion does not hide the caret or focus ring. The symptom:",
+  "description": "An OTP input, or one-time code input, presents a short verification value as separate visual slots while keeping one coherent field for typing, pasting, validation, and assistive technology. The visual segmentation is a cue; the code itself should remain easy to enter as one value.",
+  "parts": [
+   {"id": "code-slots", "name": "Code slots", "api": "input slots", "description": "The individual boxes that show each digit or character of the code.", "prompt": "six equal code slots with tabular numerals and a visible caret in the active slot"},
+   {"id": "focus-slot", "name": "Active slot", "api": ":focus-visible", "description": "The slot that receives the next character and carries the keyboard focus cue.", "prompt": "the active OTP slot with a 2px focus-visible ring and a stable caret"},
+   {"id": "otp-status", "name": "Validation status", "api": "aria-live", "description": "The short message that confirms a complete code or explains why it is rejected.", "prompt": "an inline status region that announces code accepted, incomplete, or invalid without shifting the layout"}
+  ],
+  "related": ["form-field", "focus-ring-web", "segmented-control", "toast"],
+  "demo": "web/otp-input"
+ },
+ {
+  "slug": "duration-picker",
+  "platform": "web",
+  "name": "Duration Picker",
+  "tagline": "A compact control for choosing an amount of time",
+  "aka": ["time interval picker", "hours and minutes picker", "duration selector"],
+  "fuzzy": ["the hours and minutes control", "a short picker for a meeting length", "two number fields for a time span", "the control that chooses 15, 30, or 60 minutes"],
+  "api": [
+   {"framework": "HTML", "symbol": "input[type=number]", "note": "use min, max, step and labels for each unit"},
+   {"framework": "ARIA", "symbol": "role=\"group\" + aria-describedby", "note": "keep the units and constraints understandable"},
+   {"framework": "JS", "symbol": "clamp + step", "note": "normalize minutes and carry into hours"},
+   {"framework": "CSS", "symbol": "font-variant-numeric: tabular-nums", "note": "keep changing values from nudging the layout"}
+  ],
+  "prompt": "Build a duration picker for hours and minutes. Use labelled numeric controls with sensible min/max/step values, normalize 60 minutes into the next hour, support keyboard increment/decrement, provide quick presets, and keep the total duration visible. Use tabular numerals, clear disabled boundaries, and a concise validation message; honor prefers-reduced-motion for preset feedback.",
+  "debugPrompt": "Debug my duration picker. Check that hours and minutes have separate labels; values clamp at valid bounds; 60 minutes carries into hours; keyboard and pointer steppers agree; presets update both units; a zero duration is handled intentionally; errors do not shift the form; screen readers hear the unit and total; and reduced-motion users still see the selected preset. The symptom:",
+  "description": "A duration picker chooses a length of time rather than a clock time. It often combines hours and minutes with step controls and presets, then summarizes the result in plain language so the value is easy to confirm.",
+  "parts": [
+   {"id": "unit-field", "name": "Unit field", "api": "input[type=number]", "description": "One labelled numeric field for hours or minutes.", "prompt": "a compact numeric field with an explicit Hours or Minutes label and a visible unit suffix"},
+   {"id": "duration-presets", "name": "Duration presets", "api": "button group", "description": "Common lengths that set the picker in one action.", "prompt": "15 min, 30 min, and 1 hr preset buttons with a persistent selected state"},
+   {"id": "duration-summary", "name": "Duration summary", "api": "output", "description": "A readable sentence that confirms the combined time span.", "prompt": "a live summary such as Total duration: 45 minutes, placed beside the controls"}
+  ],
+  "related": ["stepper", "form-field", "segmented-control", "slider"],
+  "demo": "web/duration-picker"
+ },
+ {
+  "slug": "animated-counter",
+  "platform": "web",
+  "name": "Animated Counter",
+  "tagline": "A value that counts to a new number so the change is easy to notice",
+  "aka": ["odometer counter", "number tween", "count-up animation"],
+  "fuzzy": ["the number that rolls up to the total", "a metric that ticks from 0 to 100", "the animated price or statistic", "digits that flip when a value changes"],
+  "api": [
+   {"framework": "JS", "symbol": "requestAnimationFrame", "note": "tween the value with a bounded frame loop"},
+   {"framework": "CSS", "symbol": "font-variant-numeric: tabular-nums", "note": "stop changing digits from shifting the metric"},
+   {"framework": "ARIA", "symbol": "aria-live=\"polite\"", "note": "announce the settled value, not every frame"},
+   {"framework": "Motion", "symbol": "prefers-reduced-motion", "note": "jump to the final value when motion is reduced"}
+  ],
+  "prompt": "Build an animated counter that transitions from the previous value to the next with a 450ms ease-out. Keep digits aligned with tabular numerals, format currency and separators without layout jumps, expose only the settled value to aria-live, cancel an in-flight tween when the value changes again, and render the final value immediately for prefers-reduced-motion.",
+  "debugPrompt": "Debug my animated counter. Check that numeric formatting does not change width; the animation cancels cleanly on a new value; requestAnimationFrame is not left running offscreen; screen readers do not hear every intermediate number; a decrease animates as deliberately as an increase; NaN and missing values have a clear fallback; and reduced-motion renders the settled value immediately. The symptom:",
+  "description": "An animated counter turns a numeric change into a short, legible transition. It is useful when the change itself matters, such as a completed task count or a price update; it should clarify the new value rather than delay access to it.",
+  "parts": [
+   {"id": "counter-value", "name": "Settled value", "api": "aria-live", "description": "The formatted number users ultimately need to read and act on.", "prompt": "a single live region containing only the final formatted value after the tween settles"},
+   {"id": "digit-track", "name": "Digit track", "api": "tabular-nums", "description": "The aligned visual digits that move during the transition.", "prompt": "right-aligned tabular numerals with stable width while each digit changes"},
+   {"id": "counter-trigger", "name": "Value trigger", "api": "state update", "description": "The event or data update that starts a new count.", "prompt": "a clearly labelled update action that supplies the previous and next numeric values"}
+  ],
+  "related": ["progress-indicators", "level-indicator", "text-scramble", "spring"],
+  "demo": "web/animated-counter"
+ },
+ {
+  "slug": "scroll-progress-indicator",
+  "platform": "web",
+  "name": "Scroll Progress Indicator",
+  "tagline": "A small cue showing how far a reader has moved through a long page",
+  "aka": ["reading progress", "scroll progress bar", "article progress"],
+  "fuzzy": ["the thin line that fills as you read", "a progress bar at the top of an article", "the page position indicator", "a reader progress cue"],
+  "api": [
+   {"framework": "Web", "symbol": "scrollY + scrollHeight", "note": "derive progress from the readable document range"},
+   {"framework": "CSS", "symbol": "position: fixed + transform", "note": "keep the cue visible without affecting layout"},
+   {"framework": "ARIA", "symbol": "role=\"progressbar\"", "note": "expose a meaningful value when the percentage helps"},
+   {"framework": "CSS", "symbol": "@media (prefers-reduced-motion)", "note": "remove smoothing while preserving the position cue"}
+  ],
+  "prompt": "Build a scroll progress indicator for a long article. Calculate progress from the viewport bottom relative to the document's readable start and end, render a fixed 3px bar with transform scaleX rather than width, expose an accessible percentage only when useful, avoid covering focus targets, throttle or schedule updates efficiently, and disable smoothing for prefers-reduced-motion.",
+  "debugPrompt": "Debug my scroll progress indicator. Check that the denominator excludes the viewport height; the bar reaches 0 and 100 at sensible points; short pages do not show a misleading partial bar; fixed positioning does not cover skip links or focus rings; updates are passive and throttled; nested scroll containers are handled intentionally; and reduced-motion removes smoothing without removing the cue. The symptom:",
+  "description": "A scroll progress indicator gives readers a lightweight sense of position through a long page. It is a navigation aid, not a task completion meter: the range and accessible label should describe reading progress clearly.",
+  "parts": [
+   {"id": "progress-track", "name": "Progress track", "api": "fixed bar", "description": "The quiet background line that anchors the reading cue.", "prompt": "a 3px fixed track at the top edge with enough contrast against the page background"},
+   {"id": "progress-fill", "name": "Progress fill", "api": "transform: scaleX", "description": "The filled portion that grows with the reader's position.", "prompt": "a left-origin fill using transform scaleX and transform-origin:left center"},
+   {"id": "reading-range", "name": "Reading range", "api": "scroll metrics", "description": "The start and end points used to calculate meaningful progress.", "prompt": "progress from the article start to its readable end, excluding the viewport's empty tail"}
+  ],
+  "related": ["progress-indicators", "sticky-fixed", "scroll-view", "focus-ring-web"],
+  "demo": "web/scroll-progress-indicator"
+ },
+ {
+  "slug": "code-block",
+  "platform": "web",
+  "name": "Code Block",
+  "tagline": "A readable code sample with context, copy, and line-level structure",
+  "aka": ["code snippet", "syntax-highlighted block", "preformatted code"],
+  "fuzzy": ["the dark box with code in it", "a code sample with a copy button", "the developer example panel", "syntax highlighted text with line numbers"],
+  "api": [
+   {"framework": "HTML", "symbol": "pre > code", "note": "preserve whitespace and expose code as text"},
+   {"framework": "Clipboard", "symbol": "navigator.clipboard.writeText", "note": "copy the source rather than highlighted markup"},
+   {"framework": "ARIA", "symbol": "aria-label + status", "note": "name the language and announce copy feedback"},
+   {"framework": "CSS", "symbol": "tab-size + overflow", "note": "keep indentation readable without breaking the page"}
+  ],
+  "prompt": "Build a code block with a language label, optional line numbers, a copy button, horizontal overflow that stays inside the sample, and syntax highlighting that never reduces contrast. Keep the source in a real pre/code structure, copy plain source text, announce Copied in a status region, preserve keyboard focus, and provide a readable light fallback.",
+  "debugPrompt": "Debug my code block. Check that copying returns plain source rather than rendered HTML; long lines scroll inside the block; line numbers do not get copied; the language label is associated with the sample; the copy button has a visible focus ring and reset feedback; keyboard users can reach the whole block; and highlighting never hides meaning when color is unavailable. The symptom:",
+  "description": "A code block presents source text as a readable, copyable unit. Good code blocks preserve whitespace, identify the language, keep long lines contained, and make the copy action reliable without turning syntax color into the only source of meaning.",
+  "parts": [
+   {"id": "code-context", "name": "Code context bar", "api": "language label", "description": "The small header that tells readers what they are looking at and offers actions.", "prompt": "a compact header with the language name and a copy button aligned to the top right"},
+   {"id": "code-source", "name": "Code source", "api": "pre > code", "description": "The preserved source text with indentation and line breaks intact.", "prompt": "a pre/code region with tab-size 2, selectable text, and horizontal overflow contained locally"},
+   {"id": "copy-feedback", "name": "Copy feedback", "api": "role=status", "description": "The short confirmation that tells users the source is now on the clipboard.", "prompt": "a polite status message that changes to Copied for 1.5 seconds without shifting the code"}
+  ],
+  "related": ["text-scramble", "command-palette", "popover-dropdown-tooltip", "focus-ring-web"],
+  "demo": "web/code-block"
+ },
+ {
+  "slug": "destructive-action",
+  "platform": "web",
+  "name": "Destructive Action (Danger Button)",
+  "tagline": "A clearly signposted action that can remove or irreversibly change data",
+  "aka": ["danger button", "delete action", "irreversible action"],
+  "fuzzy": ["the red delete button", "the button that removes an item", "a dangerous confirmation action", "the final button in a delete dialog"],
+  "api": [
+   {"framework": "ARIA", "symbol": "aria-describedby + alertdialog", "note": "connect the consequence and recovery path"},
+   {"framework": "Web", "symbol": "button type=\"button\"", "note": "never make a destructive action the accidental form submit"},
+   {"framework": "UX", "symbol": "confirmation + undo", "note": "match interruption to the reversibility and cost"},
+   {"framework": "CSS", "symbol": ":focus-visible + disabled", "note": "keep danger, focus, and disabled states distinct"}
+  ],
+  "prompt": "Build a destructive action pattern for deleting a saved item. Use a specific verb, explain the consequence before the final action, keep Cancel available and focused by default in a confirmation surface, prevent accidental form submission, expose a disabled/loading state during the request, and offer Undo when the operation can be reversed. Use color as reinforcement, never the only warning.",
+  "debugPrompt": "Debug my destructive action. Check that the label names the exact consequence; Cancel and the destructive action have an intentional focus order; pressing Enter cannot trigger deletion by accident; loading prevents duplicate requests; errors explain recovery; the danger color meets contrast; keyboard and screen reader users get the same warning; and an undo path appears when the server can restore the item. The symptom:",
+  "description": "A destructive action removes data or causes a hard-to-reverse change. The pattern is defined by consequence and communication: name the action precisely, give users a chance to reconsider when needed, and make progress and recovery visible.",
+  "parts": [
+   {"id": "danger-label", "name": "Consequence label", "api": "button text", "description": "The verb and object that make the outcome explicit.", "prompt": "a specific label such as Delete project rather than a vague Delete or Remove"},
+   {"id": "confirm-surface", "name": "Confirmation surface", "api": "alertdialog", "description": "The protected context that repeats the consequence and offers a safe exit.", "prompt": "an alertdialog with the item name, consequence, Cancel, and the final destructive action"},
+   {"id": "undo-feedback", "name": "Undo feedback", "api": "toast + action", "description": "The short recovery window after a reversible delete.", "prompt": "a toast stating Project deleted with an Undo action and a visible timeout"}
+  ],
+  "related": ["alert", "dialog-drawer-sheet", "toast", "focus-ring-web"],
+  "demo": "web/destructive-action"
+ },
+ {
+  "slug": "ai-status-orb",
+  "platform": "web",
+  "name": "AI Status Orb",
+  "tagline": "A compact animated focal point that communicates an AI system's current state",
+  "aka": ["voice assistant orb", "AI state indicator", "conversational status orb"],
+  "fuzzy": ["the glowing ball while AI is thinking", "the orb that listens and speaks", "a voice assistant status animation", "the animated AI presence in the center of the screen"],
+  "api": [
+   {"framework": "ARIA", "symbol": "role=status + aria-live", "note": "name the state in words beside the visual"},
+   {"framework": "Motion", "symbol": "state machine", "note": "map idle, listening, thinking, speaking, and error to deliberate motion"},
+   {"framework": "CSS", "symbol": "radial-gradient + transform", "note": "bound the glow and animate only the isolated focal region"},
+   {"framework": "Motion", "symbol": "prefers-reduced-motion", "note": "freeze the pulse and retain a clear state marker"}
+  ],
+  "prompt": "Build an AI status orb with explicit Idle, Listening, Thinking, Speaking, and Error states. Pair every visual state with a visible text label and role=status announcement, use a bounded layered glow and slow scale/pulse only for active states, stop or pause animation when hidden, keep the control keyboard accessible, and freeze the orb with a static state marker under prefers-reduced-motion.",
+  "debugPrompt": "Debug my AI status orb. Check that the animation is driven by an explicit state machine rather than scattered booleans; Idle is visually distinct from Thinking and Speaking; the state is announced in text and aria-live without repeating every frame; focus and pointer controls remain usable; offscreen and hidden states stop expensive work; errors have a recovery action; and reduced-motion freezes movement while preserving the state distinction. The symptom:",
+  "description": "An AI status orb is a visual status indicator for conversational or generative systems. The orb is only the carrier; the product meaning comes from the state vocabulary, a nearby text label, and motion that communicates listening, processing, or output without pretending the system is human.",
+  "parts": [
+   {"id": "orb-core", "name": "Orb core", "api": "isolated visual", "description": "The central shape that gives the status indicator a stable visual anchor.", "prompt": "a 64px orb with a quiet center and bounded layered light, never a full-screen glow"},
+   {"id": "state-motion", "name": "State motion", "api": "state machine", "description": "The distinct motion grammar assigned to each AI state.", "prompt": "Idle stays still, Listening breathes slowly, Thinking rotates a restrained halo, Speaking responds to activity, Error holds a clear static warning"},
+   {"id": "state-label", "name": "State label", "api": "role=status", "description": "The words that make the visual state understandable and searchable.", "prompt": "a persistent text label such as Listening or Thinking beside the orb, announced politely"}
+  ],
+  "related": ["progress-indicators", "skeleton-spinner", "empty-state", "container-morph", "toast"],
+  "demo": "web/ai-status-orb"
  }
 ]

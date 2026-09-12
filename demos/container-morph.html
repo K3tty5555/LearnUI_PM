@@ -13,7 +13,7 @@
   </div>
   <div class="cm-stage">
     <div class="cm-object">
-      <span class="cm-icon" aria-hidden="true">↻</span>
+      <span class="cm-icon" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 6.2A5.2 5.2 0 1 0 13.1 10"/><path d="M13 2.8v3.8H9.2"/></svg></span>
       <div class="cm-copy"><strong class="cm-title">Syncing</strong><span class="cm-detail">Files and status appear here</span></div>
       <span class="cm-number">68.4<span>%</span></span>
       <span class="cm-progress" aria-hidden="true"><i></i></span>
@@ -35,7 +35,7 @@
 .cm-stage{position:relative;display:grid;place-items:center;height:98px;border:1px solid rgba(200,221,213,.75);border-radius:12px;background:linear-gradient(145deg,rgba(244,252,249,.9),rgba(231,246,240,.72));overflow:hidden}
 .cm-stage:before{content:"";position:absolute;inset:7px;border:1px dashed rgba(96,144,129,.18);border-radius:9px}
 .cm-object{position:relative;z-index:1;display:flex;align-items:center;gap:7px;width:228px;height:52px;padding:8px 10px;border:1px solid var(--cm-line);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 6px 16px rgba(26,71,57,.08);overflow:hidden}
-.cm-icon{position:relative;display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--cm-mint);color:var(--cm-accent);font-size:12px;font-weight:700}
+.cm-icon{position:relative;display:grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--cm-mint);color:var(--cm-accent);font-size:12px;font-weight:700}.cm-icon svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .cm-copy{min-width:0;display:grid;gap:1px}
 .cm-title{font-size:11px;line-height:1.25;white-space:nowrap}
 .cm-detail{display:none;color:var(--cm-muted);font-size:9px;line-height:1.25;white-space:nowrap}
@@ -71,7 +71,7 @@
 /* 07 content leaves first, then the container returns to the dot */
 .demo-container-morph[data-morph="reverse"] .cm-object{width:30px;height:30px;border-radius:999px;padding:3px;justify-content:center}
 .demo-container-morph[data-morph="reverse"] .cm-icon{flex-basis:22px;color:transparent}
-.demo-container-morph[data-morph="reverse"] .cm-icon:after{content:"✓";position:absolute;color:var(--cm-accent);font-size:12px}
+.demo-container-morph[data-morph="reverse"] .cm-icon:after{content:"";position:absolute;width:8px;height:4px;border-left:1.8px solid var(--cm-accent);border-bottom:1.8px solid var(--cm-accent);transform:translateY(-1px) rotate(-45deg)}
 .demo-container-morph[data-morph="reverse"] .cm-copy{position:absolute;left:34px;top:8px;width:170px;opacity:0}
 
 .cm-object.is-animating{animation:var(--cm-anim) var(--cm-ease) both}

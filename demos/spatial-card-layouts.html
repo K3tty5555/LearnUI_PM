@@ -122,13 +122,15 @@
   var viewport = root.querySelector('.sc-viewport');
   var status = root.querySelector('.sc-status');
   var descriptions = {
-    depth: 'Depth stack: pull the cards apart along the z-axis.',
-    fan: 'Fan spread: open the cards from one shared pivot.',
-    cylinder: 'Cylinder: wrap the collection into a rotating ring.',
-    sphere: 'Sphere: distribute cards across a rounded orbit.',
-    helix: 'Helix: keep order while the cards climb in space.',
-    wave: 'Wave grid: keep the grid and send depth through it.'
+    depth: ['深度叠层：沿 z 轴拉开卡片。', 'Depth stack: pull the cards apart along the z-axis.'],
+    fan: ['扇形展开：围绕同一个支点打开卡片。', 'Fan spread: open the cards from one shared pivot.'],
+    cylinder: ['圆柱环绕：把卡片集合围成可旋转的环。', 'Cylinder: wrap the collection into a rotating ring.'],
+    sphere: ['球面排布：把卡片分布到圆润的轨道上。', 'Sphere: distribute cards across a rounded orbit.'],
+    helix: ['螺旋排布：卡片向上延伸，同时保留顺序。', 'Helix: keep order while the cards climb in space.'],
+    wave: ['波浪矩阵：保留网格，让纵深穿过其中。', 'Wave grid: keep the grid and send depth through it.']
   };
+  function chinese() { return document.documentElement.getAttribute('data-lang-mode') !== 'en'; }
+  function renderStatus(mode) { status.textContent = descriptions[mode][chinese() ? 0 : 1]; }
   root.querySelectorAll('[data-mode]').forEach(function (button) {
     button.addEventListener('click', function () {
       var mode = button.getAttribute('data-mode');
@@ -138,8 +140,12 @@
         item.classList.toggle('is-active', active);
         item.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
-      status.textContent = descriptions[mode];
+      renderStatus(mode);
     });
+  });
+  document.addEventListener('learnui:languagechange', function () {
+    var active = root.querySelector('.sc-modes button[aria-pressed="true"]');
+    if (active) renderStatus(active.getAttribute('data-mode'));
   });
 }());
 </script>

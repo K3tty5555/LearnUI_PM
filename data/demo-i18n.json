@@ -340,5 +340,84 @@
     {"source": "^Pick (#[0-9a-fA-F]{6})$", "target": "选择 $1"},
     {"source": "^Messages, (\\d+) unread$", "target": "消息，$1 条未读"}
   ],
-  "demos": {}
+  "demos": {
+    "otp-input": {
+      "Verification code": "验证码",
+      "Enter the 6-digit code": "输入 6 位验证码",
+      "Clear": "清除",
+      "Six digit verification code": "六位验证码",
+      "Digit 1": "第 1 位",
+      "Digit 2": "第 2 位",
+      "Digit 3": "第 3 位",
+      "Digit 4": "第 4 位",
+      "Digit 5": "第 5 位",
+      "Digit 6": "第 6 位",
+      "Paste a code or type each digit.": "粘贴验证码，或逐位输入。"
+    },
+    "duration-picker": {
+      "Session length": "会话时长",
+      "Set a duration": "设置一段时长",
+      "Hours": "小时",
+      "Minutes": "分钟",
+      "Duration presets": "时长预设",
+      "15 min": "15 分钟",
+      "30 min": "30 分钟",
+      "1 hr": "1 小时",
+      "Total duration": "总时长"
+    },
+    "animated-counter": {
+      "Completed tasks": "已完成任务",
+      "Show 1,240": "显示 1,240",
+      "Show 1,860": "显示 1,860",
+      "Show 980": "显示 980",
+      "1,240 completed tasks": "已完成 1,240 项任务"
+    },
+    "scroll-progress-indicator": {
+      "Design tokens that survive change": "经得起变化的设计 Token",
+      "Good systems give a team a shared vocabulary. A token names the decision once so a button, a table, and a dialog can agree without repeating the same guess.": "好的系统为团队提供共同词汇。一个 Token 只命名一次决策，让按钮、表格和对话框无需重复猜测也能保持一致。",
+      "Start with the relationships that matter: type scale, spacing rhythm, color roles, and motion. Then show the states where those decisions become visible to a reader.": "先从重要关系开始：字号比例、间距节奏、颜色角色和动效。再展示这些决策如何在状态中变得可见。",
+      "Progress is a small cue, but it answers a useful question: how much of this page remains?": "进度是一个小提示，却回答了一个有用的问题：这个页面还剩多少？",
+      "Keep the signal quiet enough to disappear while the reader is focused. It should guide, never compete with the content.": "让信号足够安静，在读者专注时退到背景中。它应该引导阅读，而不是和内容竞争。",
+      "Reading progress": "阅读进度"
+    },
+    "code-block": {
+      "React": "React",
+      "component.tsx": "component.tsx",
+      "Copy": "复制",
+      "Copied": "已复制",
+      "Ready to copy": "可以复制",
+      "Copied source to clipboard": "源代码已复制到剪贴板"
+    },
+    "destructive-action": {
+      "Project Atlas": "Atlas 项目",
+      "Shared with 8 teammates": "已与 8 位队友共享",
+      "Delete project": "删除项目",
+      "Delete Project Atlas?": "删除 Atlas 项目？",
+      "This removes the project and its saved views. You can undo this for 10 seconds.": "这会删除项目及其保存的视图。你可以在 10 秒内撤销。",
+      "Cancel": "取消",
+      "Project deleted": "项目已删除",
+      "Undo": "撤销"
+    },
+    "ai-status-orb": {
+      "Idle": "待机",
+      "Ready when you are": "准备好后即可开始",
+      "AI is idle": "AI 正在待机",
+      "AI state": "AI 状态",
+      "Listen": "聆听",
+      "Think": "思考",
+      "Speak": "输出",
+      "Error": "错误",
+      "Listening": "聆听中",
+      "Speak your request": "说出你的请求",
+      "AI is listening": "AI 正在聆听",
+      "Thinking": "思考中",
+      "Working on an answer": "正在生成回答",
+      "AI is thinking": "AI 正在思考",
+      "Speaking": "输出中",
+      "Sharing the answer": "正在分享回答",
+      "AI is speaking": "AI 正在输出",
+      "Try again": "请重试",
+      "AI needs attention": "AI 需要关注"
+    }
+  }
 }
