@@ -4921,5 +4921,43 @@
         "name": "Material Design"
       }
     ]
-  }
+  },
+{
+  "slug": "mono-color-editorial-print",
+  "name": "Mono-color Editorial Print",
+  "order": 45,
+  "tagline": "Mono-color Editorial Print builds an entire visual system from one ink color, or a tightly controlled second printing pass: oversized editorial typography, deliberate empty paper, halftone imagery, dry grain, and slight registration drift are composed together as if the screen were a limited-run poster or magazine cover.",
+  "scope": "Scope: This entry covers a contemporary editorial design system translated into digital surfaces and AI-generated visual work. It is not simply a monochrome photo filter. The defining move is to recompose type, image, spacing, and print artifacts as one constrained layout.",
+  "aliases": ["single-ink editorial poster", "monochrome magazine cover with halftone grain", "limited-color print design", "one-color zine poster with big type", "controlled duotone editorial visual"],
+  "confusedWith": {
+    "slug": "risograph",
+    "name": "Risograph",
+    "because": "This is Mono-color Editorial Print because the composition is governed first by editorial hierarchy, one dominant ink, and intentional empty paper; print texture supports that system instead of becoming the whole subject.",
+    "wouldBecomeIf": "It would become Risograph if overlapping fluorescent spot-color shapes, visible multi-pass misregistration, and stencil-like ink behavior became the primary identity rather than editorial typography and restrained composition."
+  },
+  "signals": [
+    {"id": "single-ink-system", "facet": "color", "role": "defining", "name": "One dominant ink", "description": "The visual is built from paper plus one named ink color. Tints come from dot density and overprint behavior rather than unrelated accent colors or gradients."},
+    {"id": "controlled-duotone", "facet": "color", "role": "variable", "name": "Controlled second printing pass", "description": "A second ink may be introduced when the subject needs separation or emphasis, but it behaves like another physical pass and never expands into a full palette."},
+    {"id": "editorial-typography", "facet": "typography", "role": "defining", "name": "Editorial type as image", "description": "Oversized serif or condensed sans headlines become part of the composition: they crop, overlap imagery, change scale abruptly, and carry more visual weight than UI chrome."},
+    {"id": "intentional-paper", "facet": "layout", "role": "defining", "name": "Large intentional fields of paper", "description": "Roughly a quarter to half of the composition remains visibly quiet. Empty space creates tension, isolates the subject, and keeps the limited ink system feeling deliberate."},
+    {"id": "halftone-grain", "facet": "imagery", "role": "defining", "name": "Halftone and dry-ink imagery", "description": "Photographs and shapes are reduced to visible dots, rough grain, uneven ink coverage, or screened tints that read as printed matter rather than polished photography."},
+    {"id": "registration-drift", "facet": "depth", "role": "supporting", "name": "Restrained registration drift", "description": "The optional second ink may sit one or two millimeters off the first pass at selected edges. The offset is localized and purposeful, not a global glitch effect."},
+    {"id": "whole-layout-recomposition", "facet": "layout", "role": "defining", "name": "Image and type recomposed together", "description": "The source image is cropped, screened, layered, or interrupted so it belongs to the typographic grid. The result is a new editorial composition, not a filtered source photo."},
+    {"id": "generic-ai-polish", "facet": "imagery", "role": "avoid", "name": "Generic AI polish", "description": "Glossy gradients, cinematic hero lighting, centered photorealistic subjects, neon glow, decorative glass cards, and filler badges dissolve the print constraint."}
+  ],
+  "code": [
+    {"title": "Single-ink halftone screen", "language": "css", "code": "background-color: #f3efe5; background-image: radial-gradient(circle, #2148b8 0 1px, transparent 1.2px); background-size: 5px 5px; mix-blend-mode: multiply;"},
+    {"title": "Localized second-pass registration offset", "language": "css", "code": ".second-pass { color: #e55d2b; transform: translate(2px, -1px); mix-blend-mode: multiply; }"},
+    {"title": "Editorial headline with controlled cropping", "language": "css", "code": "font: 800 clamp(3rem, 12vw, 9rem)/.82 var(--display-serif); letter-spacing: -.035em; max-width: 7ch; overflow-wrap: normal;"}
+  ],
+  "brief": "Create the visual in a Mono-color Editorial Print system. Start with warm uncoated paper (#F3EFE5) and one dominant named ink such as ultramarine #2148B8, signal red #C83232, plant green #008A4B, or charcoal #30343A. Build hierarchy with oversized editorial typography: one cropped or overlapping display headline, restrained supporting text, and small publication metadata. Preserve 25–55% visible empty paper. Convert photography or illustration into one-ink halftone dots, dry grain, screened tints, and simplified cutouts; recompose the source image together with the type instead of applying a filter to the original layout. If the message needs a second color, use one proven spot-ink pair and treat it as a physical second pass with only 1–2px of localized registration drift. Avoid gradients, neon, glossy photorealism, cinematic hero lighting, generic glass cards, decorative badges, and dense center-aligned symmetry. Keep body copy on clean paper, focus states visible, and all essential meaning legible without texture or color.",
+  "accessibility": "Halftone texture can reduce the effective contrast of text and faces. Keep body copy on a solid paper field and measure at least 4.5:1 contrast between the ink and the lightest paper region.\n\nLarge cropped display type can be visually expressive while the actual heading remains complete in the DOM. Do not split words into inaccessible fragments or use decorative text as the only heading.\n\nRegistration drift and animated print passes are decorative. Keep controls and status text aligned, and remove shifting or flicker under prefers-reduced-motion.",
+  "origin": "This entry documents the Mono-color Skill demonstrated by Dreamer妍妍 in 2026: a reusable design system that packages a personal editorial-print taste into explicit rules for ink, typography, composition, imagery, and output. Its visual lineage draws from limited-color editorial design, halftone newspaper reproduction, risograph printing, and independent magazine covers, while the Skill format turns those references into repeatable AI instructions.",
+  "seeAlso": [
+    {"slug": "styles/risograph", "name": "Risograph"},
+    {"slug": "styles/zine-collage", "name": "Zine / Collage"},
+    {"slug": "styles/swiss-style", "name": "Swiss Style"},
+    {"slug": "styles/minimalism", "name": "Minimalism"}
+  ]
+}
 ]

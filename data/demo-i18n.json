@@ -332,7 +332,16 @@
     "Actions": "操作",
     "Syncing": "正在同步",
     "Files and status appear here": "文件和状态会在这里出现",
-    "Details": "详情"
+    "Details": "详情",
+    "FIELD NOTE 07 / VISUAL SYSTEM": "视觉笔记 07 / 视觉系统",
+    "MAKE": "制造",
+    "SPACE": "空间",
+    "VISIBLE": "可见",
+    "A single ink can carry a whole point of view.": "一种油墨，也能承载完整的观点。",
+    "EDITORIAL STUDY": "编辑设计研究",
+    "One ink": "单色油墨",
+    "Duotone": "双色套印",
+    "Ink passes": "油墨套印"
   },
   "patterns": [
     {"source": "^(\\d+) stars$", "target": "$1 星"},

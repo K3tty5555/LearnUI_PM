@@ -66,7 +66,7 @@ def verify(root):
     assert 'GENERATED_PAGES' not in worker and '.addAll(' not in worker, 'Whole-library prefetch must not return'
     assert (root / 'offline.html').stat().st_size < 4096, 'Offline install shell grew beyond 4 KB'
     catalog_items = json.loads((root / 'api/catalog.json').read_text())['items']
-    expected_previews = 2 * (sum(item['type'] == 'ui-element' for item in catalog_items) + 44 + 12)
+    expected_previews = 2 * sum(item['type'] in {'ui-element', 'visual-style', 'page-reference'} for item in catalog_items)
     assert len(list((root / 'assets/demo-thumbs').glob('*.webp'))) == expected_previews, 'Bilingual previews incomplete'
     print('Catalog, preview and offline-install budgets passed.')
 

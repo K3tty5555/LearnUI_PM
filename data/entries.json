@@ -361,7 +361,7 @@
    "bento-grid",
    "drag-and-drop"
   ],
-  "demo": "style-spatial-card-layouts"
+  "demo": "web/spatial-card-layouts"
  },
  {
   "slug": "hamburger-menu",

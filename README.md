@@ -9,7 +9,7 @@
 
 [在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [翻译对照表](https://K3tty5555.github.io/LearnUI_PM/guides/translate/)
 
-**当前构建：** 249 个静态页面；71 个 UI 标本、44 个风格标本、12 个页面参考、74 个知名网站设计规范；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
+**当前构建：** 251 个静态页面；71 个 UI 标本、45 个风格标本、12 个页面参考、74 个知名网站设计规范；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
@@ -21,7 +21,7 @@
 
 - **71 个词条**：40 个 Web + 31 个 macOS，目录直接播放原始 HTML/CSS/JS 动效，详情页保留交互；离屏或切到后台时演示停止运行。
 - **71 个详情页**：解剖（每个部件的名字）、Prompt、调试 Prompt、代码符号表、相关词条
-- **44 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
+- **45 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS、Mono-color Editorial Print…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
 - **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron、翻译对照表（63 条 plain name → AppKit → SwiftUI）
 - **三种阅读模式**：纯中文（默认）/ 中英对照 / 纯英文，页眉一键切换
 - **全站搜索**：中英文模糊描述都能搜（试试「三个点」「mac 窗口按钮」），`/` 聚焦栏目搜索，`⌘K` / `Ctrl+K` 搜索全库、Esc 清空、匹配高亮、`?q=` 深链
@@ -123,7 +123,7 @@ A faithful content replica of [namethatui.com](https://namethatui.com/) (includi
 **Live demo:** <https://K3tty5555.github.io/LearnUI_PM/>
 
 - **71 entries** (40 Web + 31 macOS), each with a **live interactive specimen** (real HTML/CSS/JS, not screenshots)
-- **44 visual styles** (Skeuomorphism, Liquid Glass, Neobrutalism, Y2K, Frutiger Aero, Aqua, Swiss Style, Bauhaus, Memphis, Vaporwave, Art Deco, Cyberpunk, Pixel Art, Corporate Memphis, Material Design, Terminal Hacker, plus 20 more: Frutiger Metro, Anti-design, Acid Graphics, Risograph, Zine Collage, Steampunk, Dieselpunk, Biopunk, Afrofuturism, De Stijl, Constructivism, Pop Art, Surrealism, Art Nouveau, Holographic, Isometric 3D, Line Art, Hand-drawn, Fantasy RPG, LCARS): style specimen, full style DNA signals, look-alike comparison, code starting points, copy-ready style brief
+- **45 visual styles** (Skeuomorphism, Liquid Glass, Neobrutalism, Y2K, Frutiger Aero, Aqua, Swiss Style, Bauhaus, Memphis, Vaporwave, Art Deco, Cyberpunk, Pixel Art, Corporate Memphis, Material Design, Terminal Hacker, plus 21 more including Mono-color Editorial Print): style specimen, full style DNA signals, look-alike comparison, code starting points, copy-ready style brief
 - **71 detail pages**: anatomy of every part, copy-ready agent prompt, debug prompt, API symbol table, related entries
 - **3 guides**: AppKit vs SwiftUI, Swift vs Electron, and a 63-row Translation Table
 - **3 reading modes**: 中文 (default) / bilingual / English, persisted in localStorage

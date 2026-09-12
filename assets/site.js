@@ -544,8 +544,8 @@
       var visible = 0;
       refCards.forEach(function (card) {
         var item = refBySlug[card.getAttribute("data-reference-slug")];
-        var hay = [item.title, item.titleEn, item.summary]
-          .concat(item.scenarios || [], item.structure || [], item.visualTraits || []).join(" ").toLowerCase();
+        var hay = [item.title, item.titleEn, item.summary, item.summaryEn]
+          .concat(item.scenarios || [], item.scenariosEn || [], item.structure || [], item.structureEn || [], item.visualTraits || [], item.visualTraitsEn || []).join(" ").toLowerCase();
         var ok = !query || hay.indexOf(query) !== -1;
         refGroups.forEach(function (group) {
           var selected = selectedFor(group);
@@ -593,11 +593,13 @@
 
   /* ---------- reference specimen states ---------- */
   document.querySelectorAll("[data-pm-demo] [data-demo-state]").forEach(function (button) {
+    button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
     button.addEventListener("click", function () {
       var demo = button.closest("[data-pm-demo]");
       var state = button.getAttribute("data-demo-state");
       demo.querySelectorAll("[data-demo-state]").forEach(function (item) {
         item.classList.toggle("active", item === button);
+        item.setAttribute("aria-pressed", item === button ? "true" : "false");
       });
       demo.querySelectorAll("[data-demo-panel]").forEach(function (panel) {
         panel.hidden = panel.getAttribute("data-demo-panel") !== state;

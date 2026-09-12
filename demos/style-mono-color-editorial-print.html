@@ -1,0 +1,20 @@
+<div class="demo demo-style-mono-color-editorial-print">
+  <div class="mcep-poster" data-ink="duotone">
+    <div class="mcep-pass mcep-pass-blue"></div><div class="mcep-pass mcep-pass-orange"></div>
+    <div class="mcep-grid"></div>
+    <p class="mcep-kicker">FIELD NOTE 07 / VISUAL SYSTEM</p>
+    <h2>MAKE<br><span>SPACE</span><br>VISIBLE</h2>
+    <p class="mcep-caption">A single ink can carry a whole point of view.</p>
+    <div class="mcep-meta"><span>EDITORIAL STUDY</span><span>01—24</span></div>
+  </div>
+  <div class="mcep-controls" role="group" aria-label="Ink passes">
+    <button type="button" data-ink-choice="mono" aria-pressed="false">One ink</button>
+    <button type="button" data-ink-choice="duotone" aria-pressed="true">Duotone</button>
+  </div>
+</div>
+<style>
+.demo-style-mono-color-editorial-print{--m-ink:#2148b8;--m-paper:#f3efe5;--m-orange:#e55d2b;--m-char:#20232a;width:100%;max-width:390px;font-family:Georgia,"Times New Roman",serif;color:var(--m-char)}.demo-style-mono-color-editorial-print *{box-sizing:border-box}.mcep-poster{position:relative;isolation:isolate;overflow:hidden;min-height:245px;padding:18px 20px 15px;border:1px solid rgba(32,35,42,.2);background:var(--m-paper);box-shadow:6px 7px 0 rgba(32,35,42,.1)}.mcep-pass{position:absolute;z-index:-1;border-radius:50%;mix-blend-mode:multiply;pointer-events:none}.mcep-pass-blue{top:75px;right:-34px;width:190px;height:190px;background:var(--m-ink);opacity:.93}.mcep-pass-orange{top:103px;right:-44px;width:130px;height:130px;background:var(--m-orange);opacity:.86;transform:translate(2px,-1px)}.mcep-grid{position:absolute;z-index:-1;right:20px;bottom:18px;width:128px;height:65px;opacity:.2;background-image:radial-gradient(circle,var(--m-char) 0 1px,transparent 1.2px);background-size:5px 5px;mix-blend-mode:multiply}.mcep-kicker{margin:0;color:var(--m-ink);font:600 8px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em}.mcep-poster h2{margin:23px 0 0;font-size:47px;line-height:.79;letter-spacing:-.065em;font-weight:900}.mcep-poster h2 span{color:var(--m-ink)}.mcep-caption{max-width:145px;margin:17px 0 0;font:italic 13px/1.2 Georgia,"Times New Roman",serif}.mcep-meta{position:absolute;left:20px;right:20px;bottom:14px;display:flex;justify-content:space-between;border-top:1px solid rgba(32,35,42,.35);padding-top:6px;color:var(--m-char);font:600 8px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}.mcep-controls{display:flex;gap:6px;margin-top:10px}.mcep-controls button{border:1px solid rgba(32,35,42,.28);border-radius:5px;background:var(--m-paper);color:var(--m-char);padding:6px 9px;font:600 10px/1 system-ui,-apple-system,sans-serif;cursor:pointer}.mcep-controls button[aria-pressed=true]{border-color:var(--m-ink);background:var(--m-ink);color:#fff}.mcep-controls button:focus-visible{outline:2px solid var(--m-orange);outline-offset:2px}.mcep-poster[data-ink=mono] .mcep-pass-orange{display:none}.mcep-poster[data-ink=mono] .mcep-pass-blue{background:var(--m-char)}@media(max-height:260px){.demo-style-mono-color-editorial-print{transform:scale(.82);transform-origin:center}}@media(prefers-reduced-motion:reduce){.mcep-pass{transition:none}}
+</style>
+<script>
+(function(){var root=document.currentScript.parentElement.querySelector('.demo-style-mono-color-editorial-print'),poster=root.querySelector('.mcep-poster'),buttons=[].slice.call(root.querySelectorAll('[data-ink-choice]'));buttons.forEach(function(b){b.addEventListener('click',function(){var ink=b.dataset.inkChoice;poster.dataset.ink=ink;buttons.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})})})})();
+</script>

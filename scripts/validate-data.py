@@ -22,7 +22,8 @@ def main():
     refs = load("data/pm/references.json")
     taxonomy = load("data/pm/taxonomy.json")
     required = {
-        "slug", "title", "titleEn", "summary", "productTypes", "pageTypes",
+        "slug", "title", "titleEn", "summary", "summaryEn", "productTypes", "pageTypes",
+        "scenariosEn", "structureEn", "visualTraitsEn",
         "layouts", "moods", "states", "scenarios", "structure", "visualTraits",
         "promptHints", "demo", "source"
     }
@@ -46,6 +47,13 @@ def main():
                 errors += fail(f"{slug}: unknown {key}: {sorted(unknown)}")
         if len(ref.get("states", [])) < 3:
             errors += fail(f"{slug}: at least three states are required")
+        for en_key, zh_key in (("scenariosEn", "scenarios"), ("structureEn", "structure"), ("visualTraitsEn", "visualTraits")):
+            if len(ref.get(en_key, [])) != len(ref.get(zh_key, [])):
+                errors += fail(f"{slug}: {en_key} must mirror {zh_key}")
+        hints = ref.get("promptHints", {})
+        for en_key, zh_key in (("doEn", "do"), ("avoidEn", "avoid")):
+            if len(hints.get(en_key, [])) != len(hints.get(zh_key, [])):
+                errors += fail(f"{slug}: promptHints.{en_key} must mirror promptHints.{zh_key}")
         demo = os.path.join(ROOT, "demos", ref.get("demo", "") + ".html")
         if not os.path.isfile(demo):
             errors += fail(f"{slug}: missing demo {ref.get('demo')}")

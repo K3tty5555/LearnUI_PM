@@ -7,7 +7,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb"}
-STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars"}
+STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
 
 def load(p):
     with open(os.path.join(ROOT, p), encoding="utf-8") as f:
@@ -731,6 +731,21 @@ def pm_labels(group, ids):
     labels = PM_LABELS.get(group, {})
     return [labels.get(item, item) for item in ids]
 
+PM_LABELS_EN = {
+    "productTypes": {"b2b-admin": "B2B admin", "data-dashboard": "Data dashboard", "ai-tool": "AI tool", "education": "Education", "mobile": "Mobile", "marketing": "Marketing"},
+    "pageTypes": {"list": "List", "detail": "Detail", "form": "Form", "settings": "Settings", "workspace": "Workspace", "modal-drawer": "Modal / drawer", "wizard": "Wizard", "result": "Result", "dashboard": "Dashboard", "timeline": "Timeline", "board": "Board", "landing": "Landing page"},
+    "layouts": {"sidebar": "Sidebar", "split": "Split view", "three-column": "Three columns", "card-flow": "Card flow", "table": "Table", "timeline": "Timeline", "workbench": "Workbench", "single-column": "Single column"},
+    "moods": {"restrained": "Restrained", "professional": "Professional", "lightweight": "Lightweight", "dense": "Dense", "immersive": "Immersive", "technical": "Technical", "warm": "Warm"},
+    "states": {"default": "Default", "loading": "Loading", "empty": "Empty", "error": "Error", "processing": "Processing", "pending": "Pending", "success": "Success"}
+}
+
+def pm_labels_en(group, ids):
+    labels = PM_LABELS_EN.get(group, {})
+    return [labels.get(item, item) for item in ids]
+
+def pm_tag_pairs(group, ids):
+    return "".join(f'<span><span class="lang-zh">{esc(zh)}</span><span class="lang-en">{esc(en)}</span></span>' for zh, en in zip(pm_labels(group, ids), pm_labels_en(group, ids)))
+
 def reference_prompt(ref):
     return "\n".join([
         ref["promptHints"]["summary"],
@@ -742,21 +757,33 @@ def reference_prompt(ref):
         "避免：" + "；".join(ref["promptHints"]["avoid"]) + "。",
     ])
 
+def reference_prompt_en(ref):
+    hints = ref["promptHints"]
+    return "\n".join([
+        hints["summaryEn"],
+        "Use cases: " + ", ".join(ref["scenariosEn"]) + ".",
+        "Structure: " + "; ".join(ref["structureEn"]) + ".",
+        "Visual traits: " + "; ".join(ref["visualTraitsEn"]) + ".",
+        "Key states: " + ", ".join(pm_labels_en("states", ref["states"])) + ".",
+        "Do: " + "; ".join(hints["doEn"]) + ".",
+        "Avoid: " + "; ".join(hints["avoidEn"]) + ".",
+    ])
+
 def reference_markdown(ref):
     lines = [
-        f'# {ref["title"]} ({ref["titleEn"]})', "", ref["summary"], "",
+        f'# {ref["title"]} ({ref["titleEn"]})', "", ref["summary"], ref["summaryEn"], "",
         "## 分类", "",
-        "- 产品类型：" + "、".join(pm_labels("productTypes", ref["productTypes"])),
-        "- 页面类型：" + "、".join(pm_labels("pageTypes", ref["pageTypes"])),
-        "- 布局方式：" + "、".join(pm_labels("layouts", ref["layouts"])),
-        "- 视觉气质：" + "、".join(pm_labels("moods", ref["moods"])),
-        "- 关键状态：" + "、".join(pm_labels("states", ref["states"])), "",
+        "- 产品类型：" + "、".join(pm_labels("productTypes", ref["productTypes"])) + " / " + ", ".join(pm_labels_en("productTypes", ref["productTypes"])),
+        "- 页面类型：" + "、".join(pm_labels("pageTypes", ref["pageTypes"])) + " / " + ", ".join(pm_labels_en("pageTypes", ref["pageTypes"])),
+        "- 布局方式：" + "、".join(pm_labels("layouts", ref["layouts"])) + " / " + ", ".join(pm_labels_en("layouts", ref["layouts"])),
+        "- 视觉气质：" + "、".join(pm_labels("moods", ref["moods"])) + " / " + ", ".join(pm_labels_en("moods", ref["moods"])),
+        "- 关键状态：" + "、".join(pm_labels("states", ref["states"])) + " / " + ", ".join(pm_labels_en("states", ref["states"])), "",
         "## 页面结构", "",
     ]
-    lines += [f"- {item}" for item in ref["structure"]]
+    lines += [f"- {item} / {ref['structureEn'][i]}" for i, item in enumerate(ref["structure"])]
     lines += ["", "## 视觉特征", ""]
-    lines += [f"- {item}" for item in ref["visualTraits"]]
-    lines += ["", "## AI 风格说明", "", reference_prompt(ref), ""]
+    lines += [f"- {item} / {ref['visualTraitsEn'][i]}" for i, item in enumerate(ref["visualTraits"])]
+    lines += ["", "## AI 风格说明 / AI design brief", "", reference_prompt(ref), "", reference_prompt_en(ref), ""]
     return "\n".join(lines)
 
 def reference_card(ref):
@@ -765,9 +792,9 @@ def reference_card(ref):
  <a class="reference-card" href="{reference_url(ref)}">
   {stage(ref["demo"])}
   <div class="card-meta">
-   <h3>{esc(ref["title"])} <span>{esc(ref["titleEn"])}</span></h3>
-   <p>{esc(ref["summary"])}</p>
-   <div class="reference-card-tags">{"".join(f"<span>{esc(label)}</span>" for label in chips)}</div>
+   <h3><span class="lang-zh">{esc(ref["title"])}</span><span class="lang-en">{esc(ref["titleEn"])}</span></h3>
+   <p><span class="lang-zh">{esc(ref["summary"])}</span><span class="lang-en">{esc(ref["summaryEn"])}</span></p>
+   <div class="reference-card-tags">{pm_tag_pairs("productTypes", ref["productTypes"][:1])}{pm_tag_pairs("pageTypes", ref["pageTypes"][:1])}{pm_tag_pairs("layouts", ref["layouts"][:1])}</div>
   </div>
  </a>
  {select_button("reference:" + ref["slug"], compact=True)}
@@ -786,8 +813,8 @@ def reference_filter_group(key, title):
 def references_page():
     index = [{
         "slug": ref["slug"], "title": ref["title"], "titleEn": ref["titleEn"],
-        "summary": ref["summary"], "scenarios": ref["scenarios"],
-        "structure": ref["structure"], "visualTraits": ref["visualTraits"],
+        "summary": ref["summary"], "summaryEn": ref["summaryEn"], "scenarios": ref["scenarios"], "scenariosEn": ref["scenariosEn"],
+        "structure": ref["structure"], "structureEn": ref["structureEn"], "visualTraits": ref["visualTraits"], "visualTraitsEn": ref["visualTraitsEn"],
         "productTypes": ref["productTypes"], "pageTypes": ref["pageTypes"],
         "layouts": ref["layouts"], "moods": ref["moods"], "states": ref["states"]
     } for ref in PM_REFERENCES]
@@ -802,22 +829,22 @@ def references_page():
     index_json = json.dumps(index, ensure_ascii=False).replace("</", "<\\/")
     body = f'''{header()}
 <main class="wrap references-page">
- <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">页面参考</span></nav>
+ <nav class="crumbs"><a href="/"><span class="lang-zh">首页</span><span class="lang-en">Index</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">页面参考</span><span class="lang-en">Page references</span></span></nav>
  <header class="hero references-head">
   <h1 class="hero-title"><span class="lang-en">Page references</span><span class="lang-zh hero-title-zh">页面参考</span></h1>
-  <p class="hero-sub">按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</p>
+  <p class="hero-sub"><span class="lang-zh">按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</span><span class="lang-en">Filter real interface examples by product, page, layout, mood, and state, then export a selection to your AI agent.</span></p>
  </header>
  <div class="reference-search-row">
   <div class="search-box"><input id="reference-search" type="search" autocomplete="off" data-ph-en="Search pages, scenarios, or traits" data-ph-zh="搜索页面、场景或特征" placeholder="搜索页面、场景或特征" aria-label="搜索页面参考"><kbd class="search-kbd">/</kbd></div>
-  <p id="reference-count" class="count-note">{len(PM_REFERENCES)} 个参考</p>
-  <button type="button" class="btn" id="reference-reset">重置筛选</button>
+  <p id="reference-count" class="count-note"><span class="lang-zh">{len(PM_REFERENCES)} 个参考</span><span class="lang-en">{len(PM_REFERENCES)} references</span></p>
+  <button type="button" class="btn" id="reference-reset"><span class="lang-zh">重置筛选</span><span class="lang-en">Reset filters</span></button>
 
  </div>
  <div class="reference-browser">
   <aside class="reference-filters" aria-label="页面参考筛选">{filters}</aside>
   <section>
    <div class="reference-grid" id="reference-grid">{cards}</div>
-   <div class="no-result" id="reference-no-result" hidden><b>没有符合条件的参考</b><p>减少筛选条件或换一个关键词。</p></div>
+   <div class="no-result" id="reference-no-result" hidden><b><span class="lang-zh">没有符合条件的参考</span><span class="lang-en">No references match</span></b><p><span class="lang-zh">减少筛选条件或换一个关键词。</span><span class="lang-en">Remove a filter or try another search.</span></p></div>
   </section>
  </div>
  <script id="reference-index" type="application/json">{index_json}</script>
@@ -832,35 +859,36 @@ def reference_page(ref):
         tags += pm_labels(group, ref[group])
     states = pm_labels("states", ref["states"])
     prompt = reference_prompt(ref)
+    prompt_en = reference_prompt_en(ref)
     md = reference_markdown(ref)
-    structure = "".join(f"<li>{esc(item)}</li>" for item in ref["structure"])
-    traits = "".join(f"<li>{esc(item)}</li>" for item in ref["visualTraits"])
-    dos = "".join(f"<li>{esc(item)}</li>" for item in ref["promptHints"]["do"])
-    avoids = "".join(f"<li>{esc(item)}</li>" for item in ref["promptHints"]["avoid"])
+    structure = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['structureEn'][i])}</span></li>" for i, item in enumerate(ref["structure"]))
+    traits = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['visualTraitsEn'][i])}</span></li>" for i, item in enumerate(ref["visualTraits"]))
+    dos = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['promptHints']['doEn'][i])}</span></li>" for i, item in enumerate(ref["promptHints"]["do"]))
+    avoids = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['promptHints']['avoidEn'][i])}</span></li>" for i, item in enumerate(ref["promptHints"]["avoid"]))
     body = f'''{header()}
 <main class="wrap entry reference-detail">
- <nav class="crumbs"><a href="/references/">页面参考</a><span class="crumb-sep">/</span><span class="crumb-cur">{esc(ref["title"])}</span></nav>
+ <nav class="crumbs"><a href="/references/"><span class="lang-zh">页面参考</span><span class="lang-en">Page references</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">{esc(ref["title"])}</span><span class="lang-en">{esc(ref["titleEn"])}</span></span></nav>
  <header class="entry-head">
-  <h1 class="reference-title">{esc(ref["title"])} <span>{esc(ref["titleEn"])}</span></h1>
-  <p class="entry-tag">{esc(ref["summary"])}</p>
-  <div class="reference-tags">{"".join(f"<span>{esc(tag)}</span>" for tag in tags)}</div>
+  <h1 class="reference-title"><span class="lang-zh">{esc(ref["title"])}</span><span class="lang-en">{esc(ref["titleEn"])}</span></h1>
+  <p class="entry-tag"><span class="lang-zh">{esc(ref["summary"])}</span><span class="lang-en">{esc(ref["summaryEn"])}</span></p>
+  <div class="reference-tags">{pm_tag_pairs("productTypes", ref["productTypes"])}{pm_tag_pairs("pageTypes", ref["pageTypes"])}{pm_tag_pairs("layouts", ref["layouts"])}{pm_tag_pairs("moods", ref["moods"])}</div>
   <div class="entry-actions">{select_button("reference:" + ref["slug"])}</div>
  </header>
  {stage(ref["demo"], detail=True)}
- <p class="stage-hint">标本可交互，可以切换不同状态。</p>
+ <p class="stage-hint"><span class="lang-zh">标本可交互，可以切换不同状态。</span><span class="lang-en">Interactive specimen — switch between the available states.</span></p>
  <div class="reference-detail-grid">
-  <section><h2>适用场景</h2><p>{esc("、".join(ref["scenarios"]))}</p></section>
-  <section><h2>关键状态</h2><div class="reference-tags">{"".join(f"<span>{esc(state)}</span>" for state in states)}</div></section>
-  <section><h2>布局结构</h2><ol>{structure}</ol></section>
-  <section><h2>视觉特征</h2><ul>{traits}</ul></section>
+  <section><h2><span class="lang-zh">适用场景</span><span class="lang-en">Use cases</span></h2><p><span class="lang-zh">{esc("、".join(ref["scenarios"]))}</span><span class="lang-en">{esc(" · ".join(ref["scenarios"]))}</span></p></section>
+  <section><h2><span class="lang-zh">关键状态</span><span class="lang-en">Key states</span></h2><div class="reference-tags">{pm_tag_pairs("states", ref["states"])}</div></section>
+  <section><h2><span class="lang-zh">布局结构</span><span class="lang-en">Structure</span></h2><ol>{structure}</ol></section>
+  <section><h2><span class="lang-zh">视觉特征</span><span class="lang-en">Visual traits</span></h2><ul>{traits}</ul></section>
  </div>
  <section class="sect reference-guidance">
-  <h2>实现约束</h2>
-  <div class="guidance-cols"><div><h3>需要做到</h3><ul>{dos}</ul></div><div><h3>避免</h3><ul>{avoids}</ul></div></div>
+  <h2><span class="lang-zh">实现约束</span><span class="lang-en">Implementation guardrails</span></h2>
+  <div class="guidance-cols"><div><h3><span class="lang-zh">需要做到</span><span class="lang-en">Do</span></h3><ul>{dos}</ul></div><div><h3><span class="lang-zh">避免</span><span class="lang-en">Avoid</span></h3><ul>{avoids}</ul></div></div>
  </section>
  <section class="sect">
-  <h2>AI 风格说明</h2>
-  <div class="copy-block"><button type="button" class="btn btn-copy" data-copy="reference-prompt" data-done-zh="已复制">复制</button><div class="copy-text"><p id="reference-prompt">{esc(prompt)}</p></div></div>
+  <h2><span class="lang-zh">AI 风格说明</span><span class="lang-en">AI design brief</span></h2>
+  <div class="copy-block"><button type="button" class="btn btn-copy" data-copy="reference-prompt" data-done-en="Copied" data-done-zh="已复制"><span class="lang-zh">复制</span><span class="lang-en">Copy</span></button><div class="copy-text"><p id="reference-prompt"><span class="lang-zh">{esc(prompt)}</span><span class="lang-en">{esc(prompt_en)}</span></p></div></div>
  </section>
  <section class="sect reference-detail-actions">
   <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
