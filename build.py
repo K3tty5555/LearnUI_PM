@@ -298,7 +298,6 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <link rel="alternate" type="application/rss+xml" title="{SITE_NAME} RSS" href="/feed.xml">
 <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/geist-vf.woff2" as="font" type="font/woff2" crossorigin>
 <script>
 // 默认纯中文；用户手动切换后持久化。
 (function(){{try{{

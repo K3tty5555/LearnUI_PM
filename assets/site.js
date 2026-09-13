@@ -399,8 +399,6 @@
       if (searchInput) searchInput.addEventListener("focus", loadSearch, { once: true });
       var params = new URLSearchParams(location.search);
       if (params.get("q") || params.get("platform")) loadSearch();
-      else if (window.requestIdleCallback) requestIdleCallback(loadSearch, { timeout: 1200 });
-      else setTimeout(loadSearch, 900);
     } else {
       setupSearch(JSON.parse(indexEl.textContent));
     }
