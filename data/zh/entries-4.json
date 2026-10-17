@@ -326,14 +326,17 @@
   "aka_zh": [
    "吸顶头部",
    "固定头部",
-   "钉住的元素"
+   "钉住的元素",
+   "sticky 定位",
+   "吸顶分区头部"
   ],
   "fuzzy_zh": [
    "面板滚动时一直不动的头部",
    "钉在屏幕顶上的那条栏",
    "先跟着滚、滚到位就粘住的元素",
    "滚动时一直让这个可见",
-   "固定在角落的悬浮按钮"
+   "固定在角落的悬浮按钮",
+   "滚到阈值后就钉住不动的元素"
   ],
   "api_notes_zh": [
    null,
@@ -793,13 +796,16 @@
   "aka_zh": [
    "阅读进度",
    "滚动进度条",
-   "文章进度"
+   "文章进度",
+   "滚动联动动画",
+   "滚动驱动进度"
   ],
   "fuzzy_zh": [
    "阅读时逐渐填满的细线",
    "文章顶部的进度条",
    "页面位置指示器",
-   "读者进度提示"
+   "读者进度提示",
+   "始终跟着滚动位置变化的动画"
   ],
   "api_notes_zh": [
    "根据可阅读文档的范围推导进度",
@@ -1276,6 +1282,156 @@
     "name_zh": "任务操作",
     "description_zh": "与当前状态相关的取消、重试或继续控件。",
     "prompt_zh": "紧邻阻塞或失败步骤的上下文操作"
+   }
+  }
+ },
+ "scroll-triggered": {
+  "name_zh": "滚动触发动画 Scroll-triggered",
+  "tagline_zh": "元素进入视口时才开始播放的动画",
+  "description_zh": "滚动触发动画以可见阈值作为开始条件：元素进入视口后才启动动画。它适合分段揭示，但在用户减少动态效果或 JavaScript 不可用时，内容仍应直接可读。",
+  "aka_zh": [
+   "视口动画",
+   "进入视口揭示",
+   "滚动揭示"
+  ],
+  "fuzzy_zh": [
+   "滚到这里才淡入的卡片",
+   "进入屏幕后才显示的内容",
+   "区块变得可见时播放的动画",
+   "滚动时上移淡入的卡片"
+  ],
+  "api_notes_zh": [
+   "无需轮询滚动位置，检测元素进入视口",
+   "定义揭示动效和时间",
+   "用户要求减少动态效果时直接显示内容"
+  ],
+  "prompt_zh": "给每张卡片加入滚动触发的揭示效果：用 IntersectionObserver 在卡片进入视口时添加 in-view 类，播放一次 opacity 和 translateY 动画并保留最终状态；在 prefers-reduced-motion 下直接显示卡片。",
+  "debugPrompt_zh": "调试我的滚动触发动画。检查 observer 的 threshold 和 rootMargin 是否合理；JavaScript 失败时隐藏初始状态不会把内容锁死；动画不会每次滚动都重播；揭示后卡片保持可见；prefers-reduced-motion 会跳过位移和透明度过渡。症状：",
+  "parts_zh": {
+   "visibility-threshold": {
+    "name_zh": "可见阈值",
+    "description_zh": "元素达到足够可见程度、可以揭示的那个点。",
+    "prompt_zh": "一个 IntersectionObserver threshold 和 rootMargin，让卡片在刚进入视口前后触发揭示"
+   }
+  }
+ },
+ "scroll-linked": {
+  "name_zh": "滚动联动动画 Scroll-linked",
+  "tagline_zh": "动画进度与滚动位置持续同步的动效",
+  "description_zh": "滚动联动动画会持续绑定滚动位置：页面移动多少，动画就按相同比例推进。它不同于滚动触发揭示，后者只在越过阈值时开始，之后可以独立播放完。",
+  "aka_zh": [
+   "滚动驱动动画",
+   "滚动进度动画",
+   "滚动擦洗"
+  ],
+  "fuzzy_zh": [
+   "跟着滚动精确移动的动画",
+   "随滚动填充的进度条",
+   "绑定页面位置的动效",
+   "用滚轮擦洗动画"
+  ],
+  "api_notes_zh": [
+   "浏览器支持时使用原生滚动驱动时间线",
+   "根据滚动偏移映射进度",
+   "用变换动画避免布局重排"
+  ],
+  "prompt_zh": "构建一个进度跟随可读滚动范围的滚动联动动画。支持时优先使用 animation-timeline: scroll()；否则用 passive 监听器和 requestAnimationFrame 将 scrollTop 映射为 0–1 进度；使用 transform、限制范围，并尊重 prefers-reduced-motion。",
+  "debugPrompt_zh": "调试我的滚动联动动画。确认进度来自正确的滚动容器；分母不为零；数值限制在 0 到 1；更新使用 passive 和帧调度；嵌套滚动容器有明确处理；减少动态效果时只去掉平滑过渡，不隐藏状态提示。症状：",
+  "parts_zh": {
+   "scroll-progress": {
+    "name_zh": "滚动进度",
+    "description_zh": "把滚动偏移连接到动画进度的 0–1 归一化数值。",
+    "prompt_zh": "一个限制在 0–1 的滚动进度值，用来驱动 transform 或 opacity 而不改变布局"
+   }
+  }
+ },
+ "parallax": {
+  "name_zh": "视差滚动 Parallax",
+  "tagline_zh": "前景与背景以不同速度移动的分层滚动效果",
+  "description_zh": "视差滚动通过让视觉图层以不同速度移动来制造纵深感。背景通常比前景移动得慢；动效应该支持层级，而不是抢走内容注意力。",
+  "aka_zh": [
+   "视差效果",
+   "纵深滚动",
+   "多平面滚动"
+  ],
+  "fuzzy_zh": [
+   "比内容移动更慢的背景",
+   "以不同速度漂移的图层",
+   "滚动时有纵深感的风景",
+   "滞后于文字移动的图片"
+  ],
+  "api_notes_zh": [
+   "移动图层而不触发布局重排",
+   "高效调度滚动位置更新",
+   "减少动态效果时压平图层"
+  ],
+  "prompt_zh": "创建一个克制的视差场景，分开背景、中景和前景图层。将滚动进度映射到小幅 transform 偏移，保持主体内容可读，避免大幅移动造成不适，并在 prefers-reduced-motion 下压平图层。",
+  "debugPrompt_zh": "调试我的视差效果。检查每个图层有稳定的包含块；transform 不会制造横向溢出；更新按帧调度；移动范围足够克制；图片预留尺寸；减少动态效果时关闭纵深移动但保留场景。症状：",
+  "parts_zh": {
+   "depth-layer": {
+    "name_zh": "纵深图层",
+    "description_zh": "场景中独立移动的一个平面。",
+    "prompt_zh": "一个背景、中景或前景图层，带小幅滚动映射 transform 且不触发布局重排"
+   }
+  }
+ },
+ "scroll-snap": {
+  "name_zh": "滚动吸附 Scroll Snap",
+  "tagline_zh": "滚动容器停在预先定义的卡片或页面边界上",
+  "description_zh": "滚动吸附让滚动容器停在声明好的边界，例如卡片或整屏区块。它适合离散内容；长篇阅读区域需要保留自然滚动的自由度。",
+  "aka_zh": [
+   "吸附滚动",
+   "区块吸附",
+   "一屏一停"
+  ],
+  "fuzzy_zh": [
+   "每张卡片都会停住的轮播",
+   "一次滑动前进一个区块",
+   "锁定到整屏面板的页面",
+   "滚动后自动停在位置上"
+  ],
+  "api_notes_zh": [
+   "声明滚动轴和 mandatory 或 proximity 行为",
+   "标记每个子项的对齐边缘",
+   "避免嵌套吸附意外串联"
+  ],
+  "prompt_zh": "构建一个滚动吸附区块轨道：轮播使用 scroll-snap-type: x mandatory，整屏区块使用 y mandatory；每个面板设置 scroll-snap-align: start；为固定 UI 预留 scroll-padding；严格吸附会影响阅读时改用 proximity。",
+  "debugPrompt_zh": "调试我的滚动吸附。检查 overflow 是否在正确的容器上；子项有 scroll-snap-align；轴向与内容流一致；固定头部已计入 scroll-padding；嵌套滚动不会意外串联；长文本面板避免使用 mandatory。症状：",
+  "parts_zh": {
+   "snap-container": {
+    "name_zh": "吸附容器",
+    "description_zh": "定义滚动轴和吸附严格程度的滚动元素。",
+    "prompt_zh": "一个明确设置 scroll-snap-type 的横向或纵向溢出容器，用于离散面板"
+   }
+  }
+ },
+ "horizontal-scroll": {
+  "name_zh": "横向滚动区块 Horizontal Scroll",
+  "tagline_zh": "用上下滚动手势推进横向卡片带的页面区块",
+  "description_zh": "横向滚动区块把一组卡片或面板并排展示。它可以是直接横向滚动的轨道，也可以在上下滚动时平移轨道；后一种需要清楚的进度提示和无障碍降级方案。",
+  "aka_zh": [
+   "横向滚动条",
+   "横向卡片带",
+   "横向滚动画廊"
+  ],
+  "fuzzy_zh": [
+   "向下滚但卡片向侧面移动",
+   "横向移动的一排卡片",
+   "横向作品集区块",
+   "用上下滚动控制横向内容"
+  ],
+  "api_notes_zh": [
+   "提供真实的横向滚动表面",
+   "可选，让卡片停在易读位置",
+   "让触摸交互在直接轨道上保持可预期"
+  ],
+  "prompt_zh": "创建一个可发现且支持键盘访问的横向卡片带。桌面端只有在叙事确实需要时才将区块进度映射为 translateX；否则提供 overflow-x: auto 的真实滚动轨道，卡片保持吸附对齐，显示滚动提示，并支持减少动态效果。",
+  "debugPrompt_zh": "调试我的横向滚动区块。检查轨道有真实的溢出宽度；卡片不会缩小到目标尺寸以下；上下转横向的映射不会困住页面；键盘焦点能到达每张卡片；触摸手势可用；减少动态效果时回退为普通横向轨道。症状：",
+  "parts_zh": {
+   "horizontal-rail": {
+    "name_zh": "横向轨道",
+    "description_zh": "沿 x 轴超出视口、内容继续延伸的一排元素。",
+    "prompt_zh": "一个不收缩的横向 flex 轨道，带间距、overflow-x: auto，并可为每张卡片设置 scroll-snap-align"
    }
   }
  }

@@ -4063,14 +4063,17 @@
   "aka": [
    "sticky header",
    "fixed header",
-   "pinned element"
+   "pinned element",
+   "sticky positioning",
+   "sticky section header"
   ],
   "fuzzy": [
    "the header that stays while the panel scrolls",
    "the bar pinned to the top of the screen",
    "the element that starts scrolling then gets stuck",
    "keep this visible while scrolling",
-   "the floating button fixed in the corner"
+   "the floating button fixed in the corner",
+   "the element that sticks after scrolling to its threshold"
   ],
   "api": [
    {
@@ -4633,8 +4636,8 @@
   "platform": "web",
   "name": "Scroll Progress Indicator",
   "tagline": "A small cue showing how far a reader has moved through a long page",
-  "aka": ["reading progress", "scroll progress bar", "article progress"],
-  "fuzzy": ["the thin line that fills as you read", "a progress bar at the top of an article", "the page position indicator", "a reader progress cue"],
+  "aka": ["reading progress", "scroll progress bar", "article progress", "scroll-linked animation", "scroll-driven progress"],
+  "fuzzy": ["the thin line that fills as you read", "a progress bar at the top of an article", "the page position indicator", "a reader progress cue", "the animation tied continuously to scroll position"],
   "api": [
    {"framework": "Web", "symbol": "scrollY + scrollHeight", "note": "derive progress from the readable document range"},
    {"framework": "CSS", "symbol": "position: fixed + transform", "note": "keep the cue visible without affecting layout"},
@@ -5285,5 +5288,265 @@
   "empty-state"
  ],
  "demo": "web/agent-task-list"
+},
+{
+ "slug": "scroll-triggered",
+ "platform": "web",
+ "name": "Scroll-triggered Animation",
+ "tagline": "An animation that starts when its element enters the viewport",
+ "aka": [
+  "in-view animation",
+  "viewport reveal",
+  "on-scroll reveal"
+ ],
+ "fuzzy": [
+  "the card that fades in when I scroll to it",
+  "content that reveals as it enters the screen",
+  "an animation that plays when the section becomes visible",
+  "fade-up cards on scroll"
+ ],
+ "api": [
+  {
+   "framework": "Web API",
+   "symbol": "IntersectionObserver",
+   "note": "detect viewport entry without polling scroll position"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "@keyframes + animation",
+   "note": "define the reveal motion and timing"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "prefers-reduced-motion",
+   "note": "show content without motion when requested"
+  }
+ ],
+ "prompt": "Add a scroll-triggered reveal to each card: use IntersectionObserver to add an in-view class when the card enters the viewport, animate opacity and translateY once, keep the final state visible, and provide a prefers-reduced-motion fallback that shows the card immediately.",
+ "debugPrompt": "Debug my scroll-triggered animation. Check that the observer uses a sensible threshold and rootMargin; the hidden initial state does not trap content when JavaScript fails; the animation is not retriggering on every scroll; cards remain visible after reveal; and prefers-reduced-motion skips the transform and opacity transition. The symptom:",
+ "description": "Scroll-triggered motion responds to a visibility threshold: the element begins an animation when it enters the viewport. It is useful for staged reveals, but the content must remain readable if motion is reduced or JavaScript is unavailable.",
+ "parts": [
+  {
+   "id": "visibility-threshold",
+   "name": "Visibility threshold",
+   "api": "IntersectionObserver",
+   "description": "The point at which an element counts as visible enough to reveal.",
+   "prompt": "an IntersectionObserver threshold and rootMargin that trigger the reveal shortly before the card reaches the viewport"
+  }
+ ],
+ "related": [
+  "scroll-linked",
+  "parallax",
+  "sticky-fixed"
+ ],
+ "demo": "web/scroll-triggered"
+},
+{
+ "slug": "scroll-linked",
+ "platform": "web",
+ "name": "Scroll-linked Animation",
+ "tagline": "Motion whose progress is continuously mapped to scroll position",
+ "aka": [
+  "scroll-driven animation",
+  "scroll progress animation",
+  "scroll scrub"
+ ],
+ "fuzzy": [
+  "the animation that moves exactly with the scroll",
+  "a bar that fills as I scroll",
+  "motion tied to page position",
+  "scrubbing an animation with the wheel"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "animation-timeline: scroll()",
+   "note": "native scroll-driven timeline where supported"
+  },
+  {
+   "framework": "Web API",
+   "symbol": "scrollTop / scrollY",
+   "note": "fallback mapping from scroll offset to progress"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transform: scaleX()",
+   "note": "animate without layout reflow"
+  }
+ ],
+ "prompt": "Build a scroll-linked animation whose progress follows the readable scroll range. Prefer animation-timeline: scroll() where supported, otherwise map scrollTop to a 0–1 progress value with a passive listener and requestAnimationFrame; use transforms, clamp the range, and honor prefers-reduced-motion.",
+ "debugPrompt": "Debug my scroll-linked animation. Verify that progress is based on the intended scroll container, the denominator is not zero, values are clamped between 0 and 1, updates are passive and frame-scheduled, nested scrollers are handled intentionally, and reduced motion removes smoothing without hiding the state cue. The symptom:",
+ "description": "Scroll-linked motion is continuously coupled to scroll position: moving the page moves the animation by the same proportion. It differs from a scroll-triggered reveal, which starts at a threshold and can then finish independently.",
+ "parts": [
+  {
+   "id": "scroll-progress",
+   "name": "Scroll progress",
+   "api": "animation-timeline: scroll()",
+   "description": "The normalized 0–1 value that connects scroll offset to animation progress.",
+   "prompt": "a clamped scroll progress value that drives transform or opacity without changing layout"
+  }
+ ],
+ "related": [
+  "scroll-progress-indicator",
+  "scroll-triggered",
+  "parallax"
+ ],
+ "demo": "web/scroll-linked"
+},
+{
+ "slug": "parallax",
+ "platform": "web",
+ "name": "Parallax Scrolling",
+ "tagline": "Layered motion where foreground and background travel at different rates",
+ "aka": [
+  "parallax effect",
+  "depth scroll",
+  "multi-plane scroll"
+ ],
+ "fuzzy": [
+  "the background that moves slower than the content",
+  "layers drifting at different speeds",
+  "a landscape with depth while scrolling",
+  "the image that lags behind the text"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "transform: translateY()",
+   "note": "move layers without reflow"
+  },
+  {
+   "framework": "Web API",
+   "symbol": "requestAnimationFrame",
+   "note": "schedule scroll position updates efficiently"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "prefers-reduced-motion",
+   "note": "flatten layers when motion is reduced"
+  }
+ ],
+ "prompt": "Create a restrained parallax scene with separate background, midground, and foreground layers. Map scroll progress to small transform offsets, keep the focal content readable, avoid large motion that causes discomfort, and flatten the layers under prefers-reduced-motion.",
+ "debugPrompt": "Debug my parallax effect. Check that each layer has a stable containing block, transforms do not create horizontal overflow, updates are frame-scheduled, the movement range is subtle, images have reserved dimensions, and reduced motion disables the depth travel while preserving the scene. The symptom:",
+ "description": "Parallax scrolling creates an impression of depth by moving visual layers at different speeds. The background usually moves more slowly than the foreground; the effect should support hierarchy rather than distract from content.",
+ "parts": [
+  {
+   "id": "depth-layer",
+   "name": "Depth layer",
+   "api": "transform: translate3d()",
+   "description": "One independently moving plane in the scene.",
+   "prompt": "a background, midground, or foreground layer with a small scroll-mapped transform and no layout reflow"
+  }
+ ],
+ "related": [
+  "scroll-linked",
+  "scroll-triggered",
+  "horizontal-scroll"
+ ],
+ "demo": "web/parallax"
+},
+{
+ "slug": "scroll-snap",
+ "platform": "web",
+ "name": "Scroll Snap",
+ "tagline": "A scrolling container that settles on intentional item or page boundaries",
+ "aka": [
+  "snap scrolling",
+  "section snapping",
+  "one-screen scroll"
+ ],
+ "fuzzy": [
+  "the carousel that stops on each card",
+  "one swipe one section",
+  "the page that locks into full-screen panels",
+  "scrolling that settles into place"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "scroll-snap-type",
+   "note": "declare the axis and mandatory or proximity behavior"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "scroll-snap-align",
+   "note": "mark the alignment edge for each child"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "overscroll-behavior",
+   "note": "keep nested snapping from chaining unexpectedly"
+  }
+ ],
+ "prompt": "Build a scroll-snap section rail with scroll-snap-type: y mandatory (or x mandatory for a carousel), scroll-snap-align: start on each panel, enough scroll padding for fixed UI, and a proximity fallback when strict snapping would fight natural reading.",
+ "debugPrompt": "Debug my scroll snap. Check that the container owns the overflow, children have scroll-snap-align, the axis matches the content flow, fixed headers are included in scroll-padding, nested scrollers do not chain unexpectedly, and mandatory snapping is avoided for long text panels. The symptom:",
+ "description": "Scroll snap makes a scroll container settle at declared boundaries such as cards or full-screen sections. It works best for discrete content; long reading surfaces should retain enough freedom to scroll naturally.",
+ "parts": [
+  {
+   "id": "snap-container",
+   "name": "Snap container",
+   "api": "scroll-snap-type",
+   "description": "The scrolling element that defines the snap axis and strictness.",
+   "prompt": "a horizontal or vertical overflow container with scroll-snap-type set deliberately for discrete panels"
+  }
+ ],
+ "related": [
+  "horizontal-scroll",
+  "scroll-view",
+  "sticky-fixed"
+ ],
+ "demo": "web/scroll-snap"
+},
+{
+ "slug": "horizontal-scroll",
+ "platform": "web",
+ "name": "Horizontal Scroll Section",
+ "tagline": "A vertical gesture that advances a horizontal strip of content",
+ "aka": [
+  "horizontal scroller",
+  "sideways card rail",
+  "horizontal scroll gallery"
+ ],
+ "fuzzy": [
+  "scroll down but the cards move sideways",
+  "a row of cards that travels horizontally",
+  "the sideways portfolio section",
+  "horizontal content controlled by vertical scroll"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "overflow-x: auto",
+   "note": "provide a real horizontal scrolling surface"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "scroll-snap-type: x proximity",
+   "note": "optionally settle cards into readable positions"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "touch-action: pan-x",
+   "note": "keep touch interaction predictable on direct rails"
+  }
+ ],
+ "prompt": "Create a horizontal card rail that remains discoverable and keyboard accessible. On desktop, map the section progress to translateX only when the storytelling requires vertical-to-horizontal movement; otherwise expose overflow-x: auto, keep cards snap-aligned, and provide visible affordance and reduced-motion behavior.",
+ "debugPrompt": "Debug my horizontal scroll section. Check that the rail has a real overflow width, cards do not shrink below their intended size, the vertical-to-horizontal mapping does not trap the page, keyboard focus can reach every card, touch gestures remain usable, and reduced motion falls back to a normal horizontal rail. The symptom:",
+ "description": "A horizontal scroll section presents a sequence of cards or panels side by side. It may use a direct horizontal rail or translate the rail while the user scrolls vertically; the latter needs clear progress and an accessible fallback.",
+ "parts": [
+  {
+   "id": "horizontal-rail",
+   "name": "Horizontal rail",
+   "api": "display: flex + overflow-x",
+   "description": "The row whose content extends beyond the viewport along the x axis.",
+   "prompt": "a non-shrinking horizontal flex rail with gap, overflow-x auto, and optional scroll-snap-align on each card"
+  }
+ ],
+ "related": [
+  "scroll-snap",
+  "scroll-linked",
+  "parallax"
+ ],
+ "demo": "web/horizontal-scroll"
 }
 ]
