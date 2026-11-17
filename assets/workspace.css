@@ -400,11 +400,14 @@ picture[data-preview] { position: absolute; inset: 0; }
 .logo-type-chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: white; }
 .logo-type-chip[aria-pressed="true"] b { color: #c9c9d2; }
 .logo-card .logo-stage { height: 200px; display: grid; place-items: center; background: white; }
-.logo-stage .logo-art { max-width: 46%; max-height: 52%; object-fit: contain; }
+.logo-stage .logo-art { width: min(68%, 240px); height: 104px; object-fit: contain; }
 .logo-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 8px; }
 .logo-type-tag { background: var(--fg); color: white; border-color: var(--fg); }
-.logo-glossary-sect { margin-top: 56px; }
-.logo-glossary { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin: 0; }
+.logo-glossary-sect { margin-top: 56px; max-width: none; container-type: inline-size; }
+.logo-glossary { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; }
+@container (min-width: 520px) { .logo-glossary { grid-template-columns: repeat(2, 1fr); } .logo-glossary-item:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@container (min-width: 860px) { .logo-glossary { grid-template-columns: repeat(4, 1fr); } .logo-glossary-item:last-child:nth-child(odd) { grid-column: auto; } }
+@container (min-width: 1240px) { .logo-glossary { grid-template-columns: repeat(7, 1fr); } }
 .logo-glossary-item { padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
 .logo-glossary dt { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
 .logo-glossary dt small { font-weight: 400; color: var(--gray-500); font-size: 11px; margin-left: 4px; }
@@ -415,12 +418,12 @@ picture[data-preview] { position: absolute; inset: 0; }
 .logo-plate { display: grid; place-items: center; height: 280px; border: 1px solid var(--line); border-radius: var(--radius); }
 .logo-plate-light { background: white; }
 .logo-plate-dark { background: #18181c; border-color: #18181c; }
-.logo-plate .logo-art { max-width: 52%; max-height: 52%; object-fit: contain; }
+.logo-plate .logo-art { width: min(60%, 320px); height: 140px; object-fit: contain; }
 .logo-sizes { display: flex; align-items: flex-end; gap: 22px; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: white; }
 .logo-sizes-label { margin-right: auto; align-self: center; font-size: 12px; color: var(--gray-500); }
 .logo-sizes figure { margin: 0; display: grid; justify-items: center; gap: 6px; }
-.logo-size-box { width: var(--logo-size); height: var(--logo-size); display: grid; place-items: center; }
-.logo-size-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.logo-size-box { width: var(--logo-size); height: var(--logo-size); display: block; }
+.logo-size-img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .logo-sizes figcaption { font: 10px var(--font-mono); color: var(--gray-500); }
 .logo-note { margin: 14px 0 0; padding: 12px 16px; border-left: 3px solid var(--line-strong); background: var(--bg-2); border-radius: 0 8px 8px 0; font-size: 13.5px; line-height: 1.6; color: var(--gray-700); }
 .logo-type-line { font-size: 15px; }
@@ -444,6 +447,8 @@ picture[data-preview] { position: absolute; inset: 0; }
   .logo-tools .site-search-box { grid-column: 1 / -1; }
   .logo-showcase { grid-template-columns: 1fr; }
   .logo-plate { height: 200px; }
+  .logo-plate .logo-art { height: 110px; }
+  .logo-stage .logo-art { height: 92px; }
   .logo-parts { grid-template-columns: 1fr; }
   .logo-facts > div { grid-template-columns: 1fr; gap: 2px; }
   .logo-sizes { gap: 16px; }
@@ -452,5 +457,4 @@ picture[data-preview] { position: absolute; inset: 0; }
 [data-lang-mode="bilingual"] .logo-title .lang-en { display: block; margin-top: 7px; color: var(--gray-500); font-size: .42em; font-weight: 400; letter-spacing: 0; }
 .logo-card-tags .tag { font-family: var(--font-sans); font-size: 11px; letter-spacing: .02em; text-transform: none; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line); background: white; vertical-align: 0; }
 .logo-card-tags .logo-type-tag { background: var(--fg); border-color: var(--fg); color: white; }
-.logo-stage .logo-art { max-width: 64%; }
 .logo-detail .logo-card-tags { margin-top: 10px; }
