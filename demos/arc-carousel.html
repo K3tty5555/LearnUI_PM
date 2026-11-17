@@ -1,0 +1,91 @@
+<div class="demo demo-arc-carousel">
+  <div class="ac-stage" tabindex="0" aria-roledescription="carousel" aria-label="Arc carousel">
+    <div class="ac-ring"></div>
+    <p class="ac-caption" aria-live="polite"><b class="ac-title"></b><span class="ac-sub"></span></p>
+    <button type="button" class="ac-nav ac-prev" aria-label="Previous">‹</button>
+    <button type="button" class="ac-nav ac-next" aria-label="Next">›</button>
+  </div>
+  <p class="ac-note">Discs travel along one arc; the one at the top is in focus.</p>
+</div>
+<style>
+.demo-arc-carousel{width:min(560px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-arc-carousel *{box-sizing:border-box}
+.ac-stage{position:relative;height:264px;border-radius:14px;overflow:hidden;background:#f3f1ec;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.ac-stage:focus-visible{outline:2px solid #e2552b;outline-offset:3px}
+.ac-ring{position:absolute;inset:0}
+.ac-disc{position:absolute;left:50%;top:0;width:var(--ac-d,128px);height:var(--ac-d,128px);margin-left:calc(var(--ac-d,128px) / -2);border-radius:50%;box-shadow:0 10px 24px rgba(30,20,10,.22),inset 0 0 0 1px rgba(255,255,255,.25);will-change:transform}
+.ac-disc .ac-label{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;text-align:center;font:800 12px/1 "Avenir Next","Helvetica Neue",Arial,sans-serif;letter-spacing:.04em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.ac-disc .ac-label span{display:block;max-width:62%;transform:translateY(-32%)}
+.ac-disc:after{content:"";position:absolute;left:50%;top:50%;width:22%;height:22%;margin:-11% 0 0 -11%;border-radius:50%;background:#f3f1ec;box-shadow:0 0 0 5px rgba(255,255,255,.55),inset 0 1px 3px rgba(0,0,0,.25)}
+.ac-disc:before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.07) 0 1px,transparent 1px 4px),linear-gradient(130deg,rgba(255,255,255,.35),transparent 40%,rgba(255,255,255,.18) 60%,transparent 75%)}
+.ac-caption{position:absolute;left:0;right:0;bottom:12px;margin:0;text-align:center;pointer-events:none}
+.ac-title{display:block;font:italic 700 16px/1.15 Georgia,"Times New Roman",serif;color:#1d1a16}
+.ac-sub{display:block;margin-top:2px;font-size:10px;color:#7a7268;letter-spacing:.08em;text-transform:uppercase}
+.ac-nav{position:absolute;bottom:12px;width:28px;height:28px;border:1px solid #d8d2c6;border-radius:50%;background:#fff;color:#1d1a16;font:600 16px/1 system-ui;cursor:pointer}
+.ac-prev{left:12px}.ac-next{right:12px}
+.ac-nav:focus-visible{outline:2px solid #e2552b;outline-offset:2px}
+.ac-note{margin:7px 0 0;color:#6b665e;font-size:11.5px}
+@media (max-width:760px){.ac-stage{height:236px}}
+@media (max-height:260px){
+  .demo-arc-carousel{width:calc(100vw - 40px)}
+  .ac-stage{height:calc(100vh - 44px);max-height:156px;min-height:118px;cursor:default}
+  .ac-nav,.ac-note,.ac-sub{display:none}
+  .ac-caption{bottom:6px}.ac-title{font-size:12px}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-arc-carousel');
+  var stage=root.querySelector('.ac-stage'),ring=root.querySelector('.ac-ring'),title=root.querySelector('.ac-title'),sub=root.querySelector('.ac-sub'),note=root.querySelector('.ac-note');
+  var ITEMS=[
+    ['Night Swim','Side A','#1f3b73','#4f86e8'],['Paper Moon','Single','#7a2f2a','#ec6a43'],['Low Tide','EP','#164a45','#3fb39f'],
+    ['Glass Garden','Side B','#4a2a6b','#b07ae8'],['North Star','Live','#2b2b2b','#8d8d8d'],['Slow Bloom','LP','#6b3b12','#e8a54a'],['Echo Park','Remix','#5b1a3d','#e5578f']
+  ];
+  var discs=ITEMS.map(function(it,i){
+    var d=document.createElement('div');d.className='ac-disc';d.setAttribute('aria-hidden','true');
+    d.style.background='conic-gradient(from '+(i*40)+'deg,'+it[2]+','+it[3]+','+it[2]+','+it[3]+','+it[2]+')';
+    d.innerHTML='<span class="ac-label"><span>'+it[0].toUpperCase()+'</span></span>';ring.appendChild(d);return d;
+  });
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pos=0,target=0,spin=0,auto=true,raf=0,visible=true,timer,drag=null,last=performance.now();
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function wrap(v){var n=ITEMS.length;return ((v%n)+n)%n;}
+  // Each disc sits at an angle on a circle whose top is the focus point; off-centre discs drop and shrink.
+  function layout(){
+    var w=stage.clientWidth,h=stage.clientHeight,compact=h<170,d=compact?Math.min(86,h*.6):Math.min(132,h*.5);
+    var R=Math.max(w*.55,d*2.6),step=compact?.42:.36,top=compact?8:14,n=ITEMS.length;
+    root.style.setProperty('--ac-d',d+'px');
+    discs.forEach(function(el,i){
+      var off=i-pos;off=((off%n)+n+n/2)%n-n/2;
+      var a=off*step,x=Math.sin(a)*R,y=(1-Math.cos(a))*R+top,s=1-Math.min(.45,Math.abs(off)*.16);
+      el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0) rotate('+(a*57.3+spin*(1+i*.07)).toFixed(1)+'deg) scale('+s.toFixed(3)+')';
+      el.style.zIndex=String(100-Math.round(Math.abs(off)*10));el.style.opacity=Math.abs(off)>3.2?'0':'1';
+    });
+  }
+  function caption(){var it=ITEMS[wrap(Math.round(target))];title.textContent=it[0];sub.textContent=it[1];}
+  function go(delta){target+=delta;caption();}
+  function tick(now){
+    raf=0;if(!visible)return;var dt=Math.min(50,now-last);last=now;
+    var prev=pos;pos+=(target-pos)*(reduce?1:1-Math.pow(.0025,dt/1000));
+    if(Math.abs(target-pos)<.0005)pos=target;
+    spin+=(pos-prev)*140;layout();
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(tick);}}
+  function schedule(){clearTimeout(timer);if(auto&&!reduce)timer=setTimeout(function(){go(1);schedule();},1700);}
+  function hold(){auto=false;clearTimeout(timer);clearTimeout(hold.t);hold.t=setTimeout(function(){auto=true;schedule();},3500);}
+  root.querySelector('.ac-prev').addEventListener('click',function(){hold();go(-1)});
+  root.querySelector('.ac-next').addEventListener('click',function(){hold();go(1)});
+  stage.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){hold();go(-1);e.preventDefault();}if(e.key==='ArrowRight'){hold();go(1);e.preventDefault();}});
+  stage.addEventListener('wheel',function(e){var dv=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if(Math.abs(dv)<4)return;e.preventDefault();hold();if(!stage._lock){go(dv>0?1:-1);stage._lock=true;setTimeout(function(){stage._lock=false},260);}},{passive:false});
+  stage.addEventListener('pointerdown',function(e){if(e.target.closest('.ac-nav'))return;hold();drag={x:e.clientX,p:target};try{stage.setPointerCapture(e.pointerId)}catch(_){}});
+  stage.addEventListener('pointermove',function(e){if(!drag)return;target=drag.p-(e.clientX-drag.x)/120;});
+  function endDrag(){if(!drag)return;drag=null;target=Math.round(target);caption();}
+  stage.addEventListener('pointerup',endDrag);stage.addEventListener('pointercancel',endDrag);
+  function text(){note.textContent=zh()?'唱片沿着同一条弧线移动，转到最上方的那张是焦点；可拖动、滚轮或按左右键。':'Discs travel along one arc; the one at the top is in focus. Drag, scroll or use the arrow keys.';stage.setAttribute('aria-label',zh()?'弧形轮播':'Arc carousel');}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  if('ResizeObserver' in window)new ResizeObserver(layout).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();caption();layout();resume();schedule();
+})();
+</script>

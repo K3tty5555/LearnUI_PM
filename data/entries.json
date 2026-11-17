@@ -5656,5 +5656,522 @@
   "dialog-drawer-sheet"
  ],
  "demo": "web/liquid-glass-material"
+},
+{
+ "slug": "typography-details",
+ "platform": "web",
+ "name": "Typography Details (6 Fixes)",
+ "tagline": "Six small type settings that make the same words look considered: tracking, leading, numerals, CJK–Latin spacing, an English line and off-black",
+ "aka": [
+  "typographic polish",
+  "micro-typography",
+  "type details",
+  "CJK typesetting"
+ ],
+ "fuzzy": [
+  "same text but the layout looks more expensive",
+  "the title letters squeezed a little closer",
+  "more space between the lines of a paragraph",
+  "price numbers that don't look like chinese full width digits",
+  "a space between chinese and english words",
+  "small widely spaced english under a chinese title",
+  "text that is dark grey instead of pure black"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "letter-spacing",
+   "note": "heading tracking: -20 to -60 in design-tool units is -0.02em to -0.06em"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "line-height",
+   "note": "body leading of 1.5 to 1.8 times the font size"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "font-family / font-variant-numeric",
+   "note": "set prices and dates in a Latin face with half-width digits"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "text-autospace",
+   "note": "newer browsers add the CJK–Latin gap automatically; otherwise use a quarter-em margin or a space"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "color",
+   "note": "a warm off-black such as #2E2621 instead of #000000"
+  }
+ ],
+ "prompt": "Polish this card's typography without changing any words, in six steps: 1 tighten the large heading's letter-spacing to about -0.04em (-20 to -60 in design-tool units); 2 set body line-height to 1.5–1.8 times the font size; 3 set prices and dates in half-width digits from a Latin typeface, never full-width CJK digits; 4 put a quarter-em gap between Chinese and Latin words or numbers (text-autospace where supported, otherwise a space or margin); 5 add one small English line under the heading, widely tracked and stretched to exactly the heading's width; 6 replace pure #000000 text with a warm off-black such as #2E2621. Show a before/after toggle.",
+ "debugPrompt": "Debug my typography polish. Check that heading tracking is negative but letters never touch; body line-height is between 1.5 and 1.8 and not inherited from a tighter parent; prices and dates use half-width digits in a Latin font (no full-width ０-９ characters left in the copy); Chinese–Latin gaps are consistent and not doubled by both a space and text-autospace; the English line matches the heading width after font loading and resizing; and no text still uses #000000. The symptom:",
+ "description": "Typography details are the small settings that separate a careful layout from a default one when the copy stays exactly the same. The six here are a common checklist for Chinese-led layouts: tighter heading tracking for weight, looser body leading for air, Latin numerals for prices and dates, a quarter-em gap between Chinese and Latin text, a small tracked English line under the heading, and off-black instead of pure black. The checklist follows a public note by the designer 做设计的Echo (series \"设计师私藏\").",
+ "parts": [
+  {
+   "id": "heading-tracking",
+   "name": "Heading tracking",
+   "api": "letter-spacing",
+   "description": "Tighten large headings to -20 to -60 so the line feels solid and weighty.",
+   "prompt": "the heading tracking: letter-spacing about -0.04em on large display headings"
+  },
+  {
+   "id": "body-leading",
+   "name": "Body leading",
+   "api": "line-height",
+   "description": "Body line-height of 1.5–1.8 times the font size gives the paragraph room to breathe.",
+   "prompt": "the body leading: line-height 1.7 for a 13px body"
+  },
+  {
+   "id": "latin-numerals",
+   "name": "Latin numerals",
+   "api": "font-family",
+   "description": "Prices and dates use half-width digits from a Latin face, never full-width CJK digits.",
+   "prompt": "the numerals: half-width digits in a Latin serif or sans for prices and dates"
+  },
+  {
+   "id": "cjk-latin-spacing",
+   "name": "CJK–Latin spacing",
+   "api": "text-autospace",
+   "description": "A quarter-em gap separates Chinese from English words and numbers.",
+   "prompt": "the CJK–Latin gap: a quarter-em space between Chinese and Latin text"
+  },
+  {
+   "id": "english-line",
+   "name": "English line",
+   "api": "letter-spacing",
+   "description": "A small, widely tracked English line sits under the heading at exactly its width.",
+   "prompt": "the English line: small caps-like Latin text, wide tracking, justified to the heading width"
+  },
+  {
+   "id": "off-black",
+   "name": "Off-black",
+   "api": "color",
+   "description": "Text uses a dark grey or warm black instead of harsh #000000.",
+   "prompt": "the text colour: warm off-black #2E2621 instead of #000000"
+  }
+ ],
+ "related": [
+  "truncation",
+  "animated-counter",
+  "text-scramble",
+  "badge-chip-pill",
+  "empty-state"
+ ],
+ "demo": "web/typography-details"
+},
+{
+ "slug": "scroll-zoom-out",
+ "platform": "web",
+ "name": "Scroll Zoom-Out (Camera Pull-Back)",
+ "tagline": "As you scroll, a full-bleed scene shrinks into a framed card, like a camera pulling back to reveal the page",
+ "aka": [
+  "zoom-out on scroll",
+  "scroll scale-down hero",
+  "pull-back reveal",
+  "shrinking hero"
+ ],
+ "fuzzy": [
+  "the hero picture gets smaller as I scroll down",
+  "the camera zooms out when scrolling",
+  "the whole scene shrinks into a card",
+  "full screen image that turns into a rounded card on scroll",
+  "person and flowers shrinking together"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "animation-timeline: scroll() / view()",
+   "note": "native scroll-driven animation in supporting browsers"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "position: sticky",
+   "note": "pin the stage while the tall track scrolls past"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transform: scale() / clip-path: inset()",
+   "note": "zoom the scene back to 1x while the frame shrinks into a rounded card"
+  },
+  {
+   "framework": "GSAP",
+   "symbol": "ScrollTrigger (pin + scrub)",
+   "note": "the common library route: pin the hero and scrub the timeline with scroll"
+  }
+ ],
+ "prompt": "Build a scroll zoom-out hero: a tall scroll track with a sticky full-viewport stage; map scroll progress 0→1 to the scene scaling from about 1.6 to 1 and the whole frame shrinking from full-bleed to a rounded card (transform: scale on the frame, or clip-path: inset(... round 16px)); eased, with the headline fading in only in the last 30%. Scrub directly with scroll (no time-based animation), keep it reversible, and under prefers-reduced-motion show the final framed state.",
+ "debugPrompt": "Debug my scroll zoom-out. Check that the stage stays pinned for the whole track; progress is computed from the right scroll container; the scene zoom and the frame shrink are both driven by the same progress value so they stay in sync; the transform-origin keeps the subject in frame; the headline appears only near the end; scrolling back up reverses exactly; there is no jank from animating layout properties instead of transform/clip-path; and prefers-reduced-motion skips to the final state. The symptom:",
+ "description": "A scroll zoom-out pins a full-bleed scene and, as you scroll, scales it down while its frame shrinks into a card, so the page feels like a camera pulling back to reveal context. It is a scroll-linked effect: position, not time, drives it, and scrolling up reverses it. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "parts": [
+  {
+   "id": "pinned-stage",
+   "name": "Pinned stage",
+   "api": "position: sticky",
+   "description": "The scene stays fixed while a tall track scrolls behind it.",
+   "prompt": "a sticky full-viewport stage inside a 300% tall track"
+  },
+  {
+   "id": "scale-down",
+   "name": "Scale-down",
+   "api": "transform: scale()",
+   "description": "The scene shrinks from about 1.6x to 1x with scroll progress.",
+   "prompt": "the scene scaling from 1.6 to 1 as scroll progress goes from 0 to 1"
+  },
+  {
+   "id": "frame-inset",
+   "name": "Frame shrink",
+   "api": "transform: scale() / clip-path",
+   "description": "The full-bleed frame shrinks into a rounded card that still holds the whole picture.",
+   "prompt": "the frame shrinking from full-bleed to a 16px rounded card"
+  },
+  {
+   "id": "late-headline",
+   "name": "Late headline",
+   "api": "opacity",
+   "description": "The headline fades in only once the pull-back is nearly done.",
+   "prompt": "a headline that fades in during the last 30% of the scroll"
+  }
+ ],
+ "related": [
+  "scroll-linked",
+  "parallax",
+  "sticky-fixed",
+  "scroll-triggered",
+  "container-morph"
+ ],
+ "demo": "web/scroll-zoom-out"
+},
+{
+ "slug": "arc-carousel",
+ "platform": "web",
+ "name": "3D Arc Carousel",
+ "tagline": "Items travel along a curved arc and rotate as they move; the one reaching the top centre comes into focus",
+ "aka": [
+  "arc carousel",
+  "curved carousel",
+  "wheel carousel",
+  "rotating disc carousel",
+  "coverflow-style carousel"
+ ],
+ "fuzzy": [
+  "discs rotating along a curve into the middle",
+  "carousel where items move on an arc",
+  "records spinning and taking turns in the centre",
+  "curved slider with the selected item at the top",
+  "albums rotating around like a wheel"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "transform: translate() rotate() scale()",
+   "note": "place each item at an angle on a circle using sin/cos"
+  },
+  {
+   "framework": "JS",
+   "symbol": "requestAnimationFrame + easing",
+   "note": "animate a continuous position toward the target index"
+  },
+  {
+   "framework": "Swiper",
+   "symbol": "EffectCoverflow / EffectCreative",
+   "note": "a library route for curved, rotating carousels"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "aria-roledescription=\"carousel\"",
+   "note": "announce the focused item and keep arrow-key control"
+  }
+ ],
+ "prompt": "Build a 3D arc carousel: place items on a large circle whose top point is the focus, using x = R·sin(θ) and y = R·(1−cos θ) for θ = (index − position)·step; items further from the focus drop lower, shrink and sit behind; each disc also rotates as it travels. Animate a continuous position toward the target with easing; support prev/next buttons, arrow keys, wheel and drag that snaps to the nearest item; auto-advance only when idle; announce the focused title. Under prefers-reduced-motion, jump without spinning.",
+ "debugPrompt": "Debug my arc carousel. Check that positions wrap around without a jump at the ends; the arc radius and step keep neighbours from overlapping; z-index follows distance from the focus; drag snaps to the nearest index on release; wheel input is throttled so one notch moves one item; auto-advance pauses during interaction; the caption updates with the target, not the in-between position; and reduced motion removes spinning. The symptom:",
+ "description": "An arc carousel lays items along a curve instead of a straight row. Moving to the next item rotates every item along the arc, so the newcomer arrives at the top centre while the others fall away to the sides, which reads as physical and playful. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "parts": [
+  {
+   "id": "arc-path",
+   "name": "Arc path",
+   "api": "sin / cos",
+   "description": "Items are placed by angle on a large circle; the top is the focus point.",
+   "prompt": "items placed on a circle with x = R·sin θ and y = R·(1−cos θ)"
+  },
+  {
+   "id": "focused-item",
+   "name": "Focused item",
+   "api": "scale / z-index",
+   "description": "The item at the top is largest and in front; others shrink and drop behind.",
+   "prompt": "the top item at full size and in front, neighbours smaller and behind"
+  },
+  {
+   "id": "travel-spin",
+   "name": "Travel spin",
+   "api": "rotate()",
+   "description": "Each disc spins while it moves along the arc.",
+   "prompt": "discs rotating in proportion to how far the carousel moves"
+  },
+  {
+   "id": "controls",
+   "name": "Controls",
+   "api": "buttons / keys / drag",
+   "description": "Prev/next, arrow keys, wheel and drag all move one item at a time.",
+   "prompt": "prev and next buttons, arrow keys, wheel and drag that snap to an item"
+  }
+ ],
+ "related": [
+  "spatial-card-layouts",
+  "scroll-snap",
+  "horizontal-scroll",
+  "marquee",
+  "spring"
+ ],
+ "demo": "web/arc-carousel"
+},
+{
+ "slug": "tilt-card",
+ "platform": "web",
+ "name": "Pointer Tilt Card (3D with Glare)",
+ "tagline": "A panel leans toward the pointer in 3D while a highlight slides across it, as if light were catching real glass",
+ "aka": [
+  "3D tilt",
+  "hover tilt",
+  "parallax tilt card",
+  "tilt with glare",
+  "mouse-follow tilt"
+ ],
+ "fuzzy": [
+  "glass panel that tilts when the mouse moves",
+  "card that leans toward the cursor",
+  "the highlight moves across the card with the mouse",
+  "3d hover effect on a card",
+  "panel rotating slightly following the pointer"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "perspective + rotateX() / rotateY()",
+   "note": "tilt the card in 3D from pointer position"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transform-style: preserve-3d + translateZ()",
+   "note": "float inner layers at different depths"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "radial-gradient at a moving position",
+   "note": "the glare highlight that follows the pointer"
+  },
+  {
+   "framework": "JS",
+   "symbol": "vanilla-tilt.js",
+   "note": "a small library with max tilt, glare and reset options"
+  }
+ ],
+ "prompt": "Build a pointer-driven tilt card: on pointermove over the stage, map pointer position across the card to rotateY (±18°) and rotateX (±14°) with perspective about 760px; smooth toward the target each frame; put the text layer at translateZ(36px) and a back plate at translateZ(-18px) with preserve-3d; draw a screen-blended radial-gradient glare centred on the pointer. Ease back to flat on pointerleave. Under prefers-reduced-motion keep the card flat.",
+ "debugPrompt": "Debug my tilt card. Check that perspective is on the parent, not the card; rotateX uses the vertical position and rotateY the horizontal one with the right signs (the card should lean toward the pointer); motion is smoothed rather than jumping per event; preserve-3d is not flattened by overflow or filters on the card; glare coordinates match the pointer; the card resets on pointerleave and touch; and reduced motion disables tilting. The symptom:",
+ "description": "A tilt card turns pointer position into a small 3D rotation, so a flat panel feels like a physical object you can turn in the light. Inner layers at different depths add parallax, and a moving glare sells the material. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "parts": [
+  {
+   "id": "tilt",
+   "name": "Tilt",
+   "api": "rotateX / rotateY",
+   "description": "Pointer position maps to a small rotation toward the pointer.",
+   "prompt": "rotateY ±18° and rotateX ±14° from pointer position"
+  },
+  {
+   "id": "depth-layers",
+   "name": "Depth layers",
+   "api": "translateZ",
+   "description": "Text and back plate sit at different depths for parallax.",
+   "prompt": "text at translateZ(36px) and a back plate at translateZ(-18px)"
+  },
+  {
+   "id": "glare",
+   "name": "Glare",
+   "api": "radial-gradient",
+   "description": "A soft highlight follows the pointer across the surface.",
+   "prompt": "a screen-blended radial-gradient highlight at the pointer"
+  },
+  {
+   "id": "reset",
+   "name": "Reset",
+   "api": "easing",
+   "description": "The card eases back to flat when the pointer leaves.",
+   "prompt": "the card easing back to flat on pointerleave"
+  }
+ ],
+ "related": [
+  "liquid-glass-material",
+  "hover-card",
+  "pointer",
+  "parallax",
+  "spring"
+ ],
+ "demo": "web/tilt-card"
+},
+{
+ "slug": "hover-fan-out",
+ "platform": "web",
+ "name": "Hover Fan-Out (Folder Peek)",
+ "tagline": "Hovering a folder fans its cards out in an arc above it, and the card under the pointer lifts forward",
+ "aka": [
+  "fan-out on hover",
+  "folder peek",
+  "card fan",
+  "stack spread",
+  "hover reveal stack"
+ ],
+ "fuzzy": [
+  "cards spread out like a hand of cards when hovering the folder",
+  "folder opens and the work cards fan out",
+  "the card I point at pops up",
+  "stack of cards that spreads on hover",
+  "portfolio folder with cards peeking out"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": ":hover + transform: rotate() translate()",
+   "note": "spread each card around a shared pivot below the folder"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transform-origin",
+   "note": "a pivot below the cards makes the spread read as a fan"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transition with an overshoot curve",
+   "note": "cubic-bezier with a slight overshoot for a springy open"
+  },
+  {
+   "framework": "Motion",
+   "symbol": "variants + staggerChildren",
+   "note": "a React route to stagger the cards as they open"
+  }
+ ],
+ "prompt": "Build a hover fan-out folder: a folder with a back panel, a front pocket and five cards stacked inside. On hover or focus, fan the cards out around a pivot below the folder (rotate about ±13° per step, spread ±30px, raise them above the pocket) and tilt the pocket slightly; the card under the pointer lifts a further 18px and scales to 1.08 while staying on top. Close on leave or blur. Use a springy cubic-bezier, support arrow keys to move the lift, and skip motion under prefers-reduced-motion.",
+ "debugPrompt": "Debug my hover fan-out. Check that cards share one transform-origin below the stack so they fan rather than slide; hover on the folder and hover on a card do not fight (moving from folder to card must not close it); the lifted card's z-index wins; the fan does not overflow its container; keyboard focus opens it and arrow keys move the lift; touch has a tap-to-open alternative; and reduced motion shows the open state without animation. The symptom:",
+ "description": "A hover fan-out shows what is inside a container before you open it: the stack spreads like a hand of cards, and pointing at one lifts it forward. It is a peek pattern, cheap to explore and easy to back out of. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "parts": [
+  {
+   "id": "stack",
+   "name": "Closed stack",
+   "api": "transform",
+   "description": "Cards rest inside the folder, slightly offset.",
+   "prompt": "five cards stacked inside the folder with small offsets"
+  },
+  {
+   "id": "fan",
+   "name": "Fan",
+   "api": "rotate + translate",
+   "description": "On hover the cards spread on an arc around a pivot below.",
+   "prompt": "cards rotating about ±13° per step around a pivot below the folder"
+  },
+  {
+   "id": "lift",
+   "name": "Lift",
+   "api": "translateY + scale",
+   "description": "The card under the pointer rises and comes to the front.",
+   "prompt": "the hovered card lifting 18px and scaling to 1.08 on top"
+  },
+  {
+   "id": "pocket",
+   "name": "Pocket",
+   "api": "rotateX",
+   "description": "The front pocket tilts open slightly as the cards rise.",
+   "prompt": "the front pocket tilting back a little when open"
+  }
+ ],
+ "related": [
+  "spatial-card-layouts",
+  "hover-card",
+  "container-morph",
+  "spring",
+  "popover"
+ ],
+ "demo": "web/hover-fan-out"
+},
+{
+ "slug": "particle-repel",
+ "platform": "web",
+ "name": "Pointer Particle Field (Repel)",
+ "tagline": "A field of particles that scatters and tumbles away from the pointer, then springs back to rest",
+ "aka": [
+  "particle repel",
+  "cursor particles",
+  "interactive particle field",
+  "mouse repulse",
+  "particle disturbance"
+ ],
+ "fuzzy": [
+  "particles that move away from the mouse",
+  "dots scatter where the cursor passes",
+  "golden flakes tumbling when I move the mouse",
+  "background particles that react to the pointer",
+  "dust that gets pushed by the cursor and settles back"
+ ],
+ "api": [
+  {
+   "framework": "Canvas",
+   "symbol": "CanvasRenderingContext2D",
+   "note": "draw hundreds of particles cheaply each frame"
+  },
+  {
+   "framework": "JS",
+   "symbol": "requestAnimationFrame + pointermove",
+   "note": "a per-frame loop reading the latest pointer position"
+  },
+  {
+   "framework": "Physics",
+   "symbol": "spring + damping",
+   "note": "each particle is pulled to its home and slowed every frame"
+  },
+  {
+   "framework": "tsParticles",
+   "symbol": "interactivity.modes.repulse",
+   "note": "a library route with a built-in repulse mode"
+  }
+ ],
+ "prompt": "Build a pointer particle field on a canvas: seed a few hundred short flakes on a jittered grid, each storing a home position; every frame, push particles within a 70px radius away from the pointer with force proportional to closeness, pull each back to its home with spring 0.035, multiply velocity by damping 0.88, and rotate each flake by its velocity so it tumbles. Brighten flakes while they move. Scale the canvas for devicePixelRatio, stop the loop offscreen, and under prefers-reduced-motion draw a still field.",
+ "debugPrompt": "Debug my particle field. Check that the canvas is sized for devicePixelRatio and resized with its container; pointer coordinates are converted to canvas space; force falls off with distance and never divides by zero; spring and damping bring particles to rest without oscillating forever; the loop pauses when offscreen or hidden; particle count stays reasonable on small screens; and reduced motion shows a static field. The symptom:",
+ "description": "A pointer particle field makes a background feel alive: particles rest in place, scatter from the pointer, tumble while moving, and settle back. The feel comes from three numbers: the repel radius, the spring back to home, and the damping that calms the motion. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "parts": [
+  {
+   "id": "field",
+   "name": "Particle field",
+   "api": "canvas",
+   "description": "Short flakes rest on a jittered grid, each remembering its home.",
+   "prompt": "a few hundred flakes on a jittered grid with stored home positions"
+  },
+  {
+   "id": "repel",
+   "name": "Repel radius",
+   "api": "distance falloff",
+   "description": "Particles inside the radius are pushed away, harder when closer.",
+   "prompt": "a 70px radius pushing flakes away with distance falloff"
+  },
+  {
+   "id": "spring-back",
+   "name": "Spring back",
+   "api": "spring + damping",
+   "description": "Each particle is pulled home and slowed until it rests.",
+   "prompt": "spring 0.035 toward home and damping 0.88 each frame"
+  },
+  {
+   "id": "tumble",
+   "name": "Tumble",
+   "api": "rotation",
+   "description": "Flakes rotate and brighten while they move.",
+   "prompt": "flakes rotating with their velocity and brightening while moving"
+  }
+ ],
+ "related": [
+  "ai-status-orb",
+  "pointer",
+  "spring",
+  "parallax",
+  "tilt-card"
+ ],
+ "demo": "web/particle-repel"
 }
 ]

@@ -1,0 +1,87 @@
+<div class="demo demo-fan-out" data-open="false">
+  <div class="fo-stage">
+    <div class="fo-folder" tabindex="0" aria-label="Work folder">
+      <div class="fo-back" aria-hidden="true"></div>
+      <div class="fo-cards"></div>
+      <div class="fo-front" aria-hidden="true"><span class="fo-name">Portfolio</span><span class="fo-count">5 items</span></div>
+    </div>
+    <svg class="fo-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="fo-note">Hover the folder to fan the cards out; the card under the pointer lifts.</p>
+</div>
+<style>
+.demo-fan-out{width:min(560px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-fan-out *{box-sizing:border-box}
+.fo-stage{position:relative;display:grid;place-items:end center;height:264px;padding-bottom:26px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#f7f8fb,#eaf0f8)}
+.fo-folder{position:relative;width:200px;height:132px;outline:none}
+.fo-folder:focus-visible .fo-front{outline:2px solid #3b82f6;outline-offset:3px}
+.fo-back{position:absolute;inset:8px 0 0;border-radius:14px;background:#7cc0f2}
+.fo-back:before{content:"";position:absolute;left:0;top:-10px;width:78px;height:22px;border-radius:10px 10px 0 0;background:#7cc0f2}
+.fo-cards{position:absolute;left:0;right:0;bottom:30px;height:0}
+.fo-card{position:absolute;left:50%;bottom:0;width:78px;height:100px;margin-left:-39px;border-radius:8px;box-shadow:0 6px 16px rgba(20,40,80,.18);transform-origin:50% 130%;transform:translate(var(--fo-x,0),var(--fo-y,0)) rotate(var(--fo-r,0deg)) scale(var(--fo-s,1));transition:transform .45s cubic-bezier(.2,.9,.25,1.15);overflow:hidden;color:#fff;font:800 10px/1.05 "Avenir Next","Helvetica Neue",Arial,sans-serif;letter-spacing:.02em}
+.fo-card span{position:absolute;left:8px;top:8px;right:8px}
+.fo-card small{position:absolute;left:8px;bottom:7px;font:600 7.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.8}
+.fo-front{position:absolute;left:0;right:0;bottom:0;height:86px;border-radius:12px;background:linear-gradient(180deg,#a9dbff,#78bdf0);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 8px 18px rgba(30,80,140,.18);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px;color:#0f3a5c;transition:transform .45s cubic-bezier(.2,.9,.25,1.15);transform-origin:50% 100%}
+.demo-fan-out[data-open="true"] .fo-front{transform:perspective(500px) rotateX(-14deg)}
+.fo-name{font:700 12px/1.1 "Avenir Next","Helvetica Neue",Arial,sans-serif}
+.fo-count{font:500 9px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.7}
+.fo-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s,transform .5s cubic-bezier(.3,.8,.3,1)}
+.demo-fan-out[data-auto="on"] .fo-ghost{opacity:1}
+.fo-note{margin:7px 0 0;color:#6b6f7a;font-size:11.5px}
+@media (max-width:760px){.fo-stage{height:236px}}
+@media (max-height:260px){
+  .demo-fan-out{width:calc(100vw - 40px)}
+  .fo-stage{height:calc(100vh - 44px);max-height:156px;min-height:118px;padding-bottom:8px}
+  .fo-folder{transform:scale(.68);transform-origin:50% 100%}
+  .fo-note{display:none}
+}
+@media (prefers-reduced-motion:reduce){.fo-card,.fo-front,.fo-ghost{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-fan-out');
+  var stage=root.querySelector('.fo-stage'),folder=root.querySelector('.fo-folder'),wrap=root.querySelector('.fo-cards'),ghost=root.querySelector('.fo-ghost'),note=root.querySelector('.fo-note'),name=root.querySelector('.fo-name'),count=root.querySelector('.fo-count');
+  var CARDS=[['POSTER','A2','#ff6b6b','#c2255c'],['ZINE','24p','#ffa94d','#e8590c'],['LOGO','v3','#5c7cfa','#3b2fc9'],['APP UI','iOS','#38d9a9','#0b7285'],['TYPE','set','#9775fa','#5f3dc4']];
+  var cards=CARDS.map(function(c){var el=document.createElement('div');el.className='fo-card';el.style.background='linear-gradient(150deg,'+c[2]+','+c[3]+')';el.innerHTML='<span>'+c[0]+'</span><small>'+c[1]+'</small>';wrap.appendChild(el);return el;});
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var open=false,lifted=-1,auto=true,timer,idle;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){note.textContent=zh()?'鼠标移到文件夹上，卡片扇形展开；指到哪张，哪张就抬起来。':'Hover the folder to fan the cards out; the card under the pointer lifts.';name.textContent=zh()?'作品集':'Portfolio';count.textContent=zh()?'5 个作品':'5 items';folder.setAttribute('aria-label',zh()?'作品文件夹':'Work folder');}
+  // Closed: cards stack inside the folder. Open: they spread on an arc around a pivot below the folder.
+  function apply(){
+    root.dataset.open=open?'true':'false';
+    var n=cards.length,mid=(n-1)/2;
+    cards.forEach(function(el,i){
+      var o=i-mid,r=open?o*13:o*2,x=open?o*30:o*3,y=open?-46-Math.abs(o)*-4:-6,s=1;
+      if(open&&i===lifted){y-=18;s=1.08;}
+      el.style.setProperty('--fo-x',x+'px');el.style.setProperty('--fo-y',y+'px');el.style.setProperty('--fo-r',r+'deg');el.style.setProperty('--fo-s',s);
+      el.style.zIndex=String(i===lifted?20:10-Math.abs(Math.round(o)));
+    });
+  }
+  function moveGhost(x,y){ghost.style.transform='translate('+x+'px,'+y+'px)';}
+  function centerOf(el){var a=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [a.left-s.left+a.width/2,a.top-s.top+a.height*.35];}
+  // Real pointer: open on enter, lift the card under the pointer, close on leave.
+  folder.addEventListener('pointerenter',function(){stopAuto();open=true;apply();});
+  folder.addEventListener('pointerleave',function(){open=false;lifted=-1;apply();resumeLater();});
+  folder.addEventListener('focus',function(){stopAuto();open=true;apply();});
+  folder.addEventListener('blur',function(){open=false;lifted=-1;apply();resumeLater();});
+  cards.forEach(function(el,i){el.addEventListener('pointerenter',function(){if(!open)return;lifted=i;apply();});el.addEventListener('pointerleave',function(){if(lifted===i){lifted=-1;apply();}});});
+  folder.addEventListener('keydown',function(e){if(!open)return;if(e.key==='ArrowRight'){lifted=Math.min(cards.length-1,lifted+1);apply();e.preventDefault();}if(e.key==='ArrowLeft'){lifted=Math.max(0,lifted-1);apply();e.preventDefault();}});
+  function stopAuto(){auto=false;root.dataset.auto='off';clearTimeout(timer);clearTimeout(idle);}
+  function resumeLater(){clearTimeout(idle);if(!reduce)idle=setTimeout(function(){auto=true;root.dataset.auto='on';run(0);},2200);}
+  // Hub card is inert: a ghost pointer enters the folder, sweeps across the cards, then leaves.
+  var STEPS=[
+    function(){open=false;lifted=-1;apply();var s=stage.getBoundingClientRect();moveGhost(s.width*.82,s.height*.25);return 900;},
+    function(){var c=centerOf(folder);moveGhost(c[0],c[1]+30);open=true;apply();return 1000;},
+    function(){lifted=0;apply();var c=centerOf(cards[0]);moveGhost(c[0],c[1]);return 700;},
+    function(){lifted=1;apply();var c=centerOf(cards[1]);moveGhost(c[0],c[1]);return 700;},
+    function(){lifted=2;apply();var c=centerOf(cards[2]);moveGhost(c[0],c[1]);return 700;},
+    function(){lifted=3;apply();var c=centerOf(cards[3]);moveGhost(c[0],c[1]);return 700;},
+    function(){lifted=4;apply();var c=centerOf(cards[4]);moveGhost(c[0],c[1]);return 1100;}
+  ];
+  function run(i){if(!auto)return;var ms=STEPS[i]();timer=setTimeout(function(){run((i+1)%STEPS.length)},ms);}
+  document.addEventListener('learnui:languagechange',text);
+  text();
+  if(reduce){auto=false;root.dataset.auto='off';open=true;lifted=2;apply();}else{root.dataset.auto='on';apply();run(0);}
+})();
+</script>

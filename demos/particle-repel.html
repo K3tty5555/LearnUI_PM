@@ -1,0 +1,75 @@
+<div class="demo demo-particle-repel">
+  <div class="pr-stage">
+    <canvas class="pr-canvas" aria-hidden="true"></canvas>
+    <p class="pr-word">Stir the field</p>
+    <svg class="pr-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="pr-read"><code>radius 70px · push 1.0 · spring 0.035 · damping 0.88</code></p>
+</div>
+<style>
+.demo-particle-repel{width:min(560px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-particle-repel *{box-sizing:border-box}
+.pr-stage{position:relative;height:264px;border-radius:14px;overflow:hidden;background:radial-gradient(90% 80% at 50% 45%,#1d1610,#080605 75%);cursor:crosshair;touch-action:none}
+.pr-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pr-word{position:absolute;left:0;right:0;top:50%;margin:-12px 0 0;text-align:center;font:italic 600 20px/1.2 Georgia,"Times New Roman",serif;color:rgba(255,226,180,.82);letter-spacing:.01em;pointer-events:none}
+.pr-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-particle-repel[data-auto="on"] .pr-ghost{opacity:1}
+.pr-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.pr-stage{height:236px}}
+@media (max-height:260px){
+  .demo-particle-repel{width:calc(100vw - 40px)}
+  .pr-stage{height:calc(100vh - 44px);max-height:156px;min-height:118px}
+  .pr-word{font-size:15px}.pr-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-particle-repel');
+  var stage=root.querySelector('.pr-stage'),canvas=root.querySelector('.pr-canvas'),ctx=canvas.getContext('2d'),ghost=root.querySelector('.pr-ghost'),word=root.querySelector('.pr-word');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var RADIUS=70,PUSH=1,SPRING=.035,DAMP=.88;
+  var W=0,H=0,dpr=1,parts=[],px=-999,py=-999,auto=!reduce,raf=0,visible=true,start=performance.now(),idle;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){word.textContent=zh()?'用鼠标拨开它':'Stir the field';}
+  // Flakes sit on a jittered grid; each remembers its home so it can drift back after being pushed.
+  function seed(){
+    var r=stage.getBoundingClientRect();W=r.width;H=r.height;dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+    parts=[];var gap=W<380?11:12,seedN=7;
+    function rand(){seedN=(seedN*16807)%2147483647;return seedN/2147483647;}
+    for(var y=gap/2;y<H;y+=gap)for(var x=gap/2;x<W;x+=gap){
+      var hx=x+(rand()-.5)*gap*.9,hy=y+(rand()-.5)*gap*.9;
+      parts.push({hx:hx,hy:hy,x:hx,y:hy,vx:0,vy:0,a:rand()*Math.PI,len:2+rand()*3.2,tone:rand()});
+    }
+  }
+  function step(){
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i],dx=p.x-px,dy=p.y-py,d2=dx*dx+dy*dy;
+      if(d2<RADIUS*RADIUS&&d2>.01){var d=Math.sqrt(d2),f=(1-d/RADIUS)*PUSH*4;p.vx+=dx/d*f;p.vy+=dy/d*f;}
+      p.vx+=(p.hx-p.x)*SPRING;p.vy+=(p.hy-p.y)*SPRING;p.vx*=DAMP;p.vy*=DAMP;p.x+=p.vx;p.y+=p.vy;
+      p.a+=(p.vx-p.vy)*.12; // tumble while moving
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);ctx.lineCap='round';
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i],sp=Math.min(1,Math.abs(p.vx)+Math.abs(p.vy)),c=Math.cos(p.a)*p.len,s=Math.sin(p.a)*p.len;
+      ctx.strokeStyle='rgba('+(200+p.tone*55|0)+','+(140+p.tone*70|0)+','+(70+p.tone*40|0)+','+(.45+sp*.5).toFixed(2)+')';
+      ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(p.x-c,p.y-s);ctx.lineTo(p.x+c,p.y+s);ctx.stroke();
+    }
+  }
+  stage.addEventListener('pointermove',function(e){var r=stage.getBoundingClientRect();px=e.clientX-r.left;py=e.clientY-r.top;auto=false;root.dataset.auto='off';clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){px=py=-999;clearTimeout(idle);if(!reduce)idle=setTimeout(function(){auto=true;root.dataset.auto='on';start=performance.now();},1800);});
+  function tick(now){
+    raf=0;if(!visible)return;
+    if(auto){var t=(now-start)/1000;px=W*(.5+.38*Math.sin(t*.9));py=H*(.5+.3*Math.sin(t*1.7));ghost.style.transform='translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px)';}
+    step();draw();raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  if('ResizeObserver' in window){var lastKey='';new ResizeObserver(function(){var r=stage.getBoundingClientRect(),k=Math.round(r.width)+'x'+Math.round(r.height);if(k!==lastKey){lastKey=k;seed();draw();}}).observe(stage);}
+  document.addEventListener('learnui:languagechange',text);
+  text();seed();root.dataset.auto=auto?'on':'off';
+  if(reduce)draw();else resume();
+})();
+</script>

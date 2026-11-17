@@ -1,0 +1,146 @@
+<div class="demo demo-type-details" data-auto="on">
+  <div class="td-stage">
+    <article class="td-card" aria-label="Sample promo card">
+      <h3 class="td-title"><span class="td-title-text">山野白茶拿铁</span><span class="td-mark td-mark-1">-40</span></h3>
+      <p class="td-en" aria-hidden="true"></p>
+      <p class="td-body">今年第一口春天，用<span class="td-latin">Pekoe</span>白毫慢慢焖泡，清甜回甘，适合一个人的午后。<span class="td-mark td-mark-2">1.7×</span></p>
+      <p class="td-price"><span class="td-label">尝鲜价</span><span class="td-num td-num-price" data-full="¥２８" data-half="¥28">¥２８</span><span class="td-mark td-mark-3">0–9</span></p>
+      <p class="td-date"><span class="td-label">限定</span><span class="td-num td-num-date" data-full="０３．２１—０４．３０" data-half="03.21 — 04.30">０３．２１—０４．３０</span></p>
+      <span class="td-mark td-mark-6">#2E2621</span>
+    </article>
+    <span class="td-badge">00 Before</span>
+  </div>
+  <div class="td-bar">
+    <div class="td-chips" role="group" aria-label="Typography details">
+      <button type="button" data-detail="1" aria-pressed="false">01 Tracking</button>
+      <button type="button" data-detail="2" aria-pressed="false">02 Leading</button>
+      <button type="button" data-detail="3" aria-pressed="false">03 Numerals</button>
+      <button type="button" data-detail="4" aria-pressed="false">04 Spacing</button>
+      <button type="button" data-detail="5" aria-pressed="false">05 English line</button>
+      <button type="button" data-detail="6" aria-pressed="false">06 Off-black</button>
+    </div>
+    <button type="button" class="td-auto" aria-pressed="true">Auto</button>
+  </div>
+  <p class="td-note">The same words, before any detail is tuned.</p>
+</div>
+<style>
+.demo-type-details{width:min(560px,calc(100vw - 80px));color:#1f2328;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-type-details *{box-sizing:border-box}
+.td-stage{position:relative;display:grid;place-items:center;height:264px;border-radius:14px;background:#efe9df;overflow:hidden}
+.td-card{position:relative;width:min(400px,86%);padding:22px 26px 20px;border-radius:4px;background:#fbf8f2;box-shadow:0 1px 2px rgba(60,40,20,.08),0 10px 26px rgba(60,40,20,.08);color:#000;transition:color .45s ease}
+.td-title{position:relative;display:inline-block;margin:0;font:900 34px/1.15 "Songti SC","Noto Serif SC","Source Han Serif SC","STSong",serif;letter-spacing:0;transition:letter-spacing .45s ease}
+.td-en{display:flex;justify-content:space-between;margin:0;height:0;overflow:hidden;opacity:0;font:600 8.5px/1 "Avenir Next","Helvetica Neue",Arial,sans-serif;color:inherit;transition:height .45s ease,opacity .45s ease,margin .45s ease}
+.td-en i{font-style:normal}
+.td-body{position:relative;margin:12px 0 0;max-width:15em;font-size:13px;line-height:1.3;transition:line-height .45s ease,margin .45s ease}
+.td-latin{transition:margin .3s ease}
+.td-price,.td-date{position:relative;display:flex;align-items:baseline;gap:8px;margin:0}
+.td-price{margin-top:14px}
+.td-date{margin-top:4px}
+.td-label{font-size:10.5px}
+.td-num{font:700 22px/1.1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.02em}
+.td-num-date{font-size:11px;font-weight:500;letter-spacing:.04em}
+.td-mark{position:absolute;padding:2px 5px;border-radius:3px;background:#d8471f;color:#fff;font:700 9px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+.td-mark-1{left:0;top:-14px}
+.td-mark-2{right:-58px;bottom:2px}
+.td-mark-3{left:calc(100% + 6px);top:2px;position:static;margin-left:4px}
+.td-mark-6{right:12px;top:12px}
+.demo-type-details[data-focus="1"] .td-mark-1,.demo-type-details[data-focus="2"] .td-mark-2,.demo-type-details[data-focus="3"] .td-mark-3,.demo-type-details[data-focus="6"] .td-mark-6{opacity:1;transform:none}
+/* 01 heading tracking: -40 in design-tool units is -0.04em */
+.demo-type-details[data-d1="on"] .td-title{letter-spacing:-.04em}
+/* 02 body leading: 1.7 x the font size */
+.demo-type-details[data-d2="on"] .td-body{line-height:1.7}
+/* 03 numerals: half-width digits set in a Latin face */
+.demo-type-details[data-d3="on"] .td-num{font-family:"Didot","Bodoni 72","Bodoni MT",Georgia,serif;letter-spacing:0}
+.demo-type-details[data-d3="on"] .td-num-price{font-size:28px;font-weight:700}
+.demo-type-details[data-d3="on"] .td-num-date{font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;font-size:10.5px}
+/* 04 a quarter-em gap between Chinese and Latin text */
+.demo-type-details[data-d4="on"] .td-latin{margin:0 .25em}
+/* 05 a small, widely tracked English line as wide as the heading */
+.demo-type-details[data-d5="on"] .td-en{height:12px;margin-top:7px;opacity:1}
+/* 06 warm off-black instead of #000 */
+.demo-type-details[data-d6="on"] .td-card{color:#2e2621}
+.td-badge{position:absolute;left:10px;top:10px;padding:4px 8px;border-radius:999px;background:#1f2328;color:#fff;font:600 9.5px/1.1 ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none}
+.td-bar{display:flex;align-items:center;gap:6px;margin-top:8px}
+.td-chips{flex:1 1 auto;min-width:0;display:flex;gap:4px;overflow:auto;scrollbar-width:none}
+.td-chips::-webkit-scrollbar{display:none}
+.td-bar button{flex:0 0 auto;border:1px solid #d7d2c8;border-radius:999px;background:#fff;color:#5d5850;padding:5px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap;cursor:pointer}
+.td-bar button[aria-pressed="true"]{background:#1f2328;border-color:#1f2328;color:#fff}
+.td-bar button:focus-visible{outline:2px solid #d8471f;outline-offset:2px}
+.td-note{margin:7px 0 0;min-height:17px;color:#5d5850;font-size:11.5px;line-height:1.45}
+@media (max-width:760px){.td-stage{height:236px}.td-card{padding:18px 18px 16px}.td-title{font-size:28px}.td-mark-2{display:none}}
+/* Hub stage: only the card and the step badge fit. */
+@media (max-height:260px){
+  .demo-type-details{width:calc(100vw - 40px)}
+  .td-stage{height:calc(100vh - 40px);max-height:160px;min-height:120px;background:transparent}
+  .td-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.5);transform-origin:center}
+  .td-bar,.td-note{display:none}
+  .td-badge{left:4px;top:4px;font-size:9px}
+}
+@media (prefers-reduced-motion:reduce){.td-card,.td-title,.td-en,.td-body,.td-latin,.td-mark{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-type-details');
+  var title=root.querySelector('.td-title-text'),en=root.querySelector('.td-en'),badge=root.querySelector('.td-badge'),note=root.querySelector('.td-note');
+  var nums=[].slice.call(root.querySelectorAll('.td-num')),chips=[].slice.call(root.querySelectorAll('[data-detail]')),autoBtn=root.querySelector('.td-auto'),strip=root.querySelector('.td-chips');
+  // [zh, en] for chips, badge and the one-line rule shown under the card.
+  var NAME={1:['标题字距收紧','Tracking'],2:['正文行距拉开','Leading'],3:['数字换西文字体','Numerals'],4:['中英之间加空格','Spacing'],5:['标题配小英文','English line'],6:['不用纯黑','Off-black']};
+  var NOTE={
+    0:['同一段文字，还没调任何细节。','The same words, before any detail is tuned.'],
+    1:['大标题字距收紧到 -20 ~ -60（这里 -40，即 -0.04em），字挤一点更有分量。','Tighten heading tracking to -20 to -60 (here -40, i.e. -0.04em) so it carries weight.'],
+    2:['正文行距 = 字号 × 1.5 ~ 1.8（这里 1.7），段落透气就显得从容。','Body leading = size x 1.5 to 1.8 (here 1.7) so the paragraph can breathe.'],
+    3:['价格、日期换成西文字体的半角数字，别用中文字体自带的全角数字。','Set prices and dates in half-width digits from a Latin face, never full-width CJK digits.'],
+    4:['中文和英文、数字之间留 1/4 个字的空隙：「用Pekoe」→「用 Pekoe」。','Leave a quarter-em gap between Chinese and Latin text: 用Pekoe becomes 用 Pekoe.'],
+    5:['标题下配一行小英文：字号小、字距大，拉到和标题一样宽。','Add a small English line under the heading, widely tracked to the heading width.'],
+    6:['不用纯黑 #000000，换成深灰或暖黑，比如 #2E2621。','Skip pure #000000; use a dark grey or warm black such as #2E2621.'],
+    all:['一个字都没换，只是调了 6 个细节。','Not one word changed, only six details.']
+  };
+  var EN_LINE='WILD WHITE TEA LATTE';
+  var on={1:false,2:false,3:false,4:false,5:false,6:false},auto=true,held=false,step=0,timer,focus=0;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  en.innerHTML=EN_LINE.split('').map(function(c){return c===' '?'<i>&nbsp;</i>':'<i>'+c+'</i>'}).join('');
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function pick(pair){return pair[zh()?0:1];}
+  // The English line spans exactly the heading's width, whatever the tracking.
+  // offsetWidth is the untransformed layout width; the hub stage scales the whole card down.
+  function fitEnglish(){en.style.width=title.offsetWidth+'px';}
+  function apply(){
+    for(var k=1;k<=6;k++)root.setAttribute('data-d'+k,on[k]?'on':'off');
+    root.setAttribute('data-focus',String(focus));
+    nums.forEach(function(n){n.textContent=on[3]?n.getAttribute('data-half'):n.getAttribute('data-full')});
+    chips.forEach(function(c){c.setAttribute('aria-pressed',on[c.getAttribute('data-detail')]?'true':'false')});
+    fitEnglish();setTimeout(fitEnglish,480);
+    render();
+  }
+  function count(){var n=0;for(var k=1;k<=6;k++)if(on[k])n++;return n;}
+  function render(){
+    var n=count();
+    strip.setAttribute('aria-label',zh()?'排版细节':'Typography details');
+    chips.forEach(function(c){var k=c.getAttribute('data-detail');c.textContent='0'+k+' '+pick(NAME[k])});
+    autoBtn.textContent=zh()?'自动演示':'Auto';autoBtn.setAttribute('aria-pressed',auto?'true':'false');
+    if(n===0)badge.textContent=zh()?'00 改前':'00 Before';
+    else if(n===6&&(!auto||focus===0))badge.textContent=zh()?'改后 · 6/6':'After · 6/6';
+    else badge.textContent=focus?'0'+focus+' '+pick(NAME[focus]):(n+'/6');
+    note.textContent=pick(NOTE[n===6&&focus===0?'all':focus]);
+  }
+  // Auto: before, then each detail added in turn, then a pause on the finished card.
+  var SEQ=[{n:0,ms:1800},{n:1,ms:1800},{n:2,ms:1800},{n:3,ms:1800},{n:4,ms:1800},{n:5,ms:1800},{n:6,ms:1800},{n:6,ms:3200,done:true}];
+  function setStep(i){
+    step=i;var s=SEQ[i];
+    for(var k=1;k<=6;k++)on[k]=k<=s.n;
+    focus=s.done?0:s.n;apply();
+    clearTimeout(timer);if(auto&&!held)timer=setTimeout(function(){setStep((step+1)%SEQ.length)},s.ms);
+  }
+  function stopAuto(){auto=false;clearTimeout(timer);render();}
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    if(auto)stopAuto();var k=c.getAttribute('data-detail');on[k]=!on[k];focus=on[k]?+k:0;apply();
+  })});
+  autoBtn.addEventListener('click',function(){if(auto){stopAuto();return;}auto=true;held=false;setStep(0);});
+  ['pointerenter','focusin'].forEach(function(e){root.addEventListener(e,function(){if(!auto)return;held=true;clearTimeout(timer)})});
+  ['pointerleave','focusout'].forEach(function(e){root.addEventListener(e,function(){if(!auto||!held)return;held=false;setStep(step)})});
+  document.addEventListener('learnui:languagechange',render);
+  if('ResizeObserver' in window)new ResizeObserver(fitEnglish).observe(title);
+  // Reduced motion opens on the finished card; the comparison is still one click away.
+  setStep(reduce?SEQ.length-1:0);
+})();
+</script>

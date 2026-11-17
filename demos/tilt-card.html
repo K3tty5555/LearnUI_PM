@@ -1,0 +1,71 @@
+<div class="demo demo-tilt-card">
+  <div class="tc-stage">
+    <div class="tc-card">
+      <div class="tc-plate tc-back" aria-hidden="true"></div>
+      <div class="tc-content">
+        <span class="tc-kicker">TILT · GLARE</span>
+        <b class="tc-title">Designed<br>in glass.</b>
+        <span class="tc-cta">Get started</span>
+      </div>
+      <div class="tc-glare" aria-hidden="true"></div>
+    </div>
+    <svg class="tc-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="tc-read"><code>rotateX 0° · rotateY 0° · glare 50% 50%</code></p>
+</div>
+<style>
+.demo-tilt-card{width:min(560px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-tilt-card *{box-sizing:border-box}
+.tc-stage{position:relative;display:grid;place-items:center;height:264px;border-radius:14px;overflow:hidden;background:radial-gradient(120% 90% at 30% 20%,#2a2d36,#0d0e12 70%);perspective:760px}
+.tc-card{position:relative;width:min(300px,72%);aspect-ratio:1.7;border-radius:18px;transform-style:preserve-3d;transform:rotateX(var(--tc-rx,0deg)) rotateY(var(--tc-ry,0deg));background:linear-gradient(140deg,rgba(255,255,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.25);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.tc-back{position:absolute;inset:14px;border-radius:12px;background:linear-gradient(120deg,rgba(124,140,255,.35),rgba(255,140,200,.18) 60%,transparent);transform:translateZ(-18px);filter:blur(2px)}
+.tc-content{position:absolute;inset:0;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;transform:translateZ(36px);color:#f4f5f8}
+.tc-kicker{font:600 8.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:rgba(244,245,248,.6)}
+.tc-title{font:650 26px/1.02 "Avenir Next","Helvetica Neue",Arial,sans-serif;letter-spacing:-.03em}
+.tc-cta{align-self:flex-start;padding:5px 10px;border-radius:999px;background:#f4f5f8;color:#111;font-size:10px;font-weight:600;transform:translateZ(14px)}
+.tc-glare{position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--tc-gx,50%) var(--tc-gy,50%),rgba(255,255,255,.38),rgba(255,255,255,.08) 28%,transparent 55%);mix-blend-mode:screen;transform:translateZ(1px);pointer-events:none}
+.tc-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-tilt-card[data-auto="on"] .tc-ghost{opacity:1}
+.tc-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.tc-stage{height:236px}}
+@media (max-height:260px){
+  .demo-tilt-card{width:calc(100vw - 40px)}
+  .tc-stage{height:calc(100vh - 44px);max-height:156px;min-height:118px}
+  .tc-card{width:min(220px,70%)}
+  .tc-title{font-size:19px}.tc-content{padding:12px 14px}
+  .tc-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-tilt-card');
+  var stage=root.querySelector('.tc-stage'),card=root.querySelector('.tc-card'),ghost=root.querySelector('.tc-ghost'),read=root.querySelector('.tc-read code'),title=root.querySelector('.tc-title'),cta=root.querySelector('.tc-cta');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var MAX_X=14,MAX_Y=18; // degrees
+  var tx=.5,ty=.5,cx=.5,cy=.5,auto=!reduce,raf=0,visible=true,start=performance.now(),last=start,idle;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){title.innerHTML=zh()?'玻璃<br>质感。':'Designed<br>in glass.';cta.textContent=zh()?'开始使用':'Get started';}
+  // Pointer position over the stage (0..1) becomes tilt: the card leans toward the pointer and the glare follows it.
+  function setTarget(clientX,clientY){var r=card.getBoundingClientRect();tx=Math.max(-.2,Math.min(1.2,(clientX-r.left)/r.width));ty=Math.max(-.2,Math.min(1.2,(clientY-r.top)/r.height));}
+  stage.addEventListener('pointermove',function(e){auto=false;root.dataset.auto='off';clearTimeout(idle);setTarget(e.clientX,e.clientY);});
+  stage.addEventListener('pointerleave',function(){tx=.5;ty=.5;clearTimeout(idle);idle=setTimeout(function(){if(!reduce){auto=true;start=performance.now();}},1800);});
+  function tick(now){
+    raf=0;if(!visible)return;var dt=Math.min(50,now-last);last=now;
+    if(auto){
+      var t=(now-start)/1000,r=card.getBoundingClientRect(),s=stage.getBoundingClientRect();
+      var gx=.5+.42*Math.sin(t*1.3),gy=.5+.36*Math.sin(t*1.9+.6);tx=gx;ty=gy;
+      ghost.style.transform='translate('+(r.left-s.left+gx*r.width).toFixed(1)+'px,'+(r.top-s.top+gy*r.height).toFixed(1)+'px)';
+    }
+    var k=reduce?1:1-Math.pow(.002,dt/1000);cx+=(tx-cx)*k;cy+=(ty-cy)*k;
+    var rx=(.5-cy)*2*MAX_X,ry=(cx-.5)*2*MAX_Y;
+    root.style.setProperty('--tc-rx',rx.toFixed(2)+'deg');root.style.setProperty('--tc-ry',ry.toFixed(2)+'deg');
+    root.style.setProperty('--tc-gx',(cx*100).toFixed(1)+'%');root.style.setProperty('--tc-gy',(cy*100).toFixed(1)+'%');
+    read.textContent='rotateX '+rx.toFixed(1)+'° · rotateY '+ry.toFixed(1)+'° · glare '+Math.round(cx*100)+'% '+Math.round(cy*100)+'%';
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(tick);}}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  root.dataset.auto=auto?'on':'off';text();resume();
+})();
+</script>
