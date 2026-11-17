@@ -58,10 +58,43 @@ def main():
         if not os.path.isfile(demo):
             errors += fail(f"{slug}: missing demo {ref.get('demo')}")
 
+    errors += validate_logos()
     if errors:
         return 1
     print(f"Validated {len(refs)} page references and {sum(len(v) for v in taxonomy.values())} taxonomy values.")
     return 0
+
+
+def validate_logos():
+    """Logo atlas: known type/use ids, bilingual text pairs, and a shipped image per logo."""
+    if not os.path.exists(os.path.join(ROOT, "data/logos.json")):
+        return 0
+    data = load("data/logos.json")
+    types = {t["id"] for t in data["types"]}
+    uses = {u["id"] for u in data["uses"]}
+    errors, seen = 0, set()
+    pairs = (("name", None), ("about", "aboutZh"), ("audience", "audienceZh"), ("license", "licenseZh"),
+             ("read", "readZh"), ("prompt", "promptZh"), ("maker", "makerZh"), ("url", None), ("imageSource", None))
+    for logo in data["logos"]:
+        slug = logo.get("slug", "")
+        if not re.fullmatch(r"[a-z0-9-]+", slug) or slug in seen:
+            errors += fail(f"logo {slug!r}: slug must be unique kebab-case")
+        seen.add(slug)
+        for en_key, zh_key in pairs:
+            if not logo.get(en_key) or (zh_key and not logo.get(zh_key)):
+                errors += fail(f"logo {slug}: {en_key}{'/' + zh_key if zh_key else ''} required")
+        if bool(logo.get("note")) != bool(logo.get("noteZh")):
+            errors += fail(f"logo {slug}: note and noteZh must come together")
+        if logo.get("type") not in types:
+            errors += fail(f"logo {slug}: unknown type {logo.get('type')!r}")
+        if logo.get("use") not in uses:
+            errors += fail(f"logo {slug}: unknown use {logo.get('use')!r}")
+        parts = logo.get("parts", [])
+        if len(parts) < 2 or any(not all(p.get(k) for k in ("name", "nameZh", "desc", "descZh")) for p in parts):
+            errors += fail(f"logo {slug}: at least two bilingual parts are required")
+        if not os.path.isfile(os.path.join(ROOT, "assets/logos", logo.get("image", "") + ".webp")):
+            errors += fail(f"logo {slug}: missing assets/logos/{logo.get('image')}.webp")
+    return errors
 
 
 if __name__ == "__main__":

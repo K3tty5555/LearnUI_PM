@@ -159,6 +159,7 @@
       var current = (href === "/#top" && (path === "/" || path.indexOf("/web/") === 0 || path.indexOf("/macos/") === 0))
         || (href === "/references/" && path.indexOf("/references/") === 0)
         || (href === "/sites/" && path.indexOf("/sites/") === 0)
+        || (href === "/logos/" && path.indexOf("/logos/") === 0)
         || (href === "/styles/" && path.indexOf("/styles/") === 0)
         || (href === "/guides/translate/" && path === "/guides/translate/");
       link.classList.toggle("current", current);
@@ -193,7 +194,7 @@
     var tag = (ev.target.tagName || "").toLowerCase();
     var typing = tag === "input" || tag === "textarea" || ev.target.isContentEditable;
     if (ev.key === "/" && !typing && !document.querySelector("dialog[open]")) {
-      var inputs = ["search", "style-search", "reference-search", "site-search", "table-search"].map(function (id) {
+      var inputs = ["search", "style-search", "reference-search", "site-search", "logo-search", "table-search"].map(function (id) {
         return document.getElementById(id);
       }).filter(function (input) { return input && input.offsetParent !== null; });
       var inp = inputs[0];
@@ -201,7 +202,7 @@
     }
     if (ev.key === "Escape" && typing) {
       var active = document.activeElement;
-      if (active && (active.id === "search" || active.id === "style-search" || active.id === "site-search" || active.id === "reference-search" || active.id === "table-search")) {
+      if (active && (active.id === "search" || active.id === "style-search" || active.id === "site-search" || active.id === "logo-search" || active.id === "reference-search" || active.id === "table-search")) {
         if (active.value) { active.value = ""; active.dispatchEvent(new Event("input")); }
         active.blur();
       }
@@ -432,6 +433,54 @@
     styleInput.addEventListener("input", function () { sApplyD(); sSyncD(); });
     var sq = new URLSearchParams(location.search).get("q");
     if (sq) { styleInput.value = sq; sApply(); }
+  }
+
+  /* ---------- logo atlas: type chips, use and search ---------- */
+  var logoInput = document.getElementById("logo-search");
+  if (logoInput) {
+    var logoCards = Array.prototype.slice.call(document.querySelectorAll(".logo-item"));
+    var logoChips = Array.prototype.slice.call(document.querySelectorAll("[data-logo-type]"));
+    var logoUse = document.getElementById("logo-use");
+    var logoCount = document.getElementById("logo-count");
+    var logoNoResult = document.getElementById("logo-no-result");
+    var logoReset = document.getElementById("logo-reset");
+    var logoParams = new URLSearchParams(location.search);
+    var logoType = "";
+    var applyLogos = function () {
+      var query = logoInput.value.trim().toLowerCase();
+      var use = logoUse ? logoUse.value : "";
+      var shown = 0;
+      logoCards.forEach(function (card) {
+        var match = (!logoType || card.getAttribute("data-type") === logoType)
+          && (!use || card.getAttribute("data-use") === use)
+          && (!query || (card.getAttribute("data-search") || "").indexOf(query) !== -1);
+        card.hidden = !match;
+        if (match) shown++;
+      });
+      logoChips.forEach(function (chip) { chip.setAttribute("aria-pressed", chip.getAttribute("data-logo-type") === logoType ? "true" : "false"); });
+      if (logoCount) logoCount.querySelectorAll("[data-tpl]").forEach(function (el) {
+        el.textContent = el.getAttribute("data-tpl").replace("{shown}", shown).replace("{total}", logoCards.length);
+      });
+      if (logoNoResult) logoNoResult.hidden = shown !== 0;
+      if (logoReset) logoReset.hidden = !query && !use && !logoType;
+    };
+    var syncLogos = function () {
+      syncURL({ q: logoInput.value.trim() || null, type: logoType || null, use: logoUse && logoUse.value || null });
+    };
+    var syncLogosD = debounce(syncLogos, 200);
+    logoInput.addEventListener("input", function () { applyLogos(); syncLogosD(); });
+    logoChips.forEach(function (chip) {
+      chip.addEventListener("click", function () { logoType = chip.getAttribute("data-logo-type"); applyLogos(); syncLogos(); });
+    });
+    if (logoUse) logoUse.addEventListener("change", function () { applyLogos(); syncLogos(); });
+    if (logoReset) logoReset.addEventListener("click", function () {
+      logoInput.value = ""; logoType = ""; if (logoUse) logoUse.value = "";
+      applyLogos(); syncLogos(); logoInput.focus();
+    });
+    logoInput.value = logoParams.get("q") || "";
+    if (logoChips.some(function (chip) { return chip.getAttribute("data-logo-type") === logoParams.get("type") && !chip.disabled; })) logoType = logoParams.get("type");
+    if (logoUse && Array.prototype.some.call(logoUse.options, function (o) { return o.value === logoParams.get("use"); })) logoUse.value = logoParams.get("use") || "";
+    applyLogos();
   }
 
   /* ---------- famous sites: search and category ---------- */
@@ -689,9 +738,9 @@
       row.className = "selection-row";
       var link = document.createElement("a");
       link.href = item.url;
-      link.textContent = item.nameZh + (item.name ? " / " + item.name : "");
+      link.textContent = item.nameZh + (item.name && item.name !== item.nameZh ? " / " + item.name : "");
       var type = document.createElement("span");
-      type.textContent = item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
+      type.textContent = item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
       var remove = document.createElement("button");
       remove.type = "button";
       remove.className = "icon-button";
@@ -739,7 +788,7 @@
     if (brief) lines.push("## 项目目标", "", brief, "");
     selectedItems().forEach(function (item) {
       lines.push("## " + item.nameZh + (item.name ? " (" + item.name + ")" : ""), "");
-      lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
+      lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
       lines.push("- 链接：" + location.origin + item.url);
       if (item.summary) lines.push("- 说明：" + item.summary);
       if (item.prompt) lines.push("", item.prompt);
@@ -879,7 +928,7 @@
       var description = document.createElement("p");
       description.textContent = item.summary || item.name;
       var type = document.createElement("span");
-      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "page-reference":"页面参考", "site-reference":"知名网站"}[item.type] || "视觉风格";
+      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "page-reference":"页面参考", "site-reference":"知名网站", "logo-reference":"Logo 图鉴"}[item.type] || "视觉风格";
       content.append(title, description);
       link.append(content, type);
       globalResults.appendChild(link);

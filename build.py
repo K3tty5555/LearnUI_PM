@@ -54,6 +54,10 @@ PM_LABELS = {
 DEMO_I18N = _nn(load_or("data/demo-i18n.json", {"global": {}, "patterns": [], "demos": {}}))
 SITES_META = _nn(load_or("data/sites-manifest.json", {"items": []}))
 SITES = SITES_META.get("items", [])
+LOGOS_META = _nn(load_or("data/logos.json", {"types": [], "uses": [], "logos": []}))
+LOGOS = LOGOS_META["logos"]
+LOGO_TYPES = {t["id"]: t for t in LOGOS_META["types"]}
+LOGO_USES = {u["id"]: u for u in LOGOS_META["uses"]}
 SITE_CATEGORY_ZH = {
     "AI & LLM Platforms": "AI 与大模型平台",
     "Developer Tools & IDEs": "开发者工具与 IDE",
@@ -224,6 +228,8 @@ def icon(name, size=18):
         "arrow": '<path d="M4 12h16m-6-6 6 6-6 6"/>',
         "shuffle": '<path d="m18 3 3 3-3 3m0 6 3 3-3 3M3 6h3c5 0 7 12 12 12h3M3 18h3c2 0 4-3 6-6s4-6 6-6h3"/>',
         "close": '<path d="m6 6 12 12M6 18 18 6"/>',
+        "mark": '<path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4"/>',
+        "external": '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
     }
     return f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths.get(name, paths["grid"])}</svg>'
 
@@ -232,6 +238,7 @@ def header():
     links = [("/#top", "grid", "UI elements", "UI 元素", len(ENTRIES)),
              ("/references/", "page", "Page references", "页面参考", len(PM_REFERENCES)),
              ("/sites/", "globe", "Website systems", "知名网站", len(SITES)),
+             ("/logos/", "mark", "Logo atlas", "Logo 图鉴", len(LOGOS)),
              ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES)),
              ("/guides/translate/", "book", "Terminology", "术语对照", "")]
     nav = "".join(f'<a href="{url}">{icon(glyph)}<span class="nav-label"><span class="lang-en">{en}</span><span class="lang-zh nav-zh">{zh}</span></span><span class="nav-count">{count}</span></a>' for url, glyph, en, zh, count in links)
@@ -908,6 +915,7 @@ def sources_page():
  <section class="sect"><h2>上游内容</h2><p>UI 词典、指南和部分视觉风格来自 <a href="https://github.com/joeseesun/learnui" rel="noopener">joeseesun/learnui</a>。其英文源内容复刻自 <a href="https://namethatui.com/" rel="noopener">namethatui.com</a>，版权归原作者。</p></section>
  <section class="sect"><h2>本项目新增内容</h2><p><code>data/pm/</code>、<code>demos/pm/</code> 及页面参考功能为独立新增内容，不覆盖上游数据文件。</p></section>
  <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。</p></section>
+ <section class="sect"><h2>Logo 图鉴</h2><p><code>/logos/</code> 首期样本取自小红书视频《好用的设计网站之LOGO/图标》（作者「李李说设计（大学陪跑）」）介绍的网站。logo 图片取自各网站公开发布的图标文件，商标归各自所有者，仅用于识别与学习；每个详情页标明原始文件地址。</p></section>
  <section class="sect"><h2>许可证</h2><p>代码与本地新增示例按仓库中的 <a href="/LICENSE.txt">MIT License</a> 使用。原始内容的版权边界以 README 和上游说明为准。</p></section>
 </main>
 {footer()}'''
@@ -997,6 +1005,151 @@ def site_detail_page(site):
 {footer()}'''
     return page(site["nameEn"], site["nameZh"], site["summaryEn"], site["summaryZh"],
                 body, f'sites/{site["slug"]}/', og_image=f'/assets/og/site-{site["slug"]}.png')
+
+# ---------------- logo atlas ----------------
+def logo_url(logo):
+    return f'/logos/{logo["slug"]}/'
+
+def logo_name_zh(logo):
+    return logo.get("nameZh") or logo["name"]
+
+def logo_type_tag(type_id):
+    t_ = LOGO_TYPES[type_id]
+    return f'<span class="tag logo-type-tag"><span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span></span>'
+
+def logo_use_tag(use_id):
+    u = LOGO_USES[use_id]
+    return f'<span class="tag"><span class="lang-zh">{esc(u["nameZh"])}</span><span class="lang-en">{esc(u["name"])}</span></span>'
+
+def logo_image(logo, cls="logo-art", lazy=True):
+    loading = ' loading="lazy" decoding="async"' if lazy else ''
+    return f'<img class="{cls}" src="/assets/logos/{esc(logo["image"])}.webp" alt="{esc(logo["name"])} logo"{loading}>'
+
+def logo_card(logo):
+    t_ = LOGO_TYPES[logo["type"]]; u = LOGO_USES[logo["use"]]
+    hay = " ".join([logo["name"], logo_name_zh(logo), logo["maker"], logo["makerZh"], t_["name"], t_["nameZh"],
+                    u["name"], u["nameZh"], logo["aboutZh"], logo["about"]]).lower()
+    return f'''<article class="catalog-item logo-item" data-search="{esc(hay)}" data-type="{esc(logo["type"])}" data-use="{esc(logo["use"])}">
+ <a class="style-card logo-card" href="{logo_url(logo)}">
+  <div class="stage stage-card logo-stage">{logo_image(logo)}</div>
+  <div class="card-meta">
+   <h3 class="card-name"><span class="lang-en">{esc(logo["name"])}</span><span class="lang-zh card-name-zh">{esc(logo_name_zh(logo))}</span></h3>
+   <div class="logo-card-tags">{logo_type_tag(logo["type"])}{logo_use_tag(logo["use"])}</div>
+   {bi(logo["about"], logo["aboutZh"], "p", "card-tag")}
+  </div>
+ </a>
+ {select_button("logo:" + logo["slug"], compact=True)}
+</article>'''
+
+def logos_hub_page():
+    counts = {tid: sum(1 for l in LOGOS if l["type"] == tid) for tid in LOGO_TYPES}
+    type_chips = ['<button type="button" class="logo-type-chip" data-logo-type="" aria-pressed="true"><span class="lang-zh">全部类型</span><span class="lang-en">All types</span><b>' + str(len(LOGOS)) + '</b></button>']
+    for tid, t_ in LOGO_TYPES.items():
+        disabled = ' disabled' if not counts[tid] else ''
+        type_chips.append(f'<button type="button" class="logo-type-chip" data-logo-type="{esc(tid)}" aria-pressed="false"{disabled} title="{esc(t_["definitionZh"])}"><span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span><b>{counts[tid]}</b></button>')
+    empty_note = '<em><span class="lang-zh">首期暂无样本</span><span class="lang-en">No sample yet</span></em>'
+    glossary = "".join(f'<div class="logo-glossary-item"><dt><span class="lang-zh">{esc(t_["nameZh"])} <small>{esc(t_["name"])}</small></span><span class="lang-en">{esc(t_["name"])}</span></dt><dd><span class="lang-zh">{esc(t_["definitionZh"])}</span><span class="lang-en">{esc(t_["definition"])}</span>{"" if counts[tid] else empty_note}</dd></div>' for tid, t_ in LOGO_TYPES.items())
+    use_options = ['<option value="">全部用途</option>'] + [f'<option value="{esc(uid)}">{esc(u["nameZh"])}</option>' for uid, u in LOGO_USES.items()]
+    src = LOGOS_META["source"]
+    cards = "\n".join(logo_card(l) for l in LOGOS)
+    body = f'''{header()}
+<main class="wrap logos-hub-page">
+ <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Logo atlas</span><span class="lang-zh">Logo 图鉴</span></span></nav>
+ <section class="hero logos-hero">
+  <h1 class="hero-title"><span class="lang-en">Logo atlas</span><span class="lang-zh hero-title-zh">Logo 图鉴</span></h1>
+  <p class="lang-zh hero-sub">认出一个 logo 属于哪一类、由哪几部分构成，再把这套构成方法交给 AI。每个样本同时是一个找 logo、找图标的好网站。</p>
+  <p class="lang-en hero-sub">Learn which kind of logo you are looking at and how it is built, then hand that construction to your AI. Every sample is also a useful site for finding logos and icons.</p>
+  <p class="logo-issue"><span class="lang-zh">首期 · 9 个样本取自小红书「{esc(src["author"])}」的视频《{esc(src["title"])}》，logo 为各网站自己的标志。</span><span class="lang-en">Issue 1 · nine samples from the Xiaohongshu video "{esc(src["title"])}" by {esc(src["author"])}; each logo is the site's own mark.</span></p>
+  <div class="logo-tools">
+   <div class="logo-type-chips" role="group" aria-label="按 logo 类型筛选">{"".join(type_chips)}</div>
+   <div class="site-filter-row">
+    <div class="search-box site-search-box"><input id="logo-search" type="search" autocomplete="off" data-ph-en="Search a site, type or use" data-ph-zh="搜索网站、类型或用途" placeholder="搜索网站、类型或用途" aria-label="搜索 logo 图鉴"><kbd class="search-kbd">/</kbd></div>
+    <label class="site-filter-select"><span>用途</span><select id="logo-use" aria-label="按用途筛选">{"".join(use_options)}</select></label>
+    <button type="button" class="site-reset" id="logo-reset" hidden><span class="lang-en">Reset filters</span><span class="lang-zh">重置筛选</span></button>
+   </div>
+   <p class="site-result-count" id="logo-count" role="status" aria-live="polite" aria-atomic="true"><span class="lang-en" data-tpl="Showing {{shown}} of {{total}}">Showing {len(LOGOS)} of {len(LOGOS)}</span><span class="lang-zh" data-tpl="显示 {{shown}} / {{total}} 个">显示 {len(LOGOS)} / {len(LOGOS)} 个</span></p>
+  </div>
+ </section>
+ <section class="style-grid logos-grid" id="logos" aria-live="polite">{cards}</section>
+ <div class="no-result" id="logo-no-result" hidden><b>没有符合条件的 logo</b><p>换一个类型、用途或关键词。</p></div>
+ <section class="sect logo-glossary-sect">
+  <h2 class="section-title"><span class="lang-zh">7 种 logo 类型</span><span class="lang-en">Seven kinds of logo</span></h2>
+  <dl class="logo-glossary">{glossary}</dl>
+  <p class="logo-legal"><span class="lang-zh">logo 均为各自所有者的商标，取自各网站公开发布的图标文件，仅用于识别与学习。</span><span class="lang-en">All logos are trademarks of their owners, taken from each site's published icon files, and shown for identification and study only.</span></p>
+ </section>
+</main>
+{footer()}'''
+    return page("Logo atlas", "Logo 图鉴",
+                "Learn logo types through real marks, with the design sites they come from.",
+                f"通过 {len(LOGOS)} 个真实 logo 认识 logo 类型与构成，并收录好用的 logo / 图标网站。",
+                body, "logos/")
+
+def logo_markdown(logo):
+    t_ = LOGO_TYPES[logo["type"]]
+    lines = [f'# {logo_name_zh(logo)}', '', f'- 类型：{t_["nameZh"]}（{t_["name"]}）— {t_["definitionZh"]}',
+             f'- 网站：{logo["url"]}', f'- 用途：{LOGO_USES[logo["use"]]["nameZh"]}；{logo["aboutZh"]}',
+             f'- 适合：{logo["audienceZh"]}', f'- 授权：{logo["licenseZh"]}', '', '## 构成', '', logo["readZh"], '']
+    lines += [f'- {p_["nameZh"]}：{p_["descZh"]}' for p_ in logo["parts"]]
+    lines += ['', '## 给 AI 的 prompt', '', logo["promptZh"], '']
+    if logo.get("noteZh"):
+        lines += ['## 说明', '', logo["noteZh"], '']
+    return "\n".join(lines)
+
+def logo_page(logo):
+    t_ = LOGO_TYPES[logo["type"]]
+    parts = "".join(f'<div class="logo-part"><h3><span class="lang-zh">{esc(p_["nameZh"])}</span><span class="lang-en">{esc(p_["name"])}</span></h3><p><span class="lang-zh">{esc(p_["descZh"])}</span><span class="lang-en">{esc(p_["desc"])}</span></p></div>' for p_ in logo["parts"])
+    sizes = "".join(f'<figure><div class="logo-size-box" style="--logo-size:{n}px">{logo_image(logo, "logo-size-img", lazy=False)}</div><figcaption>{n}px</figcaption></figure>' for n in (16, 32, 64))
+    same = [l for l in LOGOS if l["type"] == logo["type"] and l["slug"] != logo["slug"]]
+    others = same + [l for l in LOGOS if l["use"] == logo["use"] and l["slug"] != logo["slug"] and l not in same]
+    related = "".join(f'<a class="rel-card logo-rel" href="{logo_url(l)}">{logo_image(l, "logo-rel-img")}<span class="rel-name"><span class="lang-en">{esc(l["name"])}</span><span class="lang-zh rel-name-zh">{esc(logo_name_zh(l))}</span></span><span class="rel-sym"><span class="lang-zh">{esc(LOGO_TYPES[l["type"]]["nameZh"])}</span><span class="lang-en">{esc(LOGO_TYPES[l["type"]]["name"])}</span></span></a>' for l in others[:4])
+    related_sect = (f'<section class="sect"><h2 class="section-title"><span class="lang-zh">同类与同用途</span><span class="lang-en">Related</span></h2><div class="rel-grid">{related}</div></section>' if related else '')
+    note = (f'<p class="logo-note"><span class="lang-zh">{esc(logo["noteZh"])}</span><span class="lang-en">{esc(logo["note"])}</span></p>' if logo.get("note") else "")
+    body = f'''{header()}
+<main class="wrap entry logo-detail">
+ <nav class="crumbs"><a href="/logos/"><span class="lang-zh">Logo 图鉴</span><span class="lang-en">Logo atlas</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">{esc(logo_name_zh(logo))}</span><span class="lang-en">{esc(logo["name"])}</span></span></nav>
+ <header class="entry-head">
+  <h1 class="logo-title"><span class="lang-zh">{esc(logo_name_zh(logo))}</span><span class="lang-en">{esc(logo["name"])}</span></h1>
+  <p class="entry-tag"><span class="lang-zh">{esc(logo["aboutZh"])}</span><span class="lang-en">{esc(logo["about"])}</span></p>
+  <div class="logo-card-tags">{logo_type_tag(logo["type"])}{logo_use_tag(logo["use"])}</div>
+  <div class="entry-actions">{select_button("logo:" + logo["slug"])}<a class="btn" href="{esc(logo["url"])}" rel="noopener" target="_blank"><span class="lang-zh">访问网站</span><span class="lang-en">Visit site</span>{icon("external", 15)}</a></div>
+ </header>
+ <div class="logo-showcase">
+  <div class="logo-plate logo-plate-light">{logo_image(logo, "logo-art", lazy=False)}</div>
+  <div class="logo-plate logo-plate-dark">{logo_image(logo, "logo-art", lazy=False)}</div>
+ </div>
+ <div class="logo-sizes"><span class="logo-sizes-label"><span class="lang-zh">小尺寸测试</span><span class="lang-en">Small sizes</span></span>{sizes}</div>
+ {note}
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">它是哪种 logo</span><span class="lang-en">What kind of logo</span></h2>
+  <p class="logo-type-line"><b><span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span></b><span class="lang-zh">{esc(t_["definitionZh"])}</span><span class="lang-en">{esc(t_["definition"])}</span></p>
+  <p class="logo-read"><span class="lang-zh">{esc(logo["readZh"])}</span><span class="lang-en">{esc(logo["read"])}</span></p>
+ </section>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">拆解</span><span class="lang-en">Anatomy</span></h2>
+  <div class="logo-parts">{parts}</div>
+ </section>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">网站档案</span><span class="lang-en">About the site</span></h2>
+  <dl class="logo-facts">
+   <div><dt><span class="lang-zh">网址</span><span class="lang-en">URL</span></dt><dd><a href="{esc(logo["url"])}" rel="noopener" target="_blank">{esc(logo["url"])}</a></dd></div>
+   <div><dt><span class="lang-zh">出品</span><span class="lang-en">Made by</span></dt><dd><span class="lang-zh">{esc(logo["makerZh"])}</span><span class="lang-en">{esc(logo["maker"])}</span></dd></div>
+   <div><dt><span class="lang-zh">适合谁</span><span class="lang-en">Good for</span></dt><dd><span class="lang-zh">{esc(logo["audienceZh"])}</span><span class="lang-en">{esc(logo["audience"])}</span></dd></div>
+   <div><dt><span class="lang-zh">费用与授权</span><span class="lang-en">Cost &amp; license</span></dt><dd><span class="lang-zh">{esc(logo["licenseZh"])}</span><span class="lang-en">{esc(logo["license"])}</span></dd></div>
+  </dl>
+ </section>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">给 AI 的 prompt</span><span class="lang-en">Prompt for your AI</span></h2>
+  {copy_block(logo["prompt"], logo["promptZh"], "logo-prompt")}
+ </section>
+ {related_sect}
+ <section class="sect reference-detail-actions">
+  <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
+  <template id="md-source">{esc(logo_markdown(logo))}</template>
+  <span><span class="lang-zh">logo 为 {esc(logo["makerZh"])} 的商标，取自<a href="{esc(logo["imageSource"])}" rel="noopener">官方图标文件</a>，仅用于识别与学习。</span><span class="lang-en">The logo is a trademark of {esc(logo["maker"])}, taken from its <a href="{esc(logo["imageSource"])}" rel="noopener">published icon file</a>, for identification and study only.</span></span>
+ </section>
+</main>
+{footer()}'''
+    return page(logo["name"], logo_name_zh(logo), logo["about"], logo["aboutZh"], body, logo_url(logo).lstrip("/"))
 
 # ---------------- styles atlas (Name That Vibe) ----------------
 
@@ -1399,6 +1552,16 @@ def catalog_data():
             "tags": {"category": [site["category"]]}, "prompt": site["summaryZh"],
             "source": {"kind": "external", "label": "awesome-design-md", "license": "MIT"}
         })
+    for logo in LOGOS:
+        items.append({
+            "id": "logo:" + logo["slug"], "type": "logo-reference", "slug": logo["slug"],
+            "name": logo["name"], "nameZh": logo_name_zh(logo), "url": logo_url(logo),
+            "summary": logo["aboutZh"],
+            "tags": {"logoType": [logo["type"]], "use": [logo["use"]]},
+            "logoType": LOGO_TYPES[logo["type"]]["nameZh"], "construction": logo["readZh"],
+            "website": logo["url"], "license": logo["licenseZh"], "prompt": logo["promptZh"],
+            "source": {"kind": "external", "label": LOGOS_META["source"]["author"], "url": LOGOS_META["source"]["url"]}
+        })
     return {
         "schemaVersion": 1,
         "language": "zh-CN",
@@ -1416,6 +1579,7 @@ def catalog_readme():
 - `type=ui-element`：现有 UI 词典条目和实现 Prompt。
 - `type=visual-style`：现有视觉风格和 Style Brief。
 - `type=site-reference`：知名网站的设计系统、分类和中文风格解读。
+- `type=logo-reference`：Logo 图鉴，含 logo 类型、构成拆解、网站用途与授权、生成 Prompt。
 - `taxonomy.json`：页面参考筛选所使用的稳定分类 ID。
 '''
 
@@ -1439,6 +1603,10 @@ def build():
         write("sites/index.html", sites_hub_page())
         for site in SITES:
             write(f'sites/{site["slug"]}/index.html', site_detail_page(site))
+    if LOGOS:
+        write("logos/index.html", logos_hub_page())
+        for logo in LOGOS:
+            write(f'logos/{logo["slug"]}/index.html', logo_page(logo))
     for e in ENTRIES:
         write(f'{e["platform"]}/{e["slug"]}/index.html', entry_page(e))
         write(f'api/specimens/{e["slug"]}.json', json.dumps(specimen_payload(e), ensure_ascii=False, separators=(",", ":")))
@@ -1509,6 +1677,7 @@ def build():
     urls = ["/", "/references/", "/sources/"] + \
            [reference_url(ref) for ref in PM_REFERENCES] + \
            (["/sites/"] + [f'/sites/{site["slug"]}/' for site in SITES] if SITES else []) + \
+           (["/logos/"] + [logo_url(logo) for logo in LOGOS] if LOGOS else []) + \
            [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
            [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/"]
     if STYLES:

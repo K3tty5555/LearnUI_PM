@@ -9,7 +9,7 @@
 
 [在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [翻译对照表](https://K3tty5555.github.io/LearnUI_PM/guides/translate/)
 
-**当前构建：** 264 个静态页面；84 个 UI 标本、45 个风格标本、12 个页面参考、74 个知名网站设计规范；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
+**当前构建：** 274 个静态页面；84 个 UI 标本、45 个风格标本、12 个页面参考、74 个知名网站设计规范、9 个 Logo 样本；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
@@ -33,6 +33,7 @@
 - **参考选择集**：页面参考、知名网站、UI 元素和视觉风格可以混合选择，导出 Markdown 或 JSON
 - **AI 数据入口**：构建后优先读取 `/api/catalog.json` 和 `/api/taxonomy.json`，无需扫描整个项目
 - **74 个知名网站**：按行业浏览、搜索并查看品牌 mock、中文风格解读、色板、字体和可复制 DESIGN.md
+- **Logo 图鉴**：按 7 种 logo 类型（文字标、字母标、具象/抽象图形标、吉祥物标、组合标、徽章标）认识真实 logo，每个样本含构成拆解、浅/深底与小尺寸测试、给 AI 的 prompt，并附网站用途与授权；首期 9 个样本来自小红书视频《好用的设计网站之LOGO/图标》，说明见 [docs/logos.md](docs/logos.md)
 
 ## 为什么值得用
 
@@ -52,7 +53,7 @@
 git clone https://github.com/joeseesun/learnui.git
 cd learnui
 python3 scripts/sync-sites.py # 更新 74 个知名网站及线上来源镜像
-python3 build.py          # 生成 site/（264 个静态页面）
+python3 build.py          # 生成 site/（274 个静态页面）
 python3 scripts/gen-og.py # 生成 149 张 og 分享图 → assets/og/（需 playwright）
 cd site && python3 -m http.server 8000
 # 打开 http://127.0.0.1:8000/
@@ -75,11 +76,12 @@ learnui/
 │   ├── pm/             # 本项目新增的页面参考与 taxonomy
 │   ├── schema/         # 新增内容的数据合同
 │   ├── sites-manifest.json # 知名网站结构化清单与来源
+│   ├── logos.json      # Logo 图鉴：类型、用途与样本
 │   └── ui.json         # 站点文案（双语）
 ├── demos/<slug>.html   # 84 个 UI 标本 + 45 个 style-<slug>.html 风格标本
 ├── demos/pm/           # 12 个页面级交互参考
 ├── vendor/sites/       # /sites/ 的本地主内容镜像
-├── assets/             # site.css / site.js / 自托管 Geist 字体 / PWA 图标
+├── assets/             # site.css / site.js / 自托管 Geist 字体 / PWA 图标 / logos/ 样本图
 ├── manifest.webmanifest + sw.js  # PWA（构建时注入版本号）
 ├── DESIGN.md           # 设计参考工作台的视觉与交互规范
 └── site/               # 构建产物，含 api/catalog.json（git 忽略）
