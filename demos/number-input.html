@@ -1,0 +1,59 @@
+<div class="demo demo-number-input">
+  <div class="ni-card">
+    <div class="ni-thumb" aria-hidden="true"></div>
+    <div class="ni-info"><b class="ni-name">Linen shirt</b><span class="ni-price">¥189</span></div>
+    <div class="ni-field">
+      <button type="button" class="ni-btn ni-minus" aria-label="Decrease">−</button>
+      <input class="ni-input" type="text" inputmode="numeric" value="2" aria-label="Quantity" role="spinbutton" aria-valuemin="1" aria-valuemax="5" aria-valuenow="2">
+      <button type="button" class="ni-btn ni-plus" aria-label="Increase">+</button>
+    </div>
+  </div>
+  <p class="ni-hint" aria-live="polite"></p>
+</div>
+<style>
+.demo-number-input{width:min(400px,calc(100vw - 80px));color:#1f2430;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-number-input *{box-sizing:border-box}
+.ni-card{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid #e3e6ee;border-radius:14px;background:#fff;box-shadow:0 4px 14px rgba(20,30,60,.06)}
+.ni-thumb{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#e9ecef,#adb5bd)}
+.ni-info{display:grid;gap:3px}.ni-name{font-size:13px}.ni-price{color:#e8590c;font-weight:700}
+.ni-field{display:flex;align-items:center;height:34px;border:1px solid #d0d5de;border-radius:10px;overflow:hidden;background:#fff}
+.ni-field:focus-within{border-color:#4c6ef5;box-shadow:0 0 0 3px rgba(76,110,245,.15)}
+.ni-btn{width:32px;height:100%;border:0;background:#f4f6fa;color:#1f2430;font:600 16px/1 system-ui;cursor:pointer;transition:background .15s,transform .1s}
+.ni-btn:hover:not(:disabled){background:#e9ecf3}
+.ni-btn.is-pressed{transform:scale(.9)}
+.ni-btn:disabled{color:#c3c8d2;cursor:not-allowed;background:#f8f9fb}
+.ni-input{width:42px;height:100%;border:0;border-left:1px solid #e3e6ee;border-right:1px solid #e3e6ee;text-align:center;font:600 14px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#1f2430;outline:none}
+.ni-input.is-bump{animation:ni-bump .25s ease}
+.ni-hint{margin:8px 2px 0;min-height:17px;color:#6b7180;font-size:11.5px}
+.ni-hint.is-warn{color:#c2410c}
+@keyframes ni-bump{50%{transform:scale(1.18)}}
+@media (max-height:260px){.demo-number-input{width:calc(100vw - 40px)}.ni-card{grid-template-columns:40px 1fr auto;gap:8px;padding:9px}.ni-thumb{width:40px;height:40px}}
+@media (prefers-reduced-motion:reduce){.ni-input.is-bump{animation:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-number-input');
+  var input=root.querySelector('.ni-input'),minus=root.querySelector('.ni-minus'),plus=root.querySelector('.ni-plus'),hint=root.querySelector('.ni-hint');
+  var MIN=1,MAX=5,STEP=1,val=2,auto=true,timer;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(warn){root.querySelector('.ni-name').textContent=zh()?'亚麻衬衫':'Linen shirt';minus.setAttribute('aria-label',zh()?'减少':'Decrease');plus.setAttribute('aria-label',zh()?'增加':'Increase');input.setAttribute('aria-label',zh()?'数量':'Quantity');
+    hint.classList.toggle('is-warn',!!warn);hint.textContent=warn||(zh()?'每单限购 '+MAX+' 件 · 也可以直接输入或用 ↑↓ 键':'Limit '+MAX+' per order · type a number or use ↑ ↓');}
+  // One clamp for buttons, keys and typing; the buttons disable at the bounds instead of silently doing nothing.
+  function set(v,why){var c=Math.max(MIN,Math.min(MAX,v));val=c;input.value=String(c);input.setAttribute('aria-valuenow',c);minus.disabled=c<=MIN;plus.disabled=c>=MAX;
+    input.classList.remove('is-bump');void input.offsetWidth;input.classList.add('is-bump');
+    text(v>MAX?(zh()?'最多买 '+MAX+' 件，已改为 '+MAX:'Max '+MAX+' per order, set to '+MAX):v<MIN?(zh()?'至少 '+MIN+' 件':'At least '+MIN):(c>=MAX&&why==='plus'?(zh()?'已达到限购数量':'Purchase limit reached'):''));}
+  function press(b){b.classList.add('is-pressed');setTimeout(function(){b.classList.remove('is-pressed')},120);}
+  function stop(){auto=false;clearTimeout(timer);}
+  minus.addEventListener('click',function(){stop();set(val-STEP)});plus.addEventListener('click',function(){stop();set(val+STEP,'plus')});
+  input.addEventListener('keydown',function(e){if(e.key==='ArrowUp'){stop();set(val+STEP,'plus');e.preventDefault();}if(e.key==='ArrowDown'){stop();set(val-STEP);e.preventDefault();}});
+  input.addEventListener('input',function(){stop();input.value=input.value.replace(/[^0-9]/g,'');});
+  input.addEventListener('blur',function(){var n=parseInt(input.value,10);set(isNaN(n)?val:n);});
+  input.addEventListener('keydown',function(e){if(e.key==='Enter')input.blur();});
+  var SEQ=['plus','plus','plus','plus','minus','minus','minus','minus','minus','type'];
+  function run(k){if(!auto)return;var s=SEQ[k%SEQ.length];
+    if(s==='plus'){press(plus);set(val+STEP,'plus');}else if(s==='minus'){press(minus);set(val-STEP);}else{set(9);}
+    timer=setTimeout(function(){run(k+1)},s==='type'?2200:800);}
+  document.addEventListener('learnui:languagechange',function(){text()});
+  set(2);text();timer=setTimeout(function(){run(0)},900);
+})();
+</script>

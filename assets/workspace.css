@@ -390,7 +390,7 @@ picture[data-preview] { position: absolute; inset: 0; }
 .site-auto-note { margin: 10px 0 0; color: var(--gray-500); font-size: 10px; }
 
 /* ---------- logo atlas ---------- */
-.logo-issue { margin: 14px 0 0; font-size: 12.5px; color: var(--gray-500); }
+.logo-issue { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 3px; font-size: 12.5px; color: var(--gray-500); }
 .logo-tools { margin-top: 26px; display: grid; gap: 14px; }
 .logo-tools .site-filter-row { grid-template-columns: minmax(200px, 1fr) 180px auto; }
 .logo-type-chips { display: flex; flex-wrap: wrap; gap: 6px; }

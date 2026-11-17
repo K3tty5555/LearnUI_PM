@@ -6173,5 +6173,742 @@
   "tilt-card"
  ],
  "demo": "web/particle-repel"
+},
+{
+ "slug": "file-upload",
+ "platform": "web",
+ "name": "File Upload (5 Entry Points)",
+ "tagline": "Five ways to get a file into a web page: local picker, drag and drop, paste, camera and link import",
+ "aka": [
+  "file uploader",
+  "upload field",
+  "dropzone",
+  "attachment input",
+  "file input"
+ ],
+ "fuzzy": [
+  "the box where you drag files to upload",
+  "choose file button with allowed formats underneath",
+  "paste a screenshot straight into the chat box",
+  "take a photo of the receipt to upload it",
+  "import an image by pasting its link",
+  "upload area that says drop files here or browse"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<input type=\"file\" accept multiple>",
+   "note": "the native file picker; accept limits types, multiple allows several files"
+  },
+  {
+   "framework": "Web",
+   "symbol": "dragover / drop + DataTransfer.files",
+   "note": "drag and drop from the desktop; call preventDefault on dragover"
+  },
+  {
+   "framework": "Web",
+   "symbol": "paste event + ClipboardEvent.clipboardData",
+   "note": "read pasted images as files without saving them first"
+  },
+  {
+   "framework": "HTML",
+   "symbol": "<input type=\"file\" accept=\"image/*\" capture>",
+   "note": "opens the camera on phones; getUserMedia for an in-page viewfinder"
+  },
+  {
+   "framework": "Web",
+   "symbol": "fetch(url) → Blob (server-side for other origins)",
+   "note": "import from a link; cross-origin files usually need your server to fetch them"
+  },
+  {
+   "framework": "Web",
+   "symbol": "URL.createObjectURL",
+   "note": "local thumbnail previews before anything is uploaded"
+  }
+ ],
+ "prompt": "Build a file upload area that offers five entry points and lets people combine them: 1 Local file: a Choose file button over <input type=\"file\"> with the allowed formats and size limit written underneath, a file list with remove buttons so people can re-pick. 2 Drag and drop: a dashed dropzone that turns solid and tinted while a file is over it, shows per-file progress after the drop, and keeps a 'browse' link. 3 Paste: in the message composer, read images from the clipboard on paste, show a removable thumbnail above the text and keep the caret so people can keep typing. 4 Camera: on mobile use accept=\"image/*\" capture to take a photo, then show a preview with Retake and Use photo, and keep a 'choose from library' option. 5 From link: a URL field with an Import button; validate the address, show a loading state, and on failure explain why (broken link, not an image, or login required). Preview files locally with object URLs before uploading.",
+ "debugPrompt": "Debug my file upload. Check that accept and the size limit are enforced in code, not only stated; the dropzone calls preventDefault on dragover so drop fires, and leaves the over state on dragleave and drop; paste reads clipboardData.items of type image/* and ignores plain text; camera capture falls back to the normal picker on desktop; link import validates the URL and reports a specific reason when the fetch fails or is blocked by CORS or auth; every file can be removed and re-picked; object URLs are revoked; and all entry points are reachable by keyboard. The symptom:",
+ "description": "A file upload offers one or more entry points for getting a file into the page. Which to offer depends on where the file is and how people work: a local picker is the universal baseline; drag and drop speeds up desktop batches; paste suits screenshots in chats and bug reports; camera capture suits things in front of you, like receipts; link import pulls files that already live online. They are often combined. The five entry points follow a public breakdown by Sue的AI知识库 (\"How many common ways are there to upload a file?\").",
+ "parts": [
+  {
+   "id": "local-picker",
+   "name": "Local file picker",
+   "api": "<input type=\"file\">",
+   "description": "A Choose file button with formats and size limit stated, plus a removable file list.",
+   "prompt": "the local picker: a Choose file button with allowed formats and size limit underneath"
+  },
+  {
+   "id": "dropzone",
+   "name": "Dropzone",
+   "api": "drop event",
+   "description": "A target that clearly reacts while a file is dragged over it, and still offers a browse link.",
+   "prompt": "the dropzone: dashed by default, solid and tinted while a file is over it, with a browse link"
+  },
+  {
+   "id": "paste-target",
+   "name": "Paste target",
+   "api": "paste event",
+   "description": "A composer that turns pasted screenshots into removable thumbnails while text continues.",
+   "prompt": "the paste target: pasted images appear as removable thumbnails above the message text"
+  },
+  {
+   "id": "camera-capture",
+   "name": "Camera capture",
+   "api": "capture attribute",
+   "description": "Take a photo, preview it, retake or confirm, with a library option nearby.",
+   "prompt": "the camera capture: shutter, preview with Retake and Use photo, and a choose-from-library link"
+  },
+  {
+   "id": "link-import",
+   "name": "Link import",
+   "api": "fetch",
+   "description": "Import from an address; loading, success and a specific failure reason are all shown.",
+   "prompt": "the link import: URL field, Import button, loading state and a specific error message"
+  },
+  {
+   "id": "file-list",
+   "name": "File list",
+   "api": "URL.createObjectURL",
+   "description": "Each added file shows a thumbnail, name, size or progress, and a remove button.",
+   "prompt": "the file list: thumbnail, name, size or progress bar, and a remove button for each file"
+  }
+ ],
+ "related": [
+  "drag-and-drop",
+  "agent-input-composer",
+  "form-field",
+  "progress-indicators",
+  "toast"
+ ],
+ "demo": "web/file-upload"
+},
+{
+ "slug": "loading-choreography",
+ "platform": "web",
+ "name": "Loading Choreography (4 Before/After Pairs)",
+ "tagline": "How content arrives matters as much as how long it takes: skeleton shimmer, blur-up images, early load-more and streamed AI replies, each against its common shortcut",
+ "aka": [
+  "loading states",
+  "loading UX",
+  "perceived performance",
+  "progressive loading",
+  "content choreography"
+ ],
+ "fuzzy": [
+  "the app spins forever then everything pops in at once",
+  "images slam in and push the text down",
+  "the list stalls at the bottom before more items appear",
+  "the ai reply waits a few seconds then types letter by letter",
+  "grey placeholder blocks with a light sweeping across",
+  "blurry picture that sharpens like a camera focusing"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "@keyframes + linear-gradient",
+   "note": "the skeleton shimmer: a highlight band sweeping across placeholder blocks"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "aspect-ratio + filter: blur()",
+   "note": "blur-up: reserve the image box, show a blurred tiny placeholder, then sharpen"
+  },
+  {
+   "framework": "Web",
+   "symbol": "IntersectionObserver rootMargin",
+   "note": "load more early: observe a sentinel well before the end of the list"
+  },
+  {
+   "framework": "Web",
+   "symbol": "ReadableStream / Server-Sent Events",
+   "note": "stream the AI reply and render it chunk by chunk"
+  },
+  {
+   "framework": "Web",
+   "symbol": "BlurHash / ThumbHash",
+   "note": "compact placeholders that decode to the image's colours"
+  }
+ ],
+ "prompt": "Design the loading experience, not just a spinner, for four cases: 1 Lists and cards: render a skeleton that matches the final layout and sweep a soft shimmer across it, then reveal real content block by block with a short stagger, like a tide going out, never all at once after a spinner. 2 Images: reserve each image's box with aspect-ratio, fill it with a blurred placeholder in the image's own colours, then animate from blur to sharp like a camera focusing, with zero layout shift. 3 Infinite lists: start fetching the next page while the user is still a few items from the end (IntersectionObserver with a large rootMargin), show three small bouncing dots, and append items one by one so scrolling never stops. 4 AI replies: show the reply bubble immediately with breathing dots, stream the answer and reveal it paragraph by paragraph, and keep the view following the newest text unless the user scrolls up. Honour prefers-reduced-motion.",
+ "debugPrompt": "Debug my loading states. Check that skeleton blocks match the final layout so nothing moves when content arrives; the shimmer stops once a block is ready; image boxes have aspect-ratio or explicit dimensions so there is no layout shift; the blur placeholder uses the image's colours and is replaced, not stacked; the load-more sentinel fires early enough that users never hit a dead end, and requests are not duplicated; streamed AI text appends without re-rendering the whole message, the view follows new text but stops following when the user scrolls up; and reduced motion removes shimmer and slide-ins. The symptom:",
+ "description": "Loading choreography is the plan for what people see while content is on its way and how it arrives. The common shortcut is a spinner followed by everything at once; the better pattern shows the shape of what is coming, keeps the layout still, and lets content arrive in readable pieces. These four pairs (skeleton shimmer, blur-up images, early load-more and streamed AI replies) are the usual places where an AI-built app gives itself away. The four pairs follow a public note by 林逸AIGC (\"4 prompts that make app loading feel premium\").",
+ "parts": [
+  {
+   "id": "skeleton-shimmer",
+   "name": "Skeleton shimmer",
+   "api": "@keyframes",
+   "description": "Placeholder shapes of the real layout with light sweeping across; content then surfaces block by block.",
+   "prompt": "a skeleton matching the layout, a shimmer sweep, and a staggered reveal of real content"
+  },
+  {
+   "id": "blur-up",
+   "name": "Blur-up image",
+   "api": "aspect-ratio + blur()",
+   "description": "A reserved box with a blurred placeholder in the image's colours that focuses into the real image.",
+   "prompt": "reserved image boxes with blurred colour placeholders that sharpen without layout shift"
+  },
+  {
+   "id": "early-load-more",
+   "name": "Early load-more",
+   "api": "IntersectionObserver",
+   "description": "Fetching starts before the end of the list; items join one by one while scrolling continues.",
+   "prompt": "a sentinel a few items before the end that starts loading, bouncing dots, items appended one at a time"
+  },
+  {
+   "id": "streamed-reply",
+   "name": "Streamed AI reply",
+   "api": "ReadableStream",
+   "description": "The bubble appears at once with breathing dots, then paragraphs rise in and the view follows.",
+   "prompt": "an immediate reply bubble with breathing dots, streamed paragraphs, and a view that follows new text"
+  }
+ ],
+ "related": [
+  "skeleton-spinner",
+  "streaming-response",
+  "progress-indicators",
+  "agent-processing-state",
+  "scroll-triggered"
+ ],
+ "demo": "web/loading-choreography"
+},
+{
+ "slug": "interaction-details",
+ "platform": "web",
+ "name": "Interaction Details (Follow · Threshold · Snap)",
+ "tagline": "Ten implementation details that make gestures and transitions feel physical: the right origin, decay before snap, distance-or-velocity, two-layer arcs, one shared progress, and more",
+ "aka": [
+  "gesture physics",
+  "interaction polish",
+  "motion details",
+  "micro-interaction engineering",
+  "follow threshold snap"
+ ],
+ "fuzzy": [
+  "why some app gestures feel smoother than others",
+  "the bottom sheet closes when I flick it lightly",
+  "the picker wheel jitters when it stops",
+  "the product flies into the cart on a curve",
+  "the big title shrinks into the navigation bar",
+  "the red unread dot stretches like gum when dragged",
+  "the old page slides back when the new page comes in"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "transform-origin",
+   "note": "rotate a stack around a point outside the cards"
+  },
+  {
+   "framework": "JS",
+   "symbol": "requestAnimationFrame + velocity *= 0.94",
+   "note": "decay inertia frame by frame before snapping"
+  },
+  {
+   "framework": "Web",
+   "symbol": "PointerEvent.getCoalescedEvents()",
+   "note": "recover the points merged during fast strokes"
+  },
+  {
+   "framework": "Pattern",
+   "symbol": "FLIP (First, Last, Invert, Play)",
+   "note": "pin to the start box, then release on the next frame"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transition: none on the dragged item",
+   "note": "dragged items follow the finger; the rest animate"
+  },
+  {
+   "framework": "Motion",
+   "symbol": "useScroll + useTransform",
+   "note": "derive several properties from one scroll progress"
+  }
+ ],
+ "prompt": "Build these interactions with the following details: (1) a card stack that fans out by rotating each card around a transform-origin far below the stack, using one layout for both states; (2) a wheel picker whose release velocity decays by about 0.94 per frame and snaps to the nearest row only once speed drops below a threshold; (3) a draggable bottom sheet that closes when drag distance passes 40% of its height OR release velocity passes a threshold, otherwise springs back; (4) add-to-cart that flies an item on an arc made of two nested layers, outer x linear and inner y ease-out; (5) a large title whose scale, x, y and navigation bar background are all computed from one scroll progress; (6) drag-to-reorder that only changes the array order, with transitions off for the dragged row and on for the others; (7) thumbnail-to-full with FLIP: pin the full image onto the thumbnail box, then release on the next frame; (8) handwriting that draws through getCoalescedEvents(); (9) a pull-away unread badge whose root shrinks with distance, springs back before a limit and breaks past it; (10) a page push where the old page shifts back and dims while the new page slides in. Honour prefers-reduced-motion.",
+ "debugPrompt": "Debug my interaction details. Check that the fan's transform-origin is outside the cards and both states use the same layout; the picker does not snap while inertia is still running; the sheet's close decision considers both distance and velocity; the cart arc uses two nested elements with different easings; every collapsing-title property reads the same progress value; the dragged row has transition: none while siblings keep theirs; the FLIP start frame is committed before the transition is enabled; coalesced events are used for strokes; the badge breaks only past its distance limit; and the previous page actually moves and dims during the push. The symptom:",
+ "description": "The same gesture can feel cheap or physical depending on three things: whether the element follows the finger the whole way, which threshold decides the outcome, and how it snaps into place. These ten details apply that idea to familiar components. Each is a small implementation choice that AI-generated interfaces usually skip. The ten details follow a public breakdown by 西瓜同学 (\"10 premium interaction designs for apps and mini programs\").",
+ "parts": [
+  {
+   "id": "stack-fan",
+   "name": "Stack to fan",
+   "api": "transform-origin",
+   "description": "Cards rotate around one origin far below them, so the stack opens like a fan; open and closed share one layout.",
+   "prompt": "cards rotating around a transform-origin far below the stack"
+  },
+  {
+   "id": "wheel-snap",
+   "name": "Wheel picker snap",
+   "api": "velocity decay",
+   "description": "After release, velocity decays every frame and the wheel snaps to a row only when nearly stopped.",
+   "prompt": "inertia that decays per frame, then a snap to the nearest row below a speed threshold"
+  },
+  {
+   "id": "sheet-dismiss",
+   "name": "Sheet dismiss",
+   "api": "distance or velocity",
+   "description": "A draggable sheet closes when either the drag distance or the release speed passes its threshold.",
+   "prompt": "a draggable sheet that closes past 40% height or above a release speed"
+  },
+  {
+   "id": "fly-to-cart",
+   "name": "Fly to cart",
+   "api": "two-layer transform",
+   "description": "An item flies on an arc built from a linear x layer and an ease-out y layer.",
+   "prompt": "an outer layer moving x linearly and an inner layer moving y with ease-out"
+  },
+  {
+   "id": "title-collapse",
+   "name": "Large title collapse",
+   "api": "scroll progress",
+   "description": "Title scale, position and bar background all derive from one scroll progress value.",
+   "prompt": "title scale, x, y and bar background derived from one 0→1 scroll progress"
+  },
+  {
+   "id": "drag-reorder",
+   "name": "Drag reorder",
+   "api": "array order",
+   "description": "Only the array order changes; the dragged row has no transition, the others animate to make room.",
+   "prompt": "the dragged row without transition, the rest transitioning into new slots"
+  },
+  {
+   "id": "flip-zoom",
+   "name": "Thumbnail to full (FLIP)",
+   "api": "FLIP",
+   "description": "The full image is first pinned onto the thumbnail's box, then released on the next frame to animate.",
+   "prompt": "the full image pinned to the thumbnail box, released on the next frame"
+  },
+  {
+   "id": "coalesced-ink",
+   "name": "Handwriting with coalesced points",
+   "api": "getCoalescedEvents",
+   "description": "Points the browser merged during a fast stroke are recovered so the line stays smooth.",
+   "prompt": "strokes drawn through every point from getCoalescedEvents()"
+  },
+  {
+   "id": "gooey-badge",
+   "name": "Pull-away badge",
+   "api": "distance threshold",
+   "description": "The root of the string shrinks with distance; release early to spring back, pull past the limit to break.",
+   "prompt": "a root circle that shrinks with distance, springs back early and breaks past the limit"
+  },
+  {
+   "id": "page-push",
+   "name": "Layered page transition",
+   "api": "parallax push",
+   "description": "The old page shifts back and dims while the new page slides in.",
+   "prompt": "the old page shifting 30% left and dimming while the new page slides in"
+  }
+ ],
+ "related": [
+  "spatial-card-layouts",
+  "duration-picker",
+  "dialog-drawer-sheet",
+  "drag-and-drop",
+  "lightbox",
+  "badge-chip-pill",
+  "spring",
+  "easing"
+ ],
+ "demo": "web/interaction-details"
+},
+{
+ "slug": "carousel",
+ "platform": "web",
+ "name": "Carousel (Auto-rotating Slides)",
+ "tagline": "A row of slides shown one at a time that advances on a timer, with arrows and position dots",
+ "aka": [
+  "slideshow",
+  "banner carousel",
+  "slider",
+  "rotating banner",
+  "hero carousel"
+ ],
+ "fuzzy": [
+  "the banner at the top that switches pictures every few seconds",
+  "slides that move left automatically",
+  "promo images with little dots underneath",
+  "the rotating hero image on a shop home page",
+  "swipe between featured cards with dots showing which one"
+ ],
+ "api": [
+  {
+   "framework": "ARIA",
+   "symbol": "aria-roledescription=\"carousel\" / \"slide\"",
+   "note": "announce the region and each slide"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transform: translateX(-100% × index)",
+   "note": "slide the track one viewport at a time"
+  },
+  {
+   "framework": "JS",
+   "symbol": "setTimeout / setInterval",
+   "note": "advance on a fixed interval and reset after manual navigation"
+  },
+  {
+   "framework": "Swiper",
+   "symbol": "Swiper autoplay",
+   "note": "the common library route, with loop, pagination and navigation"
+  }
+ ],
+ "prompt": "Build an auto-rotating carousel: one slide visible at a time in a rounded viewport; advance every 3.2 seconds with a 550ms ease-out slide; show previous/next arrows on hover and focus, and position dots where the active dot fills as a countdown; pause auto-rotation on hover and keyboard focus; support Left/Right arrow keys; mark it up with aria-roledescription carousel/slide and hide inactive slides from assistive tech; under prefers-reduced-motion switch slides without sliding.",
+ "debugPrompt": "Debug my carousel. Check that auto-rotation pauses on hover, focus and when the tab is hidden; manual navigation resets the timer instead of stacking timers; the countdown dot restarts on every change; the track wraps cleanly at both ends; inactive slides are aria-hidden and their links not focusable; arrows are reachable by keyboard; and reduced motion removes the sliding transition. The symptom:",
+ "description": "A carousel shows one item from a set at a time and moves on by itself on a timer. It suits a few promotional slides of equal weight; navigation arrows, position dots and a pause on hover keep it from taking control away from people. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\").",
+ "parts": [
+  {
+   "id": "viewport",
+   "name": "Viewport",
+   "api": "overflow: hidden",
+   "description": "The frame that shows exactly one slide.",
+   "prompt": "the viewport: one slide visible, overflow hidden"
+  },
+  {
+   "id": "track",
+   "name": "Track",
+   "api": "transform",
+   "description": "All slides in a row, moved one width at a time.",
+   "prompt": "the track: slides in a row translated by 100% per step"
+  },
+  {
+   "id": "arrows",
+   "name": "Arrows",
+   "api": "button",
+   "description": "Previous and next controls, shown on hover and focus.",
+   "prompt": "previous and next arrow buttons that appear on hover and focus"
+  },
+  {
+   "id": "dots",
+   "name": "Position dots",
+   "api": "role=tablist",
+   "description": "One dot per slide; the active one fills as a countdown.",
+   "prompt": "position dots where the active dot fills over the interval"
+  }
+ ],
+ "related": [
+  "marquee",
+  "scroll-snap",
+  "arc-carousel",
+  "horizontal-scroll",
+  "spatial-card-layouts"
+ ],
+ "demo": "web/carousel"
+},
+{
+ "slug": "number-input",
+ "platform": "web",
+ "name": "Number Input (Quantity Stepper)",
+ "tagline": "A numeric field with minus and plus buttons for setting an exact amount within limits",
+ "aka": [
+  "quantity selector",
+  "stepper input",
+  "spin button",
+  "numeric stepper",
+  "counter input"
+ ],
+ "fuzzy": [
+  "the minus number plus box in a shopping cart",
+  "choose how many items to buy",
+  "a field where you click plus to add one",
+  "quantity box that stops at the purchase limit",
+  "number box you can type into or use arrow keys"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<input type=\"number\" min max step>",
+   "note": "the native numeric input with spinner arrows"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "role=\"spinbutton\" + aria-valuenow",
+   "note": "for custom steppers built from a text field and buttons"
+  },
+  {
+   "framework": "HTML",
+   "symbol": "inputmode=\"numeric\"",
+   "note": "a number keypad on phones without the native spinner"
+  }
+ ],
+ "prompt": "Build a quantity number input: a text field with inputmode numeric between a minus and a plus button; clamp every change from buttons, Up/Down keys and typing to min 1 and max 5 with step 1; disable the button at each bound; strip non-digits while typing and clamp on blur or Enter; when a typed value is out of range, correct it and say why in a hint line; expose role spinbutton with aria-valuemin, max and now.",
+ "debugPrompt": "Debug my number input. Check that buttons, arrow keys and typed input all go through one clamp; the minus and plus buttons disable exactly at the bounds; typing is not blocked mid-edit but is validated on blur; out-of-range input is corrected with a visible reason; the value cannot become empty or NaN; and screen readers get role spinbutton with current, min and max values. The symptom:",
+ "description": "A number input sets an exact quantity with a field and minus/plus buttons. Its job is to keep the value valid: buttons disable at the limits, typed values are checked, and the reason for a correction is shown instead of silently changing the number. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\").",
+ "parts": [
+  {
+   "id": "decrement",
+   "name": "Decrement",
+   "api": "button",
+   "description": "Minus button, disabled at the minimum.",
+   "prompt": "the minus button, disabled at the minimum"
+  },
+  {
+   "id": "value-field",
+   "name": "Value field",
+   "api": "inputmode=numeric",
+   "description": "Shows the number and accepts typing or arrow keys.",
+   "prompt": "the value field that accepts typing and arrow keys"
+  },
+  {
+   "id": "increment",
+   "name": "Increment",
+   "api": "button",
+   "description": "Plus button, disabled at the maximum.",
+   "prompt": "the plus button, disabled at the maximum"
+  },
+  {
+   "id": "limit-hint",
+   "name": "Limit hint",
+   "api": "aria-live",
+   "description": "States the limit and explains any correction.",
+   "prompt": "a hint line stating the limit and explaining corrections"
+  }
+ ],
+ "related": [
+  "stepper",
+  "form-field",
+  "otp-input",
+  "segmented-control",
+  "animated-counter"
+ ],
+ "demo": "web/number-input"
+},
+{
+ "slug": "timeline",
+ "platform": "web",
+ "name": "Timeline",
+ "tagline": "A line that connects events in time order, with finished, current and upcoming states",
+ "aka": [
+  "activity timeline",
+  "progress timeline",
+  "order tracking",
+  "history list",
+  "vertical timeline"
+ ],
+ "fuzzy": [
+  "the delivery tracking with dots on a line",
+  "a line with dots showing what happened when",
+  "order status ordered shipped delivered",
+  "project history listed by date",
+  "steps with the current one highlighted"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<ol> with aria-current=\"step\"",
+   "note": "an ordered list keeps the sequence meaningful"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "::before line + node pseudo-elements",
+   "note": "draw the connector and nodes without extra markup"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "transition: height",
+   "note": "fill the connector as progress moves"
+  }
+ ],
+ "prompt": "Build a vertical order-tracking timeline as an ordered list: each item has a round node, a title, a short detail and a time on the right; draw a 2px connector between nodes; finished items get filled green nodes with a check and a filled connector, the current item a blue pulsing node with aria-current=\"step\", upcoming items are dimmed; animate the connector filling when the step advances; honour prefers-reduced-motion.",
+ "debugPrompt": "Debug my timeline. Check that it is an ordered list so the sequence is announced; the connector starts and ends at node centres and does not extend past the last item; finished, current and upcoming states are distinguishable without colour alone (check mark, pulse, dimming); aria-current marks only the current step; times align in one column; and reduced motion stops the pulse. The symptom:",
+ "description": "A timeline strings events along a line in time order, so people can see what has happened, what is happening now and what comes next. Order tracking, project history and activity feeds are common uses. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\").",
+ "parts": [
+  {
+   "id": "connector",
+   "name": "Connector",
+   "api": "::before",
+   "description": "The line that links events in order.",
+   "prompt": "a 2px connector line between nodes"
+  },
+  {
+   "id": "node",
+   "name": "Node",
+   "api": "state",
+   "description": "Filled when done, pulsing when current, hollow when upcoming.",
+   "prompt": "nodes that are filled when done, pulse when current, and hollow when upcoming"
+  },
+  {
+   "id": "event",
+   "name": "Event",
+   "api": "<li>",
+   "description": "Title and short detail for each moment.",
+   "prompt": "an event title with a one-line detail"
+  },
+  {
+   "id": "timestamp",
+   "name": "Timestamp",
+   "api": "<time>",
+   "description": "When it happened, aligned on the right.",
+   "prompt": "right-aligned timestamps in one column"
+  }
+ ],
+ "related": [
+  "stepper",
+  "progress-indicators",
+  "agent-task-list",
+  "breadcrumbs",
+  "scroll-progress-indicator"
+ ],
+ "demo": "web/timeline"
+},
+{
+ "slug": "pagination",
+ "platform": "web",
+ "name": "Pagination",
+ "tagline": "Numbered page controls for moving through a long list in fixed-size pages",
+ "aka": [
+  "pager",
+  "page numbers",
+  "paginator",
+  "page navigation",
+  "numbered pages"
+ ],
+ "fuzzy": [
+  "the 1 2 3 next buttons under a list",
+  "page numbers with dots in the middle",
+  "go to the next page of results",
+  "previous and next with page numbers",
+  "the bar that says page 4 of 20"
+ ],
+ "api": [
+  {
+   "framework": "HTML",
+   "symbol": "<nav aria-label=\"Pagination\">",
+   "note": "a labelled navigation landmark"
+  },
+  {
+   "framework": "ARIA",
+   "symbol": "aria-current=\"page\"",
+   "note": "marks the current page button"
+  },
+  {
+   "framework": "Pattern",
+   "symbol": "first · current±1 · last + ellipsis",
+   "note": "keeps the bar short for large page counts"
+  }
+ ],
+ "prompt": "Build pagination for a 20-page list: a nav landmark labelled Pagination with previous and next arrow buttons that disable on the first and last page; always show page 1, the last page, and the current page with one neighbour on each side, collapsing gaps larger than one into an ellipsis; mark the current page with aria-current=\"page\" and a filled style; give each button an accessible label like 'Page 4'; update the results above when the page changes.",
+ "debugPrompt": "Debug my pagination. Check that the ellipsis logic never shows a gap of exactly one page as '…'; first and last pages are always reachable; previous/next disable at the ends; aria-current marks exactly one page; the bar keeps a stable width so buttons do not jump; focus stays on the control after changing page; and the URL or state reflects the page so refresh and back work. The symptom:",
+ "description": "Pagination splits a long list into numbered pages with controls to move between them. Unlike infinite scroll it gives people a sense of position and a way to come back to the same page; with many pages it shows the ends and the neighbourhood of the current page and collapses the rest. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\").",
+ "parts": [
+  {
+   "id": "prev-next",
+   "name": "Previous / next",
+   "api": "button",
+   "description": "Step one page; disabled at the ends.",
+   "prompt": "previous and next arrow buttons, disabled at the ends"
+  },
+  {
+   "id": "page-buttons",
+   "name": "Page buttons",
+   "api": "button",
+   "description": "Numbered pages near the current one plus first and last.",
+   "prompt": "numbered buttons for first, last and the current page’s neighbours"
+  },
+  {
+   "id": "current-page",
+   "name": "Current page",
+   "api": "aria-current",
+   "description": "The page you are on, clearly marked.",
+   "prompt": "the current page filled and marked with aria-current"
+  },
+  {
+   "id": "ellipsis",
+   "name": "Ellipsis",
+   "api": "…",
+   "description": "Stands in for skipped page ranges.",
+   "prompt": "an ellipsis for collapsed page ranges"
+  }
+ ],
+ "related": [
+  "breadcrumbs",
+  "tabs",
+  "loading-choreography",
+  "toggle-group",
+  "scroll-snap"
+ ],
+ "demo": "web/pagination"
+},
+{
+ "slug": "border-beam",
+ "platform": "web",
+ "name": "Border Beam",
+ "tagline": "A short streak of light that travels around a card's border to draw attention to it",
+ "aka": [
+  "animated border",
+  "glowing border",
+  "shine border",
+  "border light",
+  "moving border gradient"
+ ],
+ "fuzzy": [
+  "light running around the edge of a card",
+  "glowing line circling the pricing card",
+  "the border that has a moving shine",
+  "highlight the recommended plan with an animated outline",
+  "neon streak going around a button"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "conic-gradient(from var(--angle))",
+   "note": "a gradient with one bright segment that is rotated over time"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "mask + mask-composite: exclude",
+   "note": "cut the gradient down to just the border ring"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "@property --angle",
+   "note": "register the angle so CSS can animate it; or update it from JavaScript"
+  },
+  {
+   "framework": "Magic UI",
+   "symbol": "<BorderBeam />",
+   "note": "a ready-made React component with the same effect"
+  }
+ ],
+ "prompt": "Add a border beam to the recommended card: wrap the card in a 1.5px padded container; draw a conic-gradient that is transparent except for one short purple-to-cyan segment, start angle stored in --angle; mask it to the border ring with mask-composite: exclude; rotate --angle 360° every 3.2 seconds (via @property animation or requestAnimationFrame); keep the plain cards without a beam so it highlights one choice; pause offscreen and show a static highlight under prefers-reduced-motion.",
+ "debugPrompt": "Debug my border beam. Check that the mask leaves only the border visible (not the whole card); the inner card radius is the outer radius minus the border width; the angle animates smoothly in all target browsers (register --angle with @property or drive it from JS); only one card on the screen has a beam; the animation stops offscreen and under reduced motion; and the glow does not get clipped by a parent with overflow: hidden. The symptom:",
+ "description": "A border beam sends a short streak of light around a card's edge. It is an attention device for a single item, such as a recommended plan or a new feature; used on several cards at once it stops meaning anything. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\").",
+ "parts": [
+  {
+   "id": "ring",
+   "name": "Border ring",
+   "api": "mask-composite",
+   "description": "The 1.5px band where the light is allowed to show.",
+   "prompt": "a 1.5px border ring produced by masking"
+  },
+  {
+   "id": "beam",
+   "name": "Beam",
+   "api": "conic-gradient",
+   "description": "One short bright segment in an otherwise transparent gradient.",
+   "prompt": "a conic gradient with one short purple-to-cyan segment"
+  },
+  {
+   "id": "rotation",
+   "name": "Rotation",
+   "api": "--angle",
+   "description": "The gradient's start angle turns to move the beam around.",
+   "prompt": "the start angle rotating 360° every 3.2 seconds"
+  },
+  {
+   "id": "contrast",
+   "name": "Plain neighbours",
+   "api": "—",
+   "description": "Other cards stay plain so the beam marks one choice.",
+   "prompt": "neighbouring cards left without a beam"
+  }
+ ],
+ "related": [
+  "focus-ring-web",
+  "badge-chip-pill",
+  "liquid-glass-material",
+  "ai-status-orb",
+  "tilt-card"
+ ],
+ "demo": "web/border-beam"
 }
 ]

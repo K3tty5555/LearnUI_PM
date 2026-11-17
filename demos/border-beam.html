@@ -1,0 +1,52 @@
+<div class="demo demo-border-beam">
+  <div class="bb-card">
+    <span class="bb-glow" aria-hidden="true"></span>
+    <span class="bb-beam" aria-hidden="true"></span>
+    <div class="bb-content">
+      <span class="bb-kicker">PRO</span>
+      <b class="bb-title">Team plan</b>
+      <span class="bb-price">¥99<small>/mo</small></span>
+      <span class="bb-cta">Upgrade</span>
+    </div>
+  </div>
+  <div class="bb-card bb-plain">
+    <div class="bb-content">
+      <span class="bb-kicker">FREE</span>
+      <b class="bb-title">Starter</b>
+      <span class="bb-price">¥0<small>/mo</small></span>
+      <span class="bb-cta bb-ghost">Current plan</span>
+    </div>
+  </div>
+</div>
+<style>
+.demo-border-beam{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(420px,calc(100vw - 80px));color:#e9ecf5;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-border-beam *{box-sizing:border-box}
+.bb-card{position:relative;padding:2px;border-radius:16px;background:#2a2e3a;isolation:isolate}
+.bb-beam,.bb-glow{--bb-g:conic-gradient(from var(--bb-angle,0deg),transparent 0 62%,#7c5cff 78%,#22d3ee 90%,#ffffff 93%,transparent 97%)}
+.bb-glow{position:absolute;inset:-2px;border-radius:18px;background:var(--bb-g);filter:blur(9px);opacity:.75;z-index:-1;pointer-events:none}
+.bb-beam{position:absolute;inset:0;border-radius:inherit;padding:2px;background:var(--bb-g);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;z-index:1}
+.bb-content{position:relative;z-index:2;display:grid;gap:4px;padding:16px;border-radius:14px;background:#151821;min-height:150px;align-content:start}
+.bb-kicker{justify-self:start;padding:2px 7px;border-radius:999px;background:rgba(124,92,255,.18);color:#b9a8ff;font:700 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em}
+.bb-plain .bb-kicker{background:rgba(255,255,255,.08);color:#9aa1b2}
+.bb-title{margin-top:4px;font-size:15px}
+.bb-price{font:700 24px/1.1 system-ui,-apple-system,sans-serif;letter-spacing:-.02em}
+.bb-price small{margin-left:2px;font-size:11px;font-weight:500;color:#9aa1b2}
+.bb-cta{margin-top:10px;padding:7px 10px;border-radius:9px;background:#e9ecf5;color:#151821;font-weight:600;text-align:center}
+.bb-ghost{background:transparent;border:1px solid #3a3f4d;color:#9aa1b2}
+@media (max-height:260px){.demo-border-beam{width:min(320px,calc(100vw - 40px));gap:8px}.bb-content{min-height:0;padding:11px;gap:2px}.bb-price{font-size:18px}.bb-cta{margin-top:6px;padding:5px 8px;font-size:11px}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-border-beam');
+  var beam=root.querySelector('.bb-card'),reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,start=performance.now(),raf=0,visible=true;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){var t=root.querySelectorAll('.bb-title'),c=root.querySelectorAll('.bb-cta'),m=root.querySelectorAll('.bb-price small');
+    t[0].textContent=zh()?'团队版':'Team plan';t[1].textContent=zh()?'入门版':'Starter';c[0].textContent=zh()?'立即升级':'Upgrade';c[1].textContent=zh()?'当前方案':'Current plan';m.forEach(function(s){s.textContent=zh()?'/月':'/mo'});}
+  // A conic gradient masked to the 2px border; rotating its start angle sends a short beam around the edge.
+  function tick(now){raf=0;if(!visible)return;beam.style.setProperty('--bb-angle',(((now-start)/3200*360)%360).toFixed(1)+'deg');raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(root);
+  document.addEventListener('learnui:languagechange',text);text();
+  if(reduce)beam.style.setProperty('--bb-angle','40deg');else raf=requestAnimationFrame(tick);
+})();
+</script>

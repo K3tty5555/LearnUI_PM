@@ -1,0 +1,57 @@
+<div class="demo demo-carousel" tabindex="0" aria-roledescription="carousel" aria-label="Featured">
+  <div class="cr-viewport">
+    <div class="cr-track"></div>
+    <button type="button" class="cr-arrow cr-prev" aria-label="Previous slide">‹</button>
+    <button type="button" class="cr-arrow cr-next" aria-label="Next slide">›</button>
+  </div>
+  <div class="cr-dots" role="tablist" aria-label="Slides"></div>
+</div>
+<style>
+.demo-carousel{width:min(520px,calc(100vw - 80px));color:#fff;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;outline:none}
+.demo-carousel *{box-sizing:border-box}
+.demo-carousel:focus-visible .cr-viewport{outline:2px solid #4c6ef5;outline-offset:3px}
+.cr-viewport{position:relative;height:200px;border-radius:14px;overflow:hidden}
+.cr-track{display:flex;height:100%;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.cr-slide{flex:0 0 100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 22px}
+.cr-slide small{font:600 9.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;opacity:.8}
+.cr-slide b{display:block;margin-top:6px;font:700 22px/1.15 system-ui,-apple-system,"PingFang SC",sans-serif;letter-spacing:-.01em}
+.cr-slide span{display:block;margin-top:4px;font-size:11.5px;opacity:.85}
+.cr-arrow{position:absolute;top:50%;width:30px;height:30px;margin-top:-15px;border:0;border-radius:50%;background:rgba(255,255,255,.85);color:#1f2430;font:600 18px/1 system-ui;cursor:pointer;opacity:0;transition:opacity .2s}
+.cr-prev{left:10px}.cr-next{right:10px}
+.cr-viewport:hover .cr-arrow,.cr-arrow:focus-visible{opacity:1}
+.cr-dots{display:flex;justify-content:center;gap:6px;margin-top:9px}
+.cr-dots button{position:relative;width:22px;height:5px;padding:0;border:0;border-radius:3px;background:#d7dbe3;overflow:hidden;cursor:pointer}
+.cr-dots button i{position:absolute;inset:0;transform-origin:0 50%;transform:scaleX(0);background:#1f2430}
+.cr-dots button[aria-selected="true"]{width:34px}
+.cr-dots button[aria-selected="true"] i{animation:cr-fill var(--cr-ms,3200ms) linear forwards}
+.demo-carousel.is-paused .cr-dots button i{animation-play-state:paused}
+@keyframes cr-fill{to{transform:scaleX(1)}}
+@media (max-height:260px){.demo-carousel{width:calc(100vw - 40px)}.cr-viewport{height:calc(100vh - 66px);max-height:132px}.cr-slide{padding:12px 14px}.cr-slide b{font-size:16px}.cr-slide span{display:none}.cr-dots{margin-top:6px}}
+@media (prefers-reduced-motion:reduce){.cr-track{transition:none}.cr-dots button[aria-selected="true"] i{animation:none;transform:scaleX(1)}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-carousel');
+  var track=root.querySelector('.cr-track'),dots=root.querySelector('.cr-dots'),vp=root.querySelector('.cr-viewport');
+  var MS=3200,i=0,timer,paused=false;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function slides(){return zh()?[['新品','春季上新 · 亚麻系列','透气的亚麻，从这个周末开始','#4263eb','#91a7ff'],['限时','满 199 减 30','本周日 24:00 结束','#e8590c','#ffc078'],['会员','会员日双倍积分','每月 18 日，所有订单生效','#2b8a3e','#8ce99a'],['活动','设计师周末市集','4 月 20 日 · 城市展览馆','#862e9c','#e599f7']]
+    :[['NEW','Spring linen drop','Breathable linen, out this weekend','#4263eb','#91a7ff'],['DEAL','¥30 off ¥199','Ends Sunday at midnight','#e8590c','#ffc078'],['MEMBERS','Double points day','The 18th of every month','#2b8a3e','#8ce99a'],['EVENT','Designers’ weekend market','April 20 · City Gallery','#862e9c','#e599f7']];}
+  function build(){var s=slides();track.innerHTML=s.map(function(x){return '<div class="cr-slide" role="group" aria-roledescription="slide" style="background:linear-gradient(135deg,'+x[3]+','+x[4]+')"><small>'+x[0]+'</small><b>'+x[1]+'</b><span>'+x[2]+'</span></div>'}).join('');
+    dots.innerHTML=s.map(function(x,k){return '<button type="button" role="tab" aria-label="'+(zh()?'第 ':'Slide ')+(k+1)+(zh()?' 张':'')+'"><i></i></button>'}).join('');
+    [].forEach.call(dots.children,function(b,k){b.addEventListener('click',function(){go(k,true)})});
+    root.setAttribute('aria-label',zh()?'推荐活动':'Featured');go(i,false);}
+  // Auto-advance on a fixed interval; the active dot fills as a countdown; hover or focus pauses it.
+  function go(n,user){var c=track.children.length;i=(n+c)%c;track.style.transform='translateX('+(-100*i)+'%)';
+    [].forEach.call(dots.children,function(b,k){b.setAttribute('aria-selected',k===i?'true':'false');var f=b.querySelector('i');f.style.animation='none';void f.offsetWidth;f.style.animation='';});
+    [].forEach.call(track.children,function(s,k){s.setAttribute('aria-hidden',k===i?'false':'true')});schedule();}
+  function schedule(){clearTimeout(timer);if(!paused)timer=setTimeout(function(){go(i+1)},MS);}
+  root.querySelector('.cr-prev').addEventListener('click',function(){go(i-1,true)});
+  root.querySelector('.cr-next').addEventListener('click',function(){go(i+1,true)});
+  root.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){go(i-1,true);e.preventDefault();}if(e.key==='ArrowRight'){go(i+1,true);e.preventDefault();}});
+  function pause(on){paused=on;root.classList.toggle('is-paused',on);if(on)clearTimeout(timer);else schedule();}
+  vp.addEventListener('pointerenter',function(){pause(true)});vp.addEventListener('pointerleave',function(){pause(false)});
+  root.addEventListener('focusin',function(){pause(true)});root.addEventListener('focusout',function(){pause(false)});
+  root.style.setProperty('--cr-ms',MS+'ms');document.addEventListener('learnui:languagechange',build);build();
+})();
+</script>

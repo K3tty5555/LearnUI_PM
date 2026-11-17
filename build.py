@@ -6,7 +6,7 @@ import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
-NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel"}
+NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel","file-upload","loading-choreography","interaction-details","carousel","number-input","timeline","pagination","border-beam"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
 
 def load(p):
@@ -54,7 +54,8 @@ PM_LABELS = {
 DEMO_I18N = _nn(load_or("data/demo-i18n.json", {"global": {}, "patterns": [], "demos": {}}))
 SITES_META = _nn(load_or("data/sites-manifest.json", {"items": []}))
 SITES = SITES_META.get("items", [])
-LOGOS_META = _nn(load_or("data/logos.json", {"types": [], "uses": [], "logos": []}))
+LOGOS_META = _nn(load_or("data/logos.json", {"issues": [], "types": [], "uses": [], "logos": []}))
+LOGO_ISSUES = {i["id"]: i for i in LOGOS_META["issues"]}
 LOGOS = LOGOS_META["logos"]
 LOGO_TYPES = {t["id"]: t for t in LOGOS_META["types"]}
 LOGO_USES = {u["id"]: u for u in LOGOS_META["uses"]}
@@ -915,7 +916,7 @@ def sources_page():
  <section class="sect"><h2>上游内容</h2><p>UI 词典、指南和部分视觉风格来自 <a href="https://github.com/joeseesun/learnui" rel="noopener">joeseesun/learnui</a>。其英文源内容复刻自 <a href="https://namethatui.com/" rel="noopener">namethatui.com</a>，版权归原作者。</p></section>
  <section class="sect"><h2>本项目新增内容</h2><p><code>data/pm/</code>、<code>demos/pm/</code> 及页面参考功能为独立新增内容，不覆盖上游数据文件。</p></section>
  <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。</p></section>
- <section class="sect"><h2>Logo 图鉴</h2><p><code>/logos/</code> 首期样本取自小红书视频《好用的设计网站之LOGO/图标》（作者「李李说设计（大学陪跑）」）介绍的网站。logo 图片取自各网站公开发布的图标文件，商标归各自所有者，仅用于识别与学习；每个详情页标明原始文件地址。</p></section>
+ <section class="sect"><h2>Logo 图鉴</h2><p><code>/logos/</code> 样本取自小红书视频介绍的网站：第 1 期《好用的设计网站之LOGO/图标》（李李说设计（大学陪跑）），第 2 期《2026 年的图标库，根本不是人用的》（默默然）。logo 图片取自各网站公开发布的图标文件，商标归各自所有者，仅用于识别与学习；每个详情页标明原始文件地址。</p></section>
  <section class="sect"><h2>许可证</h2><p>代码与本地新增示例按仓库中的 <a href="/LICENSE.txt">MIT License</a> 使用。原始内容的版权边界以 README 和上游说明为准。</p></section>
 </main>
 {footer()}'''
@@ -1047,10 +1048,13 @@ def logos_hub_page():
     for tid, t_ in LOGO_TYPES.items():
         disabled = ' disabled' if not counts[tid] else ''
         type_chips.append(f'<button type="button" class="logo-type-chip" data-logo-type="{esc(tid)}" aria-pressed="false"{disabled} title="{esc(t_["definitionZh"])}"><span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span><b>{counts[tid]}</b></button>')
-    empty_note = '<em><span class="lang-zh">首期暂无样本</span><span class="lang-en">No sample yet</span></em>'
+    empty_note = '<em><span class="lang-zh">暂无样本</span><span class="lang-en">No sample yet</span></em>'
     glossary = "".join(f'<div class="logo-glossary-item"><dt><span class="lang-zh">{esc(t_["nameZh"])} <small>{esc(t_["name"])}</small></span><span class="lang-en">{esc(t_["name"])}</span></dt><dd><span class="lang-zh">{esc(t_["definitionZh"])}</span><span class="lang-en">{esc(t_["definition"])}</span>{"" if counts[tid] else empty_note}</dd></div>' for tid, t_ in LOGO_TYPES.items())
     use_options = ['<option value="">全部用途</option>'] + [f'<option value="{esc(uid)}">{esc(u["nameZh"])}</option>' for uid, u in LOGO_USES.items()]
-    src = LOGOS_META["source"]
+    issue_lines = []
+    for iid, iss in LOGO_ISSUES.items():
+        n = sum(1 for l in LOGOS if l.get("issue") == iid)
+        issue_lines.append(f'<li><span class="lang-zh">第 {iid} 期 · {n} 个样本，来自小红书「{esc(iss["author"])}」的视频《{esc(iss["title"])}》</span><span class="lang-en">Issue {iid} · {n} sample{"s" if n != 1 else ""} from the Xiaohongshu video "{esc(iss["title"])}" by {esc(iss["author"])}</span></li>')
     cards = "\n".join(logo_card(l) for l in LOGOS)
     body = f'''{header()}
 <main class="wrap logos-hub-page">
@@ -1059,7 +1063,7 @@ def logos_hub_page():
   <h1 class="hero-title"><span class="lang-en">Logo atlas</span><span class="lang-zh hero-title-zh">Logo 图鉴</span></h1>
   <p class="lang-zh hero-sub">认出一个 logo 属于哪一类、由哪几部分构成，再把这套构成方法交给 AI。每个样本同时是一个找 logo、找图标的好网站。</p>
   <p class="lang-en hero-sub">Learn which kind of logo you are looking at and how it is built, then hand that construction to your AI. Every sample is also a useful site for finding logos and icons.</p>
-  <p class="logo-issue"><span class="lang-zh">首期 · 9 个样本取自小红书「{esc(src["author"])}」的视频《{esc(src["title"])}》，logo 为各网站自己的标志。</span><span class="lang-en">Issue 1 · nine samples from the Xiaohongshu video "{esc(src["title"])}" by {esc(src["author"])}; each logo is the site's own mark.</span></p>
+  <ul class="logo-issue">{"".join(issue_lines)}<li><span class="lang-zh">logo 都是各网站自己的标志。</span><span class="lang-en">Each logo is the site's own mark.</span></li></ul>
   <div class="logo-tools">
    <div class="logo-type-chips" role="group" aria-label="按 logo 类型筛选">{"".join(type_chips)}</div>
    <div class="site-filter-row">
@@ -1560,7 +1564,7 @@ def catalog_data():
             "tags": {"logoType": [logo["type"]], "use": [logo["use"]]},
             "logoType": LOGO_TYPES[logo["type"]]["nameZh"], "construction": logo["readZh"],
             "website": logo["url"], "license": logo["licenseZh"], "prompt": logo["promptZh"],
-            "source": {"kind": "external", "label": LOGOS_META["source"]["author"], "url": LOGOS_META["source"]["url"]}
+            "source": {"kind": "external", "label": LOGO_ISSUES[logo["issue"]]["author"], "url": LOGO_ISSUES[logo["issue"]]["url"]}
         })
     return {
         "schemaVersion": 1,

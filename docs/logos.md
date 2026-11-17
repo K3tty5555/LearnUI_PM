@@ -20,4 +20,10 @@
   - Remix Icon 自 2026 年 1 月起改用 Remix Icon License v1.0：可商用，但不得用作 logo、商标或 App 图标，不得作为图标包单独售卖。npm 元数据仍写 Apache-2.0，以包内 License 文件为准。
 - prompt 只讲构成方法，要求「不要复制原 logo」。
 
+## 第 2 期（2026-11-17）
+
+- 样本 Reicon，来自小红书视频《2026 年的图标库，根本不是人用的》（默默然，2026-09-03）。用户要求加入；放进 Logo 图鉴而不是新栏目，因为它和首期的 IconPark、Remix Icon 同属图标库。
+- 已核对：官网 reicon.dev、npm 包 `reicon` / `reicon-mcp` 均标 MIT；官网 llms-full.txt 自述「Base elements from Solar Icons (CC BY 4.0) by 480 Design and Zappicon」，同一文件又写「no attribution required」，授权链条需要使用方自己核验。
+- 未能核对：原视频说仓库 README 已写 3,900+ 个图标（GitHub 当时无法访问），卡片上注明「据原视频」。
+
 数据在 `data/logos.json`，图片在 `assets/logos/`，落地过程见 [dev-log/002](../dev-log/002-logo-atlas.md)。

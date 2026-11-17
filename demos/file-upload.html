@@ -1,0 +1,285 @@
+<div class="demo demo-file-upload" data-mode="local" data-auto="on">
+  <div class="fu-bar">
+    <div class="fu-tabs" role="tablist" aria-label="Upload entry points">
+      <button type="button" role="tab" data-mode-tab="local">Local file</button>
+      <button type="button" role="tab" data-mode-tab="drag">Drag &amp; drop</button>
+      <button type="button" role="tab" data-mode-tab="paste">Paste</button>
+      <button type="button" role="tab" data-mode-tab="camera">Camera</button>
+      <button type="button" role="tab" data-mode-tab="url">From link</button>
+    </div>
+    <span class="fu-step">01/05</span>
+  </div>
+  <div class="fu-stage">
+    <span class="fu-badge">01 Local file</span>
+
+    <section class="fu-panel" data-panel="local">
+      <div class="fu-picker">
+        <span class="fu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span>
+        <label class="fu-btn fu-pick"><input type="file" class="fu-input" multiple accept=".pdf,.jpg,.jpeg,.png,.docx"><span class="fu-t" data-zh="选择文件" data-en="Choose file">Choose file</span></label>
+        <span class="fu-hint fu-t" data-zh="支持 PDF、JPG、PNG、DOCX，单个不超过 10MB" data-en="PDF, JPG, PNG or DOCX, up to 10MB each">PDF, JPG, PNG or DOCX, up to 10MB each</span>
+      </div>
+      <ul class="fu-list" aria-live="polite"></ul>
+    </section>
+
+    <section class="fu-panel" data-panel="drag">
+      <div class="fu-drop" data-state="idle">
+        <span class="fu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 15v4h16v-4"/></svg></span>
+        <b class="fu-drop-title fu-t" data-zh="把文件拖到这里" data-en="Drag files here">Drag files here</b>
+        <span class="fu-hint"><span class="fu-t" data-zh="或" data-en="or">or</span> <label class="fu-link"><input type="file" class="fu-input" multiple><span class="fu-t" data-zh="点击选择" data-en="browse">browse</span></label></span>
+      </div>
+      <ul class="fu-list" aria-live="polite"></ul>
+    </section>
+
+    <section class="fu-panel" data-panel="paste">
+      <div class="fu-composer" tabindex="0">
+        <div class="fu-attach"></div>
+        <p class="fu-text fu-t" data-zh="帮我看看这张截图哪里不对" data-en="What is wrong in this screenshot?">What is wrong in this screenshot?</p>
+        <span class="fu-send" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+      </div>
+      <span class="fu-keys" aria-hidden="true"><kbd>⌘</kbd><kbd>V</kbd></span>
+      <span class="fu-hint fu-paste-hint fu-t" data-zh="截图后点一下输入框，按 ⌘V / Ctrl+V 粘贴" data-en="Take a screenshot, click the box, press ⌘V / Ctrl+V">Take a screenshot, click the box, press ⌘V / Ctrl+V</span>
+    </section>
+
+    <section class="fu-panel" data-panel="camera">
+      <div class="fu-viewfinder" data-state="live">
+        <div class="fu-scene" aria-hidden="true"><i class="fu-receipt"><b></b><b></b><b></b><b></b></i></div>
+        <div class="fu-shot-actions"><button type="button" class="fu-btn fu-ghost-btn fu-retake fu-t" data-zh="重拍" data-en="Retake">Retake</button><button type="button" class="fu-btn fu-use fu-t" data-zh="使用照片" data-en="Use photo">Use photo</button></div>
+        <label class="fu-shutter" aria-label="Take photo"><input type="file" class="fu-input" accept="image/*" capture="environment"></label>
+        <span class="fu-flash" aria-hidden="true"></span>
+      </div>
+      <label class="fu-link fu-album"><input type="file" class="fu-input" accept="image/*"><span class="fu-t" data-zh="从相册选择" data-en="Choose from library">Choose from library</span></label>
+    </section>
+
+    <section class="fu-panel" data-panel="url">
+      <form class="fu-url" novalidate>
+        <input type="url" class="fu-url-input" placeholder="https://example.com/photo.jpg" aria-label="Image link">
+        <button type="submit" class="fu-btn fu-t" data-zh="导入" data-en="Import">Import</button>
+      </form>
+      <p class="fu-status" role="status"></p>
+      <ul class="fu-list" aria-live="polite"></ul>
+    </section>
+
+    <svg class="fu-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+    <span class="fu-carry" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span>
+  </div>
+  <p class="fu-note">Files stay in this page for preview; nothing is uploaded.</p>
+</div>
+<style>
+.demo-file-upload{--fu-ink:#1f2430;--fu-muted:#6b7180;--fu-line:#d9dde6;--fu-accent:#2f6bff;--fu-bad:#c2410c;width:min(560px,calc(100vw - 80px));color:var(--fu-ink);font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-file-upload *{box-sizing:border-box}
+.fu-bar{display:flex;align-items:center;gap:6px;padding-bottom:6px}
+.fu-tabs{flex:1 1 auto;min-width:0;display:flex;gap:4px;overflow:auto;scrollbar-width:none}
+.fu-tabs::-webkit-scrollbar{display:none}
+.fu-tabs button{flex:0 0 auto;border:1px solid var(--fu-line);border-radius:999px;background:#fff;color:var(--fu-muted);padding:5px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap;cursor:pointer}
+.fu-tabs button[aria-selected="true"]{background:var(--fu-ink);border-color:var(--fu-ink);color:#fff}
+.fu-tabs button:focus-visible,.fu-btn:focus-visible,.fu-composer:focus-visible{outline:2px solid var(--fu-accent);outline-offset:2px}
+.fu-step{flex:0 0 auto;color:var(--fu-muted);font:600 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em}
+.fu-stage{position:relative;height:236px;border-radius:14px;background:#f4f6fa;overflow:hidden}
+.fu-badge{position:absolute;left:10px;top:10px;z-index:3;padding:4px 8px;border-radius:999px;background:var(--fu-ink);color:#fff;font:600 9.5px/1.1 ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none;display:none}
+.fu-panel{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px}
+.demo-file-upload[data-mode="local"] [data-panel="local"],.demo-file-upload[data-mode="drag"] [data-panel="drag"],.demo-file-upload[data-mode="paste"] [data-panel="paste"],.demo-file-upload[data-mode="camera"] [data-panel="camera"],.demo-file-upload[data-mode="url"] [data-panel="url"]{display:flex}
+.fu-icon svg,.fu-send svg,.fu-carry svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.fu-icon{color:var(--fu-accent)}
+.fu-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.fu-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;height:30px;padding:0 14px;border:0;border-radius:8px;background:var(--fu-accent);color:#fff;font:600 12px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;cursor:pointer;transition:transform .15s}
+.fu-btn.is-pressed{transform:scale(.94)}
+.fu-ghost-btn{background:#fff;color:var(--fu-ink);border:1px solid var(--fu-line)}
+.fu-hint{color:var(--fu-muted);font-size:11px;text-align:center}
+.fu-link{position:relative;color:var(--fu-accent);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.fu-picker{display:flex;flex-direction:column;align-items:center;gap:7px}
+.fu-list{list-style:none;margin:0;padding:0;display:grid;gap:5px;width:min(320px,100%)}
+.fu-item{display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:8px;padding:5px 7px;border:1px solid var(--fu-line);border-radius:8px;background:#fff;animation:fu-in .3s ease both}
+.fu-thumb{width:26px;height:26px;border-radius:5px;background:#dfe5f2 center/cover no-repeat;display:grid;place-items:center;color:#fff;font:700 7px/1 ui-monospace,monospace}
+.fu-meta{min-width:0;display:grid;gap:2px}
+.fu-name{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fu-size{font-size:9.5px;color:var(--fu-muted)}
+.fu-bar-p{height:3px;border-radius:3px;background:#e7ebf3;overflow:hidden}
+.fu-bar-p i{display:block;height:100%;width:0;background:var(--fu-accent);transition:width .9s ease}
+.fu-x{width:20px;height:20px;border:0;border-radius:50%;background:transparent;color:var(--fu-muted);font:16px/1 system-ui;cursor:pointer}
+.fu-x:hover{background:#eef1f6}
+.fu-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:min(340px,100%);height:110px;border:1.5px dashed #b8c2d6;border-radius:12px;background:#fff;transition:background .2s,border-color .2s,transform .2s}
+.fu-drop[data-state="over"]{border-style:solid;border-color:var(--fu-accent);background:#eaf0ff;transform:scale(1.02)}
+.fu-drop-title{font-size:13px}
+.fu-composer{position:relative;width:min(360px,100%);min-height:96px;padding:10px 44px 10px 12px;border:1px solid var(--fu-line);border-radius:14px;background:#fff;box-shadow:0 4px 14px rgba(30,40,70,.06);cursor:text}
+.fu-attach{display:flex;gap:6px;margin-bottom:6px}
+.fu-attach:empty{display:none}
+.fu-pasted{position:relative;width:52px;height:40px;border-radius:7px;background:#dfe5f2 center/cover no-repeat;border:1px solid var(--fu-line);animation:fu-in .3s ease both}
+.fu-pasted .fu-x{position:absolute;right:-7px;top:-7px;width:16px;height:16px;background:var(--fu-ink);color:#fff;font-size:11px;line-height:16px}
+.fu-text{margin:0;font-size:12px;color:var(--fu-ink)}
+.fu-composer.is-focus{border-color:var(--fu-accent);box-shadow:0 0 0 3px rgba(47,107,255,.15)}
+.fu-send{position:absolute;right:9px;bottom:9px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--fu-ink);color:#fff}
+.fu-send svg{width:14px;height:14px}
+.fu-keys{display:flex;gap:3px;opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s}
+.fu-keys.is-on{opacity:1;transform:none}
+.fu-keys kbd{min-width:22px;padding:3px 6px;border:1px solid var(--fu-line);border-bottom-width:2px;border-radius:5px;background:#fff;font:600 11px/1 system-ui;text-align:center}
+.fu-viewfinder{position:relative;width:min(300px,100%);height:150px;border-radius:12px;overflow:hidden;background:#11141b}
+.fu-scene{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(80% 70% at 50% 40%,#3a3f4c,#11141b)}
+.fu-receipt{display:grid;gap:5px;align-content:start;width:64px;height:92px;padding:10px 8px;border-radius:3px;background:#f3efe6;transform:rotate(-6deg);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.fu-receipt b{display:block;height:4px;border-radius:2px;background:#c9c2b3}
+.fu-receipt b:nth-child(2){width:70%}.fu-receipt b:nth-child(4){width:50%;margin-top:10px;background:#8d8676}
+.fu-viewfinder:before{content:"";position:absolute;inset:14px;z-index:1;border:1px solid rgba(255,255,255,.35);border-radius:8px;pointer-events:none}
+.fu-shutter{position:absolute;left:50%;bottom:10px;z-index:2;width:38px;height:38px;margin-left:-19px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35);cursor:pointer;transition:transform .15s}
+.fu-shutter.is-pressed{transform:scale(.88)}
+.fu-flash{position:absolute;inset:0;z-index:4;background:#fff;opacity:0;pointer-events:none}
+.fu-flash.is-on{animation:fu-flash .35s ease}
+.fu-shot-actions{position:absolute;left:0;right:0;bottom:10px;z-index:2;display:none;justify-content:center;gap:8px}
+.fu-viewfinder[data-state="review"] .fu-shot-actions{display:flex}
+.fu-viewfinder[data-state="review"] .fu-shutter,.fu-viewfinder[data-state="review"]:before{display:none}
+.fu-viewfinder[data-state="review"] .fu-scene{filter:saturate(.9) brightness(1.05)}
+.fu-viewfinder[data-state="done"] .fu-shutter{display:none}
+.fu-viewfinder[data-state="done"]:after{content:attr(data-done);position:absolute;left:50%;bottom:12px;z-index:2;transform:translateX(-50%);padding:5px 10px;border-radius:999px;background:#16a34a;color:#fff;font-size:11px;font-weight:600;white-space:nowrap}
+.fu-url{display:flex;gap:6px;width:min(360px,100%)}
+.fu-url-input{flex:1;min-width:0;height:30px;padding:0 10px;border:1px solid var(--fu-line);border-radius:8px;background:#fff;color:var(--fu-ink);font:12px ui-monospace,SFMono-Regular,Menlo,monospace}
+.fu-url-input:focus{outline:2px solid var(--fu-accent);outline-offset:1px}
+.fu-status{min-height:16px;margin:0;font-size:11px;color:var(--fu-muted);text-align:center}
+.fu-status[data-tone="bad"]{color:var(--fu-bad)}
+.fu-status[data-tone="ok"]{color:#15803d}
+.fu-spin{display:inline-block;width:10px;height:10px;margin-right:5px;border:2px solid #c9d3ea;border-top-color:var(--fu-accent);border-radius:50%;vertical-align:-1px;animation:fu-spin .7s linear infinite}
+.fu-ghost,.fu-carry{position:absolute;left:0;top:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .25s,transform .55s cubic-bezier(.3,.8,.3,1)}
+.fu-ghost{width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+.fu-carry{display:grid;place-items:center;width:34px;height:40px;margin:-28px 0 0 -10px;border-radius:6px;background:#fff;color:var(--fu-accent);box-shadow:0 8px 18px rgba(30,40,70,.2)}
+.demo-file-upload[data-auto="on"] .fu-ghost{opacity:1}
+.fu-carry.is-on{opacity:1}
+.fu-note{margin:7px 0 0;color:var(--fu-muted);font-size:11.5px}
+@keyframes fu-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes fu-flash{0%{opacity:.9}100%{opacity:0}}
+@keyframes fu-spin{to{transform:rotate(360deg)}}
+@media (max-width:760px){.fu-stage{height:226px}}
+/* Hub stage: no tab strip; a badge names the entry point being demonstrated. */
+@media (max-height:260px){
+  .demo-file-upload{width:calc(100vw - 40px)}
+  .fu-bar,.fu-note{display:none}
+  .fu-stage{height:calc(100vh - 40px);max-height:160px;min-height:120px}
+  .fu-badge{display:block;left:6px;top:6px;font-size:9px}
+  .fu-panel{padding:22px 12px 8px;gap:6px;transform:scale(.86);transform-origin:50% 55%}
+  .fu-hint,.fu-paste-hint,.fu-album{display:none}
+  .fu-list{width:min(280px,100%)}
+  .fu-list .fu-item:not(:last-child){display:none}
+}
+@media (prefers-reduced-motion:reduce){.fu-item,.fu-pasted,.fu-ghost,.fu-carry,.fu-drop,.fu-keys{animation:none;transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-file-upload');
+  var stage=root.querySelector('.fu-stage'),ghost=root.querySelector('.fu-ghost'),carry=root.querySelector('.fu-carry'),badge=root.querySelector('.fu-badge'),stepEl=root.querySelector('.fu-step'),note=root.querySelector('.fu-note'),strip=root.querySelector('.fu-tabs');
+  var tabs=[].slice.call(root.querySelectorAll('[data-mode-tab]')),MODES=tabs.map(function(t){return t.dataset.modeTab});
+  var P={};MODES.forEach(function(m){P[m]=root.querySelector('[data-panel="'+m+'"]')});
+  var drop=P.drag.querySelector('.fu-drop'),composer=P.paste.querySelector('.fu-composer'),attach=P.paste.querySelector('.fu-attach'),keys=P.paste.querySelector('.fu-keys');
+  var finder=P.camera.querySelector('.fu-viewfinder'),shutter=P.camera.querySelector('.fu-shutter'),flash=P.camera.querySelector('.fu-flash');
+  var urlForm=P.url.querySelector('.fu-url'),urlInput=P.url.querySelector('.fu-url-input'),status=P.url.querySelector('.fu-status');
+  var NAME={local:['本地文件上传','Local file'],drag:['拖拽上传','Drag & drop'],paste:['粘贴上传','Paste'],camera:['拍照上传','Camera'],url:['链接导入','From link']};
+  var NOTE={
+    local:['最基础、最通用：写清格式和大小，允许移除后重新选择。','The universal entry: state formats and size, and let people remove and re-pick.'],
+    drag:['拖进来就添加；拖拽区域要有明确反馈，同时保留点击选择。','Drop to add; give the zone clear feedback and keep a browse link.'],
+    paste:['直接读剪贴板里的图片；要有缩略图、能移除，还能继续写文字。','Read images straight from the clipboard; show a thumbnail, allow removal, keep typing.'],
+    camera:['手边有实物、设备里还没图时用；先预览，支持重拍，保留相册入口。','For things in front of you: preview first, allow retakes, keep a library option.'],
+    url:['从资源地址直接导入；获取失败或没有权限时要说明原因。','Import from a link; when it fails or needs permission, say why.']
+  };
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mode='local',auto=!reduce,held=false,timers=[],urls=[];
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function pick(p){return p[zh()?0:1];}
+  function later(fn,ms){var t=setTimeout(fn,ms);timers.push(t);return t;}
+  function clearTimers(){timers.forEach(clearTimeout);timers=[];}
+  function render(){
+    strip.setAttribute('aria-label',zh()?'上传入口':'Upload entry points');
+    tabs.forEach(function(t,i){t.textContent=pick(NAME[t.dataset.modeTab]);});
+    root.querySelectorAll('.fu-t').forEach(function(el){el.textContent=el.getAttribute(zh()?'data-zh':'data-en')});
+    var i=MODES.indexOf(mode);stepEl.textContent='0'+(i+1)+'/05';badge.textContent='0'+(i+1)+' '+pick(NAME[mode]);
+    note.textContent=pick(NOTE[mode])+(zh()?' 文件只在本页预览，不会上传。':' Files stay on this page; nothing is uploaded.');
+    finder.setAttribute('data-done',zh()?'✓ 已添加照片':'✓ Photo added');
+    shutter.setAttribute('aria-label',zh()?'拍照':'Take photo');urlInput.setAttribute('aria-label',zh()?'图片链接':'Image link');
+  }
+  function fmt(bytes){return bytes>1048576?(bytes/1048576).toFixed(1)+' MB':Math.max(1,Math.round(bytes/1024))+' KB';}
+  // One list renderer for every entry point: thumbnail, name, size or progress, and a remove button.
+  function addItem(list,f){
+    var li=document.createElement('li');li.className='fu-item';
+    var th=document.createElement('span');th.className='fu-thumb';
+    if(f.url)th.style.backgroundImage='url("'+f.url+'")';else{th.style.background=f.color||'#7c8db5';th.textContent=f.ext||'';}
+    var meta=document.createElement('span');meta.className='fu-meta';
+    var nm=document.createElement('span');nm.className='fu-name';nm.textContent=f.name;meta.appendChild(nm);
+    if(f.progress){var bar=document.createElement('span');bar.className='fu-bar-p';var i=document.createElement('i');bar.appendChild(i);meta.appendChild(bar);requestAnimationFrame(function(){requestAnimationFrame(function(){i.style.width='100%';})});later(function(){bar.replaceWith(sizeEl)},950);}
+    var sizeEl=document.createElement('span');sizeEl.className='fu-size';sizeEl.textContent=f.size;if(!f.progress)meta.appendChild(sizeEl);
+    var x=document.createElement('button');x.type='button';x.className='fu-x';x.setAttribute('aria-label',(zh()?'移除 ':'Remove ')+f.name);x.textContent='×';
+    x.addEventListener('click',function(){li.remove();});
+    li.append(th,meta,x);list.appendChild(li);
+    while(list.children.length>3)list.firstChild.remove();
+  }
+  function fromFile(file){var isImg=/^image\//.test(file.type),u=isImg?URL.createObjectURL(file):'';if(u)urls.push(u);var ext=(file.name.split('.').pop()||'').slice(0,4).toUpperCase();return {name:file.name,size:fmt(file.size),url:u,ext:ext,color:'#7c8db5'};}
+  function clearAll(){root.querySelectorAll('.fu-list').forEach(function(l){l.innerHTML=''});composer.classList.remove('is-focus');attach.innerHTML='';status.textContent='';status.removeAttribute('data-tone');finder.dataset.state='live';drop.dataset.state='idle';urlInput.value='';keys.classList.remove('is-on');carry.classList.remove('is-on');}
+  function setMode(m){mode=m;root.dataset.mode=m;tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.modeTab===m?'true':'false');t.tabIndex=t.dataset.modeTab===m?0:-1;});render();}
+
+  // ---- real interactions (detail page) ----
+  root.querySelectorAll('.fu-input').forEach(function(inp){inp.addEventListener('change',function(){
+    var files=[].slice.call(inp.files||[]);if(!files.length)return;stopAuto();
+    if(inp.closest('[data-panel="camera"]')){finder.dataset.state='done';}
+    var list=P[mode].querySelector('.fu-list');files.forEach(function(f){var item=fromFile(f);item.progress=mode==='drag';if(list)addItem(list,item);});inp.value='';
+  })});
+  ['dragenter','dragover'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();stopAuto();drop.dataset.state='over';})});
+  ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.dataset.state='idle';})});
+  drop.addEventListener('drop',function(e){var files=[].slice.call((e.dataTransfer&&e.dataTransfer.files)||[]);var list=P.drag.querySelector('.fu-list');files.forEach(function(f){var it=fromFile(f);it.progress=true;addItem(list,it)});});
+  function addPasted(url,label){var d=document.createElement('span');d.className='fu-pasted';if(url)d.style.backgroundImage='url("'+url+'")';else d.style.background='linear-gradient(135deg,#9db4ff,#5b7cfa 55%,#2f3f8f)';
+    var x=document.createElement('button');x.type='button';x.className='fu-x';x.setAttribute('aria-label',zh()?'移除截图':'Remove screenshot');x.textContent='×';x.addEventListener('click',function(){d.remove()});d.appendChild(x);attach.appendChild(d);while(attach.children.length>3)attach.firstChild.remove();}
+  composer.addEventListener('paste',function(e){var items=[].slice.call((e.clipboardData&&e.clipboardData.items)||[]);var img=items.filter(function(i){return /^image\//.test(i.type)})[0];if(!img)return;e.preventDefault();stopAuto();var f=img.getAsFile();var u=URL.createObjectURL(f);urls.push(u);addPasted(u);});
+  finder.querySelector('.fu-retake').addEventListener('click',function(){stopAuto();finder.dataset.state='live';});
+  finder.querySelector('.fu-use').addEventListener('click',function(){stopAuto();finder.dataset.state='done';});
+  // Link import only previews images: load the address into an <img>; it never fetches or uploads file contents.
+  urlForm.addEventListener('submit',function(e){e.preventDefault();stopAuto();importLink(urlInput.value.trim());});
+  function importLink(u,fake){
+    var list=P.url.querySelector('.fu-list');status.removeAttribute('data-tone');
+    if(!/^https?:\/\/\S+$/i.test(u)){status.dataset.tone='bad';status.textContent=zh()?'请输入以 http(s):// 开头的完整链接。':'Enter a full link starting with http(s)://.';return;}
+    status.innerHTML='<span class="fu-spin"></span>'+(zh()?'正在获取…':'Fetching…');
+    var done=function(ok){if(ok){status.dataset.tone='ok';status.textContent=zh()?'已导入。':'Imported.';var name=decodeURIComponent(u.split('/').pop().split('?')[0]||'image');addItem(list,{name:name,size:fake?fake.size:(zh()?'来自链接':'from link'),url:fake?'':u,color:fake&&fake.color,ext:fake&&fake.ext});}
+      else{status.dataset.tone='bad';status.textContent=fake&&fake.reason?pick(fake.reason):(zh()?'无法获取：链接打不开、不是图片，或需要登录才能访问。':'Could not fetch: the link is broken, not an image, or needs a login.');}};
+    if(fake){later(function(){done(fake.ok)},900);return;}
+    var img=new Image(),t=setTimeout(function(){img.src='';done(false)},8000);img.onload=function(){clearTimeout(t);done(true)};img.onerror=function(){clearTimeout(t);done(false)};img.src=u;
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){stopAuto();clearAll();setMode(t.dataset.modeTab);});
+    t.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;e.preventDefault();var n=tabs[(i+d+tabs.length)%tabs.length];n.focus();n.click();});
+  });
+
+  // ---- hub demo: a ghost pointer walks through each entry point ----
+  function at(el,dx,dy){var a=el.getBoundingClientRect(),s=stage.getBoundingClientRect(),k=s.width/stage.offsetWidth||1;return [(a.left-s.left)/k+(dx==null?a.width/2/k:dx),(a.top-s.top)/k+(dy==null?a.height/2/k:dy)];}
+  function move(el,xy){el.style.transform='translate('+xy[0].toFixed(1)+'px,'+xy[1].toFixed(1)+'px)';}
+  function press(el){el.classList.add('is-pressed');later(function(){el.classList.remove('is-pressed')},180);}
+  var SCRIPTS={
+    local:function(){var list=P.local.querySelector('.fu-list'),btn=P.local.querySelector('.fu-pick');move(ghost,[stage.offsetWidth*.8,stage.offsetHeight*.85]);
+      later(function(){move(ghost,at(btn))},300);later(function(){press(btn)},1000);
+      later(function(){addItem(list,{name:zh()?'简历_2026.pdf':'resume_2026.pdf',size:'1.2 MB',ext:'PDF',color:'#e5484d'})},1300);
+      later(function(){addItem(list,{name:zh()?'劳动合同.docx':'contract.docx',size:'86 KB',ext:'DOC',color:'#3b6fe0'})},1700);
+      later(function(){var x=list.querySelector('.fu-x');if(x)move(ghost,at(x))},2600);later(function(){var x=list.querySelector('.fu-x');if(x)x.click()},3300);
+      return 4600;},
+    drag:function(){var list=P.drag.querySelector('.fu-list');var start=[stage.offsetWidth*.86,stage.offsetHeight*.2];move(ghost,start);move(carry,start);
+      later(function(){carry.classList.add('is-on')},200);
+      later(function(){var c=at(drop);move(ghost,c);move(carry,c);},500);later(function(){drop.dataset.state='over'},900);
+      later(function(){drop.dataset.state='idle';carry.classList.remove('is-on');
+        addItem(list,{name:'banner_hero.png',size:'2.4 MB',ext:'PNG',color:'#8b5cf6',progress:true});addItem(list,{name:'moodboard.jpg',size:'3.1 MB',ext:'JPG',color:'#f59e0b',progress:true});},1700);
+      return 4400;},
+    paste:function(){move(ghost,at(composer,30,40));later(function(){composer.classList.add('is-focus')},300);
+      later(function(){keys.classList.add('is-on')},800);later(function(){keys.classList.remove('is-on');addPasted('')},1500);
+      return 4200;},
+    camera:function(){finder.dataset.state='live';move(ghost,[stage.offsetWidth*.75,stage.offsetHeight*.3]);
+      later(function(){move(ghost,at(shutter))},300);later(function(){press(shutter);flash.classList.remove('is-on');void flash.offsetWidth;flash.classList.add('is-on')},1000);
+      later(function(){finder.dataset.state='review'},1300);later(function(){move(ghost,at(finder.querySelector('.fu-use')))},1900);
+      later(function(){press(finder.querySelector('.fu-use'));finder.dataset.state='done'},2700);
+      return 4400;},
+    url:function(){var text='https://cdn.example.com/look-04.jpg';move(ghost,at(urlInput,20));urlInput.value='';
+      for(var i=1;i<=text.length;i++)(function(n){later(function(){urlInput.value=text.slice(0,n)},300+n*28)})(i);
+      var btn=urlForm.querySelector('.fu-btn'),t1=300+text.length*28+300;
+      later(function(){move(ghost,at(btn))},t1);later(function(){press(btn);importLink(text,{ok:true,size:'820 KB',ext:'JPG',color:'#10b981'})},t1+600);
+      var bad='https://drive.example.com/private.png',t2=t1+2400;
+      later(function(){urlInput.value=bad;press(btn);importLink(bad,{ok:false,reason:['无法获取：这个链接需要登录才能访问。','Could not fetch: this link requires a login.']})},t2);
+      return t2+2400;}
+  };
+  function run(i){if(!auto)return;clearTimers();clearAll();setMode(MODES[i]);var ms=SCRIPTS[MODES[i]]();timers.push(setTimeout(function(){run((i+1)%MODES.length)},ms));}
+  function stopAuto(){if(!auto&&!held)return;auto=false;held=false;root.dataset.auto='off';clearTimers();keys.classList.remove('is-on');carry.classList.remove('is-on');}
+  // Reading or hovering the detail page pauses the walkthrough; leaving resumes it from the current entry point.
+  root.addEventListener('pointerenter',function(){if(!auto)return;held=true;auto=false;root.dataset.auto='off';clearTimers();carry.classList.remove('is-on');});
+  root.addEventListener('pointerleave',function(){if(!held)return;held=false;auto=true;root.dataset.auto='on';run(MODES.indexOf(mode));});
+  document.addEventListener('learnui:languagechange',render);
+  window.addEventListener('pagehide',function(){urls.forEach(function(u){URL.revokeObjectURL(u)})});
+  setMode('local');
+  if(auto)run(0);else{root.dataset.auto='off';addItem(P.local.querySelector('.fu-list'),{name:zh()?'简历_2026.pdf':'resume_2026.pdf',size:'1.2 MB',ext:'PDF',color:'#e5484d'});}
+})();
+</script>

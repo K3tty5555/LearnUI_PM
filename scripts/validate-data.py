@@ -71,6 +71,7 @@ def validate_logos():
         return 0
     data = load("data/logos.json")
     types = {t["id"] for t in data["types"]}
+    issues = {i["id"] for i in data.get("issues", [])}
     uses = {u["id"] for u in data["uses"]}
     errors, seen = 0, set()
     pairs = (("name", None), ("about", "aboutZh"), ("audience", "audienceZh"), ("license", "licenseZh"),
@@ -87,6 +88,8 @@ def validate_logos():
             errors += fail(f"logo {slug}: note and noteZh must come together")
         if logo.get("type") not in types:
             errors += fail(f"logo {slug}: unknown type {logo.get('type')!r}")
+        if logo.get("issue") not in issues:
+            errors += fail(f"logo {slug}: unknown issue {logo.get('issue')!r}")
         if logo.get("use") not in uses:
             errors += fail(f"logo {slug}: unknown use {logo.get('use')!r}")
         parts = logo.get("parts", [])

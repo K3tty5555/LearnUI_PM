@@ -1,0 +1,39 @@
+<div class="demo demo-timeline">
+  <ol class="tl-list" aria-label="Order progress"></ol>
+</div>
+<style>
+.demo-timeline{width:min(380px,calc(100vw - 80px));color:#1f2430;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-timeline *{box-sizing:border-box}
+.tl-list{position:relative;margin:0;padding:12px 14px;list-style:none;border:1px solid #e3e6ee;border-radius:14px;background:#fff}
+.tl-item{position:relative;display:grid;grid-template-columns:18px 1fr auto;gap:10px;padding-bottom:13px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item:not(:last-child):before{content:"";position:absolute;left:8px;top:17px;bottom:-1px;width:2px;background:#e3e6ee}
+.tl-item:not(:last-child):after{content:"";position:absolute;left:8px;top:17px;width:2px;height:0;background:#2f9e44;transition:height .5s ease}
+.tl-item.is-done:not(:last-child):after{height:calc(100% - 16px)}
+.tl-node{position:relative;z-index:1;width:18px;height:18px;margin-top:1px;border:2px solid #ced4da;border-radius:50%;background:#fff;transition:border-color .3s,background .3s}
+.tl-item.is-done .tl-node{border-color:#2f9e44;background:#2f9e44}
+.tl-item.is-done .tl-node:after{content:"";position:absolute;left:4px;top:2px;width:4px;height:7px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tl-item.is-current .tl-node{border-color:#4c6ef5;box-shadow:0 0 0 4px rgba(76,110,245,.18)}
+.tl-item.is-current .tl-node:after{content:"";position:absolute;inset:3px;border-radius:50%;background:#4c6ef5;animation:tl-pulse 1.4s ease-in-out infinite}
+.tl-body b{display:block;font-size:12.5px}
+.tl-body span{display:block;margin-top:1px;color:#6b7180;font-size:11px}
+.tl-item:not(.is-done):not(.is-current) .tl-body{opacity:.55}
+.tl-time{color:#6b7180;font:500 10px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap}
+@keyframes tl-pulse{50%{transform:scale(.6);opacity:.6}}
+@media (max-height:260px){.demo-timeline{width:calc(100vw - 40px)}.tl-list{padding:8px 10px}.tl-item{padding-bottom:6px}.tl-body span{display:none}.tl-item:not(:last-child):before,.tl-item:not(:last-child):after{top:16px}}
+@media (prefers-reduced-motion:reduce){.tl-item:after{transition:none}.tl-item.is-current .tl-node:after{animation:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-timeline');
+  var list=root.querySelector('.tl-list'),step=1,timer;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function data(){return zh()?[['已下单','订单号 2026…8812','09:12'],['已发货','顺丰 · 上海仓','14:30'],['运输中','已到达北京转运中心','明天'],['派送中','快递员正在派送',''],['已签收','放在前台','']]
+    :[['Ordered','Order 2026…8812','09:12'],['Shipped','Shanghai warehouse','14:30'],['In transit','Arrived at Beijing hub','Tomorrow'],['Out for delivery','Courier on the way',''],['Delivered','Left at reception','']];}
+  // Past events are filled, the current one pulses, future ones are dimmed; the line fills as progress moves.
+  function render(){var d=data();list.setAttribute('aria-label',zh()?'订单进度':'Order progress');
+    list.innerHTML=d.map(function(x,k){var cls=k<step?'is-done':k===step?'is-current':'';return '<li class="tl-item '+cls+'"'+(k===step?' aria-current="step"':'')+'><span class="tl-node" aria-hidden="true"></span><span class="tl-body"><b>'+x[0]+'</b><span>'+x[1]+'</span></span><span class="tl-time">'+x[2]+'</span></li>'}).join('');}
+  function advance(){step=(step+1)%6;if(step===5){render();timer=setTimeout(function(){step=0;render();timer=setTimeout(advance,1400)},2200);return;}render();timer=setTimeout(advance,1400);}
+  document.addEventListener('learnui:languagechange',render);render();timer=setTimeout(advance,1400);
+})();
+</script>
