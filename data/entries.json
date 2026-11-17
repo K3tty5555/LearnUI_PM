@@ -5548,5 +5548,113 @@
   "parallax"
  ],
  "demo": "web/horizontal-scroll"
+},
+{
+ "slug": "liquid-glass-material",
+ "platform": "web",
+ "name": "Liquid Glass Material (Web Recipe)",
+ "tagline": "A six-layer glass surface for the web: shadow, blur and light, edge refraction, tint, rim light, and adaptive ink",
+ "aka": [
+  "liquid glass",
+  "refractive glass",
+  "lens glass",
+  "glass material",
+  "glass recipe"
+ ],
+ "fuzzy": [
+  "the apple style glass card where the edges bend the wallpaper",
+  "frosted card whose text turns white over dark backgrounds",
+  "glass with a rainbow fringe around the rim",
+  "make my card look like real liquid glass on a website",
+  "glass panel that is clear in the middle and warped at the edges",
+  "translucent player card floating over a wallpaper"
+ ],
+ "api": [
+  {
+   "framework": "CSS",
+   "symbol": "backdrop-filter: blur() saturate() brightness()",
+   "note": "the blur and light layer; keep blur small (about 2px) so the backdrop stays recognizable"
+  },
+  {
+   "framework": "SVG",
+   "symbol": "<feDisplacementMap> + <feImage>",
+   "note": "edge refraction: a displacement map that is neutral in the middle and pushes sampling outward near the rim"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "backdrop-filter: url(#lens)",
+   "note": "applies the SVG lens to the live backdrop; Chromium only, so keep blur-only as the fallback"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "box-shadow: inset …",
+   "note": "rim light: one highlight top-left, one bottom-right, plus a softer inner line"
+  },
+  {
+   "framework": "CSS",
+   "symbol": "mix-blend-mode: multiply / plus-lighter",
+   "note": "ink: dark text multiplies into light glass; light text adds onto dark glass"
+  },
+  {
+   "framework": "SwiftUI",
+   "symbol": ".glassEffect()",
+   "note": "the native material on Apple platforms; use it instead of rebuilding the recipe there"
+  }
+ ],
+ "prompt": "Turn this card into a liquid glass material built from six layers, exposed as four declarations: background: var(--glass-tint); backdrop-filter: var(--glass-blur) var(--glass-lens); box-shadow: var(--glass-edge); color: var(--glass-ink). 1 Shadow: a soft drop shadow so the card floats. 2 Blur and light: backdrop-filter blur(2px) saturate(180%) brightness(1.06) for light glass, blur(2px) saturate(160%) brightness(0.8) for dark glass. 3 Edge refraction: an SVG feDisplacementMap whose map is neutral in the middle and, within a 44px rim band, offsets the backdrop by up to 1.1x the band width so it bends inward near the edges; run three displacements with red at +15% and blue at -15% scale for a slight chromatic fringe; apply it with backdrop-filter: url(#lens) and fall back to blur only where unsupported. 4 Tint: white at 6%-22% for light glass or rgb(20 20 24) at 16%-38% for dark glass, thicker over busier backgrounds. 5 Rim light: inset highlights top-left and bottom-right plus a softer inner line. 6 Ink: sample the average luminance behind the card; at 0.5 or above use rgb(0 0 0 / 86%) text with mix-blend-mode: multiply, below 0.5 switch to light text that lightens with plus-lighter. Keep content legible at every position and honor prefers-reduced-transparency with an opaque fallback.",
+ "debugPrompt": "Debug my liquid glass card. Check each layer separately: the shadow lifts the card without a dark halo; blur is small enough that the backdrop is still recognizable and saturation/brightness are applied after it; the displacement map is neutral grey (128,128) in the flat middle, uses color-interpolation-filters=\"sRGB\", and its rim band matches the card's corner radius; the red/green/blue displacement scales differ by only about 15%; the tint strength follows background complexity instead of a fixed opacity; the rim highlights sit inside the radius; and the ink flips at luminance 0.5 with some hysteresis so it does not flicker. Also verify the Safari/Firefox fallback when backdrop-filter: url() is unsupported. The symptom:",
+ "description": "Liquid glass on the web is a layered recipe rather than a single property. Blur alone gives ordinary frosted glass; what reads as liquid is the rim, where the backdrop bends inward through a displacement map with a slight colour fringe, while the middle stays flat and clear. A tint scaled to background complexity, rim highlights, and ink that samples the backdrop's luminance keep it legible on any wallpaper, light or dark. The recipe here follows a public breakdown by the designer 枯白啃设计 (series \"999 small tips\", issue 010) and its recommended parameters.",
+ "parts": [
+  {
+   "id": "shadow",
+   "name": "Shadow",
+   "api": "box-shadow",
+   "description": "A soft drop shadow gives the card volume and lifts it off the wallpaper.",
+   "prompt": "the shadow layer: a soft, wide drop shadow plus a tighter contact shadow under the glass card"
+  },
+  {
+   "id": "blur-light",
+   "name": "Blur & light",
+   "api": "backdrop-filter",
+   "description": "A small blur softens what is behind, while higher saturation and brightness keep the glass clear and vivid.",
+   "prompt": "the blur and light layer: backdrop-filter blur(2px) saturate(180%) brightness(1.06) on light glass, saturate(160%) brightness(0.8) on dark glass"
+  },
+  {
+   "id": "edge-refraction",
+   "name": "Edge refraction (lens)",
+   "api": "feDisplacementMap",
+   "description": "Near the rim the backdrop bends inward, more the closer it is to the edge; the middle stays flat. Red bends a little more than blue, creating dispersion.",
+   "prompt": "the lens layer: an SVG displacement map with a 44px rim band, edge offset 1.1x the band width, red and blue scales at plus and minus 15%"
+  },
+  {
+   "id": "tint",
+   "name": "Tint",
+   "api": "background",
+   "description": "A thin translucent colour wash whose opacity rises with background complexity.",
+   "prompt": "the tint layer: white 6%-22% on light glass or rgb(20 20 24) 16%-38% on dark glass, thicker over busy wallpaper"
+  },
+  {
+   "id": "rim-light",
+   "name": "Rim light",
+   "api": "box-shadow: inset",
+   "description": "One highlight top-left, one bottom-right, and a softer line set further in, so the edge catches light like a real slab of glass.",
+   "prompt": "the rim light: inset highlights on the top-left and bottom-right edges plus a softer inner line"
+  },
+  {
+   "id": "ink",
+   "name": "Ink",
+   "api": "mix-blend-mode",
+   "description": "Text samples the average luminance behind the card: dark ink multiplies into light glass, and below 0.5 it switches to light ink that lightens dark glass.",
+   "prompt": "the ink: sample backdrop luminance; dark text with multiply above 0.5, light text with plus-lighter below 0.5"
+  }
+ ],
+ "related": [
+  "vibrancy",
+  "scrim",
+  "hover-card",
+  "container-morph",
+  "dialog-drawer-sheet"
+ ],
+ "demo": "web/liquid-glass-material"
 }
 ]

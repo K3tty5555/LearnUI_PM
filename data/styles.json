@@ -429,6 +429,10 @@
     "origin": "Introduced by Apple at WWDC 2025 as the first unified design language across iPhone, iPad, Mac, Watch, and TV — Apple credits visionOS's glass optics as the inspiration, and ships it as a system material with SwiftUI/UIKit/AppKit APIs rather than a mere visual theme.",
     "seeAlso": [
       {
+        "slug": "web/liquid-glass-material",
+        "name": "Liquid Glass Material (Web Recipe)"
+      },
+      {
         "slug": "styles/glassmorphism",
         "name": "Glassmorphism"
       },

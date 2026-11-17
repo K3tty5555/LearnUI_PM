@@ -42,6 +42,18 @@ def verify(root, base):
     items = json.loads((root / 'api/catalog.json').read_text(encoding='utf-8'))['items']
     for item in items:
         check(item['url'], item['id'])
+    # Every "See also" reference in the style data must render as a card, including
+    # platform-prefixed dictionary entries such as "macos/vibrancy".
+    data = Path(__file__).resolve().parents[1] / 'data'
+    raw = json.loads((data / 'styles.json').read_text(encoding='utf-8'))
+    for style in raw if isinstance(raw, list) else raw['styles']:
+        page = root / 'styles' / style['slug'] / 'index.html'
+        html = page.read_text(encoding='utf-8') if page.is_file() else ''
+        for ref in style.get('seeAlso') or []:
+            slug = ref['slug']
+            target = slug if slug.startswith(('web/', 'macos/')) else 'styles/' + slug.removeprefix('styles/')
+            if f'class="rel-card" href="{prefix}/{target}/"' not in html:
+                failures.add(f'styles/{style["slug"]}: see-also card missing for {slug}')
     if failures:
         raise SystemExit('\n'.join(sorted(failures)))
     print(f'Verified {len(pages)} HTML pages and {len(items)} catalog destinations.')

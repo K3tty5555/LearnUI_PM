@@ -1,0 +1,339 @@
+<div class="demo demo-liquid-glass" data-scene="light" data-ink="plain">
+  <div class="lg-wall">
+    <canvas class="lg-paint" aria-hidden="true"></canvas>
+    <div class="lg-card">
+      <div class="lg-lens" aria-hidden="true"><canvas class="lg-copy"></canvas></div>
+      <div class="lg-tint" aria-hidden="true"></div>
+      <div class="lg-rim" aria-hidden="true"></div>
+      <div class="lg-body">
+        <div class="lg-head">
+          <span class="lg-art" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="lg-meta"><b class="lg-ink lg-title">Low Tide</b><span class="lg-ink lg-sub">Harbor Echo</span></span>
+        </div>
+        <div class="lg-time"><span class="lg-ink">0:48</span><i class="lg-track"><b></b></i><span class="lg-ink">-2:12</span></div>
+        <div class="lg-ctrl lg-ink" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M3.2 8a4.8 4.8 0 1 0 1.5-3.5"/><path d="M3 2.6v2.6h2.6"/></svg>
+          <svg viewBox="0 0 16 16"><path class="fill" d="M12.5 3.5v9L6 8z"/><path d="M4 3.5v9"/></svg>
+          <svg viewBox="0 0 16 16"><path class="fill" d="M4.5 3h2.4v10H4.5zM9.1 3h2.4v10H9.1z"/></svg>
+          <svg viewBox="0 0 16 16"><path class="fill" d="M3.5 3.5v9L10 8z"/><path d="M12 3.5v9"/></svg>
+          <svg viewBox="0 0 16 16"><path d="M8 2.5v7.5M5.2 5.2 8 2.5l2.8 2.7"/><path d="M4 8.5v4.5h8V8.5"/></svg>
+        </div>
+      </div>
+    </div>
+    <span class="lg-badge">Plain card</span>
+    <button type="button" class="lg-scene" aria-label="Switch light and dark">
+      <svg class="lg-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="2.6"/><path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/></svg>
+      <svg class="lg-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M12.8 10.2A5.4 5.4 0 0 1 5.8 3.2a5.4 5.4 0 1 0 7 7z"/></svg>
+    </button>
+  </div>
+  <div class="lg-bar">
+    <div class="lg-chips" role="group" aria-label="Glass layers">
+      <button type="button" data-layer="shadow" aria-pressed="false">Shadow</button>
+      <button type="button" data-layer="blur" aria-pressed="false">Blur &amp; light</button>
+      <button type="button" data-layer="lens" aria-pressed="false">Lens</button>
+      <button type="button" data-layer="tint" aria-pressed="false">Tint</button>
+      <button type="button" data-layer="rim" aria-pressed="false">Rim light</button>
+      <button type="button" data-layer="ink" aria-pressed="false">Ink</button>
+    </div>
+    <button type="button" class="lg-auto" aria-pressed="true">Auto</button>
+  </div>
+  <p class="lg-note">A card with no material: the text fights the wallpaper.</p>
+  <p class="lg-readout"><code>luminance 0.00 · ink fixed · tint 0%</code></p>
+  <svg class="lg-defs" width="0" height="0" aria-hidden="true" focusable="false"></svg>
+</div>
+<style>
+.demo-liquid-glass{width:min(560px,calc(100vw - 80px));color:#1d2230;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-liquid-glass *{box-sizing:border-box}
+.lg-wall{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#c9dcf3;touch-action:none;user-select:none;-webkit-user-select:none}
+.lg-paint{position:absolute;inset:0;display:block;width:100%;height:100%}
+.lg-card{position:absolute;left:0;top:0;width:var(--lg-w,300px);height:var(--lg-h,140px);border-radius:var(--lg-r,26px);overflow:hidden;isolation:isolate;cursor:grab;transition:box-shadow .5s ease;will-change:transform}
+.lg-card.is-dragging{cursor:grabbing}
+.lg-lens{position:absolute;left:calc(var(--lg-m,64px) * -1);top:calc(var(--lg-m,64px) * -1);width:calc(var(--lg-w,300px) + var(--lg-m,64px) * 2);height:calc(var(--lg-h,140px) + var(--lg-m,64px) * 2);overflow:hidden}
+.lg-copy{position:absolute;left:0;top:0;display:block}
+.lg-tint{position:absolute;inset:0;background:rgba(255,255,255,0);transition:background-color .5s ease}
+.lg-rim{position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .5s ease;box-shadow:inset 1.2px 1.2px 0 rgba(255,255,255,.78),inset -1px -1px 0 rgba(255,255,255,.42),inset 4px 4px 7px -5px rgba(255,255,255,.75),inset -4px -4px 7px -5px rgba(255,255,255,.4)}
+.demo-liquid-glass[data-scene="dark"] .lg-rim{box-shadow:inset 1.2px 1.2px 0 rgba(255,255,255,.42),inset -1px -1px 0 rgba(255,255,255,.2),inset 4px 4px 7px -5px rgba(255,255,255,.4),inset -4px -4px 7px -5px rgba(255,255,255,.2)}
+.demo-liquid-glass[data-shadow="on"] .lg-card{box-shadow:0 14px 34px rgba(12,24,64,.24),0 3px 8px rgba(12,24,64,.14)}
+.demo-liquid-glass[data-scene="dark"][data-shadow="on"] .lg-card{box-shadow:0 14px 34px rgba(0,0,0,.42),0 3px 8px rgba(0,0,0,.26)}
+.demo-liquid-glass[data-tint="on"] .lg-tint{background:rgba(255,255,255,var(--lg-tint,.12))}
+.demo-liquid-glass[data-scene="dark"][data-tint="on"] .lg-tint{background:rgba(20,20,24,var(--lg-tint,.24))}
+.demo-liquid-glass[data-rim="on"] .lg-rim{opacity:1}
+.lg-body{position:relative;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:14px 16px 12px}
+.lg-head{display:flex;align-items:center;gap:11px}
+.lg-art{position:relative;flex:0 0 44px;width:44px;height:44px;border-radius:10px;overflow:hidden;background:linear-gradient(150deg,#1b2b6b,#3b6fe0 55%,#9fd0ff);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.lg-art i{position:absolute;bottom:10px;width:3px;border-radius:2px;background:rgba(255,255,255,.9)}
+.lg-art i:nth-child(1){left:13px;height:10px}.lg-art i:nth-child(2){left:18px;height:18px}.lg-art i:nth-child(3){left:23px;height:13px}.lg-art i:nth-child(4){left:28px;height:7px}
+.lg-meta{min-width:0;display:grid;gap:1px}
+.lg-title{font-size:15px;font-weight:650;letter-spacing:-.01em;white-space:nowrap}
+.lg-sub{font-size:11.5px;white-space:nowrap}
+.lg-time{display:flex;align-items:center;gap:8px;font:600 9.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.lg-track{position:relative;flex:1;height:3px;border-radius:3px;background:rgba(0,0,0,.18)}
+.lg-track b{position:absolute;left:0;top:0;bottom:0;width:27%;border-radius:inherit;background:currentColor;color:#1d2230}
+.lg-track b:after{content:"";position:absolute;right:-4px;top:-3px;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.lg-ctrl{display:flex;justify-content:space-between;align-items:center;padding:0 6px}
+.lg-ctrl svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.lg-ctrl svg .fill{fill:currentColor;stroke:none}
+.lg-ctrl svg:nth-child(3){width:18px;height:18px}
+/* Ink: fixed text until the ink layer is on, then dark ink multiplies into light glass and light ink adds onto dark glass. */
+.lg-ink{color:#1d2230;transition:color .35s ease}.lg-sub{color:#4b5262}
+.demo-liquid-glass[data-ink="dark"] .lg-ink{color:rgba(0,0,0,.86);mix-blend-mode:multiply}
+.demo-liquid-glass[data-ink="dark"] .lg-sub{color:rgba(60,60,67,.7)}
+.demo-liquid-glass[data-ink="dark"] .lg-track{background:rgba(0,0,0,.16)}
+.demo-liquid-glass[data-ink="light"] .lg-ink{color:rgba(255,255,255,.94);mix-blend-mode:plus-lighter}
+.demo-liquid-glass[data-ink="light"] .lg-sub{color:rgba(235,235,245,.62)}
+.demo-liquid-glass[data-ink="light"] .lg-track{background:rgba(255,255,255,.22)}
+.demo-liquid-glass[data-ink="light"] .lg-track b{color:rgba(255,255,255,.94)}
+.lg-badge{position:absolute;left:10px;top:10px;padding:4px 8px;border-radius:999px;background:rgba(10,16,40,.62);color:#fff;font:600 9.5px/1.1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;pointer-events:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.lg-scene{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:26px;height:26px;border:0;border-radius:50%;background:rgba(255,255,255,.72);color:#1d2230;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.lg-scene svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.lg-scene .lg-moon{display:none;fill:currentColor;stroke:none}
+.demo-liquid-glass[data-scene="dark"] .lg-scene{background:rgba(20,20,30,.7);color:#fff}
+.demo-liquid-glass[data-scene="dark"] .lg-sun{display:none}
+.demo-liquid-glass[data-scene="dark"] .lg-moon{display:block}
+.lg-scene:focus-visible,.lg-bar button:focus-visible{outline:2px solid #3b6fe0;outline-offset:2px}
+.lg-bar{display:flex;align-items:center;gap:6px;margin-top:8px}
+.lg-chips{flex:1 1 auto;min-width:0;display:flex;gap:4px;overflow:auto;scrollbar-width:none}
+.lg-chips::-webkit-scrollbar{display:none}
+.lg-bar button{flex:0 0 auto;border:1px solid #d3d8e2;border-radius:999px;background:#fff;color:#5a6172;padding:5px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;white-space:nowrap;cursor:pointer}
+.lg-bar button[aria-pressed="true"]{background:#1d2230;border-color:#1d2230;color:#fff}
+.lg-auto{margin-left:auto}
+.lg-note{margin:7px 0 0;min-height:17px;color:#4b5262;font-size:11.5px;line-height:1.45}
+.lg-readout{margin:3px 0 0;color:#6b7280;font:10px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}
+.lg-readout code{font:inherit}
+.lg-defs{position:absolute;width:0;height:0;overflow:hidden}
+/* Compact card: the hub stage only has room for the material itself. */
+.demo-liquid-glass.is-compact .lg-body{padding:10px 12px 9px}
+.demo-liquid-glass.is-compact .lg-head{gap:8px}
+.demo-liquid-glass.is-compact .lg-art{flex-basis:30px;width:30px;height:30px;border-radius:7px}
+.demo-liquid-glass.is-compact .lg-art i{bottom:7px;width:2px}
+.demo-liquid-glass.is-compact .lg-art i:nth-child(1){left:9px;height:7px}.demo-liquid-glass.is-compact .lg-art i:nth-child(2){left:13px;height:12px}.demo-liquid-glass.is-compact .lg-art i:nth-child(3){left:17px;height:9px}.demo-liquid-glass.is-compact .lg-art i:nth-child(4){left:21px;height:5px}
+.demo-liquid-glass.is-compact .lg-title{font-size:12.5px}
+.demo-liquid-glass.is-compact .lg-sub{font-size:10px}
+.demo-liquid-glass.is-compact .lg-time{font-size:8.5px}
+.demo-liquid-glass.is-compact .lg-ctrl{display:none}
+@media (max-width:760px){.lg-wall{height:200px}}
+@media (max-height:260px){
+  .demo-liquid-glass{width:calc(100vw - 40px)}
+  .lg-wall{height:calc(100vh - 44px);max-height:150px;min-height:120px}
+  .lg-scene,.lg-bar,.lg-note,.lg-readout{display:none}
+  .lg-badge{left:8px;top:8px;font-size:9px}
+}
+@media (prefers-reduced-motion:reduce){.lg-card,.lg-tint,.lg-rim{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-liquid-glass');
+  var wall=root.querySelector('.lg-wall'),paint=root.querySelector('.lg-paint'),card=root.querySelector('.lg-card');
+  var lens=root.querySelector('.lg-lens'),copy=root.querySelector('.lg-copy'),defs=root.querySelector('.lg-defs');
+  var badge=root.querySelector('.lg-badge'),note=root.querySelector('.lg-note'),readout=root.querySelector('.lg-readout code');
+  var sceneBtn=root.querySelector('.lg-scene'),autoBtn=root.querySelector('.lg-auto'),strip=root.querySelector('.lg-chips');
+  var chips=[].slice.call(root.querySelectorAll('[data-layer]'));
+  var LAYERS=['shadow','blur','lens','tint','rim','ink'];
+  // [zh, en] for chip labels, the hub badge and the detail explanation of each layer.
+  var NAME={shadow:['投影','Shadow'],blur:['模糊提亮','Blur & light'],lens:['边缘折射','Lens'],tint:['着色','Tint'],rim:['边缘光','Rim light'],ink:['文字着色','Ink']};
+  var NOTE={
+    none:['没有材质的卡片：文字直接压在壁纸上，看不清。','A card with no material: the text fights the wallpaper.'],
+    shadow:['投影：让卡片浮起来，有体积感。','Shadow: lifts the card off the wallpaper.'],
+    blur:['模糊 2px，同时提高饱和度和亮度，玻璃更通透。','Blur 2px while raising saturation and brightness so the glass stays clear.'],
+    lens:['越靠近边缘，背景向内偏移越多，中间保持平整；红光比蓝光偏得多一点，形成色散。','Near the rim the backdrop bends inward, the middle stays flat; red bends a little more than blue.'],
+    tint:['一层薄薄的半透明颜色，背景越复杂越浓。','A thin wash of colour, thicker over busier wallpaper.'],
+    rim:['左上、右下各一道边缘光，再向内收一道，增加体积感。','Rim light top-left and bottom-right, plus a softer inner line.'],
+    ink:['采样背后的平均亮度，低于 0.5 自动换成浅色字。','Samples the average luminance behind it and flips to light ink below 0.5.'],
+    dark:['深色玻璃：着色更深、亮度压到 0.8，文字用叠加提亮。','Dark glass: a deeper tint, brightness at 0.8, and ink that lightens.']
+  };
+  var SEQ=[{n:0,ms:1300},{n:1,ms:1300},{n:2,ms:1300},{n:3,ms:1600},{n:4,ms:1300},{n:5,ms:1300},{n:6,ms:5200},{n:6,ms:4400,scene:'dark'}];
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var uid='lg'+Math.random().toString(36).slice(2,8);
+  var on={},scene='light',ink='dark',auto=true,held=false,stepIndex=0,stepTimer,focusLayer='none';
+  var W=0,H=0,cw=0,ch=0,edge=44,margin=64,x=0,y=0,pixels=null,pixelScale=1,lum=0,tint=0,frame=0,start=0,raf=0,visible=true,drag=null;
+
+  defs.innerHTML='<filter id="'+uid+'" x="0" y="0" width="1" height="1" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">'+
+    '<feImage result="map" preserveAspectRatio="none"/>'+
+    '<feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G" result="dr"/>'+
+    '<feColorMatrix in="dr" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="r"/>'+
+    '<feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G" result="dg"/>'+
+    '<feColorMatrix in="dg" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="g"/>'+
+    '<feDisplacementMap in="SourceGraphic" in2="map" xChannelSelector="R" yChannelSelector="G" result="db"/>'+
+    '<feColorMatrix in="db" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="b"/>'+
+    '<feComposite in="r" in2="g" operator="arithmetic" k2="1" k3="1" result="rg"/>'+
+    '<feComposite in="rg" in2="b" operator="arithmetic" k2="1" k3="1"/></filter>';
+  var feImage=defs.querySelector('feImage'),maps=defs.querySelectorAll('feDisplacementMap');
+
+  function chinese(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function pick(pair){return pair[chinese()?0:1];}
+
+  // Wallpaper with hard-edged waves and crest lines, so blur, saturation and the lens have something to bend.
+  function wave(ctx,pts){ctx.beginPath();ctx.moveTo(pts[0],pts[1]);ctx.bezierCurveTo(pts[2],pts[3],pts[4],pts[5],pts[6],pts[7]);}
+  function drawWall(ctx){
+    var g,i;
+    if(scene==='light'){
+      // Light-to-deep blue across the width, so the luminance under the card changes gradually rather than at a hard edge.
+      g=ctx.createLinearGradient(0,0,W,H*.35);g.addColorStop(0,'#f4f8fd');g.addColorStop(.38,'#c3d8f4');g.addColorStop(.72,'#3d63d6');g.addColorStop(1,'#0c1c63');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      g=ctx.createRadialGradient(W*.14,H*.18,0,W*.14,H*.18,W*.42);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='rgba(126,172,236,.42)';wave(ctx,[-10,H*.8,W*.2,H*.6,W*.36,H*.96,W*.62,H+10]);ctx.lineTo(-10,H+10);ctx.fill();
+      ctx.fillStyle='rgba(12,30,110,.38)';wave(ctx,[W*.42,H+10,W*.6,H*.62,W*.7,H*.2,W+10,H*.1]);ctx.lineTo(W+10,H+10);ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.95)';ctx.lineWidth=2.4;wave(ctx,[W*.42,H+10,W*.6,H*.62,W*.7,H*.2,W+10,H*.1]);ctx.stroke();
+      for(i=1;i<7;i++){ctx.strokeStyle='rgba(255,255,255,'+(.7-i*.08)+')';ctx.lineWidth=1.1;wave(ctx,[W*.42-i*26,H+10,W*.6-i*30,H*.62+i*2,W*.7-i*34,H*.2-i*4,W+10,H*.1-i*14]);ctx.stroke();}
+      ctx.strokeStyle='rgba(120,200,255,.85)';ctx.lineWidth=1.6;wave(ctx,[W*.6,H+10,W*.7,H*.74,W*.78,H*.44,W+10,H*.4]);ctx.stroke();
+    }else{
+      g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#241a8a');g.addColorStop(1,'#07051f');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      g=ctx.createRadialGradient(W*.2,H*.28,0,W*.2,H*.28,W*.34);g.addColorStop(0,'rgba(120,190,255,.95)');g.addColorStop(1,'rgba(120,190,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      g=ctx.createLinearGradient(0,H,W,0);g.addColorStop(0,'#5d8bff');g.addColorStop(.5,'#3546d8');g.addColorStop(1,'#1a137a');ctx.fillStyle=g;
+      wave(ctx,[-10,H*.86,W*.3,H*.5,W*.6,H*1.05,W+10,H*.42]);ctx.lineTo(W+10,H+10);ctx.lineTo(-10,H+10);ctx.fill();
+      ctx.strokeStyle='rgba(190,230,255,.95)';ctx.lineWidth=2.4;wave(ctx,[-10,H*.86,W*.3,H*.5,W*.6,H*1.05,W+10,H*.42]);ctx.stroke();
+      for(i=1;i<5;i++){ctx.strokeStyle='rgba(190,230,255,'+(.55-i*.1)+')';ctx.lineWidth=1.1;wave(ctx,[-10,H*.86-i*12,W*.3,H*.5-i*12,W*.6,H*1.05-i*12,W+10,H*.42-i*12]);ctx.stroke();}
+      ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.4;wave(ctx,[W*.62,-10,W*.74,H*.3,W*.86,H*.1,W+10,H*.28]);ctx.stroke();
+    }
+  }
+  function paintAll(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    paint.width=Math.round(W*dpr);paint.height=Math.round(H*dpr);paint.style.width=W+'px';paint.style.height=H+'px';
+    var ctx=paint.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);drawWall(ctx);
+    // The lens samples up to the margin beyond the card, so the copy repeats the wallpaper's edge pixels
+    // outward; otherwise a card near the edge would refract empty space into a dark stripe.
+    var m=Math.round(margin*dpr),pw=paint.width,ph=paint.height;
+    copy.width=pw+2*m;copy.height=ph+2*m;copy.style.width=(W+2*margin)+'px';copy.style.height=(H+2*margin)+'px';
+    var cc=copy.getContext('2d');cc.setTransform(1,0,0,1,0,0);
+    // Mirror the wallpaper into the margin (like a reflect edge mode) so lines stay continuous instead of smearing.
+    for(var fy=-1;fy<=1;fy++){for(var fx=-1;fx<=1;fx++){
+      cc.setTransform(fx?-1:1,0,0,fy?-1:1,m+(fx<0?0:fx>0?2*pw:0),m+(fy<0?0:fy>0?2*ph:0));cc.drawImage(paint,0,0);
+    }}
+    cc.setTransform(1,0,0,1,0,0);
+    pixels=ctx.getImageData(0,0,paint.width,paint.height);pixelScale=dpr;
+  }
+  // Displacement map: neutral grey in the flat middle; inside the rim band the red/green channels push sampling outward.
+  function buildMap(){
+    // The map covers the whole lens box (card plus margin) and is neutral outside the card, so it needs no
+    // x/y offset: WebKit and Chromium place offset feImage subregions differently.
+    var mw=cw+2*margin,mh=ch+2*margin,c=document.createElement('canvas');c.width=mw;c.height=mh;
+    var ctx=c.getContext('2d'),img=ctx.createImageData(mw,mh),d=img.data,r=parseFloat(card.style.getPropertyValue('--lg-r'))||26;
+    for(var k=0;k<d.length;k+=4){d[k]=128;d[k+1]=128;d[k+2]=128;d[k+3]=255;}
+    var hx=cw/2-r,hy=ch/2-r;
+    for(var py=0;py<ch;py++){for(var px=0;px<cw;px++){
+      var ox=px+.5-cw/2,oy=py+.5-ch/2,qx=Math.abs(ox)-hx,qy=Math.abs(oy)-hy,nx,ny,dist;
+      if(qx>0&&qy>0){var l=Math.sqrt(qx*qx+qy*qy);dist=r-l;nx=qx/l;ny=qy/l;}
+      else if(qx>qy){dist=r-qx;nx=1;ny=0;}else{dist=r-qy;nx=0;ny=1;}
+      var t=Math.max(0,Math.min(1,1-dist/edge)),s=t*t,i=((py+margin)*mw+px+margin)*4;
+      d[i]=Math.round(128+127*s*nx*(ox<0?-1:1));d[i+1]=Math.round(128+127*s*ny*(oy<0?-1:1));d[i+2]=128;d[i+3]=255;
+    }}
+    ctx.putImageData(img,0,0);
+    var url=c.toDataURL();
+    feImage.setAttribute('href',url);feImage.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href',url);
+    feImage.setAttribute('x',0);feImage.setAttribute('y',0);feImage.setAttribute('width',mw);feImage.setAttribute('height',mh);
+    // Rim offset is 1.1 x the rim width; red bends 15% more than green, blue 15% less.
+    var scale=2*1.1*edge;[1.15,1,.85].forEach(function(f,i){maps[i].setAttribute('scale',(scale*f).toFixed(1))});
+  }
+  function layout(){
+    var rect=wall.getBoundingClientRect();if(!rect.width||!rect.height)return;
+    W=Math.round(rect.width);H=Math.round(rect.height);
+    var compact=H<170;root.classList.toggle('is-compact',compact);
+    cw=Math.round(compact?Math.min(204,W*.64):Math.min(316,W*.8));ch=compact?82:(H<215?136:146);
+    var r=compact?20:28;edge=Math.min(44,Math.round(ch*.3));margin=Math.ceil(edge*1.1*1.15)+8;
+    card.style.setProperty('--lg-w',cw+'px');card.style.setProperty('--lg-h',ch+'px');card.style.setProperty('--lg-r',r+'px');card.style.setProperty('--lg-m',margin+'px');
+    paintAll();buildMap();
+    if(!drag&&auto){x=(W-cw)/2;y=(H-ch)/2;}
+    x=Math.max(0,Math.min(W-cw,x));y=Math.max(0,Math.min(H-ch,y));place();sample();applyLayers();
+  }
+  function place(){
+    card.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0)';
+    copy.style.transform='translate3d('+(-x).toFixed(1)+'px,'+(-y).toFixed(1)+'px,0)';
+  }
+  // Average luminance and its spread under the card decide ink colour and tint strength.
+  function sample(){
+    if(!pixels)return;
+    var d=pixels.data,pw=pixels.width,s=pixelScale,sum=0,sq=0,n=0;
+    var x0=Math.round(x*s),y0=Math.round(y*s),x1=Math.round((x+cw)*s),y1=Math.round((y+ch)*s),step=Math.max(2,Math.round(4*s));
+    for(var py=y0;py<y1;py+=step){for(var px=x0;px<x1;px+=step){var i=(py*pw+px)*4,l=(.2126*d[i]+.7152*d[i+1]+.0722*d[i+2])/255;sum+=l;sq+=l*l;n++;}}
+    if(!n)return;
+    lum=sum/n;var spread=Math.sqrt(Math.max(0,sq/n-lum*lum)),busy=Math.min(1,spread/.25);
+    tint=scene==='light'?.06+.16*busy:.16+.22*busy;
+    card.style.setProperty('--lg-tint',tint.toFixed(3));
+    if(on.ink){if(lum<.48)ink='light';else if(lum>.52)ink='dark';}
+    root.dataset.ink=on.ink?ink:'plain';
+    renderReadout();
+  }
+  function applyLayers(){
+    LAYERS.forEach(function(k){if(k!=='ink')root.dataset[k]=on[k]?'on':'off'});
+    chips.forEach(function(chip){chip.setAttribute('aria-pressed',on[chip.dataset.layer]?'true':'false')});
+    var light=scene==='light'?' blur(2px) saturate(1.8) brightness(1.06)':' blur(2px) saturate(1.6) brightness(.8)';
+    var f=(on.lens?'url(#'+uid+')':'')+(on.blur?light:'');
+    lens.style.filter=f.trim()||'none';
+    root.dataset.scene=scene;root.dataset.ink=on.ink?ink:'plain';
+    renderText();
+  }
+  function renderReadout(){
+    var zh=chinese(),t=Math.round(tint*100)+'%',l=lum.toFixed(2);
+    var inkName=!on.ink?(zh?'固定':'fixed'):(ink==='light'?(zh?'浅色':'light'):(zh?'深色':'dark'));
+    readout.textContent=zh?'亮度 '+l+' · 文字 '+inkName+' · 着色 '+(on.tint?t:'关'):'luminance '+l+' · ink '+inkName+' · tint '+(on.tint?t:'off');
+  }
+  function renderText(){
+    var zh=chinese(),count=LAYERS.filter(function(k){return on[k]}).length;
+    strip.setAttribute('aria-label',zh?'玻璃图层':'Glass layers');
+    sceneBtn.setAttribute('aria-label',zh?'切换浅色和深色':'Switch light and dark');
+    chips.forEach(function(chip){chip.textContent=pick(NAME[chip.dataset.layer])});
+    autoBtn.textContent=zh?'自动演示':'Auto';autoBtn.setAttribute('aria-pressed',auto?'true':'false');
+    if(!auto)badge.textContent=(zh?'手动 · ':'Manual · ')+count+'/6';
+    else if(scene==='dark')badge.textContent=zh?'深色玻璃':'Dark glass';
+    else if(count===0)badge.textContent=zh?'00 无材质':'00 Plain card';
+    else if(count===6&&focusLayer==='ink')badge.textContent=zh?'06 文字着色 · 完成':'06 Ink · complete';
+    else badge.textContent='0'+count+' + '+pick(NAME[LAYERS[count-1]]);
+    note.textContent=pick(NOTE[scene==='dark'&&auto?'dark':focusLayer]);
+    renderReadout();
+  }
+  function setStep(i){
+    var s=SEQ[i];stepIndex=i;
+    LAYERS.forEach(function(k,j){on[k]=j<s.n});
+    var nextScene=s.scene||'light';
+    focusLayer=s.n?LAYERS[s.n-1]:'none';
+    if(nextScene!==scene){scene=nextScene;paintAll();}
+    applyLayers();sample();
+    clearTimeout(stepTimer);if(auto&&!held)stepTimer=setTimeout(function(){setStep((stepIndex+1)%SEQ.length)},s.ms);
+  }
+  function stopAuto(){auto=false;clearTimeout(stepTimer);renderText();}
+  chips.forEach(function(chip){chip.addEventListener('click',function(){
+    if(auto){stopAuto();}
+    var k=chip.dataset.layer;on[k]=!on[k];focusLayer=on[k]?k:'none';applyLayers();sample();
+  })});
+  autoBtn.addEventListener('click',function(){
+    if(auto){stopAuto();return;}
+    auto=true;held=false;start=performance.now();setStep(0);
+  });
+  sceneBtn.addEventListener('click',function(){
+    if(auto)stopAuto();
+    scene=scene==='light'?'dark':'light';if(scene==='dark'&&focusLayer==='none')focusLayer='ink';
+    paintAll();applyLayers();sample();
+    if(scene==='dark')note.textContent=pick(NOTE.dark);
+  });
+  // Drag the card across the wallpaper to watch ink and tint adapt.
+  card.addEventListener('pointerdown',function(e){
+    if(auto)stopAuto();
+    drag={dx:e.clientX-x,dy:e.clientY-y,id:e.pointerId};card.classList.add('is-dragging');
+    try{card.setPointerCapture(e.pointerId)}catch(_){}
+  });
+  card.addEventListener('pointermove',function(e){
+    if(!drag||e.pointerId!==drag.id)return;
+    x=Math.max(0,Math.min(W-cw,e.clientX-drag.dx));y=Math.max(0,Math.min(H-ch,e.clientY-drag.dy));place();sample();
+  });
+  function endDrag(){drag=null;card.classList.remove('is-dragging');}
+  card.addEventListener('pointerup',endDrag);card.addEventListener('pointercancel',endDrag);
+  // Pause the build-up while someone is reading the detail page; drifting continues so the lens stays alive.
+  ['pointerenter','focusin'].forEach(function(e){root.addEventListener(e,function(){if(!auto)return;held=true;clearTimeout(stepTimer)})});
+  ['pointerleave','focusout'].forEach(function(e){root.addEventListener(e,function(){if(!auto||!held)return;held=false;setStep(stepIndex)})});
+  function tick(now){
+    raf=0;if(!visible)return;
+    if(auto&&!reduce&&!drag){
+      var t=(now-start)/1000,ax=Math.max(0,(W-cw)/2-6),ay=Math.max(0,Math.min(12,(H-ch)/2-4));
+      var cy=(H-ch)/2;if(root.classList.contains('is-compact')){cy=Math.min(H-ch-4,cy+9);ay=Math.min(ay,4);}
+      x=(W-cw)/2+ax*Math.sin(t*Math.PI*2/9);y=cy+ay*Math.sin(t*Math.PI*2/6.5);
+      place();if(++frame%4===0)sample();
+    }
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(wall);}
+  if('ResizeObserver' in window){var last='';new ResizeObserver(function(){var r=wall.getBoundingClientRect(),k=Math.round(r.width)+'x'+Math.round(r.height);if(k!==last){last=k;layout();}}).observe(wall);}
+  document.addEventListener('learnui:languagechange',renderText);
+  // Reduced motion opens on the finished material instead of building it layer by layer.
+  start=performance.now();layout();setStep(reduce?6:0);resume();
+})();
+</script>

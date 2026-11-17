@@ -6,7 +6,7 @@ import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
-NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll"}
+NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
 
 def load(p):
@@ -1186,7 +1186,8 @@ def style_page(s):
  <span class="rel-name"><span class="lang-en">{esc(so["name"])}</span><span class="lang-zh rel-name-zh">{esc(soz.get("name_zh", ""))}</span></span>
 </a>''')
             else:
-                ent = next((x for x in ENTRIES if x["slug"] == ref), None)
+                # Dictionary references carry their platform, e.g. "macos/vibrancy".
+                ent = next((x for x in ENTRIES if ref in (x["slug"], f'{x["platform"]}/{x["slug"]}')), None)
                 if ent:
                     ez = ZH[ent["slug"]]
                     cards.append(f'''<a class="rel-card" href="{entry_url(ent)}">
