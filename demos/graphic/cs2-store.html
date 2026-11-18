@@ -1,0 +1,77 @@
+<div class="demo gd-specimen gd-split" data-format="portrait">
+  <div class="gs-frame">
+    <div class="gs-bg" aria-hidden="true"></div><div class="gs-guide" aria-hidden="true"></div>
+    <svg class="gs-figure" viewBox="0 0 120 200" aria-hidden="true"><path d="M60 8c-15 0-26 9-28 21l-9 2c-3 1-3 5 0 6l9 1c1 13 9 24 21 27-23 5-41 21-45 47L4 200h112l-4-88c-4-26-22-42-45-47 12-3 20-14 21-27l3-1c3-1 3-5 0-6l-3-1C86 17 75 8 60 8z"/><circle cx="50" cy="38" r="7" fill="#ff8a1f" opacity=".25"/><circle cx="70" cy="38" r="7" fill="#ff8a1f" opacity=".25"/><circle cx="50" cy="38" r="3.6" fill="#ff8a1f"/><circle cx="70" cy="38" r="3.6" fill="#ff8a1f"/></svg>
+    <span class="gd-focus gs-focus" data-ov-focus="剪影头部压在橙色区" data-ov-focus-en="Head over the orange zone"></span>
+    <span class="gd-space gs-space" data-ov-space="灰色区留给字标" data-ov-space-en="Grey zone kept for the wordmark"></span>
+    <div class="gs-title" data-ov-type="前倾字标 + 轮廓数字" data-ov-type-en="Italic wordmark + outline numeral"><b>COUNTER<br>STRIKE</b><span>2</span></div>
+    <p class="gs-tag" data-ov-type="辅助信息" data-ov-type-en="Supporting line">LEARN MORE ABOUT COUNTER-STRIKE 2</p>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="5" y1="0" x2="5" y2="100"/><line x1="95" y1="0" x2="95" y2="100"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Formats">
+    <button type="button" data-format-btn="portrait" aria-pressed="true">Portrait</button><button type="button" data-format-btn="landscape">Landscape</button><button type="button" data-format-btn="banner">Banner</button>
+  </div>
+</div>
+<style>
+.gd-split{--gs-a:62deg;width:min(420px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-split *{box-sizing:border-box}
+.gs-frame{position:relative;margin:0 auto;overflow:hidden;border-radius:4px;background:#b9bcc0;transition:width .5s cubic-bezier(.2,.8,.2,1),aspect-ratio .5s}
+.gd-split[data-format="portrait"] .gs-frame{width:min(255px,100%);aspect-ratio:3/4}
+.gd-split[data-format="landscape"] .gs-frame{width:100%;aspect-ratio:16/9}
+.gd-split[data-format="banner"] .gs-frame{width:100%;aspect-ratio:4/1}
+/* The diagonal and its thin white lines are hard stops in one gradient, so they stay parallel in every format. */
+.gs-bg{position:absolute;inset:0;--c:var(--gs-cut,46%);background:linear-gradient(calc(90deg + var(--gs-a)),#b9bcc0 0 var(--c),#e8862a var(--c) calc(var(--c) + 6%),rgba(255,255,255,.85) calc(var(--c) + 6%) calc(var(--c) + 6.5%),#e8862a calc(var(--c) + 6.5%) calc(var(--c) + 10%),rgba(255,255,255,.85) calc(var(--c) + 10%) calc(var(--c) + 10.5%),#e8862a calc(var(--c) + 10.5%) calc(var(--c) + 14%),#fff calc(var(--c) + 14%) calc(var(--c) + 15.2%),#e8862a calc(var(--c) + 15.2%) 100%)}
+.gs-guide{position:absolute;inset:0;z-index:6;opacity:0;pointer-events:none;transition:opacity .25s;--c:var(--gs-cut,46%);background:linear-gradient(calc(90deg + var(--gs-a)),transparent calc(var(--c) - .5%),#22d3ee calc(var(--c) - .5%) calc(var(--c) + .1%),transparent calc(var(--c) + .1%))}
+[data-show-grid="on"] .gs-guide{opacity:1}
+.gs-figure{position:absolute;fill:#1e1f22;filter:drop-shadow(0 6px 12px rgba(0,0,0,.25));transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.gs-title{position:absolute;display:flex;align-items:flex-end;gap:.06em;color:#fff;font:900 italic calc(var(--gs-t,40px) * .62)/.86 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:.02em;transform:skewX(-8deg);transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.gs-title span{color:transparent;-webkit-text-stroke:1.5px #fff;font-size:2.1em;line-height:.8}
+.gs-tag{position:absolute;margin:0;padding:3px 6px;background:#1e1f22;color:#fff;font:700 calc(var(--gs-t,40px) * .13)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;white-space:nowrap;transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.gd-split[data-format="portrait"]{--gs-cut:38%}
+.gd-split[data-format="portrait"] .gs-figure{left:22%;bottom:-6%;height:66%}
+.gd-split[data-format="portrait"] .gs-title{left:9%;top:8%}
+.gd-split[data-format="portrait"] .gs-tag{left:9%;top:calc(8% + var(--gs-t,40px) * 1.45)}
+.gd-split[data-format="portrait"] .gs-focus{left:48%;top:50%}
+.gd-split[data-format="portrait"] .gs-space{left:4%;top:31%;width:26%;height:20%}
+.gd-split[data-format="landscape"]{--gs-cut:52%}
+.gd-split[data-format="landscape"] .gs-figure{left:58%;bottom:-3%;height:86%}
+.gd-split[data-format="landscape"] .gs-title{left:6%;top:16%}
+.gd-split[data-format="landscape"] .gs-tag{left:6%;top:calc(16% + var(--gs-t,40px) * 1.45)}
+.gd-split[data-format="landscape"] .gs-focus{left:71%;top:30%}
+.gd-split[data-format="landscape"] .gs-space{left:4%;top:8%;width:40%;height:50%}
+.gd-split[data-format="banner"]{--gs-cut:60%}
+.gd-split[data-format="banner"] .gs-figure{left:74%;bottom:-14%;height:104%}
+.gd-split[data-format="banner"] .gs-title{left:4%;top:22%}
+.gd-split[data-format="banner"] .gs-tag{left:4%;top:74%}
+.gd-split[data-format="banner"] .gs-focus{left:82%;top:30%}
+.gd-split[data-format="banner"] .gs-space{left:2%;top:10%;width:46%;height:80%}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-split{min-height:calc(min(255px,100vw - 80px) * 4 / 3 + 38px);display:flex;flex-direction:column;justify-content:center}}
+@media (max-height:260px){.gd-split{width:calc(100vw - 40px)}.gd-controls{display:none}.gd-split[data-format="portrait"] .gs-frame{width:min(118px,100%)}}
+@media (prefers-reduced-motion:reduce){.gs-frame,.gs-figure,.gs-title,.gs-tag{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-split');
+  var frame=root.querySelector('.gs-frame'),btns=[].slice.call(root.querySelectorAll('[data-format-btn]'));
+  var NAMES={portrait:['竖版','Portrait'],landscape:['横版','Landscape'],banner:['横幅','Banner']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  // Title size follows the frame's shorter side so one rule works for every format.
+  function fit(){var w=frame.offsetWidth,h=frame.offsetHeight,f=root.dataset.format;root.style.setProperty('--gs-t',(f==='banner'?h*.42:f==='landscape'?h*.2:w*.2).toFixed(1)+'px');}
+  function setFormat(f){root.dataset.format=f;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.formatBtn===f?'true':'false')});requestAnimationFrame(fit);setTimeout(fit,520);root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.formatBtn][zh()?0:1]});root.querySelector('.gd-controls').setAttribute('aria-label',zh()?'尺寸':'Formats');}
+  var auto=true,order=['portrait','landscape','banner'],k=0,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setFormat(b.dataset.formatBtn)})});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){k=(k+1)%order.length;setFormat(order[k]);cycle();},3600);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(frame);
+  document.addEventListener('learnui:languagechange',text);
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  text();fit();if(!reduce)cycle();
+})();
+</script>

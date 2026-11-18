@@ -45,6 +45,10 @@ jobs:
         run: python3 scripts/test-live-demos.py site --base /LearnUI_PM
       - name: Verify logo placement
         run: python3 scripts/test-logo-layout.py site --base /LearnUI_PM
+      - name: Verify graphic design layout
+        run: python3 scripts/test-graphics-layout.py site --base /LearnUI_PM
+      - name: Verify text follows the window width
+        run: python3 scripts/test-text-width.py site --base /LearnUI_PM
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

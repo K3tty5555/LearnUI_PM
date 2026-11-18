@@ -1,0 +1,58 @@
+<div class="demo gd-specimen gd-finals" data-format="portrait">
+  <div class="tf-frame" data-gd-canvas>
+    <div class="tf-cyan" aria-hidden="true"></div>
+    <div class="tf-band" aria-hidden="true"></div>
+    <div class="tf-word" data-ov-type="堆叠粗字标 + 标志" data-ov-type-en="Stacked wordmark + mark"><b>THE<br>FINALS</b><svg viewBox="0 0 100 80"><path d="M50 2 98 78H72L50 42 28 78H2z" fill="#f5f1ea"/><path d="M50 48 64 70H36z" fill="#e5203a"/></svg></div>
+    <svg class="tf-figure" viewBox="0 0 160 220" aria-hidden="true"><path d="M14 220c6-56 30-88 66-96 36 8 60 40 66 96z" fill="#2a3a4a"/><path d="M118 132l40-26 6 10-38 30z" fill="#11131a"/><path d="M48 70l32-40 32 40v34H48z" fill="#2fb6a8"/><path d="M48 70h64v10H48z" fill="#e8c27a"/><rect x="58" y="84" width="14" height="8" fill="#11131a"/><rect x="88" y="84" width="14" height="8" fill="#11131a"/><path d="M60 104h40l-6 14H66z" fill="#e5203a"/></svg>
+    <span class="gd-focus" data-ov-focus="面具压进红色底" data-ov-focus-en="Mask breaking into the red" style="left:64%;top:52%"></span>
+    <span class="gd-space tf-space" data-ov-space="字标右侧的红色区域" data-ov-space-en="Red field beside the wordmark"></span>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="6" y1="0" x2="6" y2="100"/><line x1="0" y1="6" x2="100" y2="6"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Formats"><button type="button" data-format-btn="portrait" aria-pressed="true">Portrait</button><button type="button" data-format-btn="landscape">Landscape</button></div>
+</div>
+<style>
+.gd-finals{width:min(460px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-finals *{box-sizing:border-box}
+.tf-frame{position:relative;margin:0 auto;overflow:hidden;border-radius:4px;background:#e5203a;transition:width .5s cubic-bezier(.2,.8,.2,1),aspect-ratio .5s}
+.gd-finals[data-format="portrait"] .tf-frame{width:min(250px,100%);aspect-ratio:3/5}
+.gd-finals[data-format="landscape"] .tf-frame{width:100%;aspect-ratio:16/9}
+.tf-cyan{position:absolute;right:-5%;top:-5%;width:58%;height:46%;background:#33e1e8;clip-path:polygon(38% 0,100% 0,100% 100%,0 100%);transition:all .5s}
+.tf-band{position:absolute;right:-5%;top:-5%;width:58%;height:46%;background:linear-gradient(90deg,transparent 0 30%,#f5f1ea 30% 33%,transparent 33%);clip-path:polygon(38% 0,100% 0,100% 100%,0 100%);opacity:.8;transition:all .5s}
+.gd-finals[data-format="landscape"] .tf-cyan,.gd-finals[data-format="landscape"] .tf-band{width:44%;height:70%}
+.tf-word{position:absolute;left:6%;top:6%;display:flex;align-items:flex-end;gap:calc(var(--tf-h,400px) * .012);transition:all .5s}
+.tf-word b{color:#f5f1ea;font:900 calc(var(--tf-u,250px) * .21)/.8 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:-.01em;transform:scaleY(1.15);transform-origin:0 100%}
+.tf-word svg{width:calc(var(--tf-u,250px) * .2)}
+.tf-figure{position:absolute;right:-6%;bottom:0;height:62%;transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.gd-finals[data-format="landscape"] .tf-figure{right:4%;height:92%}
+.tf-space{left:58%;top:26%;width:36%;height:14%}
+.gd-finals[data-format="landscape"] .tf-space{left:44%;top:56%;width:20%;height:34%}
+.gd-finals[data-format="landscape"] .gd-focus{left:74%!important;top:44%!important}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-finals{min-height:calc(min(250px,100vw - 80px) * 5 / 3 + 38px);display:flex;flex-direction:column;justify-content:center}}
+@media (max-height:260px){.gd-finals{width:calc(100vw - 40px)}.gd-controls{display:none}.gd-finals[data-format="portrait"] .tf-frame{width:min(84px,100%)}}
+@media (prefers-reduced-motion:reduce){.tf-frame,.tf-cyan,.tf-band,.tf-word,.tf-figure{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-finals');
+  var frame=root.querySelector('.tf-frame'),btns=[].slice.call(root.querySelectorAll('[data-format-btn]'));
+  var NAMES={portrait:['竖版','Portrait'],landscape:['横版','Landscape']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  // The wordmark scales with the frame's shorter side, so the same lock-up works in both formats.
+  function fit(){root.style.setProperty('--tf-u',Math.min(frame.offsetWidth,frame.offsetHeight*.75)+'px');root.style.setProperty('--tf-h',frame.offsetHeight+'px');}
+  function setFormat(f){root.dataset.format=f;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.formatBtn===f?'true':'false')});requestAnimationFrame(fit);setTimeout(fit,520);root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.formatBtn][zh()?0:1]});}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setFormat(b.dataset.formatBtn)})});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setFormat(root.dataset.format==='portrait'?'landscape':'portrait');cycle();},3800);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(frame);
+  document.addEventListener('learnui:languagechange',text);
+  text();fit();cycle();
+})();
+</script>

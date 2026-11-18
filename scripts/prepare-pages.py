@@ -16,7 +16,10 @@ def prefix_root_urls(text: str, base: str) -> str:
     # Every generated root-relative URL is quoted. Keep protocol URLs and already
     # prefixed paths untouched so the script remains safe to run twice.
     pattern = re.compile(r'(["\'])/(?!/)(?!' + re.escape(base.lstrip("/")) + r'(?:/|["\']))')
-    return pattern.sub(lambda match: match.group(1) + base + "/", text)
+    text = pattern.sub(lambda match: match.group(1) + base + "/", text)
+    # srcset lists several URLs; candidates after the first follow a comma, not a quote.
+    candidate = re.compile(r'(,\s*)/(?!/)(?!' + re.escape(base.lstrip("/")) + r'/)')
+    return re.sub(r'srcset="[^"]*"', lambda m: candidate.sub(lambda c: c.group(1) + base + "/", m.group(0)), text)
 
 
 def main() -> None:

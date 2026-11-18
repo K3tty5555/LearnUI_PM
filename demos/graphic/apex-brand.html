@@ -1,0 +1,59 @@
+<div class="demo gd-specimen gd-apex">
+  <div class="ax-sheet" data-gd-canvas>
+    <div class="ax-cell ax-logo"><small>LOGO</small><b data-ov-type="窄体字标" data-ov-type-en="Condensed wordmark">APEX</b><span>— LEGENDS —</span></div>
+    <div class="ax-cell ax-sigil"><small>SIGIL</small><svg viewBox="0 0 100 90" data-ov-focus="独立符号" data-ov-focus-en="Standalone symbol"><path d="M50 4 96 86H70L50 48 30 86H4z" fill="#f2ebdd"/><path d="M50 60 60 78H40z" fill="#0e0e10"/></svg></div>
+    <div class="ax-cell ax-marks"><small>GRAPHIC ELEMENTS</small><div class="ax-glyphs"><span>&gt;</span><span>×</span><span>≡</span><span>—</span><span>+</span></div><svg viewBox="0 0 120 40"><path d="M6 34 L30 10 H60" fill="none" stroke="#f2ebdd" stroke-width="1.5"/><path d="M80 30 l10 -10 l10 10z" fill="#f2ebdd"/><path d="M106 8v14M99 15h14" stroke="#f2ebdd" stroke-width="1.5"/></svg></div>
+    <div class="ax-cell ax-art"><small>KEY ART</small><div class="ax-art-box"><b>APEX</b><span>LEGENDS</span><svg viewBox="0 0 100 90"><path d="M50 4 96 86H70L50 48 30 86H4z" fill="#e2231a" opacity=".85"/></svg></div></div>
+    <div class="ax-cell ax-type"><small>TYPOGRAPHY</small><div class="ax-specimen" data-ov-type="字体样张" data-ov-type-en="Type specimen"><b>Aa</b><i>Aa</i><strong>LEGENDS</strong><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p></div></div>
+    <div class="ax-cell ax-color"><small>COLOR</small><div class="ax-swatches"><i style="background:#e2231a"></i><i style="background:#3a3a3e"></i><i style="background:#f2ebdd"></i><i class="ax-stripe"></i></div></div>
+    <div class="ax-cell ax-texture"><small>TEXTURE</small><div class="ax-tex"><i></i><i></i><i></i></div></div>
+    <span class="gd-space" data-ov-space="模块之间的黑色间隔" data-ov-space-en="Black gaps between modules" style="left:2%;top:48%;width:96%;height:3%"></span>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="34" y1="0" x2="34" y2="100"/><line x1="56" y1="0" x2="56" y2="100"/><line x1="78" y1="0" x2="78" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/></svg>
+  </div>
+</div>
+<style>
+.gd-apex{width:min(520px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-apex *{box-sizing:border-box}
+.ax-sheet{position:relative;display:grid;grid-template-columns:34fr 22fr 22fr 22fr;grid-template-rows:1fr 1fr;gap:1px;width:100%;aspect-ratio:16/9;padding:1px;border-radius:6px;overflow:hidden;background:#2a2a2e;color:#f2ebdd;--u:calc(var(--ax-w,520px) / 100)}
+.ax-cell{position:relative;display:grid;align-content:center;justify-items:center;background:#0e0e10;overflow:hidden;padding:calc(var(--u) * 2)}
+.ax-cell small{position:absolute;left:calc(var(--u) * 1.4);top:calc(var(--u) * 1.2);color:#8c8a85;font:700 calc(var(--u) * 1.15)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em}
+.ax-logo b{font:900 calc(var(--u) * 11)/.85 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:.01em;transform:scaleY(1.2)}
+.ax-logo span{margin-top:calc(var(--u) * 1.4);font:700 calc(var(--u) * 1.9)/1 "Avenir Next","Helvetica Neue",Arial,sans-serif;letter-spacing:.32em}
+.ax-sigil svg{width:70%}
+.ax-glyphs{display:flex;gap:calc(var(--u) * 1.4);font:300 calc(var(--u) * 3.4)/1 system-ui}
+.ax-marks svg{width:90%;margin-top:calc(var(--u) * 1.2)}
+.ax-art{grid-row:1 / 3;grid-column:4}
+.ax-art-box{position:relative;display:grid;justify-items:center;width:100%;height:100%;padding-top:calc(var(--u) * 4);background:linear-gradient(180deg,#1c1c20,#0e0e10);border:1px solid #2a2a2e}
+.ax-art-box b{font:900 calc(var(--u) * 5.6)/.9 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;transform:scaleY(1.2)}
+.ax-art-box span{font:700 calc(var(--u) * 1.2)/1.6 system-ui;letter-spacing:.3em}
+.ax-art-box svg{position:absolute;left:12%;right:12%;bottom:8%;width:76%}
+.ax-type{grid-column:1;grid-row:2}
+.ax-specimen{display:grid;grid-template-columns:auto auto 1fr;align-items:end;gap:calc(var(--u) * 1.4);width:100%}
+.ax-specimen b{font:900 calc(var(--u) * 7)/.85 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed}
+.ax-specimen i{font:400 calc(var(--u) * 4.2)/.9 "Avenir Next","Helvetica Neue",Arial,sans-serif;font-style:normal}
+.ax-specimen strong{font:900 calc(var(--u) * 3.6)/.9 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;transform:scaleY(1.2);transform-origin:0 100%}
+.ax-specimen p{grid-column:1 / -1;margin:0;color:#8c8a85;font:400 calc(var(--u) * 1.15)/1.4 system-ui}
+.ax-color{grid-column:2 / 4;grid-row:2}
+.ax-swatches{display:grid;grid-template-columns:2fr 1.4fr 1.2fr .6fr;width:100%;height:calc(var(--u) * 9)}
+.ax-swatches i{display:block}
+.ax-stripe{background:repeating-linear-gradient(90deg,#f2ebdd 0 4px,#e2231a 4px 7px,#0e0e10 7px 10px)!important}
+.ax-texture{display:none}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+@media (max-height:260px){.gd-apex{width:calc(100vw - 40px)}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-apex');
+  var sheet=root.querySelector('.ax-sheet'),sig=root.querySelector('.ax-sigil svg');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0,visible=true,start=performance.now();
+  // All sizes derive from one unit (1% of the sheet width), so the brand sheet scales as one piece.
+  function fit(){root.style.setProperty('--ax-w',sheet.offsetWidth+'px');}
+  function tick(now){raf=0;if(!visible)return;var t=(now-start)/1000;sig.style.transform='translateY('+(Math.sin(t*1.2)*2).toFixed(2)+'px)';raf=requestAnimationFrame(tick);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(sheet);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(sheet);
+  fit();if(!reduce)raf=requestAnimationFrame(tick);
+})();
+</script>

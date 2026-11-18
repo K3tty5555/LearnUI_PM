@@ -1,0 +1,73 @@
+<div class="demo gd-specimen gd-pubg" data-view="landing">
+  <div class="pb-phone" data-gd-canvas>
+    <div class="pb-top" aria-hidden="true"><span class="pb-logo">PUBG<small>MOBILE</small></span><span class="pb-lang">EN ▾</span><span class="pb-menu"></span></div>
+    <section class="pb-landing">
+      <div class="pb-head" data-ov-type="粗白标题 + 黄色日期" data-ov-type-en="Heavy title + yellow dates"><b>PUBG MOBILE</b><b class="pb-sub">BANGKOK #1</b><span>2025/12/01 – 2025/12/14</span></div>
+      <ul class="pb-list" data-ov-type="黄底黑字菜单 · 斜切角" data-ov-type-en="Yellow menu · cut corners"></ul>
+      <svg class="pb-soldier" viewBox="0 0 160 240" aria-hidden="true"><path d="M20 240c4-56 24-90 60-98 36 8 56 42 60 98z" fill="#d9d6cf"/><path d="M70 140h20l-4 60h-12z" fill="#2b2b2b"/><ellipse cx="80" cy="96" rx="34" ry="40" fill="#c9a27e"/><path d="M40 92c0-34 18-56 40-56s40 22 40 56c-8-6-20-10-40-10s-32 4-40 10z" fill="#6b6b4a"/><path d="M36 92h88v10H36z" fill="#4e4e36"/></svg>
+      <span class="gd-focus" data-ov-focus="黑底上的黄色菜单" data-ov-focus-en="Yellow menu on black" style="left:24%;top:58%"></span>
+    </section>
+    <section class="pb-show">
+      <div class="pb-head"><b>PUBG MOBILE</b><b class="pb-sub">DRONE LIGHT SHOW</b><span>2025/12/13 21:00 · CHAO PHRAYA RIVER</span></div>
+      <svg class="pb-dots" viewBox="0 0 200 200" aria-hidden="true"></svg>
+    </section>
+    <span class="gd-space" data-ov-space="标题后的黑底" data-ov-space-en="Black behind the title" style="left:58%;top:13%;width:38%;height:10%"></span>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="6" y1="0" x2="6" y2="100"/><line x1="48" y1="0" x2="48" y2="100"/><line x1="0" y1="25" x2="100" y2="25"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Pages"><button type="button" data-view-btn="landing" aria-pressed="true">Event page</button><button type="button" data-view-btn="show">Light show</button></div>
+</div>
+<style>
+.gd-pubg{width:min(260px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-pubg *{box-sizing:border-box}
+.pb-phone{position:relative;width:100%;aspect-ratio:9/12.6;overflow:hidden;border-radius:10px;background:#0b0b0b;color:#fff}
+.pb-top{position:absolute;left:0;right:0;top:0;height:9%;display:flex;align-items:center;gap:6px;padding:0 5%}
+.pb-logo{display:grid;place-items:center;padding:2px 4px;border:1.5px solid #f5b800;border-radius:3px;color:#f5b800;font:900 calc(var(--pb-w,260px) * .034)/.9 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif}
+.pb-logo small{font-size:.45em;letter-spacing:.1em}
+.pb-lang{margin-left:auto;font:600 calc(var(--pb-w,260px) * .03)/1 system-ui}
+.pb-menu{width:16px;height:12px;border-top:2px solid #fff;border-bottom:2px solid #fff;position:relative}.pb-menu:after{content:"";position:absolute;left:0;right:0;top:3px;border-top:2px solid #fff}
+.pb-landing,.pb-show{position:absolute;inset:9% 0 0;transition:opacity .4s}
+.gd-pubg[data-view="landing"] .pb-show,.gd-pubg[data-view="show"] .pb-landing{opacity:0;pointer-events:none}
+.pb-head{position:absolute;left:6%;right:6%;top:2%;display:grid;gap:1px;z-index:2}
+.pb-head b{font:900 calc(var(--pb-w,260px) * .115)/.92 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:-.01em}
+.pb-head .pb-sub{font-size:calc(var(--pb-w,260px) * .075)}
+.pb-head span{margin-top:3px;color:#f5b800;font:700 calc(var(--pb-w,260px) * .03)/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.pb-list{position:absolute;left:6%;top:30%;width:44%;margin:0;padding:0;list-style:none;display:grid;gap:5px;z-index:2}
+.pb-list li{display:flex;align-items:center;gap:5px;height:calc(var(--pb-w,260px) * .068);padding:0 6px;background:#f5b800;color:#111;font:800 calc(var(--pb-w,260px) * .028)/1 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;letter-spacing:.02em;clip-path:polygon(0 0,100% 0,100% 62%,calc(100% - 9px) 100%,0 100%)}
+.pb-list li i{width:9px;height:9px;border-radius:2px;background:#111}
+.pb-soldier{position:absolute;right:-6%;bottom:0;width:66%}
+.pb-dots{position:absolute;left:4%;right:4%;top:24%;width:92%}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-pubg{width:min(104px,calc(100vw - 40px))}.gd-controls{display:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-pubg');
+  var phone=root.querySelector('.pb-phone'),list=root.querySelector('.pb-list'),dots=root.querySelector('.pb-dots'),btns=[].slice.call(root.querySelectorAll('[data-view-btn]'));
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  list.innerHTML=['CELEBRITY CARNIVAL','DRONE LIGHT SHOW','GIANT MALL','POP-UP EVENT','FAN ZONE','PUBG MOBILE FANS','PMGC 2025'].map(function(t){return '<li><i></i>'+t+'</li>'}).join('');
+  // Drone light show: a helmet traced in evenly spaced dots.
+  var pts='';for(var y=40;y<=170;y+=7){for(var x=30;x<=170;x+=7){var dx=(x-100)/62,dy=(y-112)/70,inHelmet=dx*dx+dy*dy<1&&y<150,brim=y>=142&&y<=156&&x>=26&&x<=174,visor=y>=118&&y<=132&&Math.abs(x-100)<44;
+    if(inHelmet||brim)pts+='<circle cx="'+x+'" cy="'+y+'" r="1.9" fill="'+(visor?'#f5b800':'#fff')+'" class="pb-dot"/>';}}
+  dots.innerHTML=pts+'<path d="M140 60l14-10M150 70l16-4M146 50l8-14" stroke="#e5484d" stroke-width="2"/>';
+  var dotEls=[].slice.call(dots.querySelectorAll('.pb-dot'));
+  var NAMES={landing:['活动专题页','Event page'],show:['灯光秀页面','Light show']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.viewBtn][zh()?0:1]});}
+  function fit(){root.style.setProperty('--pb-w',phone.offsetWidth+'px');}
+  function setView(v){root.dataset.view=v;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.viewBtn===v?'true':'false')});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var auto=!reduce,timer,raf=0,visible=true;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setView(b.dataset.viewBtn)})});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setView(root.dataset.view==='landing'?'show':'landing');cycle();},3800);}
+  function tick(now){raf=0;if(!visible)return;dotEls.forEach(function(d,i){if(i%5===0)d.setAttribute('opacity',(.5+.5*Math.abs(Math.sin(now/500+i))).toFixed(2))});raf=requestAnimationFrame(tick);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(phone);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(phone);
+  document.addEventListener('learnui:languagechange',text);
+  text();fit();cycle();if(!reduce)raf=requestAnimationFrame(tick);
+})();
+</script>

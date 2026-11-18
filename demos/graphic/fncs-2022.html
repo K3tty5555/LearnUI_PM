@@ -1,0 +1,56 @@
+<div class="demo gd-specimen gd-fncs">
+  <div class="fn-poster" data-gd-canvas>
+    <div class="fn-panel fn-panel-a" aria-hidden="true"></div>
+    <div class="fn-panel fn-panel-b" aria-hidden="true"></div>
+    <svg class="fn-zig" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M30 46 l10 -5 l10 5 l10 -5 l10 5 M30 56 l10 -5 l10 5 l10 -5 l10 5 M30 66 l10 -5 l10 5 l10 -5 l10 5 M30 76 l10 -5 l10 5 l10 -5 l10 5"/></svg>
+    <div class="fn-title" data-ov-type="倾斜被遮挡的标题" data-ov-type-en="Skewed, masked headline"><b>THIS</b><b>JUST</b><b>GOT</b><b>REAL</b></div>
+    <svg class="fn-shards" viewBox="0 0 200 300" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <span class="fn-mark" data-ov-type="赛事标志" data-ov-type-en="Event mark">FNCS<small>INVITATIONAL 2022</small></span>
+    <span class="gd-focus" data-ov-focus="标题和最亮碎片交汇" data-ov-focus-en="Headline meets the brightest shard" style="left:46%;top:32%"></span>
+    <span class="gd-space" data-ov-space="文字后的紫色面板" data-ov-space-en="Purple panel behind the type" style="left:26%;top:80%;width:48%;height:9%"></span>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="100" x2="100" y2="0"/><line x1="26" y1="0" x2="18" y2="100"/><line x1="74" y1="0" x2="82" y2="100"/></svg>
+  </div>
+</div>
+<style>
+.gd-fncs{width:min(270px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-fncs *{box-sizing:border-box}
+.fn-poster{position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;border-radius:4px;background:linear-gradient(160deg,#2a1a7a,#1b1240)}
+.fn-panel{position:absolute;top:-5%;bottom:-5%}
+.fn-panel-a{left:24%;right:22%;background:linear-gradient(180deg,#6a3cff,#5b2bff 60%,#4a20e0);clip-path:polygon(12% 0,100% 0,88% 100%,0 100%)}
+.fn-panel-b{left:-10%;width:30%;background:linear-gradient(180deg,#c9c4ff,#8f7bff);clip-path:polygon(0 0,100% 0,60% 100%,0 100%);opacity:.9}
+.fn-zig{position:absolute;inset:0;width:100%;height:100%}
+.fn-zig path{fill:none;stroke:#fff;stroke-width:2.2;vector-effect:non-scaling-stroke;opacity:.95}
+.fn-title{position:absolute;left:30%;top:14%;display:grid;color:#fff;font:900 calc(var(--fn-w,270px) * .2)/.82 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;transform:skewY(-8deg) skewX(-6deg);transform-origin:0 0;text-shadow:0 2px 0 rgba(27,18,64,.3)}
+.fn-title b:nth-child(2){clip-path:polygon(0 0,100% 0,100% 58%,0 80%)}
+.fn-title b:nth-child(3){clip-path:polygon(0 20%,100% 0,100% 100%,0 100%);transform:scaleX(1.18);transform-origin:0 50%}
+.fn-title b:nth-child(4){color:transparent;-webkit-text-stroke:1.5px #fff}
+.fn-shards{position:absolute;inset:0;width:100%;height:100%}
+.fn-mark{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);display:grid;justify-items:center;color:#fff;font:900 calc(var(--fn-w,270px) * .06)/1 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;letter-spacing:.06em}
+.fn-mark small{font:700 calc(var(--fn-w,270px) * .022)/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+@media (max-height:260px){.gd-fncs{width:min(108px,calc(100vw - 40px))}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-fncs');
+  var poster=root.querySelector('.fn-poster'),svg=root.querySelector('.fn-shards');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Glossy shards scattered along one diagonal; each has a light face, a dark face and a bright edge.
+  var seed=5;function r(){seed=(seed*16807)%2147483647;return seed/2147483647;}
+  var S=[];for(var i=0;i<14;i++){var t=r(),x=10+t*180+(r()-.5)*40,y=290-t*270+(r()-.5)*50,s=6+r()*18,a=r()*6.28;S.push([x,y,s,a]);}
+  svg.innerHTML='<defs><linearGradient id="fn-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#d9d3ff"/><stop offset="1" stop-color="#6a4bd6"/></linearGradient></defs>'+S.map(function(){return '<g class="fn-shard"><path fill="url(#fn-g)"/><path fill="none" stroke="#fff" stroke-width="1"/></g>'}).join('');
+  var G=[].slice.call(svg.querySelectorAll('.fn-shard'));
+  function draw(t){G.forEach(function(g,i){var p=S[i],a=p[3]+t*(i%2?.4:-.3),s=p[2],x=p[0]+Math.sin(t*.6+i)*3,y=p[1]+Math.cos(t*.5+i)*3;
+    var A=[x+Math.cos(a)*s,y+Math.sin(a)*s],B=[x+Math.cos(a+2.4)*s*.6,y+Math.sin(a+2.4)*s*.6],C=[x+Math.cos(a+3.6)*s*.9,y+Math.sin(a+3.6)*s*.9];
+    g.children[0].setAttribute('d','M'+A+'L'+B+'L'+C+'Z');g.children[1].setAttribute('d','M'+A+'L'+B);});}
+  function fit(){root.style.setProperty('--fn-w',poster.offsetWidth+'px');}
+  var raf=0,visible=true,start=performance.now();
+  function tick(now){raf=0;if(!visible)return;draw((now-start)/1000);raf=requestAnimationFrame(tick);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(poster);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(poster);
+  fit();draw(0);if(!reduce)raf=requestAnimationFrame(tick);
+})();
+</script>

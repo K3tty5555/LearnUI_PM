@@ -1,0 +1,55 @@
+<div class="demo gd-specimen gd-mlbb">
+  <div class="ml-frame" data-gd-canvas>
+    <svg class="ml-scene" viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="ml-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9ec"/><stop offset=".55" stop-color="#d9c9ff"/><stop offset="1" stop-color="#9fd8ff"/></linearGradient>
+        <linearGradient id="ml-r1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff2a8" stop-opacity="0"/><stop offset=".5" stop-color="#ffe08a"/><stop offset="1" stop-color="#ff9ad5" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ml-r2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fd3ff" stop-opacity="0"/><stop offset=".5" stop-color="#9fe8ff"/><stop offset="1" stop-color="#f7b5d8" stop-opacity="0"/></linearGradient>
+        <radialGradient id="ml-halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        <filter id="ml-glow"><feGaussianBlur stdDeviation="2.5"/></filter>
+      </defs>
+      <rect width="480" height="270" fill="url(#ml-sky)"/>
+      <g fill="#c7b6f0" opacity=".7"><path d="M40 200V130l14-26 14 26v70zM70 200V150l10-18 10 18v50zM360 200V120l16-30 16 30v80zM394 200v-60l12-20 12 20v60zM420 200v-40l8-14 8 14v40z"/><rect x="0" y="196" width="480" height="74"/></g>
+      <circle cx="240" cy="128" r="120" fill="url(#ml-halo)"/>
+      <g class="ml-ribbons" filter="url(#ml-glow)"><ellipse cx="240" cy="132" rx="190" ry="62" fill="none" stroke="url(#ml-r1)" stroke-width="10" transform="rotate(-14 240 132)"/><ellipse cx="240" cy="132" rx="160" ry="48" fill="none" stroke="url(#ml-r2)" stroke-width="8" transform="rotate(18 240 132)"/></g>
+      <g class="ml-ribbons-sharp"><ellipse cx="240" cy="132" rx="190" ry="62" fill="none" stroke="url(#ml-r1)" stroke-width="2.5" transform="rotate(-14 240 132)"/><ellipse cx="240" cy="132" rx="160" ry="48" fill="none" stroke="url(#ml-r2)" stroke-width="2" transform="rotate(18 240 132)"/><ellipse cx="240" cy="132" rx="120" ry="34" fill="none" stroke="#fff" stroke-width="1.4" opacity=".8" transform="rotate(-30 240 132)"/></g>
+      <g class="ml-hero"><path d="M196 270c6-60 22-92 44-104 22 12 38 44 44 104z" fill="#f2c4dd"/><path d="M188 120c-10 40-24 72-50 96 30-6 56-34 70-62zM292 120c10 40 24 72 50 96-30-6-56-34-70-62z" fill="#f7a8cf"/><circle cx="240" cy="118" r="26" fill="#fde3d6"/><path d="M212 112c2-26 18-40 30-40 18 0 32 14 30 40-10-10-26-14-36-12-10 2-18 6-24 12z" fill="#f48fc1"/><path d="M226 84l14-22 14 22" fill="none" stroke="#ffe08a" stroke-width="3"/></g>
+    </svg>
+    <span class="ml-ten" aria-hidden="true">10<sup>th</sup></span>
+    <span class="gd-focus" data-ov-focus="光环中心的角色" data-ov-focus-en="Hero at the centre of the rings" style="left:50%;top:44%"></span>
+    <span class="gd-space" data-ov-space="上方两角的浅色天空" data-ov-space-en="Pale sky in the upper corners" style="left:62%;top:4%;width:34%;height:26%"></span>
+    <div class="ml-title" data-ov-type="浅色大标题" data-ov-type-en="Pale headline"><b>ALL IN<br>MLBB</b><span>MLBB 10TH ANNIVERSARY</span></div>
+    <svg class="gd-grid" viewBox="0 0 480 270" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="240" cy="132" rx="190" ry="62" transform="rotate(-14 240 132)"/><ellipse cx="240" cy="132" rx="120" ry="40"/><line x1="240" y1="0" x2="240" y2="270"/></svg>
+  </div>
+</div>
+<style>
+.gd-mlbb{width:min(480px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-mlbb *{box-sizing:border-box}
+.ml-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:6px}
+.ml-scene{position:absolute;inset:0;width:100%;height:100%}
+.ml-ribbons,.ml-ribbons-sharp{transform-origin:240px 132px;transform-box:view-box}
+.ml-ten{position:absolute;left:3%;top:4%;color:#fff;font:800 calc(var(--ml-w,480px) * .045)/1 "Avenir Next","Helvetica Neue",Arial,sans-serif;text-shadow:0 1px 6px rgba(120,80,200,.5)}
+.ml-ten sup{font-size:.5em}
+.ml-title{position:absolute;left:4%;bottom:6%;display:grid;gap:4px;color:#fff;text-shadow:0 0 10px rgba(255,255,255,.9),0 2px 14px rgba(130,90,210,.55)}
+.ml-title b{font:900 calc(var(--ml-w,480px) * .085)/.88 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:-.01em}
+.ml-title span{justify-self:start;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.75);color:#7b5bc9;font:700 calc(var(--ml-w,480px) * .017)/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-shadow:none}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line,.gd-grid ellipse{stroke:#0891b2;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+@media (max-height:260px){.gd-mlbb{width:calc(100vw - 40px)}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-mlbb');
+  var frame=root.querySelector('.ml-frame'),rib=[].slice.call(root.querySelectorAll('.ml-ribbons ellipse,.ml-ribbons-sharp ellipse'));
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0,visible=true,start=performance.now();
+  var base=rib.map(function(e){return parseFloat((e.getAttribute('transform')||'').replace(/[^-\d.]+/,''))||0});
+  function fit(){root.style.setProperty('--ml-w',frame.offsetWidth+'px');}
+  // The rings slowly precess around the hero, so the light keeps circling the centre.
+  function tick(now){raf=0;if(!visible)return;var t=(now-start)/1000;rib.forEach(function(e,i){e.setAttribute('transform','rotate('+(base[i]+Math.sin(t*.5+i)*6).toFixed(2)+' 240 132)')});raf=requestAnimationFrame(tick);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(frame);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(frame);
+  fit();if(!reduce)raf=requestAnimationFrame(tick);
+})();
+</script>

@@ -110,11 +110,15 @@
 
   function translateDemoFragment(fragment, toChinese) {
     var slug = fragment.getAttribute("data-slug") || "";
-    var walker = document.createTreeWalker(fragment, NodeFilter.SHOW_TEXT);
+    // Poster artwork (graphic specimens) and anything marked translate="no" keeps its original words.
+    var walker = document.createTreeWalker(fragment, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+      return n.parentElement && n.parentElement.closest('[translate="no"], [data-gd-canvas]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+    } });
     var node;
     translatingDemos = true;
     while ((node = walker.nextNode())) translateDemoText(node, slug, toChinese);
     fragment.querySelectorAll("[placeholder],[title],[aria-label],[value]").forEach(function (el) {
+      if (el.closest('[translate="no"], [data-gd-canvas]')) return;
       translateDemoAttrs(el, slug, toChinese);
     });
     translatingDemos = false;
@@ -160,6 +164,7 @@
         || (href === "/references/" && path.indexOf("/references/") === 0)
         || (href === "/sites/" && path.indexOf("/sites/") === 0)
         || (href === "/logos/" && path.indexOf("/logos/") === 0)
+        || (href === "/graphics/" && path.indexOf("/graphics/") === 0)
         || (href === "/styles/" && path.indexOf("/styles/") === 0)
         || (href === "/guides/translate/" && path === "/guides/translate/");
       link.classList.toggle("current", current);
@@ -194,7 +199,7 @@
     var tag = (ev.target.tagName || "").toLowerCase();
     var typing = tag === "input" || tag === "textarea" || ev.target.isContentEditable;
     if (ev.key === "/" && !typing && !document.querySelector("dialog[open]")) {
-      var inputs = ["search", "style-search", "reference-search", "site-search", "logo-search", "table-search"].map(function (id) {
+      var inputs = ["search", "style-search", "reference-search", "site-search", "logo-search", "graphic-search", "table-search"].map(function (id) {
         return document.getElementById(id);
       }).filter(function (input) { return input && input.offsetParent !== null; });
       var inp = inputs[0];
@@ -202,7 +207,7 @@
     }
     if (ev.key === "Escape" && typing) {
       var active = document.activeElement;
-      if (active && (active.id === "search" || active.id === "style-search" || active.id === "site-search" || active.id === "logo-search" || active.id === "reference-search" || active.id === "table-search")) {
+      if (active && (active.id === "search" || active.id === "style-search" || active.id === "site-search" || active.id === "logo-search" || active.id === "graphic-search" || active.id === "reference-search" || active.id === "table-search")) {
         if (active.value) { active.value = ""; active.dispatchEvent(new Event("input")); }
         active.blur();
       }
@@ -434,6 +439,50 @@
     var sq = new URLSearchParams(location.search).get("q");
     if (sq) { styleInput.value = sq; sApply(); }
   }
+
+  /* ---------- graphic design: type chips, technique and search ---------- */
+  var gdInput = document.getElementById("graphic-search");
+  if (gdInput) {
+    var gdCards = Array.prototype.slice.call(document.querySelectorAll(".graphic-item"));
+    var gdChips = Array.prototype.slice.call(document.querySelectorAll("[data-gd-type]"));
+    var gdTech = document.getElementById("graphic-tech");
+    var gdCount = document.getElementById("graphic-count");
+    var gdNone = document.getElementById("graphic-no-result");
+    var gdReset = document.getElementById("graphic-reset");
+    var gdParams = new URLSearchParams(location.search);
+    var gdType = "";
+    var applyGraphics = function () {
+      var query = gdInput.value.trim().toLowerCase(), tech = gdTech ? gdTech.value : "", shown = 0;
+      gdCards.forEach(function (card) {
+        var match = (!gdType || card.getAttribute("data-type") === gdType)
+          && (!tech || (card.getAttribute("data-techs") || "").split(" ").indexOf(tech) !== -1)
+          && (!query || (card.getAttribute("data-search") || "").indexOf(query) !== -1);
+        card.hidden = !match; if (match) shown++;
+      });
+      gdChips.forEach(function (chip) { chip.setAttribute("aria-pressed", chip.getAttribute("data-gd-type") === gdType ? "true" : "false"); });
+      if (gdCount) gdCount.querySelectorAll("[data-tpl]").forEach(function (el) { el.textContent = el.getAttribute("data-tpl").replace("{shown}", shown).replace("{total}", gdCards.length); });
+      if (gdNone) gdNone.hidden = shown !== 0;
+      if (gdReset) gdReset.hidden = !query && !tech && !gdType;
+    };
+    var syncGraphics = function () { syncURL({ q: gdInput.value.trim() || null, type: gdType || null, tech: gdTech && gdTech.value || null }); };
+    var syncGraphicsD = debounce(syncGraphics, 200);
+    gdInput.addEventListener("input", function () { applyGraphics(); syncGraphicsD(); });
+    gdChips.forEach(function (chip) { chip.addEventListener("click", function () { gdType = chip.getAttribute("data-gd-type"); applyGraphics(); syncGraphics(); }); });
+    if (gdTech) gdTech.addEventListener("change", function () { applyGraphics(); syncGraphics(); });
+    if (gdReset) gdReset.addEventListener("click", function () { gdInput.value = ""; gdType = ""; if (gdTech) gdTech.value = ""; applyGraphics(); syncGraphics(); gdInput.focus(); });
+    gdInput.value = gdParams.get("q") || "";
+    if (gdChips.some(function (c) { return c.getAttribute("data-gd-type") === gdParams.get("type") && !c.disabled; })) gdType = gdParams.get("type");
+    if (gdTech && Array.prototype.some.call(gdTech.options, function (o) { return o.value === gdParams.get("tech"); })) gdTech.value = gdParams.get("tech") || "";
+    applyGraphics();
+  }
+  /* Colour swatches copy their hex value. */
+  document.querySelectorAll("[data-copy-text]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var value = btn.getAttribute("data-copy-text");
+      var done = function () { btn.classList.add("is-copied"); setTimeout(function () { btn.classList.remove("is-copied"); }, 1200); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(value).then(done, done); else done();
+    });
+  });
 
   /* ---------- logo atlas: type chips, use and search ---------- */
   var logoInput = document.getElementById("logo-search");
@@ -740,7 +789,7 @@
       link.href = item.url;
       link.textContent = item.nameZh + (item.name && item.name !== item.nameZh ? " / " + item.name : "");
       var type = document.createElement("span");
-      type.textContent = item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
+      type.textContent = item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "graphic-reference" ? "平面设计" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
       var remove = document.createElement("button");
       remove.type = "button";
       remove.className = "icon-button";
@@ -788,7 +837,7 @@
     if (brief) lines.push("## 项目目标", "", brief, "");
     selectedItems().forEach(function (item) {
       lines.push("## " + item.nameZh + (item.name ? " (" + item.name + ")" : ""), "");
-      lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
+      lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "graphic-reference" ? "平面设计" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
       lines.push("- 链接：" + location.origin + item.url);
       if (item.summary) lines.push("- 说明：" + item.summary);
       if (item.prompt) lines.push("", item.prompt);
@@ -928,7 +977,7 @@
       var description = document.createElement("p");
       description.textContent = item.summary || item.name;
       var type = document.createElement("span");
-      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "page-reference":"页面参考", "site-reference":"知名网站", "logo-reference":"Logo 图鉴"}[item.type] || "视觉风格";
+      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "page-reference":"页面参考", "site-reference":"知名网站", "logo-reference":"Logo 图鉴", "graphic-reference":"平面设计"}[item.type] || "视觉风格";
       content.append(title, description);
       link.append(content, type);
       globalResults.appendChild(link);

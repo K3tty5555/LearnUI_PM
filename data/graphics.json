@@ -1,0 +1,1305 @@
+{
+ "issues": [
+  {
+   "id": 1,
+   "title": "电竞赛事背后的优秀视觉设计",
+   "author": "YK的设计漫游",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6ae1babf000000002603ba38",
+   "published": "2026-10-28"
+  },
+  {
+   "id": 2,
+   "title": "再电离 版式设计与拆分",
+   "author": "蓝山拉菲",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afa54eb000000001603eff5",
+   "published": "2026-11-16"
+  }
+ ],
+ "types": [
+  {
+   "id": "poster",
+   "name": "Poster",
+   "nameZh": "海报"
+  },
+  {
+   "id": "game",
+   "name": "Game & esports visuals",
+   "nameZh": "游戏平面设计"
+  },
+  {
+   "id": "packaging",
+   "name": "Packaging",
+   "nameZh": "包装"
+  }
+ ],
+ "techniques": [
+  {
+   "id": "condensed-display",
+   "name": "Condensed display type",
+   "nameZh": "巨幅窄体字",
+   "definition": "A narrow, heavy typeface set so large that a single word fills the width of the frame.",
+   "definitionZh": "用窄而粗的字体，把一个词放大到撑满画面宽度。"
+  },
+  {
+   "id": "type-weave",
+   "name": "Type weave",
+   "nameZh": "图文前后穿插",
+   "definition": "The subject passes in front of some letters and behind others, so type and image share one depth.",
+   "definitionZh": "主体从部分字母前面穿过、又绕到另一些字母后面，文字和画面处在同一个空间里。"
+  },
+  {
+   "id": "edge-bleed",
+   "name": "Edge bleed",
+   "nameZh": "溢出画面",
+   "definition": "Type or lines run off the edge of the frame, implying a larger space beyond it.",
+   "definitionZh": "文字或线条故意超出画面边缘、被切掉一截，让人感觉画面外还有更大的空间（印刷行业把这种做法叫「出血」）。"
+  },
+  {
+   "id": "stage-palette",
+   "name": "Stage-based palette",
+   "nameZh": "分阶段配色",
+   "definition": "One identity swaps between a few fixed colour pairs for different stages or uses.",
+   "definitionZh": "同一套视觉按赛程阶段或用途，在几组固定配色之间切换。"
+  },
+  {
+   "id": "perspective-repeat",
+   "name": "Perspective repetition",
+   "nameZh": "透视重复",
+   "definition": "A word repeats and scales along a vanishing direction, turning type into space.",
+   "definitionZh": "同一个词沿透视方向重复并逐渐缩放，让文字变成空间。"
+  },
+  {
+   "id": "color-field",
+   "name": "Colour field",
+   "nameZh": "满版纯色底",
+   "definition": "One saturated colour covers the background so every element reads as part of one surface.",
+   "definitionZh": "整个背景铺满一种鲜艳的颜色，所有元素都像放在同一块色面上。"
+  },
+  {
+   "id": "diagonal-split",
+   "name": "Diagonal split",
+   "nameZh": "斜线分区",
+   "definition": "A diagonal divides the frame into colour zones and adds direction.",
+   "definitionZh": "用一条斜线把画面切成不同色区，同时带来方向感。"
+  },
+  {
+   "id": "silhouette",
+   "name": "Silhouette figure",
+   "nameZh": "剪影人物",
+   "definition": "A dark figure without interior detail holds the foreground and reads at any size.",
+   "definitionZh": "没有内部细节的深色人物占据前景，在任何尺寸下都认得出。"
+  },
+  {
+   "id": "outline-numeral",
+   "name": "Outline numeral",
+   "nameZh": "轮廓数字",
+   "definition": "A large number drawn only as an outline, so it adds rhythm without competing with the title.",
+   "definitionZh": "只画轮廓的大号数字，增加节奏但不和标题抢主次。"
+  },
+  {
+   "id": "format-system",
+   "name": "Format system",
+   "nameZh": "多尺寸延展",
+   "definition": "The same few elements recompose across portrait, landscape and banner formats.",
+   "definitionZh": "同一组元素在竖版、横版、横幅等不同尺寸里重新摆放，风格保持一致。"
+  },
+  {
+   "id": "cosmic-glow",
+   "name": "Cosmic glow",
+   "nameZh": "星图光效",
+   "definition": "Star fields, glowing arcs and fine star symbols build a sense of scale behind a photo or illustration.",
+   "definitionZh": "用星图、发光弧线和细小的星形符号，在人物照片或插画背后营造宏大的空间感。"
+  },
+  {
+   "id": "line-ornaments",
+   "name": "Fine line ornaments",
+   "nameZh": "细线装饰",
+   "definition": "Hairline rules, ticks and small symbols frame the image and carry secondary information.",
+   "definitionZh": "用很细的线条、刻度和小符号框住画面，同时承载次要信息。"
+  },
+  {
+   "id": "type-contrast",
+   "name": "Size contrast",
+   "nameZh": "大小字反差",
+   "definition": "One large title against very small supporting text makes the hierarchy obvious at a glance.",
+   "definitionZh": "一个很大的标题配上很小的辅助文字，层级一眼就能看清。"
+  },
+  {
+   "id": "light-ribbons",
+   "name": "Light ribbons",
+   "nameZh": "环绕光带",
+   "definition": "Bright ribbons of light curl around the subject and lead the eye to the centre.",
+   "definitionZh": "明亮的光带环绕主体，把视线引向画面中心。"
+  },
+  {
+   "id": "centered-hero",
+   "name": "Centred hero",
+   "nameZh": "人物居中",
+   "definition": "The main character sits dead centre and everything else radiates around it.",
+   "definitionZh": "主角放在画面正中，其他元素围绕它展开。"
+  },
+  {
+   "id": "warning-palette",
+   "name": "Black and yellow",
+   "nameZh": "黑黄警示配色",
+   "definition": "Black with signal yellow, the colours of warning signs, for maximum contrast and urgency.",
+   "definitionZh": "黑色加信号黄，像警示牌一样，对比最强、最有紧迫感。"
+  },
+  {
+   "id": "angled-cut",
+   "name": "Angled cut edges",
+   "nameZh": "斜切边角",
+   "definition": "Buttons, frames and panels have one corner or edge cut at an angle instead of rounded.",
+   "definitionZh": "按钮、边框和面板把一个角或一条边斜着切掉，而不是做圆角。"
+  },
+  {
+   "id": "dot-matrix",
+   "name": "Dot matrix",
+   "nameZh": "点阵图形",
+   "definition": "An image built from evenly spaced dots, like an LED screen or a drone light show.",
+   "definitionZh": "用均匀排列的光点组成图形，像 LED 屏或无人机灯光秀。"
+  },
+  {
+   "id": "reflective-shards",
+   "name": "Reflective shards",
+   "nameZh": "反光碎片",
+   "definition": "Sharp, glossy fragments with highlights scatter around the subject and add energy.",
+   "definitionZh": "带高光的锋利碎片散落在主体周围，增加冲击力。"
+  },
+  {
+   "id": "skewed-type",
+   "name": "Skewed type",
+   "nameZh": "倾斜变形字",
+   "definition": "Letters are slanted, stretched or partly masked so the type moves with the graphics.",
+   "definitionZh": "字母被倾斜、拉伸或部分遮挡，让文字和图形一起动起来。"
+  },
+  {
+   "id": "brand-sigil",
+   "name": "Standalone symbol",
+   "nameZh": "独立符号",
+   "definition": "A simple symbol that works without the name and can be repeated as a graphic device.",
+   "definitionZh": "一个不带名字也能单独使用的简单符号，还能当作图形反复使用。"
+  },
+  {
+   "id": "texture-lines",
+   "name": "Lines and texture",
+   "nameZh": "辅助折线与纹理",
+   "definition": "Small angled lines, marks and textures form a kit of supporting graphics around the logo.",
+   "definitionZh": "折线、小记号和纹理组成一套辅助图形，围绕标志使用。"
+  },
+  {
+   "id": "brush-splash",
+   "name": "Brush splash",
+   "nameZh": "彩色笔触",
+   "definition": "Loose strokes and splashes of colour burst out from the subject.",
+   "definitionZh": "松散的彩色笔触和飞溅从主体向四周散开。"
+  },
+  {
+   "id": "zoned-info",
+   "name": "Zoned information",
+   "nameZh": "分区信息块",
+   "definition": "Information sits in clear colour blocks or zones, like a map or schedule board.",
+   "definitionZh": "信息放进清楚的色块或分区里，像地图或赛程看板。"
+  },
+  {
+   "id": "accent-block",
+   "name": "Accent block",
+   "nameZh": "撞色区块",
+   "definition": "A block of a strongly contrasting colour cuts into the main colour field.",
+   "definitionZh": "在主色底上切进一块强烈对比的颜色。"
+  },
+  {
+   "id": "serif-sci-fi",
+   "name": "Serif sci-fi",
+   "nameZh": "用衬线字做科幻",
+   "definition": "Classical serif type for a science-fiction subject, instead of the expected dark background and geometric sans.",
+   "definitionZh": "科幻题材不用常见的深色底加无衬线字，改用古典衬线字，让科幻带上人文气质。"
+  },
+  {
+   "id": "code-texture",
+   "name": "Code as texture",
+   "nameZh": "代码当纹理",
+   "definition": "Lines of real-looking code set small, tilted and faded so they read as texture first and text second.",
+   "definitionZh": "把像真的代码排得很小、倾斜、渐隐，先被看成纹理，再被读成文字。"
+  },
+  {
+   "id": "data-labels",
+   "name": "Instrument labels",
+   "nameZh": "仪器式标注",
+   "definition": "Thin boxes, coordinates and status words placed around the subject as if an instrument were measuring it.",
+   "definitionZh": "在主体周围放细线框、坐标和状态短语，像仪器正在测量它。"
+  },
+  {
+   "id": "color-glitch",
+   "name": "Colour split and warp",
+   "nameZh": "色彩错位与扭曲",
+   "definition": "Red and blue channels shifted apart and the image warped like liquid, for a glitchy, acid look.",
+   "definitionZh": "把红蓝色彩通道错开，画面像液体一样扭曲，做出故障、酸性的效果。"
+  }
+ ],
+ "cases": [
+  {
+   "slug": "worlds-2022",
+   "game": "League of Legends",
+   "gameZh": "英雄联盟",
+   "project": "Worlds 2022",
+   "credits": "ONE & ONLY / Tendril × Riot Games",
+   "year": 2022,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "condensed-display",
+    "type-weave",
+    "edge-bleed",
+    "stage-palette"
+   ],
+   "sourceLabel": "Tendril / Nidia Dias, “Riot Worlds 2022”",
+   "sourceUrls": [
+    "https://www.behance.net/gallery/151716795/Riot-LOL-Worlds-2022"
+   ],
+   "palette": [
+    {
+     "hex": "#0B0B10",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    },
+    {
+     "hex": "#F4F1EA",
+     "name": "Warm white",
+     "nameZh": "暖白"
+    },
+    {
+     "hex": "#3B1FF2",
+     "name": "Electric purple",
+     "nameZh": "电光紫"
+    },
+    {
+     "hex": "#EFE7DA",
+     "name": "Paper",
+     "nameZh": "纸色"
+    },
+    {
+     "hex": "#2C6BFF",
+     "name": "Team blue",
+     "nameZh": "战队蓝"
+    }
+   ],
+   "summary": "The WORLDS wordmark, set in the narrow, heavy Manuka Bold, fills the frame while dozens of team flags flow through it, in front of some letters and behind others; black, white, purple and warm white rotate by stage.",
+   "summaryZh": "窄而粗的 Manuka Bold 把「WORLDS」撑满画面，几十面战队旗帜从字间穿过，有的挡在字母前，有的绕到后面；黑、白、紫和暖白随赛程阶段轮换。",
+   "read": "The type is set so large it stops reading as text and becomes architecture; the flags then make that architecture three-dimensional by weaving through it. Because the letters stay one flat colour, the busy flags never fight the word, and the black field keeps the contrast at its maximum.",
+   "readZh": "字大到不像文字、更像建筑，旗帜再从字里穿过，把这座「建筑」变成立体的。字母始终是一种纯色，旗帜再花也不会和字打架；黑色底让对比拉到最大。",
+   "layers": {
+    "grid": "Two margins and a baseline: the word spans edge to edge and sits on the lower third.",
+    "gridZh": "左右两条边距加一条基线：大字从边到边，坐在下三分之一处。",
+    "type": "One display word at about 40% of the height; a small caption row along the bottom edge.",
+    "typeZh": "一个占画面约 40% 高度的大字，加一行贴底边的小字说明。",
+    "focus": "The point where the flags cross the second and third letters.",
+    "focusZh": "旗帜穿过第二、三个字母的地方。",
+    "space": "The black above the word is left empty to give the flags room to rise.",
+    "spaceZh": "大字上方的黑色区域留空，给旗帜向上飘的空间。"
+   },
+   "imagePrompt": "Esports championship key visual, black background. One huge condensed heavy sans-serif word in warm white fills the full width of the frame and runs off both edges. A long sweep of colourful team flags in blue, red, purple and gold flows through the word from lower left to upper right, passing in front of some letters and behind others. Flat, high contrast, dramatic fabric folds, small caption row along the bottom. Original wordmark and flags, not an existing tournament logo.",
+   "imagePromptZh": "电竞总决赛主视觉，黑色背景。一个巨大的窄体粗无衬线英文单词，暖白色，撑满整个画面宽度并超出左右边缘。一长串蓝、红、紫、金的战队旗帜从左下向右上穿过这个词，有的挡在字母前面，有的绕到字母后面。平面感、高对比、布料褶皱有张力，底部一行小字说明。使用原创字标和旗帜，不要使用任何现有赛事的标志。",
+   "codePrompt": "Build a poster in HTML/CSS: a black 3:4 frame; one condensed heavy word (font-stretch condensed, or a condensed system font) sized so it spans the full width with letters touching the edges; draw flowing ribbons as SVG paths with gradients; put the word on two layers, a back copy below the ribbons and a front copy above them clipped with clip-path to only some letters, so the ribbons appear to weave in front of and behind the type; add a 10px caption row at the bottom.",
+   "codePromptZh": "用 HTML/CSS 做一张海报：3:4 黑色画面；一个窄体粗字单词（font-stretch: condensed 或系统窄体字），字号大到横向撑满、字母贴边；用带渐变的 SVG 路径画飘动的旗帜；把单词放两层，一层在旗帜下面，一层在旗帜上面并用 clip-path 只保留部分字母，这样旗帜看起来在字母前后穿插；底部加一行 10px 的小字说明。",
+   "images": [
+    {
+     "file": "worlds-2022-1.webp",
+     "caption": "Key visual: the WORLDS wordmark and team flags",
+     "captionZh": "主视觉：巨幅「WORLDS」和战队旗帜",
+     "w": 1400,
+     "h": 788,
+     "origin": "official",
+     "hd": "worlds-2022-1@2x.webp"
+    },
+    {
+     "file": "worlds-2022-2.webp",
+     "caption": "Primary font: Manuka Bold",
+     "captionZh": "主字体 Manuka Bold",
+     "w": 563,
+     "h": 317,
+     "origin": "enhanced",
+     "hd": "worlds-2022-2@2x.webp"
+    },
+    {
+     "file": "worlds-2022-3.webp",
+     "caption": "Stage palettes: play-ins, groups, knockouts, finals",
+     "captionZh": "分阶段配色：入围赛、小组赛、淘汰赛、总决赛",
+     "w": 564,
+     "h": 317,
+     "origin": "enhanced",
+     "hd": "worlds-2022-3@2x.webp"
+    }
+   ]
+  },
+  {
+   "slug": "ti-2025",
+   "game": "Dota 2",
+   "gameZh": "Dota 2",
+   "project": "TI 2025 · Team Liquid",
+   "credits": "Matt Eriks / Jester Design",
+   "year": 2025,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "cosmic-glow",
+    "line-ornaments",
+    "type-contrast"
+   ],
+   "sourceLabel": "Matt Eriks / Jester Design, “The International 2025”",
+   "sourceUrls": [
+    "https://jester.design/work/ti14"
+   ],
+   "images": [
+    {
+     "file": "ti-2025-1.webp",
+     "caption": "Game Day poster",
+     "captionZh": "比赛日海报「Game Day」",
+     "w": 788,
+     "h": 1400,
+     "origin": "official",
+     "hd": "ti-2025-1@2x.webp"
+    },
+    {
+     "file": "ti-2025-2.webp",
+     "caption": "TI 2025 key visual",
+     "captionZh": "TI 2025 主视觉",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "ti-2025-2@2x.webp"
+    },
+    {
+     "file": "ti-2025-3.webp",
+     "caption": "Team photo announcement",
+     "captionZh": "战队合影宣传",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "ti-2025-3@2x.webp"
+    },
+    {
+     "file": "ti-2025-4.webp",
+     "caption": "Illustrated scene",
+     "captionZh": "插画场景",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "ti-2025-4@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#0A1240",
+     "name": "Deep space",
+     "nameZh": "深空蓝"
+    },
+    {
+     "hex": "#2D5BFF",
+     "name": "Liquid blue",
+     "nameZh": "战队蓝"
+    },
+    {
+     "hex": "#7FE7FF",
+     "name": "Cyan glow",
+     "nameZh": "青色光"
+    },
+    {
+     "hex": "#E8ECFF",
+     "name": "Star white",
+     "nameZh": "星光白"
+    }
+   ],
+   "summary": "Star maps, cyan arcs and hairline symbols tie player photography and illustration together; a thin serif title sits over tiny match details.",
+   "summaryZh": "星图、青蓝光弧和细线符号，把选手摄影和插画连在一起；细衬线大标题下面是很小的比赛信息。",
+   "read": "The team photography is ordinary on its own; the cosmic layer behind it makes every player feel part of one story. Typography is deliberately quiet: one elegant serif line and tiny details, so the image does the shouting and the information still reads.",
+   "readZh": "单看选手照片很普通，背后的星空层让每个人都像在同一个故事里。字体刻意克制：一行优雅的衬线字加很小的细节信息，让画面负责吸睛，信息依然读得清。",
+   "layers": {
+    "grid": "A narrow vertical rail on the left holds rotated text; the photo fills the rest.",
+    "gridZh": "左侧一条窄竖栏放旋转的文字，其余全给人物照片。",
+    "type": "Serif title ‘Game Day’, then a bold small-caps opponent line and a tiny time line.",
+    "typeZh": "衬线标题「Game Day」，下面是加粗的小号对阵信息和更小的时间。",
+    "focus": "The player's face, lit from the cyan glow.",
+    "focusZh": "被青色光照亮的选手面部。",
+    "space": "The star field above the head is left open.",
+    "spaceZh": "头顶的星空区域留空。"
+   },
+   "imagePrompt": "Esports match-day poster, deep navy space background with star field, glowing cyan arcs and tiny star symbols, a player portrait lit by cyan light in a team jersey, a thin vertical rail of rotated small text on the left, an elegant serif title 'Game Day' near the bottom with a bold small-caps opponent line and a tiny time line. Use your own team name and player.",
+   "imagePromptZh": "电竞比赛日海报，深海军蓝的星空背景，发光的青色弧线和细小的星形符号；一位穿队服的选手半身像被青光照亮；左侧一条细竖栏放旋转的小字；底部一行优雅的衬线标题「Game Day」，下面是加粗的小号对阵信息和更小的时间。使用你自己的战队和选手。",
+   "codePrompt": "Build a 2:3 match-day poster in HTML/CSS: a deep navy radial gradient with an SVG star field and two glowing cyan arcs; a narrow left rail with rotated 8px uppercase text and hairline ticks; a portrait area (use a placeholder image) fading into the background; bottom-left a 40px thin serif title, a 12px bold small-caps opponent line and a 9px time line.",
+   "codePromptZh": "用 HTML/CSS 做一张 2:3 比赛日海报：深海军蓝径向渐变，SVG 星点和两道发光的青色弧线；左侧窄竖栏放旋转的 8px 大写小字和细刻度线；人物区域（用占位图）渐隐进背景；左下角 40px 细衬线标题、12px 加粗小型大写对阵信息和 9px 时间。"
+  },
+  {
+   "slug": "vct-2023",
+   "game": "VALORANT",
+   "gameZh": "无畏契约",
+   "project": "VCT 2023 Champions",
+   "credits": "ONE MORE / BUCK × Riot Games",
+   "year": 2023,
+   "type": "game",
+   "issue": 1,
+   "styles": [
+    "constructivism"
+   ],
+   "techniques": [
+    "perspective-repeat",
+    "color-field",
+    "edge-bleed"
+   ],
+   "sourceLabel": "BUCK, “VALORANT Champions”",
+   "sourceUrls": [
+    "https://buck.co/work/valorant-champions"
+   ],
+   "palette": [
+    {
+     "hex": "#E8322B",
+     "name": "Signal red",
+     "nameZh": "信号红"
+    },
+    {
+     "hex": "#121212",
+     "name": "Black",
+     "nameZh": "黑"
+    },
+    {
+     "hex": "#D9A441",
+     "name": "Trophy gold",
+     "nameZh": "奖杯金"
+    },
+    {
+     "hex": "#F3EEE4",
+     "name": "Warm white",
+     "nameZh": "暖白"
+    }
+   ],
+   "summary": "ONE MORE repeats and scales along a perspective, turning the type into a corridor; red, black, gold and warm white carry it across banners, billboards and posters.",
+   "summaryZh": "「ONE MORE」沿透视方向重复、逐渐缩放，文字本身变成一条走廊；红、黑、金和暖白贯穿旗帜、户外广告和海报。",
+   "read": "Repetition turns a short slogan into a space you look into: the nearest line is huge, each copy shrinks toward a vanishing point, and the lines that frame the type keep going past the edge. Only four colours are used, so the composition stays readable however far it is pushed.",
+   "readZh": "重复把一句短口号变成一个可以「看进去」的空间：最近的一行巨大，后面每一行往消失点缩小，框住文字的线一直延伸到画面外。整张只用四种颜色，所以构图再激进也读得清。",
+   "layers": {
+    "grid": "Converging guides to one vanishing point above centre; the copies sit on those guides.",
+    "gridZh": "所有参考线汇向中心上方的同一个消失点，每一行字都落在这些线上。",
+    "type": "The same phrase at five sizes; the nearest copy is the headline, the rest are rhythm.",
+    "typeZh": "同一句话五种大小：最近的一行是标题，其余是节奏。",
+    "focus": "The vanishing point, where the copies converge.",
+    "focusZh": "消失点，文字汇聚的地方。",
+    "space": "The red field between the converging lines stays empty, which makes the depth read.",
+    "spaceZh": "汇聚线之间的红色区域留空，深度感才出得来。"
+   },
+   "imagePrompt": "Tournament poster on a solid signal-red background. A short bold slogan in heavy condensed black type repeats five times, each copy smaller and further away, converging toward a vanishing point above the centre like a corridor of text. Thin black frame lines run along the perspective and off the edges of the poster. Small gold emblem near the vanishing point, warm white accents. Flat graphic style, no photography. Original slogan, not an existing brand.",
+   "imagePromptZh": "赛事海报，满版信号红背景。一句粗重窄体黑字的短口号重复五次，每一次更小、更远，像一条由文字组成的走廊，汇向中心上方的一个消失点。细黑线沿透视方向延伸并超出海报边缘。消失点附近一个小的金色徽记，少量暖白点缀。纯平面图形风格，不用摄影。使用原创口号，不要使用现有品牌。",
+   "codePrompt": "Build a poster in HTML/CSS: a solid red 3:4 frame; repeat one short phrase five times in a heavy condensed font; place the copies on lines converging to a vanishing point above centre, scaling each copy down (e.g. 1, 0.62, 0.4, 0.26, 0.17) and using transform with perspective so they recede; draw thin black guide lines in SVG from the vanishing point to beyond the frame edges; add a small gold emblem at the vanishing point.",
+   "codePromptZh": "用 HTML/CSS 做一张海报：3:4 满版红色；用粗重窄体字把一句短口号重复五次；每一行放在汇向中心上方消失点的线上，逐行缩小（比如 1、0.62、0.4、0.26、0.17），用 transform 加 perspective 让它们往远处退；用 SVG 从消失点画细黑参考线，一直延伸到画面外；在消失点放一个小的金色徽记。",
+   "images": [
+    {
+     "file": "vct-2023-1.webp",
+     "caption": "Outdoor banners: ONE MORE repeated in perspective",
+     "captionZh": "户外旗帜：「ONE MORE」沿透视方向重复",
+     "w": 1400,
+     "h": 794,
+     "origin": "official",
+     "hd": "vct-2023-1@2x.webp"
+    },
+    {
+     "file": "vct-2023-2.webp",
+     "caption": "Billboard",
+     "captionZh": "户外广告",
+     "w": 1400,
+     "h": 810,
+     "origin": "official",
+     "hd": "vct-2023-2@2x.webp"
+    },
+    {
+     "file": "vct-2023-3.webp",
+     "caption": "Poster: VCT stacked and scaled",
+     "captionZh": "海报：「VCT」堆叠缩放",
+     "w": 1792,
+     "h": 1057,
+     "origin": "official"
+    }
+   ]
+  },
+  {
+   "slug": "cs2-store",
+   "game": "Counter-Strike 2",
+   "gameZh": "反恐精英 2",
+   "project": "Store key art",
+   "credits": "Valve",
+   "year": 2023,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "diagonal-split",
+    "silhouette",
+    "outline-numeral",
+    "format-system"
+   ],
+   "sourceLabel": "Valve, Steam store assets and Counter-Strike 2 site banners",
+   "sourceUrls": [
+    "https://store.steampowered.com/app/730/"
+   ],
+   "palette": [
+    {
+     "hex": "#E8862A",
+     "name": "Signal orange",
+     "nameZh": "信号橙"
+    },
+    {
+     "hex": "#B9BCC0",
+     "name": "Concrete grey",
+     "nameZh": "水泥灰"
+    },
+    {
+     "hex": "#1E1F22",
+     "name": "Shadow",
+     "nameZh": "暗影"
+    },
+    {
+     "hex": "#FFFFFF",
+     "name": "White",
+     "nameZh": "白"
+    }
+   ],
+   "summary": "Grey and orange zones split along diagonals, dark figures hold the foreground, and a forward-leaning wordmark with an outline numeral carries across portrait, landscape and banner formats.",
+   "summaryZh": "灰色和橙色沿斜线分区，深色人物占据前景，前倾的字标加轮廓数字，在竖版、横版和横幅里一路延续。",
+   "read": "Three cheap decisions do all the work: a diagonal gives every format the same direction, silhouettes stay legible from thumbnail to billboard, and the outline numeral adds a second rhythm without competing with the title. Because the elements are so few, they recompose into any size without a new design.",
+   "readZh": "三个简单的决定撑起了全部：一条斜线让每种尺寸都有同样的方向，剪影从缩略图到广告牌都认得出，轮廓数字加了第二层节奏又不抢标题。元素少，所以换任何尺寸都能重新组合，不必重新设计。",
+   "layers": {
+    "grid": "One diagonal splits the frame into grey and orange; three thin white lines run parallel to it inside the orange zone; side margins hold the type.",
+    "gridZh": "一条斜线把画面切成灰、橙两区，橙色区里三条细白线和它平行；左右边距约束文字。",
+    "type": "Italic wordmark as headline, outline numeral as a second, quieter voice.",
+    "typeZh": "前倾的字标是标题，轮廓数字是第二个更安静的声音。",
+    "focus": "The silhouette's head against the orange zone.",
+    "focusZh": "剪影的头部压在橙色区域上。",
+    "space": "The grey zone is kept clear for the wordmark in every format.",
+    "spaceZh": "每种尺寸都给字标留出灰色区域。"
+   },
+   "imagePrompt": "Game key art in a flat graphic style: the frame is split by a steep diagonal into a concrete-grey zone and a signal-orange zone, with a few thin parallel diagonal lines. A dark silhouette of a figure in a cap stands in the foreground over the orange zone, no interior detail. A bold italic wordmark in white sits in the grey zone with a large outline numeral beside it. Also produce the same elements recomposed as a wide banner. Original title and character, not an existing game.",
+   "imagePromptZh": "平面风格的游戏主视觉：一条陡峭的斜线把画面切成水泥灰和信号橙两个区域，旁边几条细平行斜线。一个戴帽子的人物深色剪影站在前景、压在橙色区上，没有内部细节。灰色区放一个白色粗斜体字标，旁边一个大号轮廓数字。再用同样的元素重新组合出一张宽横幅。使用原创标题和角色，不要使用现有游戏。",
+   "codePrompt": "Build a key-art system in HTML/CSS with a format switch (portrait 3:4, landscape 16:9, banner 4:1): split the frame with a diagonal using a linear-gradient hard stop or clip-path polygon (grey / orange); add three thin parallel diagonal lines; place a dark SVG silhouette in the foreground over the orange zone; set an italic heavy wordmark in white in the grey zone and a large numeral with -webkit-text-stroke and transparent fill beside it; reposition the same elements per format without changing their style.",
+   "codePromptZh": "用 HTML/CSS 做一套主视觉，带尺寸切换（竖版 3:4、横版 16:9、横幅 4:1）：用 linear-gradient 硬分界或 clip-path 多边形沿斜线切出灰、橙两区；加三条细平行斜线；前景放一个深色 SVG 剪影压在橙色区上；灰色区放白色粗斜体字标，旁边一个用 -webkit-text-stroke 描边、填充透明的大号数字；切换尺寸时只重新摆放同样的元素，不改变样式。",
+   "images": [
+    {
+     "file": "cs2-store-1.webp",
+     "caption": "Portrait key art (official Steam asset)",
+     "captionZh": "竖版主视觉（Steam 商店官方素材）",
+     "w": 600,
+     "h": 900,
+     "origin": "official-enhanced",
+     "hd": "cs2-store-1@2x.webp"
+    },
+    {
+     "file": "cs2-store-2.webp",
+     "caption": "Landscape",
+     "captionZh": "横版",
+     "w": 545,
+     "h": 362,
+     "origin": "enhanced",
+     "hd": "cs2-store-2@2x.webp"
+    },
+    {
+     "file": "cs2-store-3.webp",
+     "caption": "Site banner",
+     "captionZh": "官网横幅",
+     "w": 545,
+     "h": 207,
+     "origin": "enhanced",
+     "hd": "cs2-store-3@2x.webp"
+    },
+    {
+     "file": "cs2-store-4.webp",
+     "caption": "Wide banner (official Steam asset)",
+     "captionZh": "宽横幅（Steam 商店官方素材）",
+     "w": 1920,
+     "h": 620,
+     "origin": "official"
+    }
+   ]
+  },
+  {
+   "slug": "mlbb-10th",
+   "game": "Mobile Legends: Bang Bang",
+   "gameZh": "无尽对决 MLBB",
+   "project": "10th anniversary",
+   "credits": "MOONTON Games",
+   "year": 2026,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "light-ribbons",
+    "centered-hero",
+    "format-system"
+   ],
+   "sourceLabel": "MOONTON Games official releases, 4 Sep and 16 Oct 2026",
+   "sourceUrls": [
+    "https://en.moonton.com/news/372.html",
+    "https://en.moonton.com/news/383.html"
+   ],
+   "images": [
+    {
+     "file": "mlbb-10th-1.webp",
+     "caption": "Anniversary key visual: ALL IN MLBB",
+     "captionZh": "十周年主视觉「ALL IN MLBB」",
+     "w": 1280,
+     "h": 720,
+     "origin": "official-enhanced",
+     "hd": "mlbb-10th-1@2x.webp"
+    },
+    {
+     "file": "mlbb-10th-2.webp",
+     "caption": "Anniversary banner",
+     "captionZh": "周年横幅「A DECADE OF CHASING STARS」",
+     "w": 1280,
+     "h": 720,
+     "origin": "official-enhanced",
+     "hd": "mlbb-10th-2@2x.webp"
+    },
+    {
+     "file": "mlbb-10th-3.webp",
+     "caption": "Live installation",
+     "captionZh": "线下装置",
+     "w": 1280,
+     "h": 853,
+     "origin": "official-enhanced",
+     "hd": "mlbb-10th-3@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F7B5D8",
+     "name": "Blossom pink",
+     "nameZh": "花粉"
+    },
+    {
+     "hex": "#7FD3FF",
+     "name": "Sky cyan",
+     "nameZh": "天青"
+    },
+    {
+     "hex": "#FFE08A",
+     "name": "Gold light",
+     "nameZh": "金光"
+    },
+    {
+     "hex": "#FFF6F0",
+     "name": "Pale title",
+     "nameZh": "浅色标题"
+    }
+   ],
+   "summary": "Rings of light swirl around a centred hero; a pale, airy anniversary title sits low on the left, and the 10th mark travels into banners and live installations.",
+   "summaryZh": "光带环绕着居中的角色；浅色、轻盈的周年标题压在左下，「10」周年标识一路延伸到横幅和线下装置。",
+   "read": "Everything in the key visual curves toward the centre, so the busy painting still has one place to look. The title is pale and light rather than heavy, which keeps the celebratory mood and lets the anniversary mark stay consistent across very different backgrounds.",
+   "readZh": "主视觉里所有东西都弯向中心，画面再满也只有一个视觉焦点。标题用浅色、轻的字重而不是粗黑字，保持节日感，也让周年标识在各种背景上都能保持一致。",
+   "layers": {
+    "grid": "Concentric curves centred on the hero; title in the lower-left third.",
+    "gridZh": "以角色为中心的同心弧线；标题在左下三分之一。",
+    "type": "Large pale title ‘ALL IN MLBB’, a small anniversary tag below.",
+    "typeZh": "浅色大标题「ALL IN MLBB」，下方一个小周年标签。",
+    "focus": "The hero's face at the centre of the light rings.",
+    "focusZh": "光环中心的角色面部。",
+    "space": "The pale sky in the upper corners balances the dense centre.",
+    "spaceZh": "上方两角浅色的天空，平衡中间的密集画面。"
+   },
+   "imagePrompt": "Mobile game anniversary key visual, a glamorous fantasy heroine centred in the frame, swirling ribbons of pastel pink, cyan and gold light circling her, fantasy palace in a soft sky behind, a pale airy title in the lower left with a small anniversary tag. Use your own game and character.",
+   "imagePromptZh": "手游周年主视觉，一位华丽的奇幻女主角位于画面正中，粉、青、金色光带围绕她旋转，背后是柔和天空中的奇幻宫殿；左下角是浅色、轻盈的标题，下面一个小周年标签。使用你自己的游戏和角色。",
+   "codePrompt": "Build a 16:9 key visual in HTML/CSS: a soft pastel gradient sky; three or four SVG ribbons (wide strokes with pink-cyan-gold gradients and blur glow) circling the centre; a centred circular placeholder for the hero; a pale 64px condensed title in the lower left with a white text-shadow glow and a small pill-shaped anniversary tag under it.",
+   "codePromptZh": "用 HTML/CSS 做一张 16:9 主视觉：柔和的粉彩渐变天空；三四条 SVG 光带（粗描边、粉青金渐变加模糊光晕）环绕中心；中间放一个圆形角色占位；左下角 64px 浅色窄体标题加白色发光阴影，下面一个胶囊形周年标签。"
+  },
+  {
+   "slug": "pubg-bangkok",
+   "game": "PUBG MOBILE",
+   "gameZh": "PUBG MOBILE",
+   "project": "BANGKOK #1 event site",
+   "credits": "PUBG MOBILE",
+   "year": 2025,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "warning-palette",
+    "angled-cut",
+    "dot-matrix",
+    "type-contrast"
+   ],
+   "sourceLabel": "PUBG MOBILE official BANGKOK #1 event site and brand assets",
+   "images": [
+    {
+     "file": "pubg-bangkok-1.webp",
+     "caption": "Event site landing",
+     "captionZh": "活动专题页入口",
+     "w": 563,
+     "h": 751,
+     "origin": "enhanced",
+     "hd": "pubg-bangkok-1@2x.webp"
+    },
+    {
+     "file": "pubg-bangkok-2.webp",
+     "caption": "Drone light show page",
+     "captionZh": "无人机灯光秀页面",
+     "w": 563,
+     "h": 540,
+     "origin": "enhanced",
+     "hd": "pubg-bangkok-2@2x.webp"
+    },
+    {
+     "file": "pubg-bangkok-3.webp",
+     "caption": "Official logo",
+     "captionZh": "官方品牌标志",
+     "w": 344,
+     "h": 199,
+     "origin": "enhanced",
+     "hd": "pubg-bangkok-3@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#0B0B0B",
+     "name": "Black",
+     "nameZh": "黑"
+    },
+    {
+     "hex": "#F5B800",
+     "name": "Signal yellow",
+     "nameZh": "信号黄"
+    },
+    {
+     "hex": "#FFFFFF",
+     "name": "White",
+     "nameZh": "白"
+    }
+   ],
+   "summary": "Black and yellow with heavy white type; menu items and icons use angled cut edges, and a dot-matrix helmet stands in for the drone light show.",
+   "summaryZh": "黑黄底配白色重字；菜单和图标都用斜切边角，点阵组成的头盔对应无人机灯光秀主题。",
+   "read": "Two colours do the branding: black for the stage, yellow for anything you can press. Angled cuts make plain menu bars feel like gear, and the dot matrix turns a technical idea (a drone show) into a picture that still reads at a glance.",
+   "readZh": "两种颜色就撑起了品牌：黑色当舞台，黄色留给所有能点的东西。斜切边角让普通的菜单条看起来像装备，点阵把「无人机表演」这个技术概念变成一眼能懂的图形。",
+   "layers": {
+    "grid": "A left column of yellow menu bars, the character filling the right two thirds.",
+    "gridZh": "左边一列黄色菜单条，人物占右侧三分之二。",
+    "type": "Heavy white title, a smaller white subtitle, dates in tiny yellow type, menu labels in black on yellow.",
+    "typeZh": "白色粗标题、略小的白色副标题、黄色小号日期，菜单是黄底黑字。",
+    "focus": "The yellow menu column against the black.",
+    "focusZh": "黑底上的黄色菜单列。",
+    "space": "Black space behind the title keeps it legible.",
+    "spaceZh": "标题后面的黑色区域保证可读。"
+   },
+   "imagePrompt": "Mobile battle royale event landing page, black background, heavy white condensed title with a smaller subtitle and tiny yellow dates, a column of yellow menu buttons with angled cut corners and small icons, a soldier in a helmet on the right, plus a second view where a helmet is drawn with glowing dots like a drone light show over a river at night. Use your own game and event name.",
+   "imagePromptZh": "手游大逃杀活动专题页，黑色背景，白色粗重窄体标题、略小的副标题和黄色小号日期；左侧一列斜切边角的黄色菜单按钮，带小图标；右侧一位戴头盔的士兵。再加一版：夜晚河面上空，用发光的点阵画出一顶头盔，像无人机灯光秀。使用你自己的游戏和活动名称。",
+   "codePrompt": "Build an event landing page in HTML/CSS: black background; heavy white condensed title, smaller subtitle and 11px yellow dates; a left column of yellow menu bars using clip-path polygons to cut one corner at 45°, each with a small icon and black label; on the right, an SVG helmet drawn from a grid of glowing yellow and white dots.",
+   "codePromptZh": "用 HTML/CSS 做活动专题页：黑色背景；白色粗重窄体标题、较小副标题和 11px 黄色日期；左侧一列黄色菜单条，用 clip-path 多边形斜切掉一个 45° 角，每条带小图标和黑字；右侧用一格格发光的黄白圆点（SVG）拼出一顶头盔。"
+  },
+  {
+   "slug": "fncs-2022",
+   "game": "Fortnite",
+   "gameZh": "堡垒之夜",
+   "project": "FNCS Invitational 2022",
+   "credits": "We Are Royale / Daniel Beaton",
+   "year": 2022,
+   "type": "game",
+   "issue": 1,
+   "styles": [
+    "y2k"
+   ],
+   "techniques": [
+    "reflective-shards",
+    "skewed-type",
+    "angled-cut",
+    "format-system"
+   ],
+   "sourceLabel": "Daniel Beaton, “FNCS”",
+   "sourceUrls": [
+    "https://www.danielbeaton.studio/work/fncs"
+   ],
+   "images": [
+    {
+     "file": "fncs-2022-1.webp",
+     "caption": "Portrait key visual",
+     "captionZh": "竖版主视觉",
+     "w": 1200,
+     "h": 1500,
+     "origin": "official"
+    },
+    {
+     "file": "fncs-2022-2.webp",
+     "caption": "Landscape: THIS JUST GOT REAL",
+     "captionZh": "横版「THIS JUST GOT REAL」",
+     "w": 1400,
+     "h": 788,
+     "origin": "official",
+     "hd": "fncs-2022-2@2x.webp"
+    },
+    {
+     "file": "fncs-2022-3.webp",
+     "caption": "Landscape: #1 VICTORY ROYALE",
+     "captionZh": "横版「#1 VICTORY ROYALE」",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "fncs-2022-3@2x.webp"
+    },
+    {
+     "file": "fncs-2022-4.webp",
+     "caption": "Landscape: VICTORY ROYALE",
+     "captionZh": "横版「VICTORY ROYALE」",
+     "w": 1400,
+     "h": 788,
+     "origin": "official",
+     "hd": "fncs-2022-4@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#5B2BFF",
+     "name": "Royal purple",
+     "nameZh": "皇家紫"
+    },
+    {
+     "hex": "#FFFFFF",
+     "name": "White",
+     "nameZh": "白"
+    },
+    {
+     "hex": "#C9C4FF",
+     "name": "Lilac",
+     "nameZh": "淡紫"
+    },
+    {
+     "hex": "#1B1240",
+     "name": "Night",
+     "nameZh": "夜色"
+    }
+   ],
+   "summary": "Reflective shards, slashed frames and purple and white blocks run through portrait and landscape pieces; skewed, stretched and masked letters move in the same direction as the graphics.",
+   "summaryZh": "反光碎片、斜切边框和紫白色块贯穿竖版和横版物料；字被倾斜、拉伸、遮挡，和图形朝同一个方向运动。",
+   "read": "Nothing is level: frames are slashed, shards fly and even the letters lean. Because every element points the same way, the chaos reads as speed rather than noise, and the strict purple and white palette keeps it recognisable.",
+   "readZh": "画面里没有一样东西是水平的：边框是斜切的，碎片在飞，连字母都在倾斜。所有元素朝同一个方向，混乱就读成了速度而不是噪音；严格的紫白配色让它始终认得出。",
+   "layers": {
+    "grid": "Strong diagonals from lower left to upper right; frames cut along them.",
+    "gridZh": "从左下到右上的强斜线，边框沿着它切开。",
+    "type": "Skewed heavy headline, broken across lines; a small event mark below.",
+    "typeZh": "倾斜的粗标题，断成几行；下方一个小赛事标志。",
+    "focus": "Where the headline and the brightest shards cross.",
+    "focusZh": "标题和最亮碎片交汇的地方。",
+    "space": "A clean purple panel behind the type.",
+    "spaceZh": "文字后面一块干净的紫色面板。"
+   },
+   "imagePrompt": "Esports tournament graphic, royal purple and white colour blocks with slashed diagonal frames, glossy reflective chrome shards flying around, a heavy headline in white that is skewed, stretched and partly masked by the shards, characters cropped at the edges, a small event mark at the bottom. Portrait and landscape versions. Use your own event name.",
+   "imagePromptZh": "电竞赛事视觉，皇家紫和白色的色块，斜切的边框，带高光的金属反光碎片四处飞散；白色粗标题被倾斜、拉伸，并被碎片部分遮挡；角色在边缘被裁切；底部一个小赛事标志。要竖版和横版两个版本。使用你自己的赛事名称。",
+   "codePrompt": "Build a landscape tournament graphic in HTML/CSS: purple background; two slashed white panels with clip-path polygons; a heavy white headline in two lines with transform: skew(-12deg) scaleX(1.2) and a clip-path that cuts off part of each line; 8–10 SVG shards (triangles with white-to-lilac gradients and a highlight edge) scattered along the same diagonal.",
+   "codePromptZh": "用 HTML/CSS 做一张横版赛事图：紫色背景；两块用 clip-path 多边形斜切的白色面板；两行白色粗标题，加 transform: skew(-12deg) scaleX(1.2)，再用 clip-path 切掉每行的一部分；8–10 个 SVG 碎片（白到淡紫渐变的三角形，带一条高光边）沿同一条斜线散开。"
+  },
+  {
+   "slug": "apex-brand",
+   "game": "Apex Legends",
+   "gameZh": "Apex 英雄",
+   "project": "Brand refresh",
+   "credits": "EA in-house / Ryan Haaland",
+   "year": null,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "condensed-display",
+    "brand-sigil",
+    "texture-lines",
+    "format-system"
+   ],
+   "sourceLabel": "Ryan Haaland, “Apex Legends Brand Refresh”",
+   "sourceUrls": [
+    "https://ryanhaaland.com/apex-legends-brand-refresh"
+   ],
+   "images": [
+    {
+     "file": "apex-brand-1.webp",
+     "caption": "Brand sheet: logo, symbol, type, colour, texture",
+     "captionZh": "品牌规范：标志、符号、字体、配色和纹理",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "apex-brand-1@2x.webp"
+    },
+    {
+     "file": "apex-brand-2.webp",
+     "caption": "Ensemble banner",
+     "captionZh": "群像横幅",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "apex-brand-2@2x.webp"
+    },
+    {
+     "file": "apex-brand-3.webp",
+     "caption": "Single-hero banner",
+     "captionZh": "单人横幅",
+     "w": 1400,
+     "h": 787,
+     "origin": "official",
+     "hd": "apex-brand-3@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#E2231A",
+     "name": "Apex red",
+     "nameZh": "Apex 红"
+    },
+    {
+     "hex": "#0E0E10",
+     "name": "Black",
+     "nameZh": "黑"
+    },
+    {
+     "hex": "#3A3A3E",
+     "name": "Graphite",
+     "nameZh": "石墨灰"
+    },
+    {
+     "hex": "#F2EBDD",
+     "name": "Bone",
+     "nameZh": "骨白"
+    }
+   ],
+   "summary": "Tall, narrow letterforms, a standalone A symbol, small angled lines and textures form the brand kit; layouts switch between ensemble and single-hero shots while red, black and light type stay constant.",
+   "summaryZh": "细长的字形、可独立使用的「A」符号、辅助折线和纹理组成品牌元素；构图在群像和单人之间切换，红黑底和浅色文字保持不变。",
+   "read": "The refresh works because the kit is small and strict: one symbol, one condensed typeface, a handful of marks and two background colours. Any hero art can be dropped in and it still looks like Apex.",
+   "readZh": "这次品牌更新之所以成立，是因为元素少而严格：一个符号、一种窄体字、几个小记号和两种底色。随便放进哪位英雄的画面，看起来都还是 Apex。",
+   "layers": {
+    "grid": "Brand sheet on a modular grid: logo, symbol, graphics and key art in separate cells.",
+    "gridZh": "品牌规范用模块网格：标志、符号、辅助图形和主视觉各占一格。",
+    "type": "Condensed display wordmark, a small spaced subtitle, then a light sans for body.",
+    "typeZh": "窄体展示字标、字距拉开的小副标题，正文用细无衬线。",
+    "focus": "The A symbol, repeated at large size behind the hero.",
+    "focusZh": "在英雄背后放大重复的「A」符号。",
+    "space": "Black cells between modules let each element breathe.",
+    "spaceZh": "模块之间的黑色间隔让每个元素有呼吸感。"
+   },
+   "imagePrompt": "Video game brand guideline sheet on black, modular grid: a tall condensed wordmark with a small spaced subtitle, a standalone triangular A-shaped symbol, a row of small angled line marks and plus signs, a typography sample, colour swatches in red, black and bone, and texture strips with angled red shapes. Use your own game name and symbol.",
+   "imagePromptZh": "游戏品牌规范页，黑色背景，模块化网格：细长的窄体字标配字距拉开的小副标题，一个可独立使用的三角形「A」符号，一排小折线和加号记号，字体样张，红、黑、骨白色板，以及带红色斜形的纹理条。使用你自己的游戏名称和符号。",
+   "codePrompt": "Build a brand sheet in HTML/CSS: black background with a 3-column CSS grid of cards separated by 1px dark lines; card 1 a tall condensed wordmark with a letter-spaced subtitle; card 2 an SVG triangular symbol; card 3 small angled line marks; a type specimen row 'Aa'; colour swatches red #E2231A, black and bone; a texture strip of angled red shapes made with clip-path.",
+   "codePromptZh": "用 HTML/CSS 做一张品牌规范页：黑色背景，三列 CSS 网格，卡片之间用 1px 深色线分隔；第一格细长窄体字标配字距拉开的副标题；第二格 SVG 三角符号；第三格几个小折线记号；一行「Aa」字体样张；红 #E2231A、黑、骨白三个色块；一条用 clip-path 做的红色斜形纹理带。"
+  },
+  {
+   "slug": "capcom-cup-12",
+   "game": "Street Fighter 6",
+   "gameZh": "街头霸王 6",
+   "project": "CAPCOM CUP 12",
+   "credits": "CAPCOM",
+   "year": 2026,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "centered-hero",
+    "brush-splash",
+    "zoned-info"
+   ],
+   "sourceLabel": "CAPCOM press release / PR TIMES, 29 Sep 2025",
+   "sourceUrls": [
+    "https://prtimes.jp/main/html/rd/p/000005340.000013450.html"
+   ],
+   "images": [
+    {
+     "file": "capcom-cup-12-1.webp",
+     "caption": "Key visual: Chun-Li centred with colour splashes",
+     "captionZh": "主视觉：春丽居中，彩色笔触散开",
+     "w": 1400,
+     "h": 788,
+     "origin": "official",
+     "hd": "capcom-cup-12-1@2x.webp"
+    },
+    {
+     "file": "capcom-cup-12-2.webp",
+     "caption": "Stage map",
+     "captionZh": "舞台地图导视",
+     "w": 1400,
+     "h": 788,
+     "origin": "official",
+     "hd": "capcom-cup-12-2@2x.webp"
+    },
+    {
+     "file": "capcom-cup-12-3.webp",
+     "caption": "Ticket announcement",
+     "captionZh": "售票预告",
+     "w": 1400,
+     "h": 788,
+     "origin": "official",
+     "hd": "capcom-cup-12-3@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F4F1EC",
+     "name": "Paper white",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#E07A3F",
+     "name": "Splash orange",
+     "nameZh": "笔触橙"
+    },
+    {
+     "hex": "#3FA06A",
+     "name": "Splash green",
+     "nameZh": "笔触绿"
+    },
+    {
+     "hex": "#1F5FD6",
+     "name": "Cup blue",
+     "nameZh": "杯赛蓝"
+    },
+    {
+     "hex": "#2A2A2E",
+     "name": "Ink",
+     "nameZh": "墨色"
+    }
+   ],
+   "summary": "Chun-Li stands at the centre while coloured brush strokes burst outward; wayfinding uses zoned colour blocks and the ticket announcement is organised by a big headline and event marks.",
+   "summaryZh": "春丽居中，彩色笔触从她身边向四周散开；导视用分区色块，售票预告用大标题和赛事标识组织信息。",
+   "read": "The key visual is almost all white space and colour, so the character reads instantly and the splashes carry the energy of a fighting game. The practical pieces switch to strict blocks and big type, because a stage map and a ticket date have to be read, not admired.",
+   "readZh": "主视觉几乎全是留白和色彩，角色一眼就能认出，笔触负责传达格斗游戏的力量感。实用物料则换成严格的色块和大字，因为舞台地图和开票时间是要「读」的，不是拿来欣赏的。",
+   "layers": {
+    "grid": "A central axis through the character; splashes radiate from it.",
+    "gridZh": "一条穿过角色的中轴，笔触从它向外发散。",
+    "type": "On the key visual, no type at all; on practical pieces, one big headline and grouped small details.",
+    "typeZh": "主视觉完全不放字；实用物料用一个大标题加成组的小字细节。",
+    "focus": "The character's face and crossed arms.",
+    "focusZh": "角色的脸和交叉的手臂。",
+    "space": "The white paper around the splashes.",
+    "spaceZh": "笔触周围的白纸底。"
+   },
+   "imagePrompt": "Fighting game tournament key visual, a martial artist character centred on white paper, bold brush strokes and ink splashes in orange, green, purple and blue bursting outward from behind her, painterly, lots of white space, no text. Use your own character.",
+   "imagePromptZh": "格斗游戏杯赛主视觉，一位武术家角色站在白纸中央，橙、绿、紫、蓝的大笔触和墨点从她身后向四周迸发，绘画感强，大量留白，不放文字。使用你自己的角色。",
+   "codePrompt": "Build a 16:9 event announcement in HTML/CSS: white background; behind a centred circular character placeholder, 8 SVG brush-stroke paths in orange, green, purple and blue with rough edges (feTurbulence + feDisplacementMap) radiating outward; below, a dark band with a big condensed date headline, a 'TICKETS GO ON SALE' line flanked by dashes, and a row of four small event emblems.",
+   "codePromptZh": "用 HTML/CSS 做一张 16:9 活动预告：白色背景；居中的圆形角色占位后面，8 条橙、绿、紫、蓝的 SVG 笔触路径向外发散，用 feTurbulence + feDisplacementMap 做出毛边；下方一条深色带，放大号窄体日期标题、两侧带破折号的「TICKETS GO ON SALE」，以及一排四个小赛事徽标。"
+  },
+  {
+   "slug": "the-finals",
+   "game": "THE FINALS",
+   "gameZh": "THE FINALS",
+   "project": "Store key art",
+   "credits": "Embark Studios",
+   "year": null,
+   "type": "game",
+   "issue": 1,
+   "styles": [],
+   "techniques": [
+    "color-field",
+    "condensed-display",
+    "accent-block",
+    "edge-bleed",
+    "format-system"
+   ],
+   "sourceLabel": "Embark Studios, Steam store assets and THE FINALS website",
+   "sourceUrls": [
+    "https://store.steampowered.com/app/2073850/"
+   ],
+   "images": [
+    {
+     "file": "the-finals-1.webp",
+     "caption": "Portrait key art (official Steam asset)",
+     "captionZh": "竖版主视觉（Steam 商店官方素材）",
+     "w": 600,
+     "h": 900,
+     "origin": "official-enhanced",
+     "hd": "the-finals-1@2x.webp"
+    },
+    {
+     "file": "the-finals-2.webp",
+     "caption": "Landscape",
+     "captionZh": "横版",
+     "w": 545,
+     "h": 297,
+     "origin": "enhanced",
+     "hd": "the-finals-2@2x.webp"
+    },
+    {
+     "file": "the-finals-3.webp",
+     "caption": "Landscape: second character",
+     "captionZh": "横版：另一位角色",
+     "w": 545,
+     "h": 312,
+     "origin": "enhanced",
+     "hd": "the-finals-3@2x.webp"
+    },
+    {
+     "file": "the-finals-4.webp",
+     "caption": "Wordmark",
+     "captionZh": "字标",
+     "w": 402,
+     "h": 187,
+     "origin": "enhanced",
+     "hd": "the-finals-4@2x.webp"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#E5203A",
+     "name": "Finals red",
+     "nameZh": "决赛红"
+    },
+    {
+     "hex": "#F5F1EA",
+     "name": "Off-white",
+     "nameZh": "米白"
+    },
+    {
+     "hex": "#33E1E8",
+     "name": "Cyan accent",
+     "nameZh": "青色撞色"
+    },
+    {
+     "hex": "#11131A",
+     "name": "Ink",
+     "nameZh": "墨黑"
+    }
+   ],
+   "summary": "A red field with heavy pale type runs through portrait and landscape art; a cyan zone cuts in on some pieces, and the wordmark hugs the edge against figures and angled colour blocks.",
+   "summaryZh": "红色底场配浅色重字，贯穿横竖版；部分画面切进一块青色区域；字标贴近画面边缘，和人物、斜向色块形成层次。",
+   "read": "The system is almost entirely red, so a single cyan block becomes an event. Pushing the stacked wordmark to the edge leaves the centre to the character and makes every crop feel bigger than the frame.",
+   "readZh": "整套视觉几乎全是红色，所以一块青色就足以成为视觉事件。把堆叠的字标推到边缘，中间留给角色，每一种裁切都显得比画框更大。",
+   "layers": {
+    "grid": "Wordmark locked to the top-left margin; a diagonal band separates the cyan block.",
+    "gridZh": "字标锁在左上边距；一条斜向色带隔开青色区。",
+    "type": "Stacked heavy wordmark ‘THE / FINALS’ with the logo mark beside it.",
+    "typeZh": "上下堆叠的粗字标「THE / FINALS」，旁边是标志符号。",
+    "focus": "The character's mask breaking into the red field.",
+    "focusZh": "角色的面具压进红色底场。",
+    "space": "The red field to the right of the wordmark.",
+    "spaceZh": "字标右侧的红色区域。"
+   },
+   "imagePrompt": "Game key art on a solid red field, a heavy off-white wordmark stacked on two lines pinned to the top-left edge with an angular logo mark beside it, a diagonal cyan block cutting in from the top right, a masked character with a weapon breaking into the frame from the right, crisp flat graphic shapes. Portrait and landscape versions. Use your own game name.",
+   "imagePromptZh": "游戏主视觉，满版红色底，米白色粗字标分两行堆叠、贴在左上边缘，旁边一个棱角分明的标志符号；右上角切进一块斜向的青色色块；一位戴面具、持武器的角色从右侧闯入画面；平面图形干净利落。要竖版和横版两个版本。使用你自己的游戏名称。",
+   "codePrompt": "Build a key-art system in HTML/CSS: solid red background; a cyan block in the top right made with clip-path polygon along a 30° diagonal; a two-line heavy condensed off-white wordmark positioned flush to the top-left padding with an SVG angular mark beside it; a figure placeholder anchored bottom-right; provide portrait and landscape layouts that only move these pieces.",
+   "codePromptZh": "用 HTML/CSS 做一套主视觉：满版红色背景；右上角用 clip-path 多边形沿 30° 斜线切出一块青色区；两行米白色粗重窄体字标贴着左上内边距，旁边一个 SVG 棱角标志；角色占位固定在右下；做竖版和横版两种布局，只移动这些元素。"
+  },
+  {
+   "slug": "reionization",
+   "game": "REIONIZATION",
+   "gameZh": "再电离",
+   "project": "Typographic poster",
+   "credits": "蓝山拉菲 (Blue Montain)",
+   "year": 2026,
+   "type": "poster",
+   "issue": 2,
+   "styles": [
+    "swiss-style",
+    "acid-graphics"
+   ],
+   "techniques": [
+    "serif-sci-fi",
+    "type-contrast",
+    "code-texture",
+    "data-labels",
+    "dot-matrix",
+    "line-ornaments",
+    "color-glitch"
+   ],
+   "sourceLabel": "蓝山拉菲, “再电离 版式设计与拆分” (Xiaohongshu, 16 Nov 2026), posted by the designer",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afa54eb000000001603eff5"
+   ],
+   "images": [
+    {
+     "file": "reionization-1.webp",
+     "caption": "Finished poster",
+     "captionZh": "成稿",
+     "w": 1400,
+     "h": 738,
+     "hd": "reionization-1@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "reionization-2.webp",
+     "caption": "Acid version: colours split and warped",
+     "captionZh": "酸性版：色彩错位、画面扭曲",
+     "w": 1400,
+     "h": 738,
+     "hd": "reionization-2@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "reionization-3.webp",
+     "caption": "Breakdown 1: type only",
+     "captionZh": "拆分 1：只有文字",
+     "w": 1400,
+     "h": 738,
+     "hd": "reionization-3@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "reionization-4.webp",
+     "caption": "Breakdown 2: grid and code added",
+     "captionZh": "拆分 2：加网格和代码",
+     "w": 1400,
+     "h": 738,
+     "hd": "reionization-4@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "reionization-5.webp",
+     "caption": "Breakdown 3: nebula and instrument labels added",
+     "captionZh": "拆分 3：加星云和仪器标注",
+     "w": 1400,
+     "h": 738,
+     "hd": "reionization-5@2x.webp",
+     "origin": "author"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#ECEBE9",
+     "name": "Paper grey",
+     "nameZh": "纸灰"
+    },
+    {
+     "hex": "#1C1F26",
+     "name": "Ink",
+     "nameZh": "墨黑"
+    },
+    {
+     "hex": "#87827F",
+     "name": "Dust grey",
+     "nameZh": "星尘灰"
+    },
+    {
+     "hex": "#383330",
+     "name": "Nebula core",
+     "nameZh": "星云暗部"
+    },
+    {
+     "hex": "#5A8FCB",
+     "name": "Acid blue fringe",
+     "nameZh": "酸性蓝边"
+    },
+    {
+     "hex": "#E07B39",
+     "name": "Acid orange fringe",
+     "nameZh": "酸性橙边"
+    }
+   ],
+   "summary": "A cosmology poster on pale paper: a heavy serif 再电离 over a widely spaced REIONIZATION, tilted code fading in from the left, the NGC 604 nebula on the right ringed with instrument boxes, four-point stars and terminal lines; an acid version splits the colours and warps the whole sheet.",
+   "summaryZh": "一张讲宇宙学的海报，用浅灰纸色底：粗衬线「再电离」压在疏排的「REIONIZATION」上，左边倾斜的代码渐隐进画面，右边是 NGC 604 星云，周围有仪器标注框、四角星和终端信息；另有一版酸性效果，把色彩错开、整张画面扭曲。",
+   "read": "The designer's own breakdown shows the order: type first, then a 7-column grid and code, then the nebula with its labels, then stars and terminal lines. Each layer is quiet on its own; the serif title keeps it human while the monospaced details make it feel measured.",
+   "readZh": "作者自己的拆分给出了搭建顺序：先排字，再加 7 栏网格和代码，再放星云和标注，最后加星形符号和终端信息。每一层单看都很克制；衬线标题让画面有人文感，等宽小字让它像在被仪器测量。",
+   "layers": {
+    "grid": "Hairline verticals spaced about a seventh of the width, three horizontals making four rows; the title sits in the wide first column, the nebula across the right half.",
+    "gridZh": "竖向细线间距约为画面宽度的 1/7，三条横线分出 4 行；标题放在左边较宽的第一栏，星云横跨右半边。",
+    "type": "Three typefaces: a heavy Chinese serif (思源宋体) for 再电离, a wide classical serif for REIONIZATION and NGC 604, JetBrains Mono for code and terminal lines.",
+    "typeZh": "三种字体：粗中文衬线（思源宋体）写「再电离」，舒展的古典衬线写 REIONIZATION 和 NGC 604，JetBrains Mono 写代码和终端信息。",
+    "focus": "The dark core of the nebula, where two propeller marks sit.",
+    "focusZh": "星云的暗部核心，两个螺旋桨形符号就落在这里。",
+    "space": "The calm band between the title and the terminal lines.",
+    "spaceZh": "标题和终端文字之间那条安静的空带。"
+   },
+   "imagePrompt": "Typographic science poster on pale warm grey paper, landscape 1.9:1. Left: a heavy Chinese serif title with a wide, widely spaced classical serif English word below, two small monospaced terminal lines further down, and faint tilted lines of code fading in from the left edge. Right half: a grainy black-and-white nebula photo ringed with thin rectangles, tiny monospaced status labels, plus-sign grids and barcode strips. Sharp black four-point stars and propeller-shaped marks scattered across. A hairline grid over everything (verticals every seventh of the width, four rows). Swiss international style mixed with acid graphics. Use your own subject and words.",
+   "imagePromptZh": "科普主题的文字海报，浅暖灰纸色底，横版约 1.9:1。左侧：粗重的中文衬线标题，下方是字距疏朗的古典衬线英文，再往下两行等宽字体的终端短句，左边缘有倾斜、渐隐的代码作纹理。右半边：颗粒感的黑白星云照片，周围是细线矩形框、很小的等宽状态标注、加号点阵和条形码条。黑色尖锐的四角星和螺旋桨形符号散布画面。整张叠一层细线网格（竖线间距为宽度的 1/7，横向 4 行）。国际主义风格结合酸性设计。使用你自己的主题和文字。",
+   "codePrompt": "Build this poster in HTML/CSS/SVG at a 1.9:1 ratio: warm grey background; a hairline grid with verticals every 1/7 of the width and three horizontals; a heavy serif CJK title and a widely tracked serif English line in the first two columns; monospaced terminal lines; a column of code rotated about 8° and faded with a mask; a canvas-drawn grainy nebula on the right half with absolutely positioned thin boxes and tiny monospaced labels, plus-sign grids and barcode strips; SVG four-point stars. Add step buttons that reveal the layers in order (type, grid and code, nebula and labels, stars and terminal lines, acid glitch), and make the glitch with an SVG filter that splits the RGB channels and warps them with feTurbulence + feDisplacementMap. Honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/CSS/SVG 按 1.9:1 做这张海报：暖灰底；竖线间距为宽度 1/7、三条横线的细线网格；左两栏放粗衬线中文标题和字距疏朗的衬线英文；等宽字体终端短句；一列代码旋转约 8°，用遮罩渐隐；右半边用 canvas 画颗粒星云，周围绝对定位细线框和很小的等宽标注、加号点阵、条形码条；SVG 四角星。加分步按钮，按顺序显示各层（文字、网格与代码、星云与标注、星形与终端、酸性故障），故障效果用 SVG 滤镜拆开 RGB 通道并用 feTurbulence + feDisplacementMap 扭曲。支持减弱动态效果。"
+  }
+ ]
+}

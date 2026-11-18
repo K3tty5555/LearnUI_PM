@@ -1,0 +1,49 @@
+<div class="demo gd-specimen gd-corridor">
+  <div class="gc-poster">
+    <svg class="gc-lines" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="150" y1="96" x2="-60" y2="430"/><line x1="150" y1="96" x2="360" y2="430"/><line x1="150" y1="96" x2="40" y2="430"/><line x1="150" y1="96" x2="260" y2="430"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="150" y1="96" x2="-60" y2="430"/><line x1="150" y1="96" x2="360" y2="430"/><line x1="0" y1="96" x2="300" y2="96"/><circle cx="150" cy="96" r="4"/>
+    </svg>
+    <span class="gd-space" data-ov-space="汇聚线之间留空" data-ov-space-en="Empty field between the guides" style="left:4%;top:4%;width:30%;height:22%"></span>
+    <div class="gc-stack" data-ov-type="同一句话 · 逐行缩小" data-ov-type-en="One phrase · shrinking copies"></div>
+    <span class="gc-emblem" aria-hidden="true"></span>
+    <span class="gd-focus" data-ov-focus="消失点" data-ov-focus-en="Vanishing point" style="left:50%;top:24%"></span>
+    <p class="gc-foot" data-ov-type="信息 · 8px" data-ov-type-en="Info · 8px"><span>VCT CHAMPIONS 2023</span><span>LOS ANGELES</span></p>
+  </div>
+</div>
+<style>
+.gd-corridor{width:min(300px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-corridor *{box-sizing:border-box}
+.gc-poster{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#e8322b}
+.gc-lines{position:absolute;inset:0;width:100%;height:100%}
+.gc-lines line{stroke:#121212;stroke-width:1.4;vector-effect:non-scaling-stroke}
+.gc-stack{position:absolute;left:0;right:0;top:24%;bottom:0}
+.gc-row{position:absolute;left:50%;top:0;color:#121212;white-space:nowrap;font:900 var(--gc-size,58px)/1 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:.01em;transform-origin:50% 0}
+.gc-row:nth-child(4n+2){color:#f3eee4}
+.gc-emblem{position:absolute;left:50%;top:24%;width:13px;height:13px;margin:-17px 0 0 -6.5px;background:#d9a441;transform:rotate(45deg);box-shadow:0 0 0 3px #121212}
+.gc-foot{position:absolute;left:4.7%;right:4.7%;bottom:3%;display:flex;justify-content:space-between;margin:0;padding:4px 6px;background:#121212;color:#f3eee4;font:700 calc(var(--gc-w,300px) * .026)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line,.gd-grid circle{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+@media (max-height:260px){.gd-corridor{width:min(150px,calc(100vw - 40px))}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-corridor');
+  var poster=root.querySelector('.gc-poster'),stack=root.querySelector('.gc-stack');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // The same phrase on a floor receding to the vanishing point: row k at depth z is drawn at scale f/z and
+  // height f/z below the horizon. Plain 2D scales keep the text crisp, unlike a rotated 3D layer.
+  var N=9,rows=[];for(var i=0;i<N;i++){var r=document.createElement('span');r.className='gc-row';r.textContent='ONE MORE';stack.appendChild(r);rows.push(r);}
+  var W=300,H=300,raf=0,visible=true,start=performance.now();
+  function fit(){W=poster.offsetWidth;H=stack.offsetHeight;root.style.setProperty('--gc-w',W+'px');root.style.setProperty('--gc-size',(W*.27)+'px');}
+  function place(off){var f=1.3;rows.forEach(function(r,i){var z=1+((i+off)%N)*.55,s=f/z,y=H*.32*s*s*2.2-6;r.style.transform='translate(-50%,'+y.toFixed(1)+'px) scale('+s.toFixed(3)+','+(s*.62).toFixed(3)+')';r.style.zIndex=String(100-Math.round(z*10));r.style.opacity=z>4.6?String(Math.max(0,(5.4-z)/.8)):'1';});}
+  function tick(now){raf=0;if(!visible)return;place(N-((now-start)/1000*.35)%N);raf=requestAnimationFrame(tick);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(poster);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(poster);
+  fit();place(0);if(!reduce)raf=requestAnimationFrame(tick);
+})();
+</script>

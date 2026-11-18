@@ -31,6 +31,10 @@ def verify(root, base):
             for name, value in attrs:
                 if name in ('href', 'src', 'data-src', 'data-preview-en', 'data-live-source'):
                     check(value, self.source)
+                elif name == 'srcset' and value:
+                    # Every candidate in a srcset must resolve, not just the first one.
+                    for candidate in value.split(','):
+                        check(candidate.strip().split(' ')[0], self.source)
 
     pages = list(root.rglob('*.html'))
     if not pages:

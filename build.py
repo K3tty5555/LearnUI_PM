@@ -2,11 +2,12 @@
 """Learn UI PM static site builder - bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
 import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
+from urllib.parse import urlsplit
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
 SITE_NAME = "Learn UI PM"
-NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel","file-upload","loading-choreography","interaction-details","carousel","number-input","timeline","pagination","border-beam"}
+NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel","file-upload","loading-choreography","interaction-details","carousel","number-input","timeline","pagination","border-beam","card-swap","tick-slider","hold-to-record","context-meter"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
 
 def load(p):
@@ -59,6 +60,11 @@ LOGO_ISSUES = {i["id"]: i for i in LOGOS_META["issues"]}
 LOGOS = LOGOS_META["logos"]
 LOGO_TYPES = {t["id"]: t for t in LOGOS_META["types"]}
 LOGO_USES = {u["id"]: u for u in LOGOS_META["uses"]}
+GRAPHICS_META = _nn(load_or("data/graphics.json", {"issues": [], "types": [], "techniques": [], "cases": []}))
+GRAPHICS = GRAPHICS_META["cases"]
+GRAPHIC_ISSUES = {i["id"]: i for i in GRAPHICS_META["issues"]}
+GRAPHIC_TYPES = {t["id"]: t for t in GRAPHICS_META["types"]}
+GRAPHIC_TECHS = {t["id"]: t for t in GRAPHICS_META["techniques"]}
 SITE_CATEGORY_ZH = {
     "AI & LLM Platforms": "AI 与大模型平台",
     "Developer Tools & IDEs": "开发者工具与 IDE",
@@ -230,6 +236,7 @@ def icon(name, size=18):
         "shuffle": '<path d="m18 3 3 3-3 3m0 6 3 3-3 3M3 6h3c5 0 7 12 12 12h3M3 18h3c2 0 4-3 6-6s4-6 6-6h3"/>',
         "close": '<path d="m6 6 12 12M6 18 18 6"/>',
         "mark": '<path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4"/>',
+        "poster": '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 7h8M8 10h5M5 15l4-3 4 3 3-2 3 2"/>',
         "external": '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
     }
     return f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths.get(name, paths["grid"])}</svg>'
@@ -240,6 +247,7 @@ def header():
              ("/references/", "page", "Page references", "页面参考", len(PM_REFERENCES)),
              ("/sites/", "globe", "Website systems", "知名网站", len(SITES)),
              ("/logos/", "mark", "Logo atlas", "Logo 图鉴", len(LOGOS)),
+             ("/graphics/", "poster", "Graphic design", "平面设计", len(GRAPHICS)),
              ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES)),
              ("/guides/translate/", "book", "Terminology", "术语对照", "")]
     nav = "".join(f'<a href="{url}">{icon(glyph)}<span class="nav-label"><span class="lang-en">{en}</span><span class="lang-zh nav-zh">{zh}</span></span><span class="nav-count">{count}</span></a>' for url, glyph, en, zh, count in links)
@@ -278,6 +286,8 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
         safe_json = json.dumps(live_data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
         body += '<script id="live-demo-data" type="application/json">' + safe_json + '</script>'
         chrome_js += "\n" + open(os.path.join(ROOT, "assets/live-demos.js"), encoding="utf-8").read()
+    if 'data-gd-detail' in body:
+        chrome_js += "\n" + open(os.path.join(ROOT, "assets/graphics.js"), encoding="utf-8").read()
     demo_assets = '<link rel="stylesheet" href="/assets/reference-demos.css?v=' + ASSET_VERSION + '">' if 'data-pm-demo' in body else ''
     demo_js = ('<script>window.DEMO_I18N=' + json.dumps(DEMO_I18N, ensure_ascii=False).replace('</', '<\\/') + ';</script>') if 'class="fragment" data-slug=' in body else ''
     url = SITE_URL + "/" + path
@@ -917,6 +927,7 @@ def sources_page():
  <section class="sect"><h2>本项目新增内容</h2><p><code>data/pm/</code>、<code>demos/pm/</code> 及页面参考功能为独立新增内容，不覆盖上游数据文件。</p></section>
  <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。</p></section>
  <section class="sect"><h2>Logo 图鉴</h2><p><code>/logos/</code> 样本取自小红书视频介绍的网站：第 1 期《好用的设计网站之LOGO/图标》（李李说设计（大学陪跑）），第 2 期《2026 年的图标库，根本不是人用的》（默默然）。logo 图片取自各网站公开发布的图标文件，商标归各自所有者，仅用于识别与学习；每个详情页标明原始文件地址。</p></section>
+ <section class="sect"><h2>平面设计</h2><p><code>/graphics/</code> 的案例收录自小红书笔记。详情页的原作图片截取自收录笔记中的原作画面，注明原作设计方、年份和图源；代码标本是对原作版式、字体和配色的学习性还原。原作版权归原权利人，本站不盈利、仅用于学习交流；权利人如要求删除，请通过 GitHub 仓库联系，我们会立即删除。</p></section>
  <section class="sect"><h2>许可证</h2><p>代码与本地新增示例按仓库中的 <a href="/LICENSE.txt">MIT License</a> 使用。原始内容的版权边界以 README 和上游说明为准。</p></section>
 </main>
 {footer()}'''
@@ -1154,6 +1165,189 @@ def logo_page(logo):
 </main>
 {footer()}'''
     return page(logo["name"], logo_name_zh(logo), logo["about"], logo["aboutZh"], body, logo_url(logo).lstrip("/"))
+
+# ---------------- graphic design ----------------
+def graphic_url(case):
+    return f'/graphics/{case["slug"]}/'
+
+def graphic_title_zh(case):
+    return f'{case.get("gameZh") or case["game"]} · {case["project"]}'
+
+def graphic_title_en(case):
+    return f'{case["game"]} · {case["project"]}'
+
+def graphic_srcset(im, enough=None):
+    """Original-size file for 1x screens; the 2x file (AI-upscaled or official) for high-density screens.
+    `enough`: if the 1x file is already this wide (e.g. a cover card), skip the 2x file altogether."""
+    hd = im.get("hd")
+    if not hd or (enough and im["w"] >= enough):
+        return ""
+    return f' srcset="/assets/graphics/{esc(im["file"])} 1x, /assets/graphics/{esc(hd)} 2x"'
+
+def graphic_year(case, sep=" · "):
+    return f'{sep}{case["year"]}' if case.get("year") else ""
+
+def graphic_tech_tags(case, link=True):
+    out = []
+    for tid in case["techniques"]:
+        t_ = GRAPHIC_TECHS[tid]
+        inner = f'<span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span>'
+        out.append(f'<a class="tag gd-tech" href="/graphics/?tech={esc(tid)}">{inner}</a>' if link else f'<span class="tag gd-tech">{inner}</span>')
+    return "".join(out)
+
+def graphic_card(case):
+    ty = GRAPHIC_TYPES[case["type"]]
+    hay = " ".join([case["game"], case.get("gameZh", ""), case["project"], case["credits"], ty["name"], ty["nameZh"], case["summary"], case["summaryZh"]]
+                   + [GRAPHIC_TECHS[t]["name"] + " " + GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]]).lower()
+    return f'''<article class="catalog-item graphic-item" data-search="{esc(hay)}" data-type="{esc(case["type"])}" data-techs="{esc(" ".join(case["techniques"]))}">
+ <a class="style-card graphic-card" href="{graphic_url(case)}">
+  <div class="gd-cover" style="aspect-ratio:{case["images"][0]["w"]}/{case["images"][0]["h"]}"><img src="/assets/graphics/{esc(case["images"][0]["file"])}"{graphic_srcset(case["images"][0], enough=900)} width="{case["images"][0]["w"]}" height="{case["images"][0]["h"]}" alt="" loading="lazy" decoding="async"></div>
+  <div class="card-meta">
+   <h3 class="card-name"><span class="lang-zh card-name-zh">{esc(graphic_title_zh(case))}</span><span class="lang-en">{esc(graphic_title_en(case))}</span></h3>
+   <p class="gd-credit">{esc(case["credits"])}{graphic_year(case)}</p>
+   <div class="gd-card-tags">{graphic_tech_tags(case, link=False)}</div>
+  </div>
+ </a>
+ {select_button("graphic:" + case["slug"], compact=True)}
+</article>'''
+
+def graphics_hub_page():
+    type_counts = {tid: sum(1 for c in GRAPHICS if c["type"] == tid) for tid in GRAPHIC_TYPES}
+    type_chips = ['<button type="button" class="logo-type-chip" data-gd-type="" aria-pressed="true"><span class="lang-zh">全部类型</span><span class="lang-en">All types</span><b>' + str(len(GRAPHICS)) + '</b></button>']
+    for tid, ty in GRAPHIC_TYPES.items():
+        dis = '' if type_counts[tid] else ' disabled'
+        type_chips.append(f'<button type="button" class="logo-type-chip" data-gd-type="{esc(tid)}" aria-pressed="false"{dis}><span class="lang-zh">{esc(ty["nameZh"])}</span><span class="lang-en">{esc(ty["name"])}</span><b>{type_counts[tid]}</b></button>')
+    used = [tid for tid in GRAPHIC_TECHS if any(tid in c["techniques"] for c in GRAPHICS)]
+    tech_options = ['<option value="">全部手法</option>'] + [f'<option value="{esc(t)}">{esc(GRAPHIC_TECHS[t]["nameZh"])}（{sum(1 for c in GRAPHICS if t in c["techniques"])}）</option>' for t in used]
+    glossary = "".join(f'<div class="logo-glossary-item"><dt><span class="lang-zh">{esc(GRAPHIC_TECHS[t]["nameZh"])} <small>{esc(GRAPHIC_TECHS[t]["name"])}</small></span><span class="lang-en">{esc(GRAPHIC_TECHS[t]["name"])}</span></dt><dd><span class="lang-zh">{esc(GRAPHIC_TECHS[t]["definitionZh"])}</span><span class="lang-en">{esc(GRAPHIC_TECHS[t]["definition"])}</span></dd></div>' for t in used)
+    issue_lines = "".join(f'<li><span class="lang-zh">第 {iid} 期 · {sum(1 for c in GRAPHICS if c["issue"] == iid)} 个案例，来自小红书「{esc(iss["author"])}」的笔记《{esc(iss["title"])}》</span><span class="lang-en">Issue {iid} · {sum(1 for c in GRAPHICS if c["issue"] == iid)} cases from the Xiaohongshu note "{esc(iss["title"])}" by {esc(iss["author"])}</span></li>' for iid, iss in GRAPHIC_ISSUES.items())
+    cards = "\n".join(graphic_card(c) for c in GRAPHICS)
+    body = f'''{header()}
+<main class="wrap graphics-hub-page">
+ <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Graphic design</span><span class="lang-zh">平面设计</span></span></nav>
+ <section class="hero logos-hero">
+  <h1 class="hero-title"><span class="lang-en">Graphic design</span><span class="lang-zh hero-title-zh">平面设计</span></h1>
+  <p class="lang-zh hero-sub">从真实案例里拆出可以复用的手法：版式、字体层级、配色和焦点。每个案例都有原作图片，和一张用代码还原的标本，可以逐层打开拆解，再把手法交给 AI。</p>
+  <p class="lang-en hero-sub">Reusable techniques taken apart from real work: layout, type hierarchy, colour and focus. Each case has a coded specimen you can open layer by layer, then hand the technique to your AI.</p>
+  <ul class="logo-issue">{issue_lines}<li><span class="lang-zh">每个案例都放了原作图片和一张用代码还原的标本；原作版权归原权利人，详情页注明设计方和图源，权利人要求即删除。</span><span class="lang-en">Each case shows the original images and a coded reconstruction; rights stay with the original owners, credited on each page, and will be removed on request.</span></li></ul>
+  <div class="logo-tools">
+   <div class="logo-type-chips" role="group" aria-label="按类型筛选">{"".join(type_chips)}</div>
+   <div class="site-filter-row">
+    <div class="search-box site-search-box"><input id="graphic-search" type="search" autocomplete="off" data-ph-en="Search a game, studio or technique" data-ph-zh="搜索游戏、设计方或手法" placeholder="搜索游戏、设计方或手法" aria-label="搜索平面设计案例"><kbd class="search-kbd">/</kbd></div>
+    <label class="site-filter-select"><span>手法</span><select id="graphic-tech" aria-label="按手法筛选">{"".join(tech_options)}</select></label>
+    <button type="button" class="site-reset" id="graphic-reset" hidden><span class="lang-en">Reset filters</span><span class="lang-zh">重置筛选</span></button>
+   </div>
+   <p class="site-result-count" id="graphic-count" role="status" aria-live="polite" aria-atomic="true"><span class="lang-en" data-tpl="Showing {{shown}} of {{total}}">Showing {len(GRAPHICS)} of {len(GRAPHICS)}</span><span class="lang-zh" data-tpl="显示 {{shown}} / {{total}} 个">显示 {len(GRAPHICS)} / {len(GRAPHICS)} 个</span></p>
+  </div>
+ </section>
+ <section class="style-grid graphics-grid" id="graphics" aria-live="polite">{cards}</section>
+ <div class="no-result" id="graphic-no-result" hidden><b>没有符合条件的案例</b><p>换一个类型、手法或关键词。</p></div>
+ <section class="sect logo-glossary-sect">
+  <h2 class="section-title"><span class="lang-zh">手法词汇</span><span class="lang-en">Technique glossary</span></h2>
+  <dl class="logo-glossary">{glossary}</dl>
+ </section>
+</main>
+{footer()}'''
+    return page("Graphic design", "平面设计", "Techniques taken apart from real graphic design work.",
+                f"从 {len(GRAPHICS)} 个真实平面设计案例里拆出版式、字体、配色和焦点手法。", body, "graphics/")
+
+def graphic_markdown(case):
+    ty = GRAPHIC_TYPES[case["type"]]
+    lines = [f'# {graphic_title_zh(case)}', '', f'- 类型：{ty["nameZh"]}', f'- 设计方：{case["credits"]}{graphic_year(case, "，")}', f'- 图源：{case["sourceLabel"]}' + "".join(f" <{u}>" for u in case.get("sourceUrls", [])),
+             f'- 手法：' + '、'.join(GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]), '', case["summaryZh"], '', '## 为什么好看', '', case["readZh"], '', '## 拆解', '']
+    lines += [f'- {name}：{case["layers"][key + "Zh"]}' for key, name in (("grid", "网格"), ("type", "字体层级"), ("focus", "视觉焦点"), ("space", "留白"))]
+    lines += ['', '## 配色', ''] + [f'- {c["nameZh"]} {c["hex"]}' for c in case["palette"]]
+    lines += ['', '## 原作图片', ''] + [f'- {im["captionZh"]}：{SITE_URL}/assets/graphics/{im["file"]}' for im in case["images"]]
+    lines += ['', '## 生图提示词', '', case["imagePromptZh"], '', '## 代码提示词', '', case["codePromptZh"], '']
+    return "\n".join(lines)
+
+def graphic_page(case):
+    ty = GRAPHIC_TYPES[case["type"]]
+    iss = GRAPHIC_ISSUES[case["issue"]]
+    styles = "".join(f'<a class="tag" href="{style_url(STYLE_BY_SLUG[s])}"><span class="lang-zh">{esc(style_zh(STYLE_BY_SLUG[s]).get("name_zh", STYLE_BY_SLUG[s]["name"]))}</span><span class="lang-en">{esc(STYLE_BY_SLUG[s]["name"])}</span></a>' for s in case.get("styles", []) if s in STYLE_BY_SLUG)
+    layer_btns = "".join(f'<button type="button" class="gd-layer-btn" data-gd-layer="{k}" aria-pressed="false"><span class="lang-zh">{zh}</span><span class="lang-en">{en}</span></button>'
+                         for k, zh, en in (("grid", "网格", "Grid"), ("type", "字体层级", "Type"), ("palette", "配色", "Palette"), ("focus", "视觉焦点", "Focus"), ("space", "留白", "Space"), ("all", "全部", "All")))
+    notes = "".join(f'<p class="gd-note" data-gd-note="{k}" hidden><b><span class="lang-zh">{zh}</span><span class="lang-en">{en}</span></b><span class="lang-zh">{esc(case["layers"][k + "Zh"])}</span><span class="lang-en">{esc(case["layers"][k])}</span></p>'
+                    for k, zh, en in (("grid", "网格", "Grid"), ("type", "字体层级", "Type"), ("focus", "视觉焦点", "Focus"), ("space", "留白", "Space")))
+    notes += '<p class="gd-note" data-gd-note="palette" hidden><b><span class="lang-zh">配色</span><span class="lang-en">Palette</span></b>' + " · ".join(f'<span class="lang-zh">{esc(c["nameZh"])}</span><span class="lang-en">{esc(c["name"])}</span> {esc(c["hex"])}' for c in case["palette"]) + '</p>'
+    swatches = "".join(f'<button type="button" class="gd-swatch" data-copy-text="{esc(c["hex"])}" title="复制 {esc(c["hex"])}"><i style="background:{esc(c["hex"])}"></i><b>{esc(c["hex"])}</b><span class="lang-zh">{esc(c["nameZh"])}</span><span class="lang-en">{esc(c["name"])}</span></button>' for c in case["palette"])
+    palette_json = json.dumps([{"hex": c["hex"]} for c in case["palette"]])
+    # Originals keep their own aspect ratio. A portrait lead image sits beside the rest;
+    # a landscape lead image spans the row and the rest line up below at equal height.
+    def orig_badge(im):
+        labels = {"official": ("官方原图", "Official file"), "note": ("截自收录笔记", "Cropped from the note"),
+                  "enhanced": ("截自收录笔记 · AI 放大 2 倍", "From the note · 2× AI upscale"),
+                  "official-enhanced": ("官方原图 · AI 放大 2 倍", "Official file · 2× AI upscale"),
+                  "author": ("作者原图", "Designer's own file"), "author-enhanced": ("作者原图 · AI 放大 2 倍", "Designer's own file · 2× AI upscale")}
+        zh, en = labels.get(im.get("origin", "note"), labels["note"])
+        return f'<em class="gd-orig-src"><span class="lang-zh">{zh}</span><span class="lang-en">{en}</span></em>'
+    def orig_figure(im, i, style=""):
+        return (f'<figure class="gd-orig"{style}><a href="/assets/graphics/{esc(im.get("hd") or im["file"])}" target="_blank" rel="noopener">'
+                f'<img src="/assets/graphics/{esc(im["file"])}"{graphic_srcset(im)} width="{im["w"]}" height="{im["h"]}" alt="{esc(im["captionZh"])}" loading="{"eager" if i == 0 else "lazy"}" decoding="async"></a>'
+                f'<figcaption><span class="lang-zh">{esc(im["captionZh"])}</span><span class="lang-en">{esc(im["caption"])}</span>{orig_badge(im)}</figcaption></figure>')
+    has_ai = any(im.get("origin", "").endswith("enhanced") for im in case["images"])
+    ai_zh = "标有「AI 放大 2 倍」的图在高清屏上显示 AI 清晰度增强版（Real-ESRGAN），细节可能与原作有细微差异；" if has_ai else ""
+    ai_en = "Images marked “2× AI upscale” use a Real-ESRGAN enhanced version on high-density screens; fine detail may differ slightly. " if has_ai else ""
+    hosts = [urlsplit(u).netloc.removeprefix("www.") for u in case.get("sourceUrls", [])]
+    source_links = "".join(f' · <a href="{esc(u)}" target="_blank" rel="noopener">{esc(h)}{f" ({hosts[:i].count(h) + 1})" if hosts.count(h) > 1 else ""}</a>'
+                           for i, (u, h) in enumerate(zip(case.get("sourceUrls", []), hosts)))
+    lead, rest = case["images"][0], case["images"][1:]
+    if lead["h"] > lead["w"] * 1.05:
+        gallery = (f'<div class="gd-orig-split"><div class="gd-orig-lead" style="--ar:{lead["w"]}/{lead["h"]}">{orig_figure(lead, 0)}</div>'
+                   f'<div class="gd-orig-rest">{"".join(orig_figure(im, i + 1) for i, im in enumerate(rest))}</div></div>')
+    else:
+        row = "".join(orig_figure(im, i + 1, f' style="flex:{im["w"] / im["h"]:.3f} 1 0"') for i, im in enumerate(rest))
+        gallery = (f'<div class="gd-orig-stack"><div class="gd-orig-lead gd-orig-wide" style="--ar:{lead["w"]}/{lead["h"]}">{orig_figure(lead, 0)}</div>'
+                   f'<div class="gd-orig-row">{row}</div></div>')
+    others = [c for c in GRAPHICS if c["slug"] != case["slug"] and set(c["techniques"]) & set(case["techniques"])][:4]
+    related = "".join(f'<a class="rel-card" href="{graphic_url(c)}"><span class="rel-name"><span class="lang-zh rel-name-zh">{esc(graphic_title_zh(c))}</span><span class="lang-en">{esc(graphic_title_en(c))}</span></span><span class="rel-sym">{esc(" · ".join(GRAPHIC_TECHS[t]["nameZh"] for t in c["techniques"] if t in case["techniques"]))}</span></a>' for c in others)
+    related_sect = f'<section class="sect"><h2 class="section-title"><span class="lang-zh">用了相同手法</span><span class="lang-en">Same techniques</span></h2><div class="rel-grid">{related}</div></section>' if related else ''
+    body = f'''{header()}
+<main class="wrap entry graphic-detail" data-gd-detail data-gd-palette="{esc(palette_json)}">
+ <nav class="crumbs"><a href="/graphics/"><span class="lang-zh">平面设计</span><span class="lang-en">Graphic design</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">{esc(graphic_title_zh(case))}</span><span class="lang-en">{esc(graphic_title_en(case))}</span></span></nav>
+ <header class="entry-head">
+  <h1 class="logo-title"><span class="lang-zh">{esc(graphic_title_zh(case))}</span><span class="lang-en">{esc(graphic_title_en(case))}</span></h1>
+  <p class="entry-tag"><span class="lang-zh">{esc(case["summaryZh"])}</span><span class="lang-en">{esc(case["summary"])}</span></p>
+  <div class="logo-card-tags"><span class="tag logo-type-tag"><span class="lang-zh">{esc(ty["nameZh"])}</span><span class="lang-en">{esc(ty["name"])}</span></span>{graphic_tech_tags(case)}{styles}</div>
+  <div class="entry-actions">{select_button("graphic:" + case["slug"])}</div>
+ </header>
+ <section class="gd-originals">
+  <h2 class="section-title"><span class="lang-zh">原作</span><span class="lang-en">Original</span></h2>
+  {gallery}
+  <p class="gd-orig-credit"><span class="lang-zh">原作：{esc(case["credits"])}{graphic_year(case, "，")}。图源：{esc(case["sourceLabel"])}{source_links}。版权归原权利人，仅用于学习交流，权利人要求即删除。{ai_zh}点图片可看大图。</span><span class="lang-en">Original: {esc(case["credits"])}{graphic_year(case, ", ")}. Source: {esc(case["sourceLabel"])}{source_links}. Rights belong to the original owners; shown for study and removed on request. {ai_en}Click an image to open it full size.</span></p>
+ </section>
+ <section class="gd-recreate">
+  <h2 class="section-title"><span class="lang-zh">代码还原与拆解</span><span class="lang-en">Coded reconstruction and breakdown</span></h2>
+  <p class="gd-recreate-note"><span class="lang-zh">用代码还原原作的版式、字体和配色，再逐层打开拆解。插画、摄影和角色画面不重画，用简化的形状代替，请对照上方原图。</span><span class="lang-en">Layout, type and colour rebuilt in code so each layer can be opened. Illustration, photography and characters are simplified shapes; compare with the originals above.</span></p>
+ </section>
+ {stage("graphic/" + case["slug"], detail=True)}
+ <div class="gd-layer-bar" role="group" aria-label="拆解图层"><span class="gd-layer-label"><span class="lang-zh">拆解</span><span class="lang-en">Break down</span></span>{layer_btns}</div>
+ <div class="gd-notes">{notes}</div>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">为什么好看</span><span class="lang-en">Why it works</span></h2>
+  <p class="logo-read"><span class="lang-zh">{esc(case["readZh"])}</span><span class="lang-en">{esc(case["read"])}</span></p>
+ </section>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">配色</span><span class="lang-en">Palette</span></h2>
+  <div class="gd-swatches">{swatches}</div>
+ </section>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">生图提示词</span><span class="lang-en">Image prompt</span></h2>
+  {copy_block(case["imagePrompt"], case["imagePromptZh"], "gd-image-prompt")}
+ </section>
+ <section class="sect">
+  <h2 class="section-title"><span class="lang-zh">代码提示词</span><span class="lang-en">Code prompt</span></h2>
+  {copy_block(case["codePrompt"], case["codePromptZh"], "gd-code-prompt")}
+ </section>
+ {related_sect}
+ <section class="sect reference-detail-actions">
+  <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
+  <template id="md-source">{esc(graphic_markdown(case))}</template>
+  <span><span class="lang-zh">收录自小红书「{esc(iss["author"])}」的笔记《{esc(iss["title"])}》，<a href="{esc(iss["url"])}" rel="noopener" target="_blank">查看原笔记</a>。</span><span class="lang-en">Collected from the Xiaohongshu note "{esc(iss["title"])}" by {esc(iss["author"])}; <a href="{esc(iss["url"])}" rel="noopener" target="_blank">view the note</a>.</span></span>
+ </section>
+</main>
+{footer()}'''
+    return page(graphic_title_en(case), graphic_title_zh(case), case["summary"], case["summaryZh"], body, graphic_url(case).lstrip("/"))
 
 # ---------------- styles atlas (Name That Vibe) ----------------
 
@@ -1556,6 +1750,15 @@ def catalog_data():
             "tags": {"category": [site["category"]]}, "prompt": site["summaryZh"],
             "source": {"kind": "external", "label": "awesome-design-md", "license": "MIT"}
         })
+    for case in GRAPHICS:
+        items.append({
+            "id": "graphic:" + case["slug"], "type": "graphic-reference", "slug": case["slug"],
+            "name": graphic_title_en(case), "nameZh": graphic_title_zh(case), "url": graphic_url(case),
+            "summary": case["summaryZh"], "tags": {"graphicType": [case["type"]], "techniques": case["techniques"]},
+            "techniques": [GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]], "palette": [c["hex"] for c in case["palette"]],
+            "credits": case["credits"], "year": case.get("year") or None, "images": [f'/assets/graphics/{im["file"]}' for im in case["images"]], "imagePrompt": case["imagePromptZh"], "prompt": case["codePromptZh"],
+            "source": {"kind": "external", "label": GRAPHIC_ISSUES[case["issue"]]["author"], "url": GRAPHIC_ISSUES[case["issue"]]["url"], "original": case["sourceLabel"]}
+        })
     for logo in LOGOS:
         items.append({
             "id": "logo:" + logo["slug"], "type": "logo-reference", "slug": logo["slug"],
@@ -1584,6 +1787,7 @@ def catalog_readme():
 - `type=visual-style`：现有视觉风格和 Style Brief。
 - `type=site-reference`：知名网站的设计系统、分类和中文风格解读。
 - `type=logo-reference`：Logo 图鉴，含 logo 类型、构成拆解、网站用途与授权、生成 Prompt。
+- `type=graphic-reference`：平面设计案例，含手法、配色、生图与代码两种 Prompt、原作设计方与图源。
 - `taxonomy.json`：页面参考筛选所使用的稳定分类 ID。
 '''
 
@@ -1607,6 +1811,10 @@ def build():
         write("sites/index.html", sites_hub_page())
         for site in SITES:
             write(f'sites/{site["slug"]}/index.html', site_detail_page(site))
+    if GRAPHICS:
+        write("graphics/index.html", graphics_hub_page())
+        for case in GRAPHICS:
+            write(f'graphics/{case["slug"]}/index.html', graphic_page(case))
     if LOGOS:
         write("logos/index.html", logos_hub_page())
         for logo in LOGOS:
@@ -1682,6 +1890,7 @@ def build():
            [reference_url(ref) for ref in PM_REFERENCES] + \
            (["/sites/"] + [f'/sites/{site["slug"]}/' for site in SITES] if SITES else []) + \
            (["/logos/"] + [logo_url(logo) for logo in LOGOS] if LOGOS else []) + \
+           (["/graphics/"] + [graphic_url(c) for c in GRAPHICS] if GRAPHICS else []) + \
            [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
            [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/"]
     if STYLES:

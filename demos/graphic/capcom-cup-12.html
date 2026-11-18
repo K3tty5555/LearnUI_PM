@@ -1,0 +1,66 @@
+<div class="demo gd-specimen gd-sf6" data-view="key">
+  <div class="sf-frame" data-gd-canvas>
+    <section class="sf-key">
+      <svg class="sf-splash" viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+      <svg class="sf-hero" viewBox="0 0 160 220" aria-hidden="true" data-ov-focus="角色的脸和交叉的手臂" data-ov-focus-en="Face and crossed arms"><path d="M24 220c4-50 26-80 56-86 30 6 52 36 56 86z" fill="#5d8fd8"/><path d="M40 160h80v18H40z" fill="#f2c9a0"/><path d="M36 156c14-8 30-10 44-10s30 2 44 10l-6 12c-12-6-24-8-38-8s-26 2-38 8z" fill="#2e5aa8"/><ellipse cx="80" cy="92" rx="26" ry="32" fill="#f2c9a0"/><path d="M52 86c0-26 12-40 28-40s28 14 28 40c-8-10-18-14-28-14s-20 4-28 14z" fill="#3a2a22"/><circle cx="50" cy="66" r="12" fill="#3a2a22"/><circle cx="110" cy="66" r="12" fill="#3a2a22"/><circle cx="50" cy="66" r="13" fill="none" stroke="#f4f1ec" stroke-width="2"/><circle cx="110" cy="66" r="13" fill="none" stroke="#f4f1ec" stroke-width="2"/></svg>
+      <span class="gd-space" data-ov-space="笔触周围的白纸" data-ov-space-en="White paper around the splashes" style="left:2%;top:4%;width:18%;height:30%"></span>
+    </section>
+    <section class="sf-tix">
+      <div class="sf-emblems" aria-hidden="true"><i>JP<br>2025</i><i>JP<br>2025</i><i class="sf-cup">CC<br>12</i><i>WORLD</i></div>
+      <div class="sf-band" data-ov-type="大日期标题 + 售票信息" data-ov-type-en="Big date + ticket line"><b>2025.10.10 (Fri) PM18:00</b><small>会場観戦チケット</small><span>– TICKETS GO ON SALE –</span></div>
+    </section>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="50" y1="0" x2="50" y2="100"/><line x1="0" y1="50" x2="100" y2="50"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Pieces"><button type="button" data-view-btn="key" aria-pressed="true">Key visual</button><button type="button" data-view-btn="tix">Tickets</button></div>
+</div>
+<style>
+.gd-sf6{width:min(480px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-sf6 *{box-sizing:border-box}
+.sf-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:6px;background:#f4f1ec}
+.sf-key,.sf-tix{position:absolute;inset:0;transition:opacity .45s}
+.gd-sf6[data-view="key"] .sf-tix,.gd-sf6[data-view="tix"] .sf-key{opacity:0;pointer-events:none}
+.sf-splash{position:absolute;inset:0;width:100%;height:100%}
+.sf-hero{position:absolute;left:50%;bottom:0;height:86%;transform:translateX(-50%)}
+.sf-tix{background:linear-gradient(180deg,#2d3a5c,#141a2c)}
+.sf-emblems{position:absolute;left:6%;right:6%;top:9%;display:flex;justify-content:space-around}
+.sf-emblems i{display:grid;place-items:center;width:calc(var(--sf-w,480px) * .13);aspect-ratio:1;border-radius:50% 50% 46% 46%;background:radial-gradient(circle at 35% 30%,#7fb2ff,#1f5fd6 60%,#123a8a);color:#fff;font:900 calc(var(--sf-w,480px) * .028)/1 "Avenir Next Condensed","Bahnschrift",Impact,sans-serif;font-style:normal;text-align:center;box-shadow:0 0 0 3px #e9eef9,0 6px 14px rgba(0,0,0,.4)}
+.sf-emblems .sf-cup{background:radial-gradient(circle at 35% 30%,#ffe08a,#e0a31f 60%,#9a6b0a)}
+.sf-band{position:absolute;left:0;right:0;bottom:8%;display:grid;justify-items:center;gap:3px;color:#fff}
+.sf-band b{font:900 calc(var(--sf-w,480px) * .055)/1 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:.02em}
+.sf-band small{font:700 calc(var(--sf-w,480px) * .022)/1 "Hiragino Sans","PingFang SC",sans-serif;opacity:.85}
+.sf-band span{font:900 calc(var(--sf-w,480px) * .062)/1 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:.04em}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-sf6{width:calc(100vw - 40px)}.gd-controls{display:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-sf6');
+  var frame=root.querySelector('.sf-frame'),svg=root.querySelector('.sf-splash'),btns=[].slice.call(root.querySelectorAll('[data-view-btn]'));
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Brush strokes radiate from behind the character; turbulence gives them rough, painted edges.
+  var C=['#e07a3f','#3fa06a','#8b5cc7','#1f5fd6','#d94a6a','#e8b23a','#4aa3c7','#2a2a2e'];
+  var seed=3;function r(){seed=(seed*16807)%2147483647;return seed/2147483647;}
+  var strokes='';for(var i=0;i<16;i++){var a=(i/16)*Math.PI*2+r()*.3,L=120+r()*120,w=14+r()*30,cx=240,cy=150;
+    var x1=cx+Math.cos(a)*30,y1=cy+Math.sin(a)*20,x2=cx+Math.cos(a)*L,y2=cy+Math.sin(a)*L*.6,mx=(x1+x2)/2+Math.sin(a)*30,my=(y1+y2)/2-Math.cos(a)*30;
+    strokes+='<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' Q'+mx.toFixed(1)+' '+my.toFixed(1)+' '+x2.toFixed(1)+' '+y2.toFixed(1)+'" stroke="'+C[i%C.length]+'" stroke-width="'+w.toFixed(1)+'" stroke-linecap="round" fill="none" opacity="'+(.55+r()*.4).toFixed(2)+'"/>';
+    for(var k=0;k<3;k++)strokes+='<circle cx="'+(x2+(r()-.5)*40).toFixed(1)+'" cy="'+(y2+(r()-.5)*30).toFixed(1)+'" r="'+(1+r()*4).toFixed(1)+'" fill="'+C[i%C.length]+'" opacity=".8"/>';}
+  svg.innerHTML='<defs><filter id="sf-rough" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4"/><feDisplacementMap in="SourceGraphic" scale="16"/></filter></defs><g filter="url(#sf-rough)">'+strokes+'</g>';
+  var NAMES={key:['主视觉','Key visual'],tix:['售票预告','Tickets']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.viewBtn][zh()?0:1]});}
+  function fit(){root.style.setProperty('--sf-w',frame.offsetWidth+'px');}
+  function setView(v){root.dataset.view=v;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.viewBtn===v?'true':'false')});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setView(b.dataset.viewBtn)})});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setView(root.dataset.view==='key'?'tix':'key');cycle();},4200);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(frame);
+  document.addEventListener('learnui:languagechange',text);
+  text();fit();cycle();
+})();
+</script>

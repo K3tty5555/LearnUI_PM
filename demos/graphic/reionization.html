@@ -1,0 +1,145 @@
+<div class="demo gd-specimen gd-reion" data-step="4">
+  <div class="rz-frame" data-gd-canvas>
+    <svg class="rz-svg" viewBox="0 0 1800 949" role="img" aria-label="REIONIZATION poster">
+      <defs>
+        <linearGradient id="rz-fade" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".4" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <mask id="rz-code-mask" maskUnits="userSpaceOnUse" x="0" y="-80" width="640" height="1100"><rect x="0" y="-80" width="640" height="1100" fill="url(#rz-fade)"/></mask>
+        <!-- Acid version: warp with turbulence, then pull the red and blue channels apart and screen them back together. -->
+        <filter id="rz-acid" x="-4%" y="-4%" width="108%" height="108%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.0035 0.018" numOctaves="2" seed="7" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+          <feOffset in="warp" dx="-7" dy="1" result="rOff"/>
+          <feColorMatrix in="rOff" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+          <feColorMatrix in="warp" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g"/>
+          <feOffset in="warp" dx="7" dy="-1" result="bOff"/>
+          <feColorMatrix in="bOff" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b"/>
+          <feBlend in="r" in2="g" mode="screen" result="rg"/>
+          <feBlend in="rg" in2="b" mode="screen"/>
+        </filter>
+      </defs>
+      <g class="rz-all">
+        <rect x="-80" y="-80" width="1960" height="1109" fill="#ECEBE9"/>
+        <!-- 2 · grid and code -->
+        <g class="st2 rz-gridlines" stroke="#2a2a30" stroke-width="1" opacity=".55"></g>
+        <g class="st2" mask="url(#rz-code-mask)"><g class="rz-code" transform="skewY(8.3)" font-family="'JetBrains Mono','SF Mono',Menlo,Consolas,monospace" font-size="13.6" fill="#2b2d33"></g></g>
+        <!-- 3 · nebula and instrument labels -->
+        <g class="st3">
+          <image class="rz-nebula" x="820" y="0" width="980" height="949" preserveAspectRatio="none"/>
+          <g class="rz-plus" fill="#2b2d33" font-family="'JetBrains Mono',Menlo,monospace" font-size="15"></g>
+          <g class="rz-boxes" fill="none" stroke="#3a3a40" stroke-width="1.2"></g>
+          <g class="rz-labels" fill="#2b2d33" font-family="'JetBrains Mono','SF Mono',Menlo,monospace" font-size="9.4"></g>
+          <g class="rz-props-light"></g>
+          <rect class="rz-core" x="1300" y="400" width="190" height="200" fill="none" data-ov-focus="星云暗部和两个螺旋桨符号" data-ov-focus-en="Nebula core and the two propeller marks"/>
+        </g>
+        <!-- 4 · stars and terminal lines -->
+        <g class="st4">
+          <g class="rz-stars" fill="#1C1F26" stroke="#1C1F26"></g>
+          <g class="rz-term" font-family="'JetBrains Mono','SF Mono',Menlo,monospace" font-size="11.2" fill="#2b2d33">
+            <text x="1110" y="46">03:36:14  TERMINAL CONNECTED  MEM: 64TB / LOAD: 12%</text>
+            <text x="653" y="915">ARCHIVE REFERENCE OBS-REION-7F3A  COSMIC TIME INDEX 5.6 × 10^8 yr CHECKSUM: OK</text>
+            <text transform="translate(1752 125) rotate(90)" font-size="10.4" letter-spacing="1.2">ASTROPHYSICAL ANALYSIS MODE TARGET LOCKED</text>
+          </g>
+          <g class="rz-bars" fill="#1C1F26"></g>
+        </g>
+        <!-- 1 · type -->
+        <g class="rz-title" data-ov-type="标题：粗衬线中文 + 疏排衬线英文" data-ov-type-en="Title: heavy CJK serif over a tracked serif line">
+          <text x="166" y="408" font-family="'Source Han Serif SC','Noto Serif SC','Noto Serif CJK SC','Songti SC','STSong',serif" font-weight="900" font-size="176" textLength="484" lengthAdjust="spacingAndGlyphs" fill="#1C1F26">再电离</text>
+          <text x="178" y="517" font-family="Cinzel,'Trajan Pro','Baskerville','Hoefler Text',Georgia,serif" font-size="96" textLength="738" lengthAdjust="spacingAndGlyphs" fill="#1C1F26">REIONIZATION</text>
+        </g>
+        <g class="st3" data-ov-type="天体编号：细线展示字" data-ov-type-en="Object name: hairline display type">
+          <text x="1000" y="224" font-family="'Helvetica Neue','Avenir Next',sans-serif" font-weight="100" font-size="92" textLength="462" lengthAdjust="spacingAndGlyphs" fill="#1C1F26">NGC 604</text>
+        </g>
+        <g class="rz-prompt" font-family="'JetBrains Mono','SF Mono',Menlo,Consolas,monospace" font-size="27" fill="#1C1F26" data-ov-type="终端短句：等宽字" data-ov-type-en="Terminal lines: monospaced">
+          <text x="402" y="704">&gt; System initializing...OK</text>
+          <text x="402" y="743">&gt; Awaiting input<tspan class="rz-cursor">_</tspan></text>
+        </g>
+        <rect x="190" y="548" width="700" height="118" fill="none" data-ov-space="标题和终端文字之间的空带" data-ov-space-en="Calm band between title and terminal lines"/>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="27.4" y1="0" x2="27.4" y2="100"/><line x1="41.9" y1="0" x2="41.9" y2="100"/><line x1="56.5" y1="0" x2="56.5" y2="100"/><line x1="71" y1="0" x2="71" y2="100"/><line x1="85.6" y1="0" x2="85.6" y2="100"/><line x1="0" y1="24.9" x2="100" y2="24.9"/><line x1="0" y1="50" x2="100" y2="50"/><line x1="0" y1="75.3" x2="100" y2="75.3"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Type</button><button type="button" data-step-btn="2">2 Grid · code</button><button type="button" data-step-btn="3">3 Nebula · labels</button><button type="button" data-step-btn="4" aria-pressed="true">4 Final</button><button type="button" data-step-btn="5">5 Acid</button></div>
+</div>
+<style>
+.gd-reion{width:min(760px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-reion *{box-sizing:border-box}
+.rz-frame{position:relative;width:100%;aspect-ratio:1800/949;overflow:hidden;border-radius:4px;background:#ECEBE9}
+.rz-svg{display:block;width:100%;height:100%}
+.gd-reion .st2,.gd-reion .st3,.gd-reion .st4{transition:opacity .55s ease}
+.gd-reion[data-step="1"] .st2,.gd-reion[data-step="1"] .st3,.gd-reion[data-step="2"] .st3,.gd-reion[data-step="1"] .st4,.gd-reion[data-step="2"] .st4,.gd-reion[data-step="3"] .st4{opacity:0}
+.gd-reion[data-step="5"] .rz-all{filter:url(#rz-acid)}
+.rz-cursor{animation:rz-blink 1.1s steps(1) infinite}
+@keyframes rz-blink{50%{opacity:0}}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-reion{width:calc(100vw - 40px)}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-reion .st2,.gd-reion .st3,.gd-reion .st4{transition:none}.rz-cursor{animation:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-reion');
+  var svg=root.querySelector('.rz-svg'),NS='http://www.w3.org/2000/svg';
+  function el(name,attrs,parent,text){var n=document.createElementNS(NS,name);for(var k in attrs)n.setAttribute(k,attrs[k]);if(text!=null)n.textContent=text;parent.appendChild(n);return n;}
+  function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  // Grid: verticals every 262 units from x=493, three horizontals (four rows).
+  var grid=svg.querySelector('.rz-gridlines');
+  [493,755,1017,1278,1540].forEach(function(x){el('line',{x1:x,y1:0,x2:x,y2:949},grid);});
+  [236,475,715].forEach(function(y){el('line',{x1:0,y1:y,x2:1800,y2:y},grid);});
+  // Code column, set small and skewed so it reads as texture first.
+  var CODE=["OMEGA_B = 0.048","Y_P = 0.24","","def z_to_scale_factor(z):","    return 1.0 / (1.0 + z)","","def hubble_parameter(z):","    Omega_m = 0.3","    Omega_L = 0.7","    return H0 * sqrt(Omega_m * (1 + z)**3 + Omega_L)","","def clumping_factor(z):","    C0 = 1.0","    growth_scale = 0.3","    return C0 + (1.0 - exp(-growth_scale * (10.0 - z)))","","def ionizing_emissivity(z, z_reion_mid=8.0, width=1.5):","    arg = (z - z_reion_mid) / width","    return peak_emissivity * exp(-0.5 * arg**2)","","def dxdt(x, z):","    Hz = hubble_parameter(z)","    time_scale = 1.0 / Hz","","    emissivity = ionizing_emissivity(z)","    ion_rate = emissivity * (1 - x)","","    alpha_B = 2.6e-13","    density_prefactor = clumping_factor(z)","    recomb_rate = alpha_B * density_prefactor * x","","    return (ion_rate - recomb_rate) * time_scale","","def integrate_ionization(z_start=20.0, z_end=5.0, dz=-0.01):","    z = z_start","    x = 1e-4","    history = []","    while (dz < 0 and z > z_end):","        k1 = dxdt(x, z)","        k2 = dxdt(x + 0.5*dz*k1, z + 0.5*dz)","        k3 = dxdt(x + 0.5*dz*k2, z + 0.5*dz)","        k4 = dxdt(x + dz*k3, z + dz)","        x_next = x + (dz / 6.0) * (k1 + 2*k2 + 2*k3 + k4)","","        x = max(0.0, min(1.0, x_next))","","        history.append((z, x))","        z += dz","","    return history","","def sample_bubble_distribution(num_bubbles=200):","    bubbles = []","    for _ in range(num_bubbles):","        logR = random.gauss(mu=0.0, sigma=0.6)","        R = 10**logR","        ionization_level = random.random() * 0.8 + 0.2","        bubbles.append({'R': R, 'x': ionization_level})","    bubbles.sort(key=lambda b: b['R'])","    return bubbles","","def make_reionization_report():","    hist = integrate_ionization()","    z_mid, x_mid = hist[len(hist)//2]","    tau_estimate = sum(x * 0.002 for (_, x) in hist)","    bubbles = sample_bubble_distribution()","    report = {","        'z_start': hist[0][0],","        'z_end': hist[-1][0],","        'x_at_mid_redshift': x_mid,","        'tau_visual_estimate': tau_estimate,","        'num_bubbles': len(bubbles),","        'largest_bubble_R': bubbles[-1]['R'] if bubbles else 0.0,","    }","    return hist, bubbles, report"];
+  var code=svg.querySelector('.rz-code');
+  CODE.forEach(function(line,i){if(line)el('text',{x:18,y:-4+i*12.6,'xml:space':'preserve'},code,line);});
+  // Plus-sign grids.
+  var plus=svg.querySelector('.rz-plus');
+  for(var r=0;r<7;r++)for(var c=0;c<7;c++)el('text',{x:1043+c*32.5,y:265+r*32.5},plus,'+');
+  for(r=0;r<5;r++)for(c=0;c<8;c++)el('text',{x:1482+c*36,y:789+r*36},plus,'+');
+  // Instrument boxes and their labels.
+  var boxes=svg.querySelector('.rz-boxes'),labels=svg.querySelector('.rz-labels');
+  [[1257,295,80,25,1310,291,["Active"]],[1357,338,25,40,1387,345,["Ionized"]],[1578,333,80,80,1662,400,["No Solid","Boundary Found"]],[1065,525,24,30,1065,566,["Unstable"]],[1585,527,65,38,1585,576,["Transient *"]],[1157,604,80,30,1157,644,["DATA Incomplete","Estimation Applied"]],[1313,648,22,22,1338,661,["Structure:","DIFFUSE"]],[1497,642,80,80,1582,712,["Feature","Confidence: 0.87"]],[1198,732,22,28,0,0,[]],[1350,757,18,16,1350,783,["Signal-to-Noise:","Acceptable"]]].forEach(function(b){
+    el('rect',{x:b[0],y:b[1],width:b[2],height:b[3]},boxes);
+    b[6].forEach(function(t,i){el('text',{x:b[4],y:b[5]+i*10.5},labels,t);});
+  });
+  el('text',{x:1300,y:489},labels,'±45.34864');el('text',{x:1397,y:565},labels,'±37.46987');
+  // Four-point stars (concave sides) and propeller marks.
+  function star(g,x,y,r,hair){var k=r*.1;el('path',{d:'M'+x+' '+(y-r)+'Q'+(x+k)+' '+(y-k)+' '+(x+r)+' '+y+'Q'+(x+k)+' '+(y+k)+' '+x+' '+(y+r)+'Q'+(x-k)+' '+(y+k)+' '+(x-r)+' '+y+'Q'+(x-k)+' '+(y-k)+' '+x+' '+(y-r)+'Z',stroke:'none'},g);
+    if(hair)hair.forEach(function(h){el('line',{x1:x-h[0],y1:y-h[1],x2:x+h[0],y2:y+h[1],'stroke-width':1.1,fill:'none'},g);});}
+  function propeller(g,x,y,len,fill,stroke){[45,-45].forEach(function(a){el('ellipse',{cx:x,cy:y,rx:len/2,ry:len*.072,transform:'rotate('+a+' '+x+' '+y+')',fill:fill,stroke:stroke||'none','stroke-width':1},g);});el('circle',{cx:x,cy:y,r:len*.045,fill:stroke||fill},g);}
+  var stars=svg.querySelector('.rz-stars');
+  star(stars,835,232,78,[[95,95]]);star(stars,888,325,44,[[60,48]]);star(stars,972,275,30);star(stars,932,533,68,[[80,0]]);
+  star(stars,1576,165,86,[[110,110]]);star(stars,1598,273,36,[[50,50]]);star(stars,1500,328,26);
+  propeller(stars,466,128,118,'#1C1F26');propeller(stars,1031,801,118,'#1C1F26');
+  var light=svg.querySelector('.rz-props-light');
+  propeller(light,1292,448,120,'#e6e4e1','#9a9590');propeller(light,1466,553,120,'#e6e4e1','#9a9590');
+  // Barcode strips.
+  var bars=svg.querySelector('.rz-bars'),rnd=seeded(11);
+  function barcode(x,y,len,thick,vertical){for(var p=0;p<len;){var w=1+Math.floor(rnd()*3),gap=1+Math.floor(rnd()*4);el('rect',vertical?{x:x,y:y+p,width:thick,height:w}:{x:x+p,y:y,width:w,height:thick},bars);p+=w+gap;}}
+  barcode(1452,36,308,9);barcode(1537,53,223,7);barcode(1757,500,390,7,true);barcode(1742,690,110,6,true);
+  // Nebula: grainy dust, filaments and a smoky core, drawn once on a canvas.
+  var cv=document.createElement('canvas');cv.width=980;cv.height=949;var x2=cv.getContext('2d'),R=seeded(604);
+  function gauss(){return Math.sqrt(-2*Math.log(R()+1e-9))*Math.cos(6.2832*R());}
+  var cx=570,cy=470;
+  for(var i=0;i<16000;i++){var px=R()*980,py=R()*949,edge=Math.min(1,px/160);x2.fillStyle='rgba(28,31,38,'+(R()*.32*edge).toFixed(3)+')';x2.fillRect(px,py,1+R()*.8,1+R()*.8);}
+  for(i=0;i<22;i++){var gx=cx+gauss()*110,gy=cy+gauss()*90,gr=40+R()*110,gr2=x2.createRadialGradient(gx,gy,0,gx,gy,gr);gr2.addColorStop(0,'rgba(40,36,34,'+(.08+R()*.14).toFixed(3)+')');gr2.addColorStop(1,'rgba(40,36,34,0)');x2.fillStyle=gr2;x2.beginPath();x2.arc(gx,gy,gr,0,6.2832);x2.fill();}
+  for(var f=0;f<34;f++){var a=R()*6.2832,fx=cx+Math.cos(a)*40,fy=cy+Math.sin(a)*40,dir=a+(R()-.5);
+    for(var s=0;s<60+R()*60;s++){dir+=(R()-.5)*.55;fx+=Math.cos(dir)*6;fy+=Math.sin(dir)*6;var d=Math.hypot(fx-cx,fy-cy),spread=5+d*.05,n=d<200?26:12;
+      for(var k=0;k<n;k++){x2.fillStyle='rgba(28,31,38,'+(R()*(d<180?.55:.32)).toFixed(3)+')';x2.fillRect(fx+gauss()*spread,fy+gauss()*spread,1+R(),1+R());}}}
+  for(i=0;i<7000;i++){var rr=Math.abs(gauss())*95,aa=R()*6.2832;x2.fillStyle='rgba(20,20,24,'+(.2+R()*.6).toFixed(3)+')';x2.fillRect(cx+Math.cos(aa)*rr*1.2,cy+Math.sin(aa)*rr,1+R()*1.6,1+R()*1.6);}
+  for(i=0;i<500;i++){var lr=Math.abs(gauss())*110,la=R()*6.2832;x2.fillStyle='rgba(236,235,233,'+(.4+R()*.5).toFixed(3)+')';x2.fillRect(cx+Math.cos(la)*lr,cy+Math.sin(la)*lr,1+R()*2,1+R()*2);}
+  svg.querySelector('.rz-nebula').setAttribute('href',cv.toDataURL('image/png'));
+  // Steps follow the designer's own breakdown; the last one is the acid version.
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 文字','1 Type'],2:['2 网格 · 代码','2 Grid · code'],3:['3 星云 · 标注','3 Nebula · labels'],4:['4 成稿','4 Final'],5:['5 酸性版','5 Acid']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%5+1);cycle();},+root.dataset.step===4?4200:2600);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

@@ -1,0 +1,71 @@
+<div class="demo gd-specimen gd-weave" data-stage="finals">
+  <div class="gw-poster">
+    <svg class="gd-grid" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="14" y1="0" x2="14" y2="400"/><line x1="286" y1="0" x2="286" y2="400"/><line x1="0" y1="318" x2="300" y2="318"/><line x1="0" y1="372" x2="300" y2="372"/>
+    </svg>
+    <span class="gd-space" data-ov-space="留白给旗帜上扬" data-ov-space-en="Room for the flags to rise" style="left:8%;top:6%;width:84%;height:30%"></span>
+    <div class="gw-word gw-back" data-ov-type="展示字 · 撑满宽度" data-ov-type-en="Display word · full width"><span>W</span><span>O</span><span>R</span><span>L</span><span>D</span><span>S</span></div>
+    <svg class="gw-flags" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="gw-word gw-front" aria-hidden="true"><span>W</span><span>O</span><span>R</span><span>L</span><span>D</span><span>S</span></div>
+    <span class="gd-focus" data-ov-focus="旗帜穿过字母" data-ov-focus-en="Flags cross the letters" style="left:40%;top:61%"></span>
+    <p class="gw-caption" data-ov-type="说明 · 9px" data-ov-type-en="Caption · 9px"><span>WORLDS 2022</span><span>ONE &amp; ONLY</span><span>LOL ESPORTS</span></p>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Stage palette">
+    <button type="button" data-stage-btn="play-ins">Play-ins</button><button type="button" data-stage-btn="groups">Groups</button><button type="button" data-stage-btn="knockouts">Knockouts</button><button type="button" data-stage-btn="finals" aria-pressed="true">Finals</button>
+  </div>
+</div>
+<style>
+.gd-weave{--gw-bg:#0b0b10;--gw-ink:#f4f1ea;width:min(300px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-weave *{box-sizing:border-box}
+.gd-weave[data-stage="play-ins"]{--gw-bg:#f4f1ea;--gw-ink:#3b1ff2}
+.gd-weave[data-stage="groups"]{--gw-bg:#3b1ff2;--gw-ink:#f4f1ea}
+.gd-weave[data-stage="knockouts"]{--gw-bg:#efe7da;--gw-ink:#0b0b10}
+.gw-poster{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:var(--gw-bg);transition:background .5s}
+.gw-word{position:absolute;left:0;right:0;top:34%;display:flex;justify-content:space-between;padding:0 1.5%;color:var(--gw-ink);font:900 calc(var(--gw-w,300px) * .5)/.8 "Avenir Next Condensed","Bahnschrift","Arial Narrow",Impact,sans-serif;font-stretch:condensed;letter-spacing:-.01em;transform-origin:50% 0;transform:scaleY(1.75);transition:color .5s}
+.gw-front span:nth-child(2n){visibility:hidden}
+.gw-flags{position:absolute;inset:0;width:100%;height:100%}
+.gw-caption{position:absolute;left:4.7%;right:4.7%;bottom:3%;display:flex;justify-content:space-between;margin:0;color:var(--gw-ink);opacity:.7;font:700 calc(var(--gw-w,300px) * .028)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;transition:color .5s}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-space,.gd-focus{position:absolute;pointer-events:none}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-weave{width:min(150px,calc(100vw - 40px))}.gd-controls{display:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-weave');
+  var poster=root.querySelector('.gw-poster'),svg=root.querySelector('.gw-flags'),btns=[].slice.call(root.querySelectorAll('[data-stage-btn]'));
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var COLORS=[['#2c6bff','#0b2a8a'],['#e63b2e','#7a1210'],['#f4f1ea','#9a9488'],['#5b2bff','#24107a'],['#f2b632','#8a5a00'],['#14b8a6','#0b5a52'],['#ec4899','#7a1846'],['#111827','#4b5563']];
+  var NAMES={'play-ins':['入围赛','Play-ins'],groups:['小组赛','Groups'],knockouts:['淘汰赛','Knockouts'],finals:['总决赛','Finals']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  // Flags: wide ribbons from lower left to upper right; each has a light and a dark side to read as folded fabric.
+  var defs='<defs>'+COLORS.map(function(c,i){return '<linearGradient id="gwg'+i+'" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="'+c[1]+'"/><stop offset=".45" stop-color="'+c[0]+'"/><stop offset=".55" stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient>'}).join('')+'</defs>';
+  var paths=COLORS.map(function(c,i){return '<path fill="url(#gwg'+i+')" opacity=".97"/>'}).join('');
+  svg.innerHTML=defs+'<g class="gw-ribbons">'+paths+'</g>';
+  var els=[].slice.call(svg.querySelectorAll('path'));
+  function ribbon(i,t){var o=i*21,w=24+(i%3)*9,ph=t*1.1+i*.7,
+    x0=-40,y0=410-o*.5,x1=80,y1=330-o+Math.sin(ph)*18,x2=200,y2=250-o*1.05+Math.cos(ph*.9)*22,x3=340,y3=110-o*.9+Math.sin(ph*.8)*14;
+    var top='M'+x0+' '+y0+' C'+x1+' '+(y1-6)+' '+x2+' '+(y2-8)+' '+x3+' '+y3;
+    var bot=' L'+x3+' '+(y3+w*1.6)+' C'+x2+' '+(y2+w*(1+.35*Math.sin(ph*1.3)))+' '+x1+' '+(y1+w*(1-.3*Math.cos(ph)))+' '+x0+' '+(y0+w*.8)+' Z';
+    return top+bot;}
+  function draw(t){els.forEach(function(p,i){p.setAttribute('d',ribbon(i,t))});}
+  // Size the word so its letters span the frame edge to edge whatever condensed font is available.
+  var words=[].slice.call(root.querySelectorAll('.gw-word'));
+  function fit(){var w=poster.offsetWidth;root.style.setProperty('--gw-w',w+'px');
+    words.forEach(function(el){el.style.fontSize='100px'});var natural=[].reduce.call(words[0].children,function(s,c){return s+c.getBoundingClientRect().width},0)*(words[0].offsetWidth/words[0].getBoundingClientRect().width||1);
+    var size=Math.min(w*.62,100*(w*.9)/Math.max(1,natural));words.forEach(function(el){el.style.fontSize=size.toFixed(1)+'px'});}
+  function setStage(s){root.dataset.stage=s;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stageBtn===s?'true':'false')});}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stageBtn][zh()?0:1]});root.querySelector('.gd-controls').setAttribute('aria-label',zh()?'分阶段配色':'Stage palette');}
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;setStage(b.dataset.stageBtn)})});
+  var auto=true,order=['finals','play-ins','groups','knockouts'],k=0,start=performance.now(),last=0,raf=0,visible=true;
+  function tick(now){raf=0;if(!visible)return;draw((now-start)/1000);if(auto&&now-last>3600){last=now;k=(k+1)%order.length;setStage(order[k]);}raf=requestAnimationFrame(tick);}
+  if('ResizeObserver' in window)new ResizeObserver(fit).observe(poster);
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf&&!reduce)raf=requestAnimationFrame(tick);}).observe(poster);
+  document.addEventListener('learnui:languagechange',text);
+  fit();requestAnimationFrame(fit);text();draw(0);last=performance.now();if(!reduce)raf=requestAnimationFrame(tick);
+})();
+</script>
