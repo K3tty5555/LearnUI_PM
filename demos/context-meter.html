@@ -1,0 +1,116 @@
+<div class="demo demo-context-meter">
+  <div class="cm-stage">
+    <div class="cm-card">
+      <div class="cm-head"><b class="cm-title"></b><button type="button" class="cm-compact"></button></div>
+      <div class="cm-num"><span class="cm-big">175.6K</span><span class="cm-sub"></span><span class="cm-pct"></span></div>
+      <div class="cm-bar" role="img"></div>
+      <div class="cm-legend"></div>
+    </div>
+    <svg class="cm-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="cm-read"><code></code></p>
+</div>
+<style>
+.demo-context-meter{width:min(520px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-context-meter *{box-sizing:border-box}
+.cm-stage{position:relative;display:grid;place-items:center;height:264px;border-radius:16px;background:#f1f1f3;overflow:hidden}
+.cm-card{width:min(300px,90%);padding:14px 14px 12px;border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(20,24,40,.08)}
+.cm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cm-title{font-size:12.5px;font-weight:600}
+.cm-compact{border:0;border-radius:999px;background:#f0f1f4;color:#3d414a;padding:4px 10px;font:500 10.5px/1.2 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer;transition:background .15s}
+.cm-compact:hover:not(:disabled){background:#e4e6eb}
+.cm-compact:disabled{opacity:.55;cursor:default}
+.cm-num{display:flex;align-items:baseline;gap:6px;margin-bottom:9px;min-height:26px}
+.cm-big{font:600 22px/1 system-ui,-apple-system,"SF Pro Display",sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cm-sub{color:#8a8f99;font-size:10.5px}
+.cm-pct{margin-left:auto;color:#8a8f99;font:500 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.cm-pct.is-high{color:#c2410c}
+.cm-bar{position:relative;display:flex;gap:2px;height:24px;border-radius:7px;overflow:hidden;background:#f3f4f6}
+.cm-seg{flex:none;width:calc(var(--w,0) * 1%);min-width:0;height:100%;background:var(--c);cursor:pointer;transition:width .7s cubic-bezier(.2,.8,.2,1),opacity .2s,filter .2s}
+.cm-seg:first-child{border-radius:7px 0 0 7px}
+.cm-bar.is-focus .cm-seg{opacity:.22}
+.cm-bar.is-focus .cm-seg.is-on{opacity:1}
+.cm-legend{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.cm-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px 3px 7px;border:0;border-radius:999px;background:#f4f5f7;color:#3d414a;font:500 10.5px/1.3 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer;transition:background .15s,opacity .2s}
+.cm-chip i{width:7px;height:7px;border-radius:2px;background:var(--c)}
+.cm-legend.is-focus .cm-chip{opacity:.45}
+.cm-legend.is-focus .cm-chip.is-on{opacity:1;background:#eceef2}
+.cm-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4));pointer-events:none;opacity:0;transition:opacity .3s;z-index:5}
+.demo-context-meter[data-auto="on"] .cm-ghost{opacity:1}
+.cm-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-height:260px){
+  .demo-context-meter{width:calc(100vw - 40px)}
+  .cm-stage{height:calc(100vh - 30px);max-height:180px;min-height:130px}
+  .cm-card{padding:10px 11px 9px}.cm-head{margin-bottom:4px}.cm-big{font-size:18px}.cm-num{margin-bottom:6px;min-height:20px}
+  .cm-bar{height:18px}.cm-legend{margin-top:7px;gap:4px}.cm-chip{padding:2px 6px;font-size:9.5px}
+  .cm-read{display:none}
+}
+@media (prefers-reduced-motion:reduce){.cm-seg{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-context-meter');
+  var stage=root.querySelector('.cm-stage'),bar=root.querySelector('.cm-bar'),legend=root.querySelector('.cm-legend'),big=root.querySelector('.cm-big'),sub=root.querySelector('.cm-sub'),pct=root.querySelector('.cm-pct'),btn=root.querySelector('.cm-compact'),ghost=root.querySelector('.cm-ghost'),read=root.querySelector('.cm-read code');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LIMIT=200;   // thousand tokens
+  // Usage per source in thousands of tokens; "after" is what survives a compaction (summaries replace the raw history).
+  var SEGS=[{k:'chat',c:'#2bb5ad',n:['对话','Chat'],v:108.6,after:14.2},{k:'files',c:'#3e6cf4',n:['文件','Files'],v:46.1,after:8.4},{k:'tools',c:'#a15cf2',n:['工具','Tools'],v:12.4,after:3.1},{k:'system',c:'#e44a7c',n:['系统','System'],v:5.3,after:5.3},{k:'memory',c:'#35c47a',n:['记忆','Memory'],v:3.2,after:3.2}];
+  var FULL=SEGS.map(function(s){return s.v;});
+  var focus=-1,shown=0,anim=0,auto=!reduce,timers=[],visible=true,compacting=false;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function total(){return SEGS.reduce(function(a,s){return a+s.v;},0);}
+  SEGS.forEach(function(s,i){
+    var seg=document.createElement('span');seg.className='cm-seg';seg.style.setProperty('--c',s.c);seg.dataset.i=i;bar.appendChild(seg);s.seg=seg;
+    var chip=document.createElement('button');chip.type='button';chip.className='cm-chip';chip.style.setProperty('--c',s.c);chip.dataset.i=i;chip.innerHTML='<i></i><span></span>';legend.appendChild(chip);s.chip=chip;
+  });
+  // Count the big number toward its target so changes read as motion, not a jump.
+  function animateNumber(){
+    cancelAnimationFrame(anim);var from=shown,to=focus<0?total():SEGS[focus].v,start=performance.now(),d=reduce?0:520;
+    (function step(now){var p=d?Math.min(1,(now-start)/d):1,e=1-Math.pow(1-p,3);shown=from+(to-from)*e;big.textContent=shown.toFixed(1)+'K';if(p<1)anim=requestAnimationFrame(step);})(start);
+  }
+  function render(){
+    SEGS.forEach(function(s,i){s.seg.style.setProperty('--w',(s.v/LIMIT*100).toFixed(2));var on=i===focus;s.seg.classList.toggle('is-on',on);s.chip.classList.toggle('is-on',on);
+      s.chip.querySelector('span').textContent=s.n[zh()?0:1];s.seg.setAttribute('aria-label',s.n[zh()?0:1]+' '+s.v.toFixed(1)+'K');});
+    bar.classList.toggle('is-focus',focus>=0);legend.classList.toggle('is-focus',focus>=0);
+    var t=total(),p=t/LIMIT*100;
+    sub.textContent=focus>=0?SEGS[focus].n[zh()?0:1]:(zh()?'/ '+LIMIT+'K':'of '+LIMIT+'K');
+    pct.textContent=Math.round(p)+'%';pct.classList.toggle('is-high',p>=80);
+    bar.setAttribute('aria-label',(zh()?'上下文已用 ':'Context used ')+t.toFixed(1)+'K / '+LIMIT+'K');
+    root.querySelector('.cm-title').textContent=zh()?'上下文':'Context';
+    btn.textContent=compacting?(zh()?'压缩中…':'Compacting…'):(zh()?'压缩':'Compact');btn.disabled=compacting||t<60;
+    read.textContent=(zh()?'已用 ':'used ')+t.toFixed(1)+'K / '+LIMIT+'K · '+(focus>=0?SEGS[focus].n[zh()?0:1]+' '+SEGS[focus].v.toFixed(1)+'K':(zh()?'悬停色段查看来源':'hover a segment to see its source'));
+    animateNumber();
+  }
+  function setFocus(i){if(focus===i)return;focus=i;render();}
+  [bar,legend].forEach(function(el){
+    el.addEventListener('pointerover',function(e){var t=e.target.closest('[data-i]');if(t){stopAuto();setFocus(+t.dataset.i);}});
+    el.addEventListener('pointerleave',function(){setFocus(-1);});
+  });
+  legend.addEventListener('focusin',function(e){var t=e.target.closest('[data-i]');if(t)setFocus(+t.dataset.i);});
+  legend.addEventListener('focusout',function(){setFocus(-1);});
+  // Compact: every source shrinks to its summary size at once; the bar width and the number animate together.
+  function compact(){if(compacting)return;compacting=true;focus=-1;render();
+    later(function(){SEGS.forEach(function(s){s.v=s.after;});compacting=false;render();},reduce?0:450);}
+  btn.addEventListener('click',function(){stopAuto();compact();later(function(){regrow(4000);},1400);});
+  // After compacting, the conversation keeps going and the bar refills.
+  function regrow(ms){var steps=8;for(var k=1;k<=steps;k++)(function(k){later(function(){SEGS.forEach(function(s,i){s.v=s.after+(FULL[i]-s.after)*k/steps;});render();},ms*k/steps);})(k);}
+  function later(fn,ms){var id=setTimeout(fn,ms);timers.push(id);return id;}
+  function stopAuto(){if(!auto)return;auto=false;root.dataset.auto='off';timers.forEach(clearTimeout);timers=[];compacting=false;}
+  function ghostAt(el,fx,fy,ms){var s=stage.getBoundingClientRect(),r=el.getBoundingClientRect();ghost.style.transition='opacity .3s,transform '+ms+'ms cubic-bezier(.3,.7,.3,1)';ghost.style.transform='translate('+(r.left-s.left+r.width*fx).toFixed(1)+'px,'+(r.top-s.top+r.height*fy).toFixed(1)+'px)';}
+  // Auto demo: hover Chat, Files and Tools in turn, press Compact, then let the bar fill back up.
+  function cycle(){
+    if(!auto||!visible)return;
+    ghostAt(bar,.95,1.6,0);
+    [0,1,2].forEach(function(i,n){later(function(){ghostAt(SEGS[i].seg,.5,.6,420);later(function(){setFocus(i);},380);},300+n*1100);});
+    later(function(){setFocus(-1);ghostAt(btn,.5,.65,520);},3700);
+    later(function(){compact();},4400);
+    later(function(){ghostAt(bar,.7,1.8,500);regrow(3200);},5400);
+    later(cycle,9400);
+  }
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){var was=visible;visible=es[0].isIntersecting;
+    if(!visible&&auto){timers.forEach(clearTimeout);timers=[];compacting=false;SEGS.forEach(function(s,i){s.v=FULL[i];});focus=-1;render();}
+    if(visible&&!was&&auto)cycle();}).observe(stage);
+  document.addEventListener('learnui:languagechange',render);
+  root.dataset.auto=auto?'on':'off';shown=total();render();if(auto)cycle();
+})();
+</script>

@@ -1,0 +1,99 @@
+<div class="demo demo-card-swap">
+  <div class="cs-stage">
+    <div class="cs-stack">
+      <figure class="cs-card" data-i="0"><div class="cs-photo cs-p0"></div><figcaption class="cs-tag"></figcaption></figure>
+      <figure class="cs-card" data-i="1"><div class="cs-photo cs-p1"></div><figcaption class="cs-tag"></figcaption></figure>
+      <figure class="cs-card" data-i="2"><div class="cs-photo cs-p2"></div><figcaption class="cs-tag"></figcaption></figure>
+      <figure class="cs-card" data-i="3"><div class="cs-photo cs-p3"></div><figcaption class="cs-tag"></figcaption></figure>
+    </div>
+    <svg class="cs-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="cs-read"><code></code></p>
+</div>
+<style>
+.demo-card-swap{width:min(520px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-card-swap *{box-sizing:border-box}
+.cs-stage{position:relative;display:grid;place-items:center;height:264px;border-radius:16px;background:#f1f1f3;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.cs-stack{position:relative;width:150px;height:186px;margin:6px 26px 0 0}
+.cs-card{position:absolute;inset:0;margin:0;border-radius:14px;overflow:hidden;background:#ddd;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 10px 26px rgba(20,24,40,.18);transform-origin:50% 100%;will-change:transform;transition:transform .42s cubic-bezier(.2,.9,.25,1.12),filter .42s,opacity .3s}
+.cs-card.is-drag{transition:none;cursor:grabbing}
+.cs-card.is-top{cursor:grab}
+.cs-photo{position:absolute;inset:0}
+/* Generated "photos": layered gradients stand in for real images. */
+.cs-p0{background:radial-gradient(60% 40% at 50% 92%,#2bc06a,transparent 70%),radial-gradient(70% 55% at 45% 62%,#ff5a8a 0 28%,#ffb547 42%,transparent 62%),conic-gradient(from 200deg at 50% 70%,#1d6fe8,#38d6c4,#f4f065,#ff6f61,#1d6fe8)}
+.cs-p1{background:repeating-linear-gradient(115deg,rgba(255,255,255,.55) 0 2px,transparent 2px 7px),radial-gradient(80% 60% at 50% 18%,#fff 0 12%,#ff9ec2 34%,#e2337b 70%),#c21f63}
+.cs-p2{background:radial-gradient(40% 32% at 50% 40%,#f6f9a8 0 30%,transparent 65%),radial-gradient(55% 40% at 30% 60%,#a6f05a,transparent 70%),radial-gradient(50% 45% at 72% 55%,#5fd2ff,transparent 70%),linear-gradient(160deg,#2b4fa8,#173072)}
+.cs-p3{background:repeating-radial-gradient(circle at 30% 120%,#f7c88a 0 10px,#e9a35b 10px 20px,#d9824a 20px 30px),#e9a35b}
+.cs-tag{position:absolute;left:9px;bottom:9px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.92);color:#20232a;font:600 10.5px/1 system-ui,-apple-system,"PingFang SC",sans-serif;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.cs-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4));pointer-events:none;opacity:0;transition:opacity .3s;z-index:9}
+.demo-card-swap[data-auto="on"] .cs-ghost{opacity:1}
+.cs-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.cs-stage{height:236px}}
+@media (max-height:260px){
+  .demo-card-swap{width:calc(100vw - 40px)}
+  .cs-stage{height:calc(100vh - 30px);max-height:170px;min-height:120px}
+  .cs-stack{width:92px;height:116px;margin:4px 18px 0 0}
+  .cs-tag{left:6px;bottom:6px;padding:3px 7px;font-size:9px}
+  .cs-read{display:none}
+}
+@media (prefers-reduced-motion:reduce){.cs-card{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-card-swap');
+  var stage=root.querySelector('.cs-stage'),cards=[].slice.call(root.querySelectorAll('.cs-card')),ghost=root.querySelector('.cs-ghost'),read=root.querySelector('.cs-read code');
+  var NAMES=[['山峦','Mountain'],['山峰','Peak'],['羽翼','Wings'],['沙丘','Dunes']];
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var order=[0,1,2,3],busy=false,auto=!reduce,timer=0,visible=true,swaps=0,drag=null;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  // Slot k in the stack: deeper cards sit up and to the right, smaller and dimmer, so their edges peek out.
+  function slot(k){return 'translate('+(k*13)+'px,'+(-k*10)+'px) scale('+(1-k*.055).toFixed(3)+')';}
+  function layout(){order.forEach(function(ci,k){var c=cards[ci];c.style.zIndex=10-k;c.style.transform=slot(k);c.style.filter='brightness('+(1-k*.07).toFixed(2)+')';c.classList.toggle('is-top',k===0);c.setAttribute('aria-hidden',k===0?'false':'true');});}
+  function text(){cards.forEach(function(c,i){c.querySelector('.cs-tag').textContent=NAMES[i][zh()?0:1];});status();}
+  function status(){var top=NAMES[order[0]][zh()?0:1];read.textContent=(zh()?'顶部：':'top: ')+top+' · '+(zh()?'已交换 ':'swaps ')+swaps+(zh()?' 次 · 点击或拖走顶部卡片':' · click or drag the top card');}
+  // Two phases: the top card leaves toward where it was thrown, then drops to the back slot while the rest move up one.
+  function swap(dx,dy){
+    if(busy)return;busy=true;var c=cards[order[0]];
+    var len=Math.hypot(dx||0,dy||0),ux=len>8?dx/len:-1,uy=len>8?dy/len:.12;
+    c.classList.remove('is-drag');
+    c.style.transform='translate('+(ux*170).toFixed(0)+'px,'+(uy*120+16).toFixed(0)+'px) rotate('+(ux*-14).toFixed(1)+'deg) scale(.96)';
+    setTimeout(function(){order.push(order.shift());c.style.zIndex=0;swaps++;layout();status();setTimeout(function(){busy=false;},reduce?0:300);},reduce?0:230);
+  }
+  // Drag the top card: it follows the pointer and leans; past 60px or a quick flick it swaps, otherwise it springs back.
+  stage.addEventListener('pointerdown',function(e){
+    // Any press ends the auto demo first; a card it was halfway through moving goes back to its slot.
+    if(auto){stopAuto();cards.forEach(function(x){x.classList.remove('is-drag');x.style.transition='';});if(!busy)layout();}
+    var c=cards[order[0]];if(busy||!c.contains(e.target))return;
+    drag={x:e.clientX,y:e.clientY,t:performance.now(),vx:0,lx:e.clientX,lt:performance.now(),c:c,dx:0,dy:0};
+    c.classList.add('is-drag');try{stage.setPointerCapture(e.pointerId);}catch(_){}
+  });
+  stage.addEventListener('pointermove',function(e){
+    if(!drag)return;var now=performance.now();drag.dx=e.clientX-drag.x;drag.dy=e.clientY-drag.y;
+    drag.vx=(e.clientX-drag.lx)/Math.max(1,now-drag.lt);drag.lx=e.clientX;drag.lt=now;
+    drag.c.style.transform='translate('+drag.dx+'px,'+drag.dy+'px) rotate('+(drag.dx*.08).toFixed(1)+'deg)';
+  });
+  function end(){
+    if(!drag)return;var d=drag;drag=null;var dist=Math.hypot(d.dx,d.dy);
+    if(dist<6){d.c.classList.remove('is-drag');swap(-1,0);return;}            // a click
+    if(dist>60||(dist>30&&Math.abs(d.vx)>.6))swap(d.dx,d.dy);   // a flick still has to travel a little
+    else{d.c.classList.remove('is-drag');layout();}
+  }
+  stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+  function stopAuto(){auto=false;root.dataset.auto='off';clearTimeout(timer);}
+  // Auto demo: a ghost pointer drags the top card away every couple of seconds.
+  function cycle(){
+    if(!auto||!visible)return;
+    var s=stage.getBoundingClientRect(),c=cards[order[0]].getBoundingClientRect();
+    var x0=c.left-s.left+c.width*.6,y0=c.top-s.top+c.height*.45;
+    ghost.style.transition='none';ghost.style.transform='translate('+x0+'px,'+y0+'px)';
+    timer=setTimeout(function(){
+      if(!auto)return;ghost.style.transition='transform .38s cubic-bezier(.3,.7,.3,1)';ghost.style.transform='translate('+(x0-70)+'px,'+(y0+14)+'px)';
+      var top=cards[order[0]];top.classList.add('is-drag');top.style.transition='transform .38s cubic-bezier(.3,.7,.3,1)';top.style.transform='translate(-70px,14px) rotate(-5deg)';
+      timer=setTimeout(function(){top.style.transition='';if(auto)swap(-70,14);timer=setTimeout(cycle,1500);},400);
+    },600);
+  }
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){var was=visible;visible=es[0].isIntersecting;if(visible&&!was&&auto){clearTimeout(timer);cycle();}}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  root.dataset.auto=auto?'on':'off';layout();text();if(auto)cycle();
+})();
+</script>

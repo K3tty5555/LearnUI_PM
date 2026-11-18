@@ -1,0 +1,74 @@
+<div class="demo demo-tick-slider">
+  <div class="tk-stage">
+    <div class="tk-row">
+      <div class="tk-track" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
+      <output class="tk-num">50</output>
+    </div>
+    <svg class="tk-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="tk-read"><code></code></p>
+</div>
+<style>
+.demo-tick-slider{width:min(520px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-tick-slider *{box-sizing:border-box}
+.tk-stage{position:relative;display:grid;place-items:center;height:200px;border-radius:16px;background:#f1f1f3;overflow:hidden;user-select:none;-webkit-user-select:none}
+.tk-row{display:flex;align-items:center;gap:14px;width:min(380px,86%)}
+.tk-track{position:relative;flex:1;height:44px;display:flex;align-items:center;justify-content:space-between;cursor:ew-resize;touch-action:none;outline:none;border-radius:8px}
+.tk-track:focus-visible{box-shadow:0 0 0 3px rgba(76,110,245,.28)}
+.tk-tick{flex:none;width:2px;height:24px;border-radius:1px;background:#c5c8cf;transform-origin:50% 50%;transform:scaleY(var(--s,1));transition:background .12s}
+.tk-tick.is-on{background:#1d1f24}
+.tk-num{min-width:34px;font:500 15px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#5b5f69;font-variant-numeric:tabular-nums;text-align:right}
+.tk-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-tick-slider[data-auto="on"] .tk-ghost{opacity:1}
+.tk-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-height:260px){
+  .demo-tick-slider{width:calc(100vw - 40px)}
+  .tk-stage{height:calc(100vh - 30px);max-height:150px;min-height:100px}
+  .tk-row{width:90%;gap:10px}.tk-tick{height:20px}.tk-num{font-size:13px}
+  .tk-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-tick-slider');
+  var stage=root.querySelector('.tk-stage'),track=root.querySelector('.tk-track'),num=root.querySelector('.tk-num'),ghost=root.querySelector('.tk-ghost'),read=root.querySelector('.tk-read code');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var N=40,ticks=[],target=50,shown=50,hover=-1,hoverK=0,dragging=false,auto=!reduce,raf=0,visible=true,start=performance.now(),last=start,idle;
+  for(var i=0;i<N;i++){var t=document.createElement('i');t.className='tk-tick';track.appendChild(t);ticks.push(t);}
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){track.setAttribute('aria-label',zh()?'音量':'Volume');}
+  function valueAt(clientX){var r=track.getBoundingClientRect();return Math.max(0,Math.min(100,(clientX-r.left)/r.width*100));}
+  // The value is the number; ticks are just its picture. Ticks up to the value are dark, and the ones near the
+  // pointer grow with a soft bell curve so the control reacts before you even press.
+  function paint(){
+    var on=Math.round(shown/100*N),pos=hover<0?-99:hover/100*(N-1);
+    for(var i=0;i<N;i++){var d=i-pos,g=Math.exp(-d*d/(2*2.2*2.2));ticks[i].style.setProperty('--s',(1+.55*g*hoverK).toFixed(3));ticks[i].classList.toggle('is-on',i<on);}
+    var v=Math.round(shown);num.textContent=v;track.setAttribute('aria-valuenow',Math.round(target));track.setAttribute('aria-valuetext',String(Math.round(target)));
+    read.textContent=(zh()?'值 ':'value ')+Math.round(target)+' · '+N+(zh()?' 根刻度 · 拖动、点击或按 ← →':' ticks · drag, click or use ← →');
+  }
+  function tick(now){
+    raf=0;if(!visible)return;var dt=Math.min(50,now-last);last=now;
+    if(auto){var t=(now-start)/1000,p=.5-.5*Math.cos(t*.9);target=18+p*70;hover=target;
+      var r=track.getBoundingClientRect(),s=stage.getBoundingClientRect();ghost.style.transform='translate('+(r.left-s.left+target/100*r.width).toFixed(1)+'px,'+(r.top-s.top+r.height*.62).toFixed(1)+'px)';}
+    var k=reduce?1:1-Math.pow(.0005,dt/1000);shown+=(target-shown)*k;
+    hoverK+=((hover>=0?1:0)-hoverK)*(reduce?1:1-Math.pow(.002,dt/1000));
+    paint();
+    // Settled and nobody is driving it: stop the frame loop until the next input.
+    if(!auto&&Math.abs(target-shown)<.02&&Math.abs((hover>=0?1:0)-hoverK)<.005)return;
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(tick);}}
+  function stopAuto(){auto=false;root.dataset.auto='off';clearTimeout(idle);resume();}
+  track.addEventListener('pointerdown',function(e){stopAuto();dragging=true;target=valueAt(e.clientX);hover=target;try{track.setPointerCapture(e.pointerId);}catch(_){}track.focus({preventScroll:true});});
+  track.addEventListener('pointermove',function(e){if(e.pointerType==='mouse'&&!dragging)stopAuto();if(!auto){hover=valueAt(e.clientX);if(dragging)target=hover;resume();}});
+  function up(){dragging=false;}
+  track.addEventListener('pointerup',up);track.addEventListener('pointercancel',up);
+  track.addEventListener('pointerleave',function(){if(!dragging&&!auto){hover=-1;resume();}});
+  track.addEventListener('keydown',function(e){var step=e.shiftKey?10:1,m={ArrowLeft:-step,ArrowDown:-step,ArrowRight:step,ArrowUp:step,PageDown:-10,PageUp:10};
+    if(e.key in m){stopAuto();target=Math.max(0,Math.min(100,Math.round(target)+m[e.key]));e.preventDefault();resume();}
+    else if(e.key==='Home'||e.key==='End'){stopAuto();target=e.key==='Home'?0:100;e.preventDefault();resume();}});
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',function(){text();paint();});
+  root.dataset.auto=auto?'on':'off';text();paint();resume();
+})();
+</script>

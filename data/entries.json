@@ -6910,5 +6910,345 @@
   "tilt-card"
  ],
  "demo": "web/border-beam"
-}
+},
+ {
+  "slug": "card-swap",
+  "platform": "web",
+  "name": "Card Swap (Stack Shuffle)",
+  "tagline": "A stack of cards where the top one is flicked away and tucks in behind the rest, bringing the next card forward",
+  "aka": [
+   "card stack swap",
+   "stack shuffle",
+   "swipe card stack",
+   "card deck",
+   "tinder cards",
+   "card cycler"
+  ],
+  "fuzzy": [
+   "the photo cards that go to the back when you swipe them",
+   "a pile of cards where the top one slides behind",
+   "drag the front card away and the next one comes up",
+   "stacked images that rotate through",
+   "flick a card off the deck and it goes to the bottom"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "transform: translate() scale() + z-index",
+    "note": "each depth slot is a fixed offset, scale and stacking order"
+   },
+   {
+    "framework": "JS",
+    "symbol": "order.push(order.shift())",
+    "note": "the data change is a rotation of the order array"
+   },
+   {
+    "framework": "Web",
+    "symbol": "PointerEvent + setPointerCapture",
+    "note": "drag the top card and keep receiving moves outside it"
+   },
+   {
+    "framework": "Motion",
+    "symbol": "drag + onDragEnd(velocity)",
+    "note": "the same throw threshold in Framer Motion"
+   }
+  ],
+  "prompt": "Build a card swap: stack 4 photo cards so each deeper card is offset 13px right and 10px up, scaled down 5.5% and slightly darker, with z-index by depth. The top card can be dragged (pointer capture, it follows the pointer and rotates by 0.08° per px); on release, if it moved more than 60px or was flicked faster than 0.6px/ms, run two phases: first throw it 170px in the drag direction with a little rotation (about 230ms), then rotate the order array (top to bottom), drop its z-index and let every card transition to its new slot with a slight overshoot. Otherwise spring it back. A click swaps too. Ignore input while a swap is running; honour prefers-reduced-motion by skipping the throw.",
+  "debugPrompt": "Debug my card swap. Check that the order array is the single source of truth and the DOM transforms are derived from it; the thrown card's z-index drops only after it has cleared the stack (or it will cut through the others); the drag sets transition: none and restores it on release; pointer capture is taken so fast drags do not lose the card; clicks are not counted as tiny drags that spring back; a second swap cannot start while one is animating; and slots use transforms, not top/left, so the animation stays on the compositor. The symptom:",
+  "description": "Card swap keeps a small set of images in one place: the front card is thrown aside and slides in behind the others, and the next card rises into its slot. It works for galleries, onboarding tips or featured items where only one needs attention at a time, and the visible edges behind tell people there is more. Based on a block from bencho.dev (Lorenzo Cabra's library of live, tunable React micro-interactions; its free blocks are MIT on GitHub), introduced in a public note by Akring (\"不会设计也能做出动效满满的前端\"). The specimen here is our own re-implementation, not bencho's code.",
+  "parts": [
+   {
+    "id": "slots",
+    "name": "Depth slots",
+    "api": "transform + z-index",
+    "description": "Each depth has a fixed offset, scale and brightness so the cards behind peek out.",
+    "prompt": "deeper cards offset up and right, smaller and dimmer"
+   },
+   {
+    "id": "drag",
+    "name": "Drag and lean",
+    "api": "pointer capture",
+    "description": "The top card follows the pointer and leans in the direction it moves.",
+    "prompt": "the top card following the pointer and rotating with horizontal distance"
+   },
+   {
+    "id": "throw",
+    "name": "Throw threshold",
+    "api": "distance or velocity",
+    "description": "Past 60px or a quick flick it swaps; otherwise it springs back.",
+    "prompt": "swap past 60px or a fast flick, otherwise spring back"
+   },
+   {
+    "id": "tuck",
+    "name": "Tuck behind",
+    "api": "order rotation",
+    "description": "The card goes out first, then drops to the back while the rest move up.",
+    "prompt": "throw out first, then drop to the back slot while the others move up"
+   }
+  ],
+  "related": [
+   "hover-fan-out",
+   "carousel",
+   "interaction-details",
+   "drag-and-drop",
+   "tilt-card"
+  ],
+  "demo": "web/card-swap"
+ },
+ {
+  "slug": "tick-slider",
+  "platform": "web",
+  "name": "Tick Slider",
+  "tagline": "A slider drawn as a row of thin ticks: ticks up to the value turn dark, and the ones near the pointer grow",
+  "aka": [
+   "tick mark slider",
+   "ruler slider",
+   "bar slider",
+   "notched slider",
+   "segmented range"
+  ],
+  "fuzzy": [
+   "slider made of little vertical lines",
+   "the volume control that looks like a ruler",
+   "lines fill in dark as I drag",
+   "the ticks get taller where my mouse is",
+   "a range input that looks like a barcode"
+  ],
+  "api": [
+   {
+    "framework": "ARIA",
+    "symbol": "role=\"slider\" + aria-valuenow",
+    "note": "a custom slider needs the slider role, value and arrow-key support"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transform: scaleY(var(--s))",
+    "note": "grow ticks without changing layout"
+   },
+   {
+    "framework": "JS",
+    "symbol": "Math.exp(-d² / 2σ²)",
+    "note": "a bell curve around the pointer sets each tick's growth"
+   },
+   {
+    "framework": "HTML",
+    "symbol": "<input type=\"range\">",
+    "note": "the native alternative when a custom look is not needed"
+   }
+  ],
+  "prompt": "Build a tick slider: 40 vertical ticks (2px wide, 24px tall) spaced evenly across the track with a numeric readout on the right. Value 0-100; ticks below value/100*40 are dark (#1d1f24), the rest light grey. Ticks near the pointer scale up on Y by up to 55% following a Gaussian with sigma about 2 ticks, fading in and out smoothly. Click or drag anywhere on the track (pointer capture) to set the value; the displayed number eases toward it. Make it accessible: role=slider, tabindex=0, aria-valuemin/max/now, arrow keys ±1, Shift+arrow ±10, Home/End. Stop the animation loop once settled.",
+  "debugPrompt": "Debug my tick slider. Check that the value maps from the pointer position relative to the track (not the page); dragging keeps working outside the track via pointer capture; dark ticks match the value exactly at 0 and 100; the hover growth uses transform so the row does not reflow; the number shown and aria-valuenow agree; arrow keys work when focused and there is a visible focus ring; and the requestAnimationFrame loop stops when nothing is changing. The symptom:",
+  "description": "A tick slider replaces the usual thumb and fill with a row of thin marks. The value is shown by how many marks are dark, and the marks near the pointer lift slightly, so the control reacts as soon as the pointer arrives. It suits volume, intensity or zoom where a precise figure matters less than the feel; keep the number visible so the value is still readable. Based on a block from bencho.dev (Lorenzo Cabra's library of live, tunable React micro-interactions; its free blocks are MIT on GitHub), introduced in a public note by Akring (\"不会设计也能做出动效满满的前端\"). The specimen here is our own re-implementation, not bencho's code.",
+  "parts": [
+   {
+    "id": "ticks",
+    "name": "Tick row",
+    "api": "flex + 2px marks",
+    "description": "Evenly spaced marks that make up the track.",
+    "prompt": "40 thin vertical ticks spaced evenly"
+   },
+   {
+    "id": "fill",
+    "name": "Dark fill",
+    "api": "value → count",
+    "description": "Marks up to the value turn dark.",
+    "prompt": "ticks below the value dark, the rest light grey"
+   },
+   {
+    "id": "lift",
+    "name": "Pointer lift",
+    "api": "Gaussian scaleY",
+    "description": "Marks near the pointer grow on a bell curve.",
+    "prompt": "ticks near the pointer growing up to 55% on a bell curve"
+   },
+   {
+    "id": "readout",
+    "name": "Readout",
+    "api": "role=slider",
+    "description": "The number beside it, kept in sync with the accessible value.",
+    "prompt": "a numeric readout matching aria-valuenow"
+   }
+  ],
+  "related": [
+   "number-input",
+   "duration-picker",
+   "progress-indicators",
+   "slider",
+   "animated-counter"
+  ],
+  "demo": "web/tick-slider"
+ },
+ {
+  "slug": "hold-to-record",
+  "platform": "web",
+  "name": "Hold to Record (Voice Note)",
+  "tagline": "Press and hold to record with a live waveform, slide left to bin it, let go to play it back",
+  "aka": [
+   "voice note",
+   "push to talk",
+   "press and hold to record",
+   "voice message button",
+   "audio recorder pill"
+  ],
+  "fuzzy": [
+   "the WeChat style hold to talk button",
+   "slide to cancel while recording a voice message",
+   "a mic button that shows bars while I speak",
+   "let go and it plays back what I said",
+   "drag left to delete the recording"
+  ],
+  "api": [
+   {
+    "framework": "Web",
+    "symbol": "pointerdown / pointerup + setPointerCapture",
+    "note": "hold, slide and release are one pointer gesture"
+   },
+   {
+    "framework": "Web Audio",
+    "symbol": "AnalyserNode.getByteTimeDomainData()",
+    "note": "read the live level from the microphone for the bars"
+   },
+   {
+    "framework": "Web",
+    "symbol": "MediaRecorder",
+    "note": "record the actual audio while the waveform is drawn"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transition-timing-function: cubic-bezier(.3, 1.5, .55, 1)",
+    "note": "an easing above 1 gives new bars their bounce"
+   }
+  ],
+  "prompt": "Build a hold-to-record voice note: an idle pill \"Hold to record\" with a mic icon. On pointerdown (or holding Space/Enter) it widens and starts recording: a blinking red dot, a timer and a waveform of N bars where a new bar is added from the right every 90ms with a bouncy height transition and the oldest removed. Dragging left moves the pill; past 80px a bin icon turns red. Release past the threshold: the pill shrinks into the bin. Release before it: if the hold was shorter than 350ms show \"Keep holding\"; otherwise resample the recording into N bars and play it back, lighting bars left of the playhead, then return to idle. Expose Sensitivity, Bounce, Bars and Corner as live settings. Use MediaRecorder and an AnalyserNode in production; respect prefers-reduced-motion.",
+  "debugPrompt": "Debug my hold-to-record button. Check that pointer capture keeps the gesture alive when the finger leaves the pill; the context menu and text selection are suppressed during a long press; very short taps do not create empty recordings; the bin threshold is measured from the press point; releasing past the threshold never plays the audio; the sampling interval and microphone stream are stopped on every exit path (release, bin, cancel, leaving the page); keyboard users can record with Space or Enter and cancel with Escape; and new bars animate without making the whole row reflow. The symptom:",
+  "description": "Hold to record turns voice input into one gesture: press to start, slide to cancel, let go to send or play back. The live waveform shows the microphone is really picking you up, the slide-left bin gives an escape without a second button, and a minimum hold length stops accidental taps from producing empty notes. Bencho's version comes with a settings panel, so the detail page here lets you tune the same values while you try it; the waveform is generated, no microphone is used. Based on a block from bencho.dev (Lorenzo Cabra's library of live, tunable React micro-interactions; its free blocks are MIT on GitHub), introduced in a public note by Akring (\"不会设计也能做出动效满满的前端\"). The specimen here is our own re-implementation, not bencho's code.",
+  "parts": [
+   {
+    "id": "pill",
+    "name": "Record pill",
+    "api": "pointer capture",
+    "description": "The button that widens into the recording bar while held.",
+    "prompt": "an idle pill that widens into a recording bar while pressed"
+   },
+   {
+    "id": "wave",
+    "name": "Live waveform",
+    "api": "AnalyserNode",
+    "description": "Bars added from the right as levels arrive, each with a bounce.",
+    "prompt": "bars added from the right every 90ms with a bouncy height"
+   },
+   {
+    "id": "bin",
+    "name": "Slide to bin",
+    "api": "drag threshold",
+    "description": "Dragging left past 80px arms the bin; letting go there deletes the note.",
+    "prompt": "drag left past 80px to arm a red bin, release to delete"
+   },
+   {
+    "id": "playback",
+    "name": "Playback",
+    "api": "resample + playhead",
+    "description": "On release the recording is squeezed into the bar count and played back.",
+    "prompt": "resample to N bars and light bars left of the playhead"
+   },
+   {
+    "id": "tuning",
+    "name": "Live tuning",
+    "api": "CSS variables",
+    "description": "Sensitivity, bounce, bar count and corner radius change immediately.",
+    "prompt": "sensitivity, bounce, bars and corner radius adjustable live"
+   }
+  ],
+  "related": [
+   "agent-input-composer",
+   "destructive-action",
+   "spring",
+   "interaction-details",
+   "ai-status-orb"
+  ],
+  "demo": "web/hold-to-record"
+ },
+ {
+  "slug": "context-meter",
+  "platform": "web",
+  "name": "Context Usage Meter",
+  "tagline": "A segmented bar that shows how much of an AI model's context window is used and by what, with a button to compact it",
+  "aka": [
+   "context window meter",
+   "token usage bar",
+   "context budget",
+   "stacked usage bar",
+   "context breakdown"
+  ],
+  "fuzzy": [
+   "how full the AI's memory is",
+   "the bar showing chat files tools and system tokens",
+   "hover a colour to see how many tokens it uses",
+   "the compact button that shrinks the conversation",
+   "a storage style bar but for tokens"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "display: flex + width: calc(var(--w) * 1%)",
+    "note": "each source is a segment sized by its share of the limit"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transition: width",
+    "note": "segments animate when usage changes or after compaction"
+   },
+   {
+    "framework": "JS",
+    "symbol": "requestAnimationFrame count-up",
+    "note": "the big number counts toward its new value"
+   },
+   {
+    "framework": "ARIA",
+    "symbol": "role=\"img\" + aria-label",
+    "note": "give the bar a text total; legend chips are focusable buttons"
+   }
+  ],
+  "prompt": "Build a context usage meter card: title \"Context\", a \"Compact\" button, a big number (175.6K) with \"of 200K\" and a percentage that turns orange above 80%. Below, a 24px segmented bar whose segments are sized by share of the 200K limit: Chat 108.6K teal, Files 46.1K blue, Tools 12.4K purple, System 5.3K pink, Memory 3.2K green, the remainder empty. Legend chips with colour squares underneath. Hovering or focusing a segment or chip fades the others to 22% opacity and the big number counts to that segment's value with its name. Compact animates every segment to its summarised size (System and Memory stay), counting the total down; disable the button while it runs.",
+  "debugPrompt": "Debug my context meter. Check that segment widths are a share of the limit, not of the current total (otherwise the bar always looks full); the gaps between segments do not push the bar past 100%; hover state is cleared on pointerleave and on blur; the number animation cancels its previous frame before starting a new one; the percentage colour threshold uses the total, not the hovered segment; Compact cannot be triggered twice; and the bar has a text equivalent for screen readers. The symptom:",
+  "description": "A context meter shows how much of a model's context window a conversation has used, split by where the tokens come from: the chat history, attached files, tool output, the system prompt and memory. Hovering a source shows its size, so people can see what to trim, and Compact shows the effect of summarising before it happens. It suits AI coding tools and chat apps that let users manage long sessions. Based on a block from bencho.dev (Lorenzo Cabra's library of live, tunable React micro-interactions; its free blocks are MIT on GitHub), introduced in a public note by Akring (\"不会设计也能做出动效满满的前端\"). The specimen here is our own re-implementation, not bencho's code.",
+  "parts": [
+   {
+    "id": "total",
+    "name": "Total and limit",
+    "api": "count-up",
+    "description": "The big number, the limit and a percentage that warns above 80%.",
+    "prompt": "a big total with the limit and a percentage turning orange above 80%"
+   },
+   {
+    "id": "segments",
+    "name": "Source segments",
+    "api": "flex widths",
+    "description": "One coloured segment per source, sized against the limit.",
+    "prompt": "segments for chat, files, tools, system and memory sized against the limit"
+   },
+   {
+    "id": "focus",
+    "name": "Hover focus",
+    "api": "opacity",
+    "description": "The hovered source stays bright, the rest fade, the number shows its size.",
+    "prompt": "hovered segment bright, others faded, number showing that segment"
+   },
+   {
+    "id": "compact",
+    "name": "Compact",
+    "api": "width transition",
+    "description": "Sources shrink to their summarised size together.",
+    "prompt": "compact shrinking each source to its summary size with the total counting down"
+   }
+  ],
+  "related": [
+   "progress-indicators",
+   "agent-processing-state",
+   "streaming-response",
+   "badge-chip-pill",
+   "level-indicator"
+  ],
+  "demo": "web/context-meter"
+ }
 ]

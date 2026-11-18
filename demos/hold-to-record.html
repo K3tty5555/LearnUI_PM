@@ -1,0 +1,207 @@
+<div class="demo demo-hold-record" data-state="idle" data-fill="light" data-stroke="off">
+  <div class="hr-wrap">
+    <div class="hr-stage">
+      <span class="hr-trash" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="hr-lid" d="M4 7h16M9 7V4.5h6V7"/><path d="M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg></span>
+      <button class="hr-pill" type="button">
+        <span class="hr-face hr-idle"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span class="hr-label"></span></span>
+        <span class="hr-face hr-live"><i class="hr-dot" aria-hidden="true"></i><span class="hr-time">0:00</span><span class="hr-wave hr-wave-rec" aria-hidden="true"></span><span class="hr-hint"></span></span>
+        <span class="hr-face hr-playing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg><span class="hr-wave hr-wave-play" aria-hidden="true"></span><span class="hr-time hr-len">0:00</span></span>
+      </button>
+      <svg class="hr-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+    </div>
+    <div class="hr-panel">
+      <b class="hr-p-title"></b>
+      <p class="hr-p-desc"></p>
+      <div class="hr-p-row"><span data-k="fill"></span><span class="hr-seg" data-seg="fill"><button type="button" data-v="light" aria-pressed="true"></button><button type="button" data-v="dark" aria-pressed="false"></button></span></div>
+      <div class="hr-p-row"><span data-k="stroke"></span><span class="hr-seg" data-seg="stroke"><button type="button" data-v="off" aria-pressed="true"></button><button type="button" data-v="on" aria-pressed="false"></button></span></div>
+      <label class="hr-range"><span data-k="sens"></span><output>60</output><input type="range" data-p="sens" min="0" max="100" value="60"></label>
+      <label class="hr-range"><span data-k="bounce"></span><output>40</output><input type="range" data-p="bounce" min="0" max="100" value="40"></label>
+      <label class="hr-range"><span data-k="bars"></span><output>28</output><input type="range" data-p="bars" min="12" max="40" value="28"></label>
+      <label class="hr-range"><span data-k="corner"></span><output>28px</output><input type="range" data-p="corner" min="4" max="28" value="28"></label>
+    </div>
+  </div>
+  <p class="hr-read"><code></code></p>
+</div>
+<style>
+.demo-hold-record{width:min(640px,calc(100vw - 80px));color:#20232a;font:12px/1.4 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;--hr-r:28px;--hr-ease:cubic-bezier(.3,1.48,.55,1)}
+.demo-hold-record *{box-sizing:border-box}
+.hr-wrap{display:grid;grid-template-columns:1fr 196px;gap:10px}
+.hr-stage{position:relative;display:grid;place-items:center;height:300px;border-radius:16px;background:#f1f1f3;overflow:hidden;user-select:none;-webkit-user-select:none}
+.hr-pill{position:relative;display:flex;align-items:center;justify-content:center;width:164px;height:48px;padding:0 16px;border:1px solid transparent;border-radius:var(--hr-r);background:#fff;color:#20232a;font:500 13px/1 system-ui,-apple-system,"PingFang SC",sans-serif;box-shadow:0 6px 18px rgba(20,24,40,.10);cursor:pointer;touch-action:none;transition:width .38s cubic-bezier(.2,.9,.3,1.05),transform .25s,border-radius .2s,background .25s,color .25s,opacity .25s;outline:none}
+.hr-pill:focus-visible{box-shadow:0 0 0 3px rgba(76,110,245,.3),0 6px 18px rgba(20,24,40,.10)}
+.demo-hold-record[data-stroke="on"] .hr-pill{border-color:#cfd2d9}
+.demo-hold-record[data-fill="dark"] .hr-pill{background:#1d1f24;color:#f3f4f6}
+.demo-hold-record[data-fill="dark"][data-stroke="on"] .hr-pill{border-color:#4a4e58}
+.demo-hold-record:not([data-state="idle"]) .hr-pill{width:min(300px,88%)}
+.demo-hold-record[data-state="recording"] .hr-pill{transform:scale(1.03)}
+.demo-hold-record[data-state="binning"] .hr-pill{transform:translateX(-120px) scale(.15);opacity:0;transition:transform .42s cubic-bezier(.5,0,.75,0),opacity .42s}
+.hr-face{display:none;align-items:center;gap:9px;width:100%;min-width:0;white-space:nowrap}
+.hr-idle{justify-content:center}
+.demo-hold-record[data-state="idle"] .hr-idle,.demo-hold-record[data-state="recording"] .hr-live,.demo-hold-record[data-state="binning"] .hr-live,.demo-hold-record[data-state="playing"] .hr-playing{display:flex}
+.hr-face svg{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.hr-playing svg{fill:currentColor;stroke:none}
+.hr-dot{flex:none;width:8px;height:8px;border-radius:50%;background:#ef4444;animation:hr-blink 1s steps(2) infinite}
+@keyframes hr-blink{50%{opacity:.25}}
+.hr-time{flex:none;font:500 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums;opacity:.75}
+.hr-wave{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:2px;height:28px;min-width:0;overflow:hidden}
+.hr-wave-play{justify-content:space-between}
+.hr-bar{flex:none;width:var(--hr-bw,3px);height:calc(var(--h,0) * 100%);min-height:3px;border-radius:2px;background:currentColor;opacity:.85;transition:height .3s var(--hr-ease)}
+.hr-wave-play .hr-bar{opacity:.28;transition:height .32s var(--hr-ease),opacity .12s}
+.hr-wave-play .hr-bar.is-played{opacity:.9}
+.hr-hint{flex:none;font-size:11px;opacity:.5}
+.hr-trash{position:absolute;left:22px;top:50%;display:grid;place-items:center;width:34px;height:34px;margin-top:-17px;border-radius:50%;color:#8a8f99;opacity:0;transform:scale(.6);transition:opacity .2s,transform .25s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s}
+.hr-trash svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hr-lid{transform-origin:20px 7px;transition:transform .2s}
+.demo-hold-record[data-armed] .hr-trash{opacity:1;transform:scale(1)}
+.demo-hold-record[data-armed="bin"] .hr-trash,.demo-hold-record[data-state="binning"] .hr-trash{opacity:1;transform:scale(1.18);background:#fee2e2;color:#dc2626}
+.demo-hold-record[data-armed="bin"] .hr-lid,.demo-hold-record[data-state="binning"] .hr-lid{transform:rotate(-22deg)}
+.demo-hold-record[data-armed="bin"] .hr-pill{color:#dc2626}
+.hr-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4));pointer-events:none;opacity:0;transition:opacity .3s;z-index:5}
+.demo-hold-record[data-auto="on"] .hr-ghost{opacity:1}
+.hr-ghost.is-down{transform-origin:2px 2px}
+.hr-panel{display:flex;flex-direction:column;gap:7px;padding:12px;border-radius:16px;background:#f6f6f8;border:1px solid #ececf0}
+.hr-p-title{font-size:12.5px}
+.hr-p-desc{margin:0 0 3px;color:#7a7f8a;font-size:10.5px;line-height:1.45}
+.hr-p-row{display:flex;align-items:center;justify-content:space-between;color:#5b5f69;font-size:11px}
+.hr-seg{display:inline-flex;padding:2px;border-radius:999px;background:#e7e8ec}
+.hr-seg button{border:0;border-radius:999px;background:transparent;color:#6b6f7a;padding:3px 9px;font:500 10.5px/1.2 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.hr-seg button[aria-pressed="true"]{background:#fff;color:#20232a;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.hr-range{position:relative;display:flex;align-items:center;justify-content:space-between;height:30px;padding:0 10px;border-radius:8px;overflow:hidden;background:#e7e8ec;color:#3d414a;font-size:11px;cursor:ew-resize}
+.hr-range::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--fill,50%);background:#cfd1d7}
+.hr-range span,.hr-range output{position:relative;pointer-events:none}
+.hr-range output{font:500 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace}
+.hr-range input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.hr-range:focus-within{box-shadow:0 0 0 2px rgba(76,110,245,.45)}
+.hr-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+/* Phones: the detail stage is about 300px tall, so the panel becomes a two-column strip under a shorter stage. */
+@media (max-width:760px){
+  .hr-wrap{grid-template-columns:1fr;gap:8px}.hr-stage{height:118px}
+  .hr-panel{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:9px 10px}
+  .hr-p-title{grid-column:1/-1;font-size:11.5px}.hr-p-desc{display:none}
+  .hr-p-row{font-size:10.5px}.hr-seg button{padding:3px 7px}
+  .hr-range{height:26px;padding:0 8px;font-size:10.5px}
+  .hr-trash{left:12px}
+}
+@media (max-height:260px){
+  .demo-hold-record{width:calc(100vw - 40px)}
+  .hr-wrap{grid-template-columns:1fr}.hr-panel,.hr-read{display:none}
+  .hr-stage{height:calc(100vh - 30px);max-height:170px;min-height:110px}
+  .hr-trash{left:10px}
+}
+@media (prefers-reduced-motion:reduce){.hr-pill,.hr-bar,.hr-trash{transition:none}.hr-dot{animation:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-hold-record');
+  var stage=root.querySelector('.hr-stage'),pill=root.querySelector('.hr-pill'),ghost=root.querySelector('.hr-ghost'),read=root.querySelector('.hr-read code');
+  var recWave=root.querySelector('.hr-wave-rec'),playWave=root.querySelector('.hr-wave-play'),recTime=root.querySelector('.hr-live .hr-time'),lenTime=root.querySelector('.hr-len');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var P={sens:60,bounce:40,bars:28,corner:28},BIN=-80,SAMPLE=90;
+  var state='idle',samples=[],t0=0,sampler=0,playRaf=0,press=null,auto=!reduce,timers=[],visible=true,shortHint=0,round=0,lastResult='';
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  var T={label:['按住录音','Hold to record'],short:['再按久一点','Keep holding'],hint:['‹ 左滑删除','‹ slide to bin'],title:['语音消息','Voice note'],
+    desc:['按住录下波形，左滑扔进垃圾桶，松手回放。下面的参数可以实时调。','Hold to record a waveform, slide left to bin it, let go to play it back. Tune it live below.'],
+    fill:['填充','Fill'],stroke:['描边','Stroke'],sens:['灵敏度','Sensitivity'],bounce:['回弹','Bounce'],bars:['条数','Bars'],corner:['圆角','Corner'],
+    light:['浅','Light'],dark:['深','Dark'],off:['关','Off'],on:['开','On']};
+  function L(k){return T[k][zh()?0:1];}
+  function text(){
+    root.querySelector('.hr-label').textContent=shortHint?L('short'):L('label');root.querySelector('.hr-hint').textContent=L('hint');
+    root.querySelector('.hr-p-title').textContent=L('title');root.querySelector('.hr-p-desc').textContent=L('desc');
+    [].forEach.call(root.querySelectorAll('[data-k]'),function(el){el.textContent=L(el.dataset.k);});
+    [].forEach.call(root.querySelectorAll('.hr-seg button'),function(b){b.textContent=L(b.dataset.v);});
+    pill.setAttribute('aria-label',L('label'));status();
+  }
+  function status(){
+    var s={idle:zh()?'待机':'idle',recording:zh()?'录音中':'recording',binning:zh()?'已删除':'binned',playing:zh()?'回放中':'playing'}[state];
+    read.textContent=(zh()?'状态：':'state: ')+s+(lastResult?' · '+lastResult:'')+' · '+(zh()?'按住、左滑超过 80px 删除，松手回放':'hold; slide left past 80px to bin; release to play');
+  }
+  function fmt(ms){var s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+  // Generated "speech": syllable-like bursts with short pauses. A real build reads an AnalyserNode instead.
+  function level(t){var s=Math.abs(Math.sin(t*6.3)*Math.sin(t*2.1+1)),pause=Math.sin(t*1.3)>.82?.15:1;return Math.min(1,(.12+.88*s)*(.65+.35*Math.random())*pause*(.3+P.sens/100*1.4));}
+  function barWidth(wave){var w=wave.clientWidth||200;return Math.max(2,Math.min(6,(w-(P.bars-1)*2)/P.bars));}
+  function addBar(wave,h,delay){var b=document.createElement('i');b.className='hr-bar';b.style.setProperty('--h',0);wave.appendChild(b);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){b.style.setProperty('--h',h.toFixed(3));});});return b;}
+  function setState(s){state=s;root.dataset.state=s;status();}
+  function startRec(){
+    clearTimeout(shortHint);shortHint=0;text();
+    samples=[];recWave.innerHTML='';t0=performance.now();setState('recording');
+    root.style.setProperty('--hr-bw',barWidth(recWave)+'px');
+    clearInterval(sampler);sampler=setInterval(function(){
+      var t=(performance.now()-t0)/1000,h=level(t);samples.push(h);addBar(recWave,h);
+      while(recWave.children.length>P.bars)recWave.removeChild(recWave.firstChild);
+      recTime.textContent=fmt(performance.now()-t0);
+      if(t>15)finish(0);
+    },SAMPLE);
+    recTime.textContent='0:00';
+  }
+  function finish(dx){
+    clearInterval(sampler);var dur=performance.now()-t0;root.removeAttribute('data-armed');pill.style.transform='';
+    if(dx<=BIN){setState('binning');lastResult=zh()?'已扔进垃圾桶':'binned';status();later(function(){toIdle();},reduce?300:620);return;}
+    if(dur<350||samples.length<3){toIdle(true);return;}
+    play(dur);
+  }
+  // Playback: the whole recording is resampled to the bar count; bars left of the playhead light up.
+  function play(dur){
+    setState('playing');lastResult=(zh()?'时长 ':'length ')+fmt(dur);playWave.innerHTML='';lenTime.textContent=fmt(dur);
+    root.style.setProperty('--hr-bw',barWidth(playWave)+'px');
+    var bars=[];for(var i=0;i<P.bars;i++){var a=Math.floor(i/P.bars*samples.length),b=Math.max(a+1,Math.floor((i+1)/P.bars*samples.length)),m=0;for(var j=a;j<b;j++)m=Math.max(m,samples[j]||0);bars.push(addBar(playWave,m));}
+    var span=Math.max(1200,Math.min(6000,dur)),start=performance.now();
+    cancelAnimationFrame(playRaf);
+    (function step(now){var p=Math.min(1,(now-start)/span);bars.forEach(function(b,i){b.classList.toggle('is-played',i/P.bars<p);});lenTime.textContent=fmt(p*dur);
+      if(p<1)playRaf=requestAnimationFrame(step);else later(toIdle,700);})(start);
+  }
+  function toIdle(short){
+    cancelAnimationFrame(playRaf);clearInterval(sampler);setState('idle');
+    if(short){shortHint=setTimeout(function(){shortHint=0;text();},1200);text();}
+  }
+  function later(fn,ms){var id=setTimeout(fn,ms);timers.push(id);return id;}
+  // Pointer: press starts recording; horizontal drag moves the pill and arms the bin past 80px left.
+  pill.addEventListener('pointerdown',function(e){
+    stopAuto();if(state!=='idle')return;press={x:e.clientX,id:e.pointerId};try{pill.setPointerCapture(e.pointerId);}catch(_){}startRec();e.preventDefault();
+  });
+  pill.addEventListener('pointermove',function(e){
+    if(!press||state!=='recording')return;var dx=Math.min(0,e.clientX-press.x);press.dx=dx;
+    pill.style.transform='translateX('+dx+'px) scale(1.03)';if(dx<-12)root.dataset.armed=dx<=BIN?'bin':'near';else root.removeAttribute('data-armed');
+  });
+  function release(){if(!press)return;var dx=press.dx||0;press=null;if(state==='recording')finish(dx);}
+  pill.addEventListener('pointerup',release);pill.addEventListener('pointercancel',release);
+  pill.addEventListener('contextmenu',function(e){e.preventDefault();});
+  // Keyboard: hold Space or Enter to record, Escape to bin.
+  pill.addEventListener('keydown',function(e){if((e.key===' '||e.key==='Enter')&&!e.repeat&&(stopAuto(),state==='idle')){press={x:0,key:true};startRec();e.preventDefault();}else if(e.key==='Escape'&&state==='recording'){press=null;finish(BIN);}});
+  pill.addEventListener('keyup',function(e){if((e.key===' '||e.key==='Enter')&&press&&press.key){press=null;if(state==='recording')finish(0);e.preventDefault();}});
+  // Tuning panel: every change applies immediately, even mid-recording.
+  [].forEach.call(root.querySelectorAll('.hr-range input'),function(inp){
+    function apply(){var k=inp.dataset.p,v=+inp.value;P[k]=v;inp.parentElement.style.setProperty('--fill',((v-inp.min)/(inp.max-inp.min)*100)+'%');inp.previousElementSibling.textContent=k==='corner'?v+'px':v;
+      if(k==='corner')root.style.setProperty('--hr-r',v+'px');
+      if(k==='bounce')root.style.setProperty('--hr-ease','cubic-bezier(.3,'+(1+v/100*1.2).toFixed(2)+',.55,1)');
+      if(k==='bars'){root.style.setProperty('--hr-bw',barWidth(recWave.clientWidth?recWave:playWave)+'px');while(recWave.children.length>P.bars)recWave.removeChild(recWave.firstChild);}}
+    inp.addEventListener('input',function(){stopAuto();apply();});apply();
+  });
+  [].forEach.call(root.querySelectorAll('.hr-seg'),function(seg){seg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;stopAuto();
+    [].forEach.call(seg.children,function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});root.dataset[seg.dataset.seg]=b.dataset.v;});});
+  function stopAuto(){if(!auto)return;auto=false;root.dataset.auto='off';timers.forEach(clearTimeout);timers=[];ghost.style.transition='opacity .3s';
+    if(state!=='idle'){clearInterval(sampler);cancelAnimationFrame(playRaf);root.removeAttribute('data-armed');pill.style.transform='';setState('idle');}}
+  // Auto demo: a ghost pointer alternates "record then let go" with "record then slide to the bin".
+  function ghostTo(x,y,ms){ghost.style.transition='opacity .3s,transform '+ms+'ms cubic-bezier(.3,.7,.3,1)';ghost.style.transform='translate('+x+'px,'+y+'px)';}
+  function cycle(){
+    if(!auto||!visible)return;var s=stage.getBoundingClientRect(),p=pill.getBoundingClientRect(),x=p.left-s.left+p.width/2,y=p.top-s.top+p.height*.6,bin=round++%2===1;
+    ghostTo(x+40,y+50,0);
+    later(function(){ghostTo(x,y,500);},60);
+    later(function(){startRec();},700);
+    if(bin){
+      later(function(){ghostTo(x-100,y,520);pill.style.transition='transform .52s cubic-bezier(.3,.7,.3,1)';pill.style.transform='translateX(-100px) scale(1.03)';root.dataset.armed='near';},2000);
+      later(function(){root.dataset.armed='bin';},2350);
+      later(function(){pill.style.transition='';finish(-100);},2650);
+      later(cycle,4200);
+    }else{
+      later(function(){finish(0);ghostTo(x+30,y+40,400);},2900);
+      later(cycle,2900+Math.min(6000,Math.max(1200,2200))+1200);
+    }
+  }
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){var was=visible;visible=es[0].isIntersecting;
+    if(!visible&&auto){timers.forEach(clearTimeout);timers=[];if(state!=='idle')toIdle();}
+    if(visible&&!was&&auto)cycle();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  root.dataset.auto=auto?'on':'off';text();if(auto)cycle();
+})();
+</script>
