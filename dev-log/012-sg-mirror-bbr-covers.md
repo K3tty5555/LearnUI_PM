@@ -90,5 +90,13 @@ Mathis 公式 `MSS/(RTT×√p)` = 1460/(0.144×√0.1) = **31.3 KB/s**，与实�
 ### 密钥配置与首次 CI 部署（2026-11-19 补记）
 
 - `SG_MIRROR_KEY` 已通过 `gh secret set` 写入仓库 Secrets（用户授权代操作；本地临时私钥文件已删除）。
-- 首次 CI 部署失败：known_hosts 用别名 `sg-server` 作键，而 ssh 按配置里的真实地址 `43.160.218.211` 查主机密钥，名字对不上被拒（"Host key verification failed"）。改为 IP 与别名各写一行（提交 `80f9933`）。
+- 首次 CI 部署失败：known_hosts 用别名 `sg-server` 作键，而 ssh 按配置里的真实地址（IP）查主机密钥，名字对不上被拒（"Host key verification failed"）。改为 IP 与别名各写一行（提交 `80f9933`）。
 - 修复后运行 44448422236 全绿，rsync 步骤成功，服务器 sitemap 已是新地址。自动部署链路（推送 → 全部检查 → rsync 上线）自此打通。
+
+### 追加（服务器地址移出公开仓库，2026-11-19）
+
+发现部署工作流与本篇日志里写着新加坡镜像的 IP，违反「IP 只放 `~/.ssh/config`」的规则（仓库是公开的）。处理：
+
+- IP 从本机 `ssh -G sg-server` 读出，写入仓库 Secrets `SG_MIRROR_HOST`；工作流的 known_hosts 与 ssh config 改为从该密钥取值，密钥缺失时直接报错退出。
+- 本篇日志里的 IP 改为文字描述。
+- 历史提交（`f4bdc84`、`80f9933`、`71a96f4`）里仍有该 IP。用户决定不改写历史：服务器仅密钥登录，CI 密钥已用 `command=` 限死为 rsync。

@@ -47,15 +47,18 @@ jobs:
         run: python3 scripts/test-mobile-language.py site --base /UIUX
       - name: Rsync site to the Singapore mirror
         # Deploy only when every check above passes. SSH key is a repository secret
-        # (SG_MIRROR_KEY); the host key is pinned below instead of trusted blindly.
+        # (SG_MIRROR_KEY); the server address is a secret too (SG_MIRROR_HOST) so it never
+        # appears in this public repo. The host key is pinned below instead of trusted blindly.
         if: github.ref == 'refs/heads/main'
         env:
           SG_MIRROR_KEY: ${{ secrets.SG_MIRROR_KEY }}
+          SG_MIRROR_HOST: ${{ secrets.SG_MIRROR_HOST }}
         run: |
           install -d -m 700 ~/.ssh
           printf '%s\n' "$SG_MIRROR_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           # ssh looks the host key up by the address in the config (not the alias), so key by IP.
-          printf '43.160.218.211 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s\nsg-server ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s\n' > ~/.ssh/known_hosts
-          printf 'Host sg-server\n  HostName 43.160.218.211\n  User ubuntu\n  IdentityFile ~/.ssh/id_ed25519\n' > ~/.ssh/config
+          test -n "$SG_MIRROR_HOST" || { echo 'SG_MIRROR_HOST secret missing'; exit 1; }
+          printf '%s ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s\nsg-server ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s\n' "$SG_MIRROR_HOST" > ~/.ssh/known_hosts
+          printf 'Host sg-server\n  HostName %s\n  User ubuntu\n  IdentityFile ~/.ssh/id_ed25519\n' "$SG_MIRROR_HOST" > ~/.ssh/config
           rsync -az --delete site/ ubuntu@sg-server:/var/www/UIUX/
