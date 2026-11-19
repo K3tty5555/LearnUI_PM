@@ -1592,18 +1592,20 @@
     {
      "file": "endfield-monthly-1.webp",
      "caption": "Finished card (tutorial cover)",
-     "captionZh": "完成稿（教程封面）",
+     "captionZh": "完成稿：月卡横条（教程封面裁切）",
      "w": 1080,
-     "h": 1540,
-     "origin": "note"
+     "h": 308,
+     "origin": "enhanced",
+     "hd": "endfield-monthly-1@2x.webp"
     },
     {
      "file": "endfield-monthly-2.webp",
      "caption": "Final comparison (end of tutorial)",
-     "captionZh": "最终对比（教程结尾）",
+     "captionZh": "最终对比（教程结尾裁切）",
      "w": 1080,
-     "h": 1540,
-     "origin": "note"
+     "h": 308,
+     "origin": "enhanced",
+     "hd": "endfield-monthly-2@2x.webp"
     }
    ],
    "palette": [
@@ -1633,14 +1635,14 @@
    "read": "The tutorial's own advice is the lesson: build the chip first with pure rectangles and rounded corners, clip the artwork into it with a clipping mask, and only then add the gold accents. The card feels premium because almost everything is restraint, and gold is spent on exactly three places.",
    "readZh": "教程本身就是方法论：先用纯矩形和圆角搭出小卡，用剪切蒙版把立绘裁进去，最后才点金色。卡片显贵是因为几乎一切都是克制，金色只花在三处。",
    "layers": {
-    "grid": "A small chip (about 40% of the width) locked to the left of a wide padded panel; icons row aligned to the chip's bottom edge.",
-    "gridZh": "一块小卡（约 40% 宽）锁在留白面板的左侧；图标行的底边与小卡对齐。",
+    "grid": "A wide horizontal band: character chip on the left third, name, rewards and gold button on the right, a gold hairline and the rewards icon row along the bottom.",
+    "gridZh": "一条横向长卡：左三分之一是角色小卡，右侧是名称、奖励与金色按钮，底部一条金色发丝线加奖励图标行。",
     "type": "Quiet by design: one small product name and price in white, one gold button label; no headline at all.",
     "typeZh": "刻意安静：一行白色的小字商品名与价格，一个金色按钮文字；没有大标题。",
-    "focus": "The character art chip, the only image block on the panel.",
-    "focusZh": "角色立绘小卡，面板上唯一的图像块。",
-    "space": "The heavy dark padding around the chip; the card floats rather than fills.",
-    "spaceZh": "小卡四周厚重的深色留白；卡片是浮在面板上的，不是撑满的。"
+    "focus": "The character art chip, the only image block on the band.",
+    "focusZh": "角色立绘小卡，横条上唯一的图像块。",
+    "space": "The heavy dark padding between the chip and the button.",
+    "spaceZh": "小卡与按钮之间厚重的深色留白。"
    },
    "imagePrompt": "Game monthly-pass card on a deep-space dark panel with heavy padding: a rounded chip on the left holding a character illustration clipped inside; a small gold coin badge on the chip corner; a gold purchase button on the right; a row of small product icons along the bottom aligned to the chip. Everything else quiet dark blue-grey. Use your own character and rewards.",
    "imagePromptZh": "游戏月卡卡片，深空黑面板留足空白：左侧一块圆角小卡，角色立绘裁切在内；小卡角上一枚金色硬币角标；右侧一枚金色购买按钮；底部一排小道具图标与小卡对齐。其余一切都是安静的深蓝灰。使用你自己的角色和奖励内容。",
