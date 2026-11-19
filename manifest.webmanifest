@@ -1,7 +1,7 @@
 {
-  "name": "Learn UI PM",
-  "short_name": "Learn UI PM",
-  "description": "给产品经理、设计师和 AI 原型开发者使用的 UI 页面参考、元素词典和视觉风格库。",
+  "name": "Learn UIUX",
+  "short_name": "Learn UIUX",
+  "description": "给产品经理、设计师和 AI 原型开发者使用的 UI 元素词典、视觉风格和真实作品参考库。",
   "id": "/",
   "start_url": "/",
   "scope": "/",

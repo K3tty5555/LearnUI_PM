@@ -1,4 +1,4 @@
-# Learn UI PM 部署说明
+# Learn UIUX 部署说明
 
 正式公网地址：<https://K3tty5555.github.io/LearnUI_PM/>
 

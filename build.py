@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Learn UI PM static site builder - bilingual (EN/中文) replica of namethatui.com.
+"""Learn UIUX static site builder - bilingual (EN/中文) replica of namethatui.com.
 Stdlib only. Reads data/ + demos/, writes site/."""
 import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 from urllib.parse import urlsplit
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
-SITE_NAME = "Learn UI PM"
+SITE_NAME = "Learn UIUX"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel","file-upload","loading-choreography","interaction-details","carousel","number-input","timeline","pagination","border-beam","card-swap","tick-slider","hold-to-record","context-meter"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
 
@@ -17,12 +17,10 @@ def load(p):
 ENTRIES = load("data/entries.json")
 UI = load("data/ui.json")
 GUIDES = load("data/guides.json")
-TABLE = load("data/translate-table.json")
 ZH = {}
 for i in range(1, 5):
     ZH.update(load(f"data/zh/entries-{i}.json"))
 GUIDES_ZH = load("data/zh/guides.json")
-TABLE_ZH = load("data/zh/translate-table-zh.json")
 
 def load_or(p, default):
     full = os.path.join(ROOT, p)
@@ -45,13 +43,6 @@ STYLES_META = _nn(load_or("data/styles-meta.json", {"hubTagline": "", "governedN
 STYLES_ZH = _nn(load_or("data/zh/styles.json", {}))
 STYLES_META_ZH = _nn(load_or("data/zh/styles-meta-zh.json", {"hubTagline_zh": "", "governedNote_zh": ""}))
 STYLE_BY_SLUG = {s["slug"]: s for s in STYLES}
-PM_REFERENCES = _nn(load_or("data/pm/references.json", []))
-PM_TAXONOMY = _nn(load_or("data/pm/taxonomy.json", {}))
-PM_BY_SLUG = {r["slug"]: r for r in PM_REFERENCES}
-PM_LABELS = {
-    group: {item["id"]: item["label"] for item in items}
-    for group, items in PM_TAXONOMY.items()
-}
 DEMO_I18N = _nn(load_or("data/demo-i18n.json", {"global": {}, "patterns": [], "demos": {}}))
 SITES_META = _nn(load_or("data/sites-manifest.json", {"items": []}))
 SITES = SITES_META.get("items", [])
@@ -60,10 +51,11 @@ LOGO_ISSUES = {i["id"]: i for i in LOGOS_META["issues"]}
 LOGOS = LOGOS_META["logos"]
 LOGO_TYPES = {t["id"]: t for t in LOGOS_META["types"]}
 LOGO_USES = {u["id"]: u for u in LOGOS_META["uses"]}
-GRAPHICS_META = _nn(load_or("data/graphics.json", {"issues": [], "types": [], "techniques": [], "cases": []}))
+GRAPHICS_META = _nn(load_or("data/graphics.json", {"issues": [], "types": [], "styleTags": [], "techniques": [], "cases": []}))
 GRAPHICS = GRAPHICS_META["cases"]
 GRAPHIC_ISSUES = {i["id"]: i for i in GRAPHICS_META["issues"]}
 GRAPHIC_TYPES = {t["id"]: t for t in GRAPHICS_META["types"]}
+GRAPHIC_STYLES = {t["id"]: t for t in GRAPHICS_META["styleTags"]}
 GRAPHIC_TECHS = {t["id"]: t for t in GRAPHICS_META["techniques"]}
 SITE_CATEGORY_ZH = {
     "AI & LLM Platforms": "AI 与大模型平台",
@@ -90,7 +82,7 @@ SITE_VIBE_RULES = [
 
 def static_asset_version():
     digest = hashlib.sha256()
-    for path in ("assets/site.css", "assets/reference-demos.css", "assets/workspace.css", "assets/site.js", "assets/live-demos.js"):
+    for path in ("assets/site.css", "assets/workspace.css", "assets/site.js", "assets/live-demos.js"):
         with open(os.path.join(ROOT, path), "rb") as handle:
             digest.update(handle.read())
     digest.update(json.dumps(DEMO_I18N, ensure_ascii=False, sort_keys=True).encode("utf-8"))
@@ -200,11 +192,11 @@ def selection_panel():
 </div>
 <dialog class="selection-dialog" id="selection-dialog" aria-labelledby="selection-title">
  <div class="selection-head">
-  <div><h2 id="selection-title">我的参考集</h2><p>组合页面参考、知名网站、UI 元素和视觉风格，导出给 AI。</p></div>
+  <div><h2 id="selection-title">我的参考集</h2><p>组合知名网站、UI 元素、视觉风格和平面设计案例，导出给 AI。</p></div>
   <button type="button" class="icon-button" id="selection-close" aria-label="关闭">{icon("close")}</button>
  </div>
  <div class="selection-list" id="selection-list"></div>
- <div class="selection-empty" id="selection-empty"><strong>你的下一份设计，从这里开始。</strong><p>在任意标本旁点击「加入参考」，就能把页面、品牌、组件和风格组合成一份 AI 设计说明。</p><a href="/references/" class="btn">浏览页面参考</a></div>
+ <div class="selection-empty" id="selection-empty"><strong>你的下一份设计，从这里开始。</strong><p>在任意案例旁点击「加入参考」，就能把品牌、组件、风格和平面设计案例组合成一份 AI 设计说明。</p></div>
  <label class="collection-brief" for="collection-brief">这次想做什么？<textarea id="collection-brief" rows="3" placeholder="例如：为项目管理工具设计一个清晰、轻量的任务看板。"></textarea><span>选填，会一起写入导出的设计说明。</span></label>
  <div class="selection-actions">
   <button type="button" class="btn" id="selection-copy-md">复制 Markdown</button>
@@ -244,26 +236,24 @@ def icon(name, size=18):
 
 def header():
     links = [("/#top", "grid", "UI elements", "UI 元素", len(ENTRIES)),
-             ("/references/", "page", "Page references", "页面参考", len(PM_REFERENCES)),
              ("/sites/", "globe", "Website systems", "知名网站", len(SITES)),
              ("/logos/", "mark", "Logo atlas", "Logo 图鉴", len(LOGOS)),
              ("/graphics/", "poster", "Graphic design", "平面设计", len(GRAPHICS)),
-             ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES)),
-             ("/guides/translate/", "book", "Terminology", "术语对照", "")]
+             ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES))]
     nav = "".join(f'<a href="{url}">{icon(glyph)}<span class="nav-label"><span class="lang-en">{en}</span><span class="lang-zh nav-zh">{zh}</span></span><span class="nav-count">{count}</span></a>' for url, glyph, en, zh, count in links)
     return f'''<a class="skip-link" href="#main-content">跳转到内容</a>
 <header class="site-header">
  <div class="wrap header-in">
-  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="32" height="32"><span>Learn UI<span class="wordmark-pm">PM</span></span></a>
-  <p class="sidebar-caption"><span class="lang-zh">把好设计，说清楚。</span><span class="lang-en">Find the words for good UI.</span></p>
+  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="32" height="32"><span>Learn UI<span class="wordmark-ux">UX</span></span></a>
+  <p class="sidebar-caption"><span class="lang-zh">寻之于目，识美于此。</span><span class="lang-en">Seek with your eyes. Know beauty here.</span></p>
   <button class="global-search-open" type="button" data-global-search>{icon("search")}<span class="lang-zh">搜索所有参考</span><span class="lang-en">Search library</span><kbd>⌘ K</kbd></button>
-  <select id="mobile-language" class="mobile-language" aria-label="阅读语言"><option value="zh">中文</option><option value="bilingual">对照</option><option value="en">EN</option></select>
+  <select id="mobile-language" class="mobile-language" aria-label="阅读语言"><option value="zh">中文</option><option value="en">EN</option></select>
   <nav class="site-nav" aria-label="主导航">{nav}</nav>
   <button class="sidebar-selection" type="button" data-open-selection>{icon("bookmark")}<span class="lang-zh">我的参考集</span><span class="lang-en">My collection</span><b data-selection-total>0</b></button>
   <div class="sidebar-bottom">
-   <p><span class="lang-zh">找到灵感，组合参考，交给 AI。</span><span class="lang-en">Discover. Collect. Create with AI.</span></p>
+   <p><span class="lang-zh">于辞汇间，邂逅良美</span><span class="lang-en">Meet good design among the words.</span></p>
    <div class="lang-switch" role="group" aria-label="阅读语言">
-    <button type="button" data-mode="zh" class="ls-btn">中文</button><button type="button" data-mode="bilingual" class="ls-btn">对照</button><button type="button" data-mode="en" class="ls-btn">EN</button>
+    <button type="button" data-mode="zh" class="ls-btn">中文</button><button type="button" data-mode="en" class="ls-btn">EN</button>
    </div>
    <a class="source-link" href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span>{icon("arrow", 14)}</a>
   </div>
@@ -271,7 +261,7 @@ def header():
 </header>'''
 
 def footer():
-    return '''<footer class="library-footer"><span>Learn UI PM <span class="lang-zh">· 让灵感有据可依</span><span class="lang-en">· A shared language for design</span></span><div><a href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span></a><a href="#top"><span class="lang-zh">回到顶部</span><span class="lang-en">Back to top</span></a></div></footer><div class="def-pop" id="def-pop" hidden>
+    return '''<footer class="library-footer"><span>Learn UIUX <span class="lang-zh">· 让灵感有据可依</span><span class="lang-en">· A shared language for design</span></span><div><a href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span></a><a href="#top"><span class="lang-zh">回到顶部</span><span class="lang-en">Back to top</span></a></div></footer><div class="def-pop" id="def-pop" hidden>
  <div class="def-word" id="def-word"></div>
  <div class="def-body" id="def-body"></div>
  <div class="def-src" id="def-src"></div>
@@ -288,7 +278,7 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
         chrome_js += "\n" + open(os.path.join(ROOT, "assets/live-demos.js"), encoding="utf-8").read()
     if 'data-gd-detail' in body:
         chrome_js += "\n" + open(os.path.join(ROOT, "assets/graphics.js"), encoding="utf-8").read()
-    demo_assets = '<link rel="stylesheet" href="/assets/reference-demos.css?v=' + ASSET_VERSION + '">' if 'data-pm-demo' in body else ''
+    demo_assets = ''
     demo_js = ('<script>window.DEMO_I18N=' + json.dumps(DEMO_I18N, ensure_ascii=False).replace('</', '<\\/') + ';</script>') if 'class="fragment" data-slug=' in body else ''
     url = SITE_URL + "/" + path
     og_url = SITE_URL + og_image
@@ -298,7 +288,7 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title_zh)} · Learn UI PM</title>
+<title>{esc(title_zh)} · Learn UIUX</title>
 <meta name="description" content="{esc(desc_zh)} {esc(desc_en)}">
 <link rel="canonical" href="{esc(url)}">
 <meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} - {SITE_NAME}">
@@ -317,10 +307,10 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <script>
-// 默认纯中文；用户手动切换后持久化。
+// 默认纯中文；用户手动切换后持久化。旧的「对照」偏好归一到中文。
 (function(){{try{{
   var m=localStorage.getItem("ntui-lang-mode");
-  if(m!=="bilingual"&&m!=="zh"&&m!=="en"){{
+  if(m!=="zh"&&m!=="en"){{
     m="zh";
   }}
   document.documentElement.setAttribute("data-lang-mode",m);
@@ -387,7 +377,6 @@ def homepage():
             "fuzzy": e["fuzzy"], "fuzzy_zh": z["fuzzy_zh"],
         })
     cards = "\n".join(card(e) for e in ENTRIES)
-    en_cnt, zh_cnt = t("entriesCount", n=len(ENTRIES))
     en_ph, zh_ph = t("searchPlaceholder")
     en_s, zh_s = t("surprise")
     en_vp, zh_vp = t("vibePromo")
@@ -397,25 +386,21 @@ def homepage():
 <main class="wrap home-page">
  <section class="home-intro">
   <div class="home-intro-copy">
-   <h1><span class="lang-zh">好界面，<br>从说清楚开始。</span><span class="lang-en">Great interfaces.<br>The right words.</span></h1>
-   <p class="home-description"><span class="lang-zh">认出组件，找到风格，把灵感变成 AI 听得懂的设计语言。</span><span class="lang-en">Name the component. Find the style. Turn inspiration into a design brief your AI understands.</span></p>
-   <div class="intro-actions"><a href="/references/" class="btn btn-primary"><span class="lang-zh">寻找页面灵感</span><span class="lang-en">Explore page references</span>{icon("arrow",16)}</a><a class="intro-secondary" href="#library"><span class="lang-zh">从 UI 元素开始</span><span class="lang-en">Explore UI elements</span></a></div>
-   <p class="intro-note"><span class="lang-zh">动态控件标本 · 中英双语 · 可复制 AI 提示词</span><span class="lang-en">Live UI specimens · Bilingual · Ready-to-use prompts</span></p>
+   <h1><span class="lang-zh">寻之于目，<br>识美于此</span><span class="lang-en">Seek with your eyes.<br>Know beauty here.</span></h1>
+   <p class="home-description"><span class="lang-zh">察有形之美，汇万象之观</span><span class="lang-en">Behold beauty in form. Gather views of everything.</span></p>
   </div>
   <div class="hero-specimen">
-   <div class="specimen-caption"><span><span class="lang-zh">一个熟悉的界面，有一个准确的名字。</span><span class="lang-en">A familiar interface. A precise name.</span></span><span class="specimen-live"><span class="lang-zh">试试看</span><span class="lang-en">Try it</span></span></div>
    <div class="hero-command">
     <button type="button" class="hero-command-search" data-global-search>{icon("search")}<span class="lang-zh">你想做什么？</span><span class="lang-en">What would you like to do?</span><kbd>⌘ K</kbd></button>
-    <a href="/references/">{icon("page")}<span class="lang-zh">寻找一个页面参考</span><span class="lang-en">Find a page reference</span>{icon("arrow",15)}</a>
+    <a href="/graphics/">{icon("poster")}<span class="lang-zh">看平面设计案例</span><span class="lang-en">Explore graphic design</span>{icon("arrow",15)}</a>
     <a href="/styles/">{icon("style")}<span class="lang-zh">探索一种视觉风格</span><span class="lang-en">Explore a visual style</span>{icon("arrow",15)}</a>
     <button type="button" data-open-selection>{icon("bookmark")}<span class="lang-zh">打开我的参考集</span><span class="lang-en">Open my collection</span>{icon("arrow",15)}</button>
    </div>
-   <div class="specimen-definition"><a href="/web/command-palette/"><strong>Command palette</strong><span class="lang-zh">命令面板</span><span class="lang-en">Search and run actions in one place.</span></a>{select_button("entry:command-palette")}</div>
   </div>
  </section>
- <div class="collection-shortcuts"><a href="/references/"><span class="lang-zh">想搭页面</span><span class="lang-en">Build a page</span><strong>{len(PM_REFERENCES)} <span class="lang-zh">个页面参考</span><span class="lang-en">references</span></strong>{icon("arrow",16)}</a><a href="/sites/"><span class="lang-zh">想找灵感</span><span class="lang-en">Find inspiration</span><strong>{len(SITES)} <span class="lang-zh">个品牌规范</span><span class="lang-en">websites</span></strong>{icon("arrow",16)}</a><a href="/styles/"><span class="lang-zh">想定风格</span><span class="lang-en">Set the style</span><strong>{len(STYLES)} <span class="lang-zh">种视觉风格</span><span class="lang-en">visual styles</span></strong>{icon("arrow",16)}</a></div>
+ <div class="collection-shortcuts"><a href="/graphics/"><span class="lang-zh">想看案例</span><span class="lang-en">See real work</span><strong>{len(GRAPHICS)} <span class="lang-zh">个平面设计案例</span><span class="lang-en">cases</span></strong>{icon("arrow",16)}</a><a href="/sites/"><span class="lang-zh">想找灵感</span><span class="lang-en">Find inspiration</span><strong>{len(SITES)} <span class="lang-zh">个品牌规范</span><span class="lang-en">websites</span></strong>{icon("arrow",16)}</a><a href="/styles/"><span class="lang-zh">想定风格</span><span class="lang-en">Set the style</span><strong>{len(STYLES)} <span class="lang-zh">种视觉风格</span><span class="lang-en">visual styles</span></strong>{icon("arrow",16)}</a></div>
  <section class="hero library-head" id="library">
-  <div class="library-title"><h2><span class="lang-zh">UI 元素词典</span><span class="lang-en">UI dictionary</span></h2><span class="library-help"><span class="lang-zh">点开标本，了解它的名字与用法</span><span class="lang-en">Open a specimen to learn its name and use</span></span></div>
+  <div class="library-title"><h2><span class="lang-zh">UI 元素词典</span><span class="lang-en">UI dictionary</span></h2><span class="library-help"><span class="lang-zh">点开案例，了解它的名字与用法</span><span class="lang-en">Open a case to learn its name and use</span></span></div>
   <div class="controls">
    <div class="search-box">
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -429,7 +414,6 @@ def homepage():
     <button type="button" class="tab" data-filter="web"><span class="lang-en">{esc(en_web)}</span><span class="lang-zh">{esc(zh_web)}</span></button>
     <button type="button" class="tab" data-filter="macos"><span class="lang-en">{esc(en_mac)}</span><span class="lang-zh">{esc(zh_mac)}</span></button>
    </div>
-   <p class="count-note" id="count-note" role="status"><span class="lang-en" data-tpl="{esc(UI["entriesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["entriesCountZh"])}">{esc(zh_cnt)}</span></p>
   </div>
  </section>
  <section id="dictionary" class="grid" aria-label="UI 元素标本">
@@ -682,249 +666,13 @@ def guide_page(slug):
 {footer()}'''
     return page(g["title"], gz["title_zh"], g["lede"], gz["lede_zh"], body, f"guides/{slug}/")
 
-def translate_page():
-    en_b, zh_b = t("indexCrumb"); en_g, zh_g = t("guideCrumb")
-    en_tc, zh_tc = t("thingCol")
-    linkable = {"Alert": "alert", "Color well / color picker": "color-well", "Context menu": "context-menu",
-                "Level indicator": "level-indicator", "Gauge / level indicator": "level-indicator",
-                "Menu bar extra / status item": "menu-bar-extra", "Popover": "popover",
-                "Pull-down button": "popup-pulldown-combo", "Pop-up button": "popup-pulldown-combo",
-                "Save/export panel": "save-panel", "Search field": "search-field",
-                "Segmented control": "segmented-control", "Sheet": "sheet", "Sidebar": "sidebar",
-                "Slider": "slider", "Stepper": "stepper", "Switch": "switch-checkbox-radio",
-                "Toolbar": "toolbar", "Outline / source list": "outline-view", "List": "outline-view"}
-    rows = []
-    for i, r in enumerate(TABLE):
-        zh = TABLE_ZH[i]["thing_zh"]
-        note_en = r.get("note", "")
-        thing_html = esc(r["thing"])
-        slug = linkable.get(r["thing"])
-        if slug:
-            plat = next((entry["platform"] for entry in ENTRIES if entry["slug"] == slug), "macos")
-            thing_html = f'<a class="thing-link" href="/{plat}/{slug}/">{esc(r["thing"])}</a>'
-        note = f'<span class="table-note">{esc(note_en)}</span>' if note_en else ""
-        rows.append(f'''<tr data-search="{esc((r["thing"] + " " + zh + " " + r["appkit"] + " " + r["swiftui"]).lower())}">
- <td class="fw">{thing_html}<span class="lang-zh zh-line">{esc(zh)}</span>{note}</td>
- <td class="mono">{esc(r["appkit"])}</td>
- <td class="mono">{esc(r["swiftui"])}</td>
-</tr>''')
-    en_cnt, zh_cnt = t("translateCount", n=len(TABLE), total=len(TABLE))
-    body = f'''{header()}
-<main class="wrap entry">
- <nav class="crumbs">
-  <a href="/"><span class="lang-en">{esc(en_b)}</span><span class="lang-zh">{esc(zh_b)}</span></a>
-  <span class="crumb-sep">/</span>
-  <span><span class="lang-en">{esc(en_g)}</span><span class="lang-zh">{esc(zh_g)}</span></span>
-  <span class="crumb-sep">/</span>
-  <span class="crumb-cur"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh">翻译对照表</span></span>
- </nav>
- <header class="entry-head">
-  <h1 class="hero-title"><span class="lang-en">{esc(UI["translateTitle"])}</span><span class="lang-zh hero-title-zh">翻译对照表</span></h1>
-  <p class="guide-sub mono-sm">/ {esc(UI["translateSubtitle"])} /</p>
-  {bi(UI["translateLede"], UI["translateLedeZh"], "p", "entry-tag")}
- </header>
- <section class="translate-tool" aria-label="翻译对照表工具">
-  <div class="translate-toolbar">
-   <div class="search-box table-search">
-    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-    <input id="table-search" type="search" autocomplete="off" placeholder="筛选术语或 API" aria-label="筛选翻译对照表">
-   </div>
-   <p class="translate-count"><span class="lang-en" id="table-count" data-tpl="{esc(UI["translateCount"])}">{esc(en_cnt)}</span><span class="lang-zh" id="table-count-zh" data-tpl="{esc(UI["translateCountZh"])}">{esc(zh_cnt)}</span></p>
-  </div>
-  <div class="table-scroll"><table class="api-table translate-table" id="translate-table">
-   <thead><tr><th>{esc(en_tc)}<span class="lang-zh th-zh">{esc(zh_tc)}</span></th><th>AppKit</th><th>SwiftUI</th></tr></thead>
-   <tbody>{"".join(rows)}</tbody>
-  </table></div>
- </section>
-</main>
-{footer()}'''
-    return page(UI["translateTitle"], "翻译对照表", UI["translateLede"], UI["translateLedeZh"], body, "guides/translate/")
-
-# ---------------- product/page references ----------------
-
-def reference_url(ref):
-    return f'/references/{ref["slug"]}/'
-
-def pm_labels(group, ids):
-    labels = PM_LABELS.get(group, {})
-    return [labels.get(item, item) for item in ids]
-
-PM_LABELS_EN = {
-    "productTypes": {"b2b-admin": "B2B admin", "data-dashboard": "Data dashboard", "ai-tool": "AI tool", "education": "Education", "mobile": "Mobile", "marketing": "Marketing"},
-    "pageTypes": {"list": "List", "detail": "Detail", "form": "Form", "settings": "Settings", "workspace": "Workspace", "modal-drawer": "Modal / drawer", "wizard": "Wizard", "result": "Result", "dashboard": "Dashboard", "timeline": "Timeline", "board": "Board", "landing": "Landing page"},
-    "layouts": {"sidebar": "Sidebar", "split": "Split view", "three-column": "Three columns", "card-flow": "Card flow", "table": "Table", "timeline": "Timeline", "workbench": "Workbench", "single-column": "Single column"},
-    "moods": {"restrained": "Restrained", "professional": "Professional", "lightweight": "Lightweight", "dense": "Dense", "immersive": "Immersive", "technical": "Technical", "warm": "Warm"},
-    "states": {"default": "Default", "loading": "Loading", "empty": "Empty", "error": "Error", "processing": "Processing", "pending": "Pending", "success": "Success"}
-}
-
-def pm_labels_en(group, ids):
-    labels = PM_LABELS_EN.get(group, {})
-    return [labels.get(item, item) for item in ids]
-
-def pm_tag_pairs(group, ids):
-    return "".join(f'<span><span class="lang-zh">{esc(zh)}</span><span class="lang-en">{esc(en)}</span></span>' for zh, en in zip(pm_labels(group, ids), pm_labels_en(group, ids)))
-
-def reference_prompt(ref):
-    return "\n".join([
-        ref["promptHints"]["summary"],
-        "适用场景：" + "、".join(ref["scenarios"]) + "。",
-        "页面结构：" + "；".join(ref["structure"]) + "。",
-        "视觉特征：" + "；".join(ref["visualTraits"]) + "。",
-        "关键状态：" + "、".join(pm_labels("states", ref["states"])) + "。",
-        "需要做到：" + "；".join(ref["promptHints"]["do"]) + "。",
-        "避免：" + "；".join(ref["promptHints"]["avoid"]) + "。",
-    ])
-
-def reference_prompt_en(ref):
-    hints = ref["promptHints"]
-    return "\n".join([
-        hints["summaryEn"],
-        "Use cases: " + ", ".join(ref["scenariosEn"]) + ".",
-        "Structure: " + "; ".join(ref["structureEn"]) + ".",
-        "Visual traits: " + "; ".join(ref["visualTraitsEn"]) + ".",
-        "Key states: " + ", ".join(pm_labels_en("states", ref["states"])) + ".",
-        "Do: " + "; ".join(hints["doEn"]) + ".",
-        "Avoid: " + "; ".join(hints["avoidEn"]) + ".",
-    ])
-
-def reference_markdown(ref):
-    lines = [
-        f'# {ref["title"]} ({ref["titleEn"]})', "", ref["summary"], ref["summaryEn"], "",
-        "## 分类", "",
-        "- 产品类型：" + "、".join(pm_labels("productTypes", ref["productTypes"])) + " / " + ", ".join(pm_labels_en("productTypes", ref["productTypes"])),
-        "- 页面类型：" + "、".join(pm_labels("pageTypes", ref["pageTypes"])) + " / " + ", ".join(pm_labels_en("pageTypes", ref["pageTypes"])),
-        "- 布局方式：" + "、".join(pm_labels("layouts", ref["layouts"])) + " / " + ", ".join(pm_labels_en("layouts", ref["layouts"])),
-        "- 视觉气质：" + "、".join(pm_labels("moods", ref["moods"])) + " / " + ", ".join(pm_labels_en("moods", ref["moods"])),
-        "- 关键状态：" + "、".join(pm_labels("states", ref["states"])) + " / " + ", ".join(pm_labels_en("states", ref["states"])), "",
-        "## 页面结构", "",
-    ]
-    lines += [f"- {item} / {ref['structureEn'][i]}" for i, item in enumerate(ref["structure"])]
-    lines += ["", "## 视觉特征", ""]
-    lines += [f"- {item} / {ref['visualTraitsEn'][i]}" for i, item in enumerate(ref["visualTraits"])]
-    lines += ["", "## AI 风格说明 / AI design brief", "", reference_prompt(ref), "", reference_prompt_en(ref), ""]
-    return "\n".join(lines)
-
-def reference_card(ref):
-    chips = pm_labels("productTypes", ref["productTypes"][:1]) + pm_labels("pageTypes", ref["pageTypes"][:1]) + pm_labels("layouts", ref["layouts"][:1])
-    return f'''<article class="catalog-item reference-card-item" data-reference-slug="{esc(ref["slug"])}">
- <a class="reference-card" href="{reference_url(ref)}">
-  {stage(ref["demo"])}
-  <div class="card-meta">
-   <h3><span class="lang-zh">{esc(ref["title"])}</span><span class="lang-en">{esc(ref["titleEn"])}</span></h3>
-   <p><span class="lang-zh">{esc(ref["summary"])}</span><span class="lang-en">{esc(ref["summaryEn"])}</span></p>
-   <div class="reference-card-tags">{pm_tag_pairs("productTypes", ref["productTypes"][:1])}{pm_tag_pairs("pageTypes", ref["pageTypes"][:1])}{pm_tag_pairs("layouts", ref["layouts"][:1])}</div>
-  </div>
- </a>
- {select_button("reference:" + ref["slug"], compact=True)}
-</article>'''
-
-def reference_filter_group(key, title):
-    options = []
-    for item in PM_TAXONOMY.get(key, []):
-        count = sum(1 for ref in PM_REFERENCES if item["id"] in ref.get(key, []))
-        options.append(f'''<label><input type="checkbox" data-ref-filter="{esc(key)}" value="{esc(item["id"])}"><span>{esc(item["label"])}</span><small>{count}</small></label>''')
-    return f'''<details class="reference-filter-group" open>
- <summary>{esc(title)}</summary>
- <div>{"".join(options)}</div>
-</details>'''
-
-def references_page():
-    index = [{
-        "slug": ref["slug"], "title": ref["title"], "titleEn": ref["titleEn"],
-        "summary": ref["summary"], "summaryEn": ref["summaryEn"], "scenarios": ref["scenarios"], "scenariosEn": ref["scenariosEn"],
-        "structure": ref["structure"], "structureEn": ref["structureEn"], "visualTraits": ref["visualTraits"], "visualTraitsEn": ref["visualTraitsEn"],
-        "productTypes": ref["productTypes"], "pageTypes": ref["pageTypes"],
-        "layouts": ref["layouts"], "moods": ref["moods"], "states": ref["states"]
-    } for ref in PM_REFERENCES]
-    filters = "".join([
-        reference_filter_group("productTypes", "产品类型"),
-        reference_filter_group("pageTypes", "页面类型"),
-        reference_filter_group("layouts", "布局方式"),
-        reference_filter_group("moods", "视觉气质"),
-        reference_filter_group("states", "交互状态"),
-    ])
-    cards = "\n".join(reference_card(ref) for ref in PM_REFERENCES)
-    index_json = json.dumps(index, ensure_ascii=False).replace("</", "<\\/")
-    body = f'''{header()}
-<main class="wrap references-page">
- <nav class="crumbs"><a href="/"><span class="lang-zh">首页</span><span class="lang-en">Index</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">页面参考</span><span class="lang-en">Page references</span></span></nav>
- <header class="hero references-head">
-  <h1 class="hero-title"><span class="lang-en">Page references</span><span class="lang-zh hero-title-zh">页面参考</span></h1>
-  <p class="hero-sub"><span class="lang-zh">按产品、页面、布局、气质和状态筛选真实界面样例，选中后导出给 AI。</span><span class="lang-en">Filter real interface examples by product, page, layout, mood, and state, then export a selection to your AI agent.</span></p>
- </header>
- <div class="reference-search-row">
-  <div class="search-box"><input id="reference-search" type="search" autocomplete="off" data-ph-en="Search pages, scenarios, or traits" data-ph-zh="搜索页面、场景或特征" placeholder="搜索页面、场景或特征" aria-label="搜索页面参考"><kbd class="search-kbd">/</kbd></div>
-  <p id="reference-count" class="count-note"><span class="lang-zh">{len(PM_REFERENCES)} 个参考</span><span class="lang-en">{len(PM_REFERENCES)} references</span></p>
-  <button type="button" class="btn" id="reference-reset"><span class="lang-zh">重置筛选</span><span class="lang-en">Reset filters</span></button>
-
- </div>
- <div class="reference-browser">
-  <aside class="reference-filters" aria-label="页面参考筛选">{filters}</aside>
-  <section>
-   <div class="reference-grid" id="reference-grid">{cards}</div>
-   <div class="no-result" id="reference-no-result" hidden><b><span class="lang-zh">没有符合条件的参考</span><span class="lang-en">No references match</span></b><p><span class="lang-zh">减少筛选条件或换一个关键词。</span><span class="lang-en">Remove a filter or try another search.</span></p></div>
-  </section>
- </div>
- <script id="reference-index" type="application/json">{index_json}</script>
-</main>
-{footer()}'''
-    return page("Page references", "页面参考", "Filter reusable product page references.",
-                "按产品类型、页面类型、布局、气质和状态筛选页面参考。", body, "references/")
-
-def reference_page(ref):
-    tags = []
-    for group in ("productTypes", "pageTypes", "layouts", "moods"):
-        tags += pm_labels(group, ref[group])
-    states = pm_labels("states", ref["states"])
-    prompt = reference_prompt(ref)
-    prompt_en = reference_prompt_en(ref)
-    md = reference_markdown(ref)
-    structure = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['structureEn'][i])}</span></li>" for i, item in enumerate(ref["structure"]))
-    traits = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['visualTraitsEn'][i])}</span></li>" for i, item in enumerate(ref["visualTraits"]))
-    dos = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['promptHints']['doEn'][i])}</span></li>" for i, item in enumerate(ref["promptHints"]["do"]))
-    avoids = "".join(f"<li><span class=\"lang-zh\">{esc(item)}</span><span class=\"lang-en\">{esc(ref['promptHints']['avoidEn'][i])}</span></li>" for i, item in enumerate(ref["promptHints"]["avoid"]))
-    body = f'''{header()}
-<main class="wrap entry reference-detail">
- <nav class="crumbs"><a href="/references/"><span class="lang-zh">页面参考</span><span class="lang-en">Page references</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">{esc(ref["title"])}</span><span class="lang-en">{esc(ref["titleEn"])}</span></span></nav>
- <header class="entry-head">
-  <h1 class="reference-title"><span class="lang-zh">{esc(ref["title"])}</span><span class="lang-en">{esc(ref["titleEn"])}</span></h1>
-  <p class="entry-tag"><span class="lang-zh">{esc(ref["summary"])}</span><span class="lang-en">{esc(ref["summaryEn"])}</span></p>
-  <div class="reference-tags">{pm_tag_pairs("productTypes", ref["productTypes"])}{pm_tag_pairs("pageTypes", ref["pageTypes"])}{pm_tag_pairs("layouts", ref["layouts"])}{pm_tag_pairs("moods", ref["moods"])}</div>
-  <div class="entry-actions">{select_button("reference:" + ref["slug"])}</div>
- </header>
- {stage(ref["demo"], detail=True)}
- <p class="stage-hint"><span class="lang-zh">标本可交互，可以切换不同状态。</span><span class="lang-en">Interactive specimen — switch between the available states.</span></p>
- <div class="reference-detail-grid">
-  <section><h2><span class="lang-zh">适用场景</span><span class="lang-en">Use cases</span></h2><p><span class="lang-zh">{esc("、".join(ref["scenarios"]))}</span><span class="lang-en">{esc(" · ".join(ref["scenarios"]))}</span></p></section>
-  <section><h2><span class="lang-zh">关键状态</span><span class="lang-en">Key states</span></h2><div class="reference-tags">{pm_tag_pairs("states", ref["states"])}</div></section>
-  <section><h2><span class="lang-zh">布局结构</span><span class="lang-en">Structure</span></h2><ol>{structure}</ol></section>
-  <section><h2><span class="lang-zh">视觉特征</span><span class="lang-en">Visual traits</span></h2><ul>{traits}</ul></section>
- </div>
- <section class="sect reference-guidance">
-  <h2><span class="lang-zh">实现约束</span><span class="lang-en">Implementation guardrails</span></h2>
-  <div class="guidance-cols"><div><h3><span class="lang-zh">需要做到</span><span class="lang-en">Do</span></h3><ul>{dos}</ul></div><div><h3><span class="lang-zh">避免</span><span class="lang-en">Avoid</span></h3><ul>{avoids}</ul></div></div>
- </section>
- <section class="sect">
-  <h2><span class="lang-zh">AI 风格说明</span><span class="lang-en">AI design brief</span></h2>
-  <div class="copy-block"><button type="button" class="btn btn-copy" data-copy="reference-prompt" data-done-en="Copied" data-done-zh="已复制"><span class="lang-zh">复制</span><span class="lang-en">Copy</span></button><div class="copy-text"><p id="reference-prompt"><span class="lang-zh">{esc(prompt)}</span><span class="lang-en">{esc(prompt_en)}</span></p></div></div>
- </section>
- <section class="sect reference-detail-actions">
-  <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
-  <template id="md-source">{esc(md)}</template>
-  <span>来源：{esc(ref["source"]["label"])}，{esc(ref["source"]["license"])} License</span>
- </section>
-</main>
-{footer()}'''
-    return page(ref["titleEn"], ref["title"], ref["summary"], ref["summary"], body,
-                f'references/{ref["slug"]}/')
-
 def sources_page():
     body = f'''{header()}
 <main class="wrap entry sources-page">
  <nav class="crumbs"><a href="/">首页</a><span class="crumb-sep">/</span><span class="crumb-cur">来源与许可证</span></nav>
  <header class="entry-head"><h1 class="reference-title">来源与许可证 <span>Sources &amp; License</span></h1><p class="entry-tag">原始内容与新增内容分开管理，便于识别来源和同步上游。</p></header>
  <section class="sect"><h2>上游内容</h2><p>UI 词典、指南和部分视觉风格来自 <a href="https://github.com/joeseesun/learnui" rel="noopener">joeseesun/learnui</a>。其英文源内容复刻自 <a href="https://namethatui.com/" rel="noopener">namethatui.com</a>，版权归原作者。</p></section>
- <section class="sect"><h2>本项目新增内容</h2><p><code>data/pm/</code>、<code>demos/pm/</code> 及页面参考功能为独立新增内容，不覆盖上游数据文件。</p></section>
+ <section class="sect"><h2>已移除的栏目</h2><p>「页面参考」和「术语对照」已于 2026-11-18 移除（用户拍板）：前者是虚构模板页，与全站「看真实作品学设计」的定位不符；后者是上游遗留的 Mac 开发者 API 对照表，与本站无关。历史数据保留在 git 历史中。</p></section>
  <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。</p></section>
  <section class="sect"><h2>Logo 图鉴</h2><p><code>/logos/</code> 样本取自小红书视频介绍的网站：第 1 期《好用的设计网站之LOGO/图标》（李李说设计（大学陪跑）），第 2 期《2026 年的图标库，根本不是人用的》（默默然）。logo 图片取自各网站公开发布的图标文件，商标归各自所有者，仅用于识别与学习；每个详情页标明原始文件地址。</p></section>
  <section class="sect"><h2>平面设计</h2><p><code>/graphics/</code> 的案例收录自小红书笔记。详情页的原作图片截取自收录笔记中的原作画面，注明原作设计方、年份和图源；代码标本是对原作版式、字体和配色的学习性还原。原作版权归原权利人，本站不盈利、仅用于学习交流；权利人如要求删除，请通过 GitHub 仓库联系，我们会立即删除。</p></section>
@@ -984,8 +732,8 @@ def sites_hub_page():
  <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Sites</span><span class="lang-zh">知名网站</span></span></nav>
  <section class="hero sites-hero">
   <h1 class="hero-title"><span class="lang-en">Design systems of famous websites</span><span class="lang-zh hero-title-zh">知名网站设计规范</span></h1>
-  <p class="lang-en hero-sub">Explore brand-style reconstructions and the DESIGN.md behind their color, type, components, and layout decisions.</p>
-  <p class="lang-zh hero-sub">浏览品牌风格复现，了解色彩、字体、组件和布局背后的完整 DESIGN.md。预览中的文案与数据仅作演示。</p>
+  <p class="lang-en hero-sub">Carry the known, open the new view.</p>
+  <p class="lang-zh hero-sub">承旧识，开新观</p>
   <div class="site-tools">
    <div class="site-filter-row">
     <div class="search-box site-search-box"><input id="site-search" type="search" autocomplete="off" data-ph-en="Search a brand or visual trait" data-ph-zh="搜索品牌或视觉特征" placeholder="搜索品牌或视觉特征" aria-label="搜索知名网站设计规范"><kbd class="search-kbd">/</kbd></div>
@@ -1062,19 +810,14 @@ def logos_hub_page():
     empty_note = '<em><span class="lang-zh">暂无样本</span><span class="lang-en">No sample yet</span></em>'
     glossary = "".join(f'<div class="logo-glossary-item"><dt><span class="lang-zh">{esc(t_["nameZh"])} <small>{esc(t_["name"])}</small></span><span class="lang-en">{esc(t_["name"])}</span></dt><dd><span class="lang-zh">{esc(t_["definitionZh"])}</span><span class="lang-en">{esc(t_["definition"])}</span>{"" if counts[tid] else empty_note}</dd></div>' for tid, t_ in LOGO_TYPES.items())
     use_options = ['<option value="">全部用途</option>'] + [f'<option value="{esc(uid)}">{esc(u["nameZh"])}</option>' for uid, u in LOGO_USES.items()]
-    issue_lines = []
-    for iid, iss in LOGO_ISSUES.items():
-        n = sum(1 for l in LOGOS if l.get("issue") == iid)
-        issue_lines.append(f'<li><span class="lang-zh">第 {iid} 期 · {n} 个样本，来自小红书「{esc(iss["author"])}」的视频《{esc(iss["title"])}》</span><span class="lang-en">Issue {iid} · {n} sample{"s" if n != 1 else ""} from the Xiaohongshu video "{esc(iss["title"])}" by {esc(iss["author"])}</span></li>')
     cards = "\n".join(logo_card(l) for l in LOGOS)
     body = f'''{header()}
 <main class="wrap logos-hub-page">
  <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Logo atlas</span><span class="lang-zh">Logo 图鉴</span></span></nav>
  <section class="hero logos-hero">
   <h1 class="hero-title"><span class="lang-en">Logo atlas</span><span class="lang-zh hero-title-zh">Logo 图鉴</span></h1>
-  <p class="lang-zh hero-sub">认出一个 logo 属于哪一类、由哪几部分构成，再把这套构成方法交给 AI。每个样本同时是一个找 logo、找图标的好网站。</p>
-  <p class="lang-en hero-sub">Learn which kind of logo you are looking at and how it is built, then hand that construction to your AI. Every sample is also a useful site for finding logos and icons.</p>
-  <ul class="logo-issue">{"".join(issue_lines)}<li><span class="lang-zh">logo 都是各网站自己的标志。</span><span class="lang-en">Each logo is the site's own mark.</span></li></ul>
+  <p class="lang-zh hero-sub">览徽标万象，撷形意之美</p>
+  <p class="lang-en hero-sub">Survey a world of marks; gather the beauty of form and meaning.</p>
   <div class="logo-tools">
    <div class="logo-type-chips" role="group" aria-label="按 logo 类型筛选">{"".join(type_chips)}</div>
    <div class="site-filter-row">
@@ -1187,25 +930,29 @@ def graphic_srcset(im, enough=None):
 def graphic_year(case, sep=" · "):
     return f'{sep}{case["year"]}' if case.get("year") else ""
 
-def graphic_tech_tags(case, link=True):
+def graphic_tech_tags(case):
+    # Detail page only: plain spans with a hover definition (the hub no longer has a technique filter or glossary).
     out = []
     for tid in case["techniques"]:
         t_ = GRAPHIC_TECHS[tid]
         inner = f'<span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span>'
-        out.append(f'<a class="tag gd-tech" href="/graphics/?tech={esc(tid)}">{inner}</a>' if link else f'<span class="tag gd-tech">{inner}</span>')
+        out.append(f'<span class="tag gd-tech" title="{esc(t_["definitionZh"])}\n\n{esc(t_["definition"])}">{inner}</span>')
     return "".join(out)
+
+def graphic_style_tags(case):
+    return "".join(f'<span class="tag gd-style"><span class="lang-zh">{esc(GRAPHIC_STYLES[s]["nameZh"])}</span><span class="lang-en">{esc(GRAPHIC_STYLES[s]["name"])}</span></span>' for s in case["styleTags"])
 
 def graphic_card(case):
     ty = GRAPHIC_TYPES[case["type"]]
     hay = " ".join([case["game"], case.get("gameZh", ""), case["project"], case["credits"], ty["name"], ty["nameZh"], case["summary"], case["summaryZh"]]
-                   + [GRAPHIC_TECHS[t]["name"] + " " + GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]]).lower()
-    return f'''<article class="catalog-item graphic-item" data-search="{esc(hay)}" data-type="{esc(case["type"])}" data-techs="{esc(" ".join(case["techniques"]))}">
+                   + [GRAPHIC_STYLES[s]["name"] + " " + GRAPHIC_STYLES[s]["nameZh"] for s in case["styleTags"]]).lower()
+    return f'''<article class="catalog-item graphic-item" data-search="{esc(hay)}" data-type="{esc(case["type"])}" data-styles="{esc(" ".join(case["styleTags"]))}">
  <a class="style-card graphic-card" href="{graphic_url(case)}">
   <div class="gd-cover" style="aspect-ratio:{case["images"][0]["w"]}/{case["images"][0]["h"]}"><img src="/assets/graphics/{esc(case["images"][0]["file"])}"{graphic_srcset(case["images"][0], enough=900)} width="{case["images"][0]["w"]}" height="{case["images"][0]["h"]}" alt="" loading="lazy" decoding="async"></div>
   <div class="card-meta">
    <h3 class="card-name"><span class="lang-zh card-name-zh">{esc(graphic_title_zh(case))}</span><span class="lang-en">{esc(graphic_title_en(case))}</span></h3>
    <p class="gd-credit">{esc(case["credits"])}{graphic_year(case)}</p>
-   <div class="gd-card-tags">{graphic_tech_tags(case, link=False)}</div>
+   <div class="gd-card-tags">{graphic_style_tags(case)}</div>
   </div>
  </a>
  {select_button("graphic:" + case["slug"], compact=True)}
@@ -1217,43 +964,37 @@ def graphics_hub_page():
     for tid, ty in GRAPHIC_TYPES.items():
         dis = '' if type_counts[tid] else ' disabled'
         type_chips.append(f'<button type="button" class="logo-type-chip" data-gd-type="{esc(tid)}" aria-pressed="false"{dis}><span class="lang-zh">{esc(ty["nameZh"])}</span><span class="lang-en">{esc(ty["name"])}</span><b>{type_counts[tid]}</b></button>')
-    used = [tid for tid in GRAPHIC_TECHS if any(tid in c["techniques"] for c in GRAPHICS)]
-    tech_options = ['<option value="">全部手法</option>'] + [f'<option value="{esc(t)}">{esc(GRAPHIC_TECHS[t]["nameZh"])}（{sum(1 for c in GRAPHICS if t in c["techniques"])}）</option>' for t in used]
-    glossary = "".join(f'<div class="logo-glossary-item"><dt><span class="lang-zh">{esc(GRAPHIC_TECHS[t]["nameZh"])} <small>{esc(GRAPHIC_TECHS[t]["name"])}</small></span><span class="lang-en">{esc(GRAPHIC_TECHS[t]["name"])}</span></dt><dd><span class="lang-zh">{esc(GRAPHIC_TECHS[t]["definitionZh"])}</span><span class="lang-en">{esc(GRAPHIC_TECHS[t]["definition"])}</span></dd></div>' for t in used)
-    issue_lines = "".join(f'<li><span class="lang-zh">第 {iid} 期 · {sum(1 for c in GRAPHICS if c["issue"] == iid)} 个案例，来自小红书「{esc(iss["author"])}」的笔记《{esc(iss["title"])}》</span><span class="lang-en">Issue {iid} · {sum(1 for c in GRAPHICS if c["issue"] == iid)} cases from the Xiaohongshu note "{esc(iss["title"])}" by {esc(iss["author"])}</span></li>' for iid, iss in GRAPHIC_ISSUES.items())
+    used_styles = [sid for sid in GRAPHIC_STYLES if any(sid in c["styleTags"] for c in GRAPHICS)]
+    style_options = ['<option value="">全部风格</option>'] + [f'<option value="{esc(s)}">{esc(GRAPHIC_STYLES[s]["nameZh"])}（{sum(1 for c in GRAPHICS if s in c["styleTags"])}）</option>' for s in used_styles]
     cards = "\n".join(graphic_card(c) for c in GRAPHICS)
     body = f'''{header()}
 <main class="wrap graphics-hub-page">
  <nav class="crumbs"><a href="/"><span class="lang-en">Index</span><span class="lang-zh">首页</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-en">Graphic design</span><span class="lang-zh">平面设计</span></span></nav>
  <section class="hero logos-hero">
   <h1 class="hero-title"><span class="lang-en">Graphic design</span><span class="lang-zh hero-title-zh">平面设计</span></h1>
-  <p class="lang-zh hero-sub">从真实案例里拆出可以复用的手法：版式、字体层级、配色和焦点。每个案例都有原作图片，和一张用代码还原的标本，可以逐层打开拆解，再把手法交给 AI。</p>
-  <p class="lang-en hero-sub">Reusable techniques taken apart from real work: layout, type hierarchy, colour and focus. Each case has a coded specimen you can open layer by layer, then hand the technique to your AI.</p>
-  <ul class="logo-issue">{issue_lines}<li><span class="lang-zh">每个案例都放了原作图片和一张用代码还原的标本；原作版权归原权利人，详情页注明设计方和图源，权利人要求即删除。</span><span class="lang-en">Each case shows the original images and a coded reconstruction; rights stay with the original owners, credited on each page, and will be removed on request.</span></li></ul>
+  <p class="lang-zh hero-sub">裁纸为境，构形传意</p>
+  <p class="lang-en hero-sub">Paper becomes the stage; form carries the meaning.</p>
   <div class="logo-tools">
    <div class="logo-type-chips" role="group" aria-label="按类型筛选">{"".join(type_chips)}</div>
    <div class="site-filter-row">
-    <div class="search-box site-search-box"><input id="graphic-search" type="search" autocomplete="off" data-ph-en="Search a game, studio or technique" data-ph-zh="搜索游戏、设计方或手法" placeholder="搜索游戏、设计方或手法" aria-label="搜索平面设计案例"><kbd class="search-kbd">/</kbd></div>
-    <label class="site-filter-select"><span>手法</span><select id="graphic-tech" aria-label="按手法筛选">{"".join(tech_options)}</select></label>
+    <div class="search-box site-search-box"><input id="graphic-search" type="search" autocomplete="off" data-ph-en="Search a game, studio or style" data-ph-zh="搜索游戏、设计方或风格" placeholder="搜索游戏、设计方或风格" aria-label="搜索平面设计案例"><kbd class="search-kbd">/</kbd></div>
+    <label class="site-filter-select"><span>风格</span><select id="graphic-style" aria-label="按风格筛选">{"".join(style_options)}</select></label>
     <button type="button" class="site-reset" id="graphic-reset" hidden><span class="lang-en">Reset filters</span><span class="lang-zh">重置筛选</span></button>
    </div>
    <p class="site-result-count" id="graphic-count" role="status" aria-live="polite" aria-atomic="true"><span class="lang-en" data-tpl="Showing {{shown}} of {{total}}">Showing {len(GRAPHICS)} of {len(GRAPHICS)}</span><span class="lang-zh" data-tpl="显示 {{shown}} / {{total}} 个">显示 {len(GRAPHICS)} / {len(GRAPHICS)} 个</span></p>
   </div>
  </section>
  <section class="style-grid graphics-grid" id="graphics" aria-live="polite">{cards}</section>
- <div class="no-result" id="graphic-no-result" hidden><b>没有符合条件的案例</b><p>换一个类型、手法或关键词。</p></div>
- <section class="sect logo-glossary-sect">
-  <h2 class="section-title"><span class="lang-zh">手法词汇</span><span class="lang-en">Technique glossary</span></h2>
-  <dl class="logo-glossary">{glossary}</dl>
- </section>
+ <div class="no-result" id="graphic-no-result" hidden><b>没有符合条件的案例</b><p>换一个类型、风格或关键词。</p></div>
 </main>
 {footer()}'''
-    return page("Graphic design", "平面设计", "Techniques taken apart from real graphic design work.",
-                f"从 {len(GRAPHICS)} 个真实平面设计案例里拆出版式、字体、配色和焦点手法。", body, "graphics/")
+    return page("Graphic design", "平面设计", "Graphic design cases browsed by style, techniques taken apart in each case.",
+                f"按风格浏览 {len(GRAPHICS)} 个真实平面设计案例，详情页逐层拆解版式、字体和配色手法。", body, "graphics/")
 
 def graphic_markdown(case):
     ty = GRAPHIC_TYPES[case["type"]]
     lines = [f'# {graphic_title_zh(case)}', '', f'- 类型：{ty["nameZh"]}', f'- 设计方：{case["credits"]}{graphic_year(case, "，")}', f'- 图源：{case["sourceLabel"]}' + "".join(f" <{u}>" for u in case.get("sourceUrls", [])),
+             f'- 风格：' + '、'.join(GRAPHIC_STYLES[s]["nameZh"] for s in case["styleTags"]),
              f'- 手法：' + '、'.join(GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]), '', case["summaryZh"], '', '## 为什么好看', '', case["readZh"], '', '## 拆解', '']
     lines += [f'- {name}：{case["layers"][key + "Zh"]}' for key, name in (("grid", "网格"), ("type", "字体层级"), ("focus", "视觉焦点"), ("space", "留白"))]
     lines += ['', '## 配色', ''] + [f'- {c["nameZh"]} {c["hex"]}' for c in case["palette"]]
@@ -1264,7 +1005,7 @@ def graphic_markdown(case):
 def graphic_page(case):
     ty = GRAPHIC_TYPES[case["type"]]
     iss = GRAPHIC_ISSUES[case["issue"]]
-    styles = "".join(f'<a class="tag" href="{style_url(STYLE_BY_SLUG[s])}"><span class="lang-zh">{esc(style_zh(STYLE_BY_SLUG[s]).get("name_zh", STYLE_BY_SLUG[s]["name"]))}</span><span class="lang-en">{esc(STYLE_BY_SLUG[s]["name"])}</span></a>' for s in case.get("styles", []) if s in STYLE_BY_SLUG)
+    styles = graphic_style_tags(case)
     layer_btns = "".join(f'<button type="button" class="gd-layer-btn" data-gd-layer="{k}" aria-pressed="false"><span class="lang-zh">{zh}</span><span class="lang-en">{en}</span></button>'
                          for k, zh, en in (("grid", "网格", "Grid"), ("type", "字体层级", "Type"), ("palette", "配色", "Palette"), ("focus", "视觉焦点", "Focus"), ("space", "留白", "Space"), ("all", "全部", "All")))
     notes = "".join(f'<p class="gd-note" data-gd-note="{k}" hidden><b><span class="lang-zh">{zh}</span><span class="lang-en">{en}</span></b><span class="lang-zh">{esc(case["layers"][k + "Zh"])}</span><span class="lang-en">{esc(case["layers"][k])}</span></p>'
@@ -1381,11 +1122,8 @@ def style_card(s):
 
 def styles_hub_page():
     en_b, zh_b = t("indexCrumb"); en_sc, zh_sc = t("stylesCrumb")
-    en_cnt, zh_cnt = t("stylesCount", n=len(STYLES))
     en_ph, zh_ph = t("searchStylesPlaceholder")
-    en_gv, zh_gv = t("governedTitle"); en_rs, zh_rs = t("researchingLabel")
     cards = "\n".join(style_card(s) for s in STYLES)
-    chips = "".join(f"<span>{esc(n)}</span>" for n in STYLES_META.get("researching", []))
     body = f'''{header()}
 <main class="wrap">
  <nav class="crumbs">
@@ -1396,11 +1134,6 @@ def styles_hub_page():
  <section class="hero" style="padding-top:32px">
   <h1 class="hero-title"><span class="lang-en">{esc(UI["stylesTitle"])}</span><span class="lang-zh hero-title-zh">{esc(UI["stylesTitleZh"])}</span></h1>
   {paras(STYLES_META.get("hubTagline", ""), STYLES_META_ZH.get("hubTagline_zh", ""), "hero-sub")}
-  <details class="atlas-note"><summary><span class="lang-zh">关于风格分类与收录标准</span><span class="lang-en">About the style classification</span></summary>
-   <h2><span class="lang-en">{esc(en_gv)}</span> <span class="lang-zh" style="font-weight:400;font-size:12.5px">{esc(zh_gv)}</span></h2>
-   {paras(STYLES_META.get("governedNote", ""), STYLES_META_ZH.get("governedNote_zh", ""), "")}
-   <div class="research-chips">{chips}</div>
-  </details>
   <div class="controls">
    <div class="search-box">
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -1408,7 +1141,6 @@ def styles_hub_page():
      data-ph-en="{esc(en_ph)}" data-ph-zh="{esc(zh_ph)}" placeholder="{esc(zh_ph)} / {esc(en_ph)}" aria-label="Search styles">
     <kbd class="search-kbd">/</kbd>
    </div>
-   <p class="count-note" id="style-count"><span class="lang-en" data-tpl="{esc(UI["stylesCount"])}">{esc(en_cnt)}</span><span class="lang-zh" data-tpl="{esc(UI["stylesCountZh"])}">{esc(zh_cnt)}</span></p>
   </div>
  </section>
  <section class="style-grid" id="styles" aria-live="polite">
@@ -1732,16 +1464,6 @@ def catalog_data():
             "tags": {}, "prompt": z.get("brief_zh", s.get("brief", "")),
             "source": {"kind": "upstream", "label": "joeseesun/learnui"}
         })
-    for ref in PM_REFERENCES:
-        items.append({
-            "id": "reference:" + ref["slug"], "type": "page-reference", "slug": ref["slug"],
-            "name": ref["titleEn"], "nameZh": ref["title"], "url": reference_url(ref),
-            "summary": ref["summary"],
-            "tags": {key: ref[key] for key in ("productTypes", "pageTypes", "layouts", "moods", "states")},
-            "scenarios": ref["scenarios"], "structure": ref["structure"],
-            "visualTraits": ref["visualTraits"], "prompt": reference_prompt(ref),
-            "source": ref["source"]
-        })
     for site in SITES:
         items.append({
             "id": "site:" + site["slug"], "type": "site-reference", "slug": site["slug"],
@@ -1754,7 +1476,8 @@ def catalog_data():
         items.append({
             "id": "graphic:" + case["slug"], "type": "graphic-reference", "slug": case["slug"],
             "name": graphic_title_en(case), "nameZh": graphic_title_zh(case), "url": graphic_url(case),
-            "summary": case["summaryZh"], "tags": {"graphicType": [case["type"]], "techniques": case["techniques"]},
+            "summary": case["summaryZh"], "tags": {"graphicType": [case["type"]], "styles": case["styleTags"], "techniques": case["techniques"]},
+            "styles": [GRAPHIC_STYLES[s]["nameZh"] for s in case["styleTags"]],
             "techniques": [GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]], "palette": [c["hex"] for c in case["palette"]],
             "credits": case["credits"], "year": case.get("year") or None, "images": [f'/assets/graphics/{im["file"]}' for im in case["images"]], "imagePrompt": case["imagePromptZh"], "prompt": case["codePromptZh"],
             "source": {"kind": "external", "label": GRAPHIC_ISSUES[case["issue"]]["author"], "url": GRAPHIC_ISSUES[case["issue"]]["url"], "original": case["sourceLabel"]}
@@ -1773,22 +1496,19 @@ def catalog_data():
         "schemaVersion": 1,
         "language": "zh-CN",
         "description": "供 AI 和选择导出功能读取的 LearnUI 结构化目录。",
-        "taxonomy": PM_TAXONOMY,
         "items": items
     }
 
 def catalog_readme():
     return '''# LearnUI AI 数据入口
 
-优先读取 `catalog.json`。它包含页面参考、知名网站设计规范、UI 元素和视觉风格的统一字段，不需要扫描整个仓库。
+优先读取 `catalog.json`。它包含知名网站设计规范、UI 元素、视觉风格、Logo 和平面设计案例的统一字段，不需要扫描整个仓库。
 
-- `type=page-reference`：页面级结构、使用场景、状态和视觉说明。
 - `type=ui-element`：现有 UI 词典条目和实现 Prompt。
 - `type=visual-style`：现有视觉风格和 Style Brief。
 - `type=site-reference`：知名网站的设计系统、分类和中文风格解读。
 - `type=logo-reference`：Logo 图鉴，含 logo 类型、构成拆解、网站用途与授权、生成 Prompt。
-- `type=graphic-reference`：平面设计案例，含手法、配色、生图与代码两种 Prompt、原作设计方与图源。
-- `taxonomy.json`：页面参考筛选所使用的稳定分类 ID。
+- `type=graphic-reference`：平面设计案例，含风格与手法、配色、生图与代码两种 Prompt、原作设计方与图源。
 '''
 
 def write(path, content):
@@ -1803,9 +1523,6 @@ def build():
         shutil.rmtree(OUT)
     os.makedirs(OUT)
     write("index.html", homepage())
-    write("references/index.html", references_page())
-    for ref in PM_REFERENCES:
-        write(f'references/{ref["slug"]}/index.html', reference_page(ref))
     write("sources/index.html", sources_page())
     if SITES:
         write("sites/index.html", sites_hub_page())
@@ -1824,7 +1541,6 @@ def build():
         write(f'api/specimens/{e["slug"]}.json', json.dumps(specimen_payload(e), ensure_ascii=False, separators=(",", ":")))
     for slug in GUIDES:
         write(f"guides/{slug}/index.html", guide_page(slug))
-    write("guides/translate/index.html", translate_page())
     if STYLES:
         write("styles/index.html", styles_hub_page())
         for s in STYLES:
@@ -1838,9 +1554,9 @@ def build():
 <main class="wrap">
  <section class="hero">
   <h1>404</h1>
-  <p class="hero-desc"><span class="lang-en">This page doesn't exist. Try the dictionary, page references, or the styles atlas.</span>
-  <span class="lang-zh">页面不存在。去词典、页面参考或风格图鉴看看。</span></p>
-  <p class="hero-desc"><a href="/">Dictionary</a> · <a href="/references/">References</a> · <a href="/styles/">Styles</a></p>
+  <p class="hero-desc"><span class="lang-en">This page doesn't exist. Try the dictionary, the styles atlas, or graphic design.</span>
+  <span class="lang-zh">页面不存在。去词典、风格图鉴或平面设计看看。</span></p>
+  <p class="hero-desc"><a href="/">Dictionary</a> · <a href="/styles/">Styles</a> · <a href="/graphics/">Graphic design</a></p>
  </section>
 </main>
 {footer()}''', "404.html"))
@@ -1852,7 +1568,6 @@ def build():
     write("assets/demo-i18n.js", "window.DEMO_I18N=" + json.dumps(DEMO_I18N, ensure_ascii=False) + ";")
     write("api/catalog.json", json.dumps(catalog_data(), ensure_ascii=False, separators=(",", ":")))
     write("api/search-index.json", json.dumps(search_index_data(), ensure_ascii=False, separators=(",", ":")))
-    write("api/taxonomy.json", json.dumps(PM_TAXONOMY, ensure_ascii=False, indent=2))
     write("api/demo-i18n.json", json.dumps(DEMO_I18N, ensure_ascii=False, indent=2))
     write("api/README.md", catalog_readme())
     with open(os.path.join(ROOT, "sw.js"), encoding="utf-8") as f:
@@ -1880,19 +1595,18 @@ def build():
 <description>{esc((s.get("tagline") or "")[:200])}</description></item>''')
     write("feed.xml", f'''<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>Learn UI PM</title>
+<title>Learn UIUX</title>
 <link>{SITE_URL}/</link>
 <description>{esc(UI["tagline"])} - bilingual UI dictionary</description>
 {"".join(items)}
 </channel></rss>''')
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
-    urls = ["/", "/references/", "/sources/"] + \
-           [reference_url(ref) for ref in PM_REFERENCES] + \
+    urls = ["/", "/sources/"] + \
            (["/sites/"] + [f'/sites/{site["slug"]}/' for site in SITES] if SITES else []) + \
            (["/logos/"] + [logo_url(logo) for logo in LOGOS] if LOGOS else []) + \
            (["/graphics/"] + [graphic_url(c) for c in GRAPHICS] if GRAPHICS else []) + \
            [f'/{e["platform"]}/{e["slug"]}/' for e in ENTRIES] + \
-           [f"/guides/{s}/" for s in GUIDES] + ["/guides/translate/"]
+           [f"/guides/{s}/" for s in GUIDES]
     if STYLES:
         urls += ["/styles/"] + [f'/styles/{s["slug"]}/' for s in STYLES] + \
                 [vs_url(a, b) for a, b in vs_pairs()]

@@ -1,4 +1,4 @@
-# Learn UI PM
+# Learn UIUX
 
 **中文** | [English](#english)
 
@@ -7,33 +7,32 @@
 > UI 视觉词典的中英双语对照版：看到元素，学会它的真名（Web CSS/ARIA + macOS AppKit/SwiftUI），认出风格，学会它的学名，然后精准地指挥你的 AI 编程代理。
 > A bilingual (EN/中文) visual dictionary of UI: see it, name it, and prompt your coding agent with precision.
 
-[在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [翻译对照表](https://K3tty5555.github.io/LearnUI_PM/guides/translate/)
+[在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [平面设计](https://K3tty5555.github.io/LearnUI_PM/graphics/)
 
-**当前构建：** 305 个静态页面；102 个 UI 标本、45 个风格标本、12 个页面参考、74 个知名网站设计规范、10 个 Logo 样本；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
+**当前构建：** 291 个静态页面；102 个 UI 标本、45 个风格标本、74 个知名网站设计规范、10 个 Logo 样本、11 个平面设计案例；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
 [namethatui.com](https://namethatui.com/) 的**完整内容复刻 + 中英双语对照版**，为学习目的而建。原站是「UI 视觉词典」——每个词条详情给出一个活的界面标本、它的正式名称、一句人话解释，和一段可以直接喂给 AI 编程代理的 prompt。它的子站 **Name That Vibe**（`/styles`）是「视觉风格图鉴」——每种风格给出标本、3–8 条定义性信号（style DNA）、和一段可粘贴的风格 brief。
 
-当前项目在保留上述上游能力的基础上，新增面向产品经理、设计师和 AI 原型开发者的**页面参考库**。使用路径是：浏览真实 HTML 示例，按产品类型、页面类型、布局、视觉气质和交互状态筛选，选择一个或多个参考，再导出结构化 Markdown 或 JSON。新增内容位于 `data/pm/` 和 `demos/pm/`，不与上游词典数据混写。
+当前项目在保留上述上游能力的基础上，围绕「看真实作品学设计」扩充了知名网站设计规范、Logo 图鉴和平面设计案例三个栏目（页面参考与术语对照曾短暂存在，2026-11-18 移除，见 dev-log/009）。
 
 本站保留原站全部内容，并为每一段英文配上中文对照：
 
 - **102 个词条**：71 个 Web + 31 个 macOS，目录直接播放原始 HTML/CSS/JS 动效，详情页保留交互；离屏或切到后台时演示停止运行。
 - **102 个详情页**：解剖（每个部件的名字）、Prompt、调试 Prompt、代码符号表、相关词条
 - **45 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS、Mono-color Editorial Print…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
-- **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron、翻译对照表（63 条 plain name → AppKit → SwiftUI）
-- **三种阅读模式**：纯中文（默认）/ 中英对照 / 纯英文，页眉一键切换
+- **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron（术语对照表已于 2026-11-18 移除）
+- **两种阅读模式**：中文（默认）/ English，页眉一键切换（中英并排的对照模式已于 2026-11-18 移除）
 - **全站搜索**：中英文模糊描述都能搜（试试「三个点」「mac 窗口按钮」），`/` 聚焦栏目搜索，`⌘K` / `Ctrl+K` 搜索全库、Esc 清空、匹配高亮、`?q=` 深链
 - **双击查词**：双击任意英文单词，弹出通俗英文释义
 - **一键复制**：Prompt、调试 Prompt、风格 brief、代码片段、整页 Markdown
 - **PWA**：可安装到主屏，离线可读（service worker 缓存）
-- **12 个页面参考**：覆盖后台、数据看板、AI 工具、教育产品、移动端和营销页，每个示例包含至少 3 个关键状态
 - **74 个知名网站设计规范**：来自 `VoltAgent/awesome-design-md`，可按品牌、行业和设计气质筛选，按滚动自动分批展示并提供完整 DESIGN.md
-- **参考选择集**：页面参考、知名网站、UI 元素和视觉风格可以混合选择，导出 Markdown 或 JSON
-- **AI 数据入口**：构建后优先读取 `/api/catalog.json` 和 `/api/taxonomy.json`，无需扫描整个项目
+- **参考选择集**：知名网站、UI 元素、视觉风格、Logo 和平面设计案例可以混合选择，导出 Markdown 或 JSON
+- **AI 数据入口**：构建后优先读取 `/api/catalog.json`，无需扫描整个项目
 - **74 个知名网站**：按行业浏览、搜索并查看品牌 mock、中文风格解读、色板、字体和可复制 DESIGN.md
-- **平面设计**：从真实案例拆出版式、字体层级、配色、焦点和留白手法；每个案例有原作图片（注明设计方和图源，权利人要求即删除）和一张用代码还原的标本，可逐层打开拆解，并附生图和代码两种提示词。第 1 期 10 个游戏/电竞视觉案例来自小红书笔记《电竞赛事背后的优秀视觉设计》，第 2 期是蓝山拉菲的海报《再电离》（作者本人的逐层拆分），说明见 [docs/graphic-design.md](docs/graphic-design.md)
+- **平面设计**：按风格关键词浏览真实案例（构成主义、Y2K、瑞士风格这类宏观风格词），进详情页拆版式、字体层级、配色、焦点和留白手法；每个案例有原作图片（注明设计方和图源，权利人要求即删除）和一张用代码还原的标本，可逐层打开拆解，并附生图和代码两种提示词。第 1 期 10 个游戏/电竞视觉案例来自小红书笔记《电竞赛事背后的优秀视觉设计》，第 2 期是蓝山拉菲的海报《再电离》（作者本人的逐层拆分），说明见 [docs/graphic-design.md](docs/graphic-design.md)
 - **Logo 图鉴**：按 7 种 logo 类型（文字标、字母标、具象/抽象图形标、吉祥物标、组合标、徽章标）认识真实 logo，每个样本含构成拆解、浅/深底与小尺寸测试、给 AI 的 prompt，并附网站用途与授权；第 1 期 9 个样本来自小红书视频《好用的设计网站之LOGO/图标》，第 2 期加入 AI 时代的图标库 Reicon，说明见 [docs/logos.md](docs/logos.md)
 
 ## 为什么值得用
@@ -42,9 +41,9 @@
 
 ## 页面巡游
 
-| 词条详情页 | 翻译对照表 |
+| 词条详情页 | 平面设计 |
 |---|---|
-| ![词条页](docs/assets/entry-page.png) | ![翻译表](docs/assets/translate-table.png) |
+| ![词条页](docs/assets/entry-page.png) | ![平面设计](docs/assets/graphics-hub.png) |
 
 ## 快速开始
 
@@ -60,7 +59,7 @@ cd site && python3 -m http.server 8000
 # 打开 http://127.0.0.1:8000/
 ```
 
-改上游内容：编辑 `data/*.json`（英文源数据）、`data/zh/*.json`（中文译文）、`demos/<slug>.html`（标本）。新增页面参考：编辑 `data/pm/*.json` 和 `demos/pm/<slug>.html`。构建会先运行数据校验，再生成站点。
+改上游内容：编辑 `data/*.json`（英文源数据）、`data/zh/*.json`（中文译文）、`demos/<slug>.html`（标本）。构建会先运行数据校验，再生成站点。
 
 ## 项目结构
 
@@ -71,17 +70,14 @@ learnui/
 │   ├── entries.json    # 102 个词条的英文源数据
 │   ├── styles.json     # 45 个视觉风格英文源数据（14 条复刻自 /styles + 31 条原创）
 │   ├── styles-meta.json# 风格图鉴首页文案
-│   ├── zh/             # 中文译文（条目/风格/指南/翻译表）
+│   ├── zh/             # 中文译文（条目/风格/指南）
 │   ├── guides.json     # 指南页结构化内容
-│   ├── translate-table.json  # 63 行 AppKit/SwiftUI 对照
-│   ├── pm/             # 本项目新增的页面参考与 taxonomy
 │   ├── schema/         # 新增内容的数据合同
 │   ├── sites-manifest.json # 知名网站结构化清单与来源
 │   ├── logos.json      # Logo 图鉴：类型、用途与样本
-│   ├── graphics.json   # 平面设计：类型、手法与案例
+│   ├── graphics.json   # 平面设计：类型、风格词汇、手法与案例
 │   └── ui.json         # 站点文案（双语）
 ├── demos/<slug>.html   # 102 个 UI 标本 + 45 个 style-<slug>.html 风格标本
-├── demos/pm/           # 12 个页面级交互参考
 ├── demos/graphic/      # 平面设计案例的代码还原标本
 ├── vendor/sites/       # /sites/ 的本地主内容镜像
 ├── assets/graphics/    # 平面设计原作图片（官方/设计方大图、作者原稿或收录笔记截图）
@@ -101,7 +97,7 @@ learnui/
 
 ## 实测验证
 
-- 页面参考与知名网站回归：筛选、四类选择持久化、状态切换、Markdown/JSON 导出入口通过
+- 知名网站与平面设计回归：筛选、多类选择持久化、Markdown/JSON 导出入口通过
 - 桌面与 390px 移动端 Playwright 检查无 JavaScript 错误、无横向溢出
 - 原有搜索、平台筛选、语言切换、随机词条和复制能力保留
 - 公网环境：<https://K3tty5555.github.io/LearnUI_PM/>，由 GitHub Pages 自动部署
@@ -122,7 +118,7 @@ learnui/
 
 <a name="english"></a>
 
-# Learn UI PM - Bilingual (EN/中文) Visual Dictionary of UI
+# Learn UIUX - Bilingual (EN/中文) Visual Dictionary of UI
 
 A faithful content replica of [namethatui.com](https://namethatui.com/) (including the **Name That Vibe** styles atlas) with full Chinese-English parallel text, built for learning. See a UI element or a visual style, learn its real name, and prompt your coding agent with precision.
 

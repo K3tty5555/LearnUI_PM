@@ -1,4 +1,4 @@
-/* Learn UI PM site chrome JS */
+/* Learn UIUX site chrome JS */
 (function () {
   "use strict";
 
@@ -42,13 +42,9 @@
 
   /* ---------- language mode ---------- */
   var MODE_KEY = "ntui-lang-mode";
-  // 首次访问（无本地偏好）按浏览器语言决定：中文环境 → 纯中文，其他 → 纯英文。
-  // 与 <head> 内联探测脚本保持一致；用户手动切换后才写 localStorage。
-  function detectMode() {
-    return "zh";
-  }
+  // 首次访问（无本地偏好）默认中文；中英之间一键切换，无并排对照模式（2026-11-18 用户拍板移除）。
   function mode() {
-    try { return localStorage.getItem(MODE_KEY) || detectMode(); } catch (e) { return detectMode(); }
+    try { return localStorage.getItem(MODE_KEY) === "en" ? "en" : "zh"; } catch (e) { return "zh"; }
   }
   var demoTextState = new WeakMap();
   var demoAttrState = new WeakMap();
@@ -136,9 +132,7 @@
       b.classList.toggle("active", b.getAttribute("data-mode") === m);
     });
     document.querySelectorAll("input[data-ph-en][data-ph-zh]").forEach(function (input) {
-      var ph = m === "en" ? input.getAttribute("data-ph-en")
-        : m === "zh" ? input.getAttribute("data-ph-zh")
-        : input.getAttribute("data-ph-zh") + " / " + input.getAttribute("data-ph-en");
+      var ph = m === "en" ? input.getAttribute("data-ph-en") : input.getAttribute("data-ph-zh");
       input.setAttribute("placeholder", ph);
     });
     var languageSelect = document.getElementById("mobile-language");
@@ -161,12 +155,10 @@
       var href = link.getAttribute("href") || "";
       var path = location.pathname;
       var current = (href === "/#top" && (path === "/" || path.indexOf("/web/") === 0 || path.indexOf("/macos/") === 0))
-        || (href === "/references/" && path.indexOf("/references/") === 0)
         || (href === "/sites/" && path.indexOf("/sites/") === 0)
         || (href === "/logos/" && path.indexOf("/logos/") === 0)
         || (href === "/graphics/" && path.indexOf("/graphics/") === 0)
-        || (href === "/styles/" && path.indexOf("/styles/") === 0)
-        || (href === "/guides/translate/" && path === "/guides/translate/");
+        || (href === "/styles/" && path.indexOf("/styles/") === 0);
       link.classList.toggle("current", current);
       if (current) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
@@ -199,7 +191,7 @@
     var tag = (ev.target.tagName || "").toLowerCase();
     var typing = tag === "input" || tag === "textarea" || ev.target.isContentEditable;
     if (ev.key === "/" && !typing && !document.querySelector("dialog[open]")) {
-      var inputs = ["search", "style-search", "reference-search", "site-search", "logo-search", "graphic-search", "table-search"].map(function (id) {
+      var inputs = ["search", "style-search", "site-search", "logo-search", "graphic-search"].map(function (id) {
         return document.getElementById(id);
       }).filter(function (input) { return input && input.offsetParent !== null; });
       var inp = inputs[0];
@@ -207,7 +199,7 @@
     }
     if (ev.key === "Escape" && typing) {
       var active = document.activeElement;
-      if (active && (active.id === "search" || active.id === "style-search" || active.id === "site-search" || active.id === "logo-search" || active.id === "graphic-search" || active.id === "reference-search" || active.id === "table-search")) {
+      if (active && (active.id === "search" || active.id === "style-search" || active.id === "site-search" || active.id === "logo-search" || active.id === "graphic-search")) {
         if (active.value) { active.value = ""; active.dispatchEvent(new Event("input")); }
         active.blur();
       }
@@ -440,39 +432,39 @@
     if (sq) { styleInput.value = sq; sApply(); }
   }
 
-  /* ---------- graphic design: type chips, technique and search ---------- */
+  /* ---------- graphic design: type chips, style and search ---------- */
   var gdInput = document.getElementById("graphic-search");
   if (gdInput) {
     var gdCards = Array.prototype.slice.call(document.querySelectorAll(".graphic-item"));
     var gdChips = Array.prototype.slice.call(document.querySelectorAll("[data-gd-type]"));
-    var gdTech = document.getElementById("graphic-tech");
+    var gdStyle = document.getElementById("graphic-style");
     var gdCount = document.getElementById("graphic-count");
     var gdNone = document.getElementById("graphic-no-result");
     var gdReset = document.getElementById("graphic-reset");
     var gdParams = new URLSearchParams(location.search);
     var gdType = "";
     var applyGraphics = function () {
-      var query = gdInput.value.trim().toLowerCase(), tech = gdTech ? gdTech.value : "", shown = 0;
+      var query = gdInput.value.trim().toLowerCase(), style = gdStyle ? gdStyle.value : "", shown = 0;
       gdCards.forEach(function (card) {
         var match = (!gdType || card.getAttribute("data-type") === gdType)
-          && (!tech || (card.getAttribute("data-techs") || "").split(" ").indexOf(tech) !== -1)
+          && (!style || (card.getAttribute("data-styles") || "").split(" ").indexOf(style) !== -1)
           && (!query || (card.getAttribute("data-search") || "").indexOf(query) !== -1);
         card.hidden = !match; if (match) shown++;
       });
       gdChips.forEach(function (chip) { chip.setAttribute("aria-pressed", chip.getAttribute("data-gd-type") === gdType ? "true" : "false"); });
       if (gdCount) gdCount.querySelectorAll("[data-tpl]").forEach(function (el) { el.textContent = el.getAttribute("data-tpl").replace("{shown}", shown).replace("{total}", gdCards.length); });
       if (gdNone) gdNone.hidden = shown !== 0;
-      if (gdReset) gdReset.hidden = !query && !tech && !gdType;
+      if (gdReset) gdReset.hidden = !query && !style && !gdType;
     };
-    var syncGraphics = function () { syncURL({ q: gdInput.value.trim() || null, type: gdType || null, tech: gdTech && gdTech.value || null }); };
+    var syncGraphics = function () { syncURL({ q: gdInput.value.trim() || null, type: gdType || null, style: gdStyle && gdStyle.value || null }); };
     var syncGraphicsD = debounce(syncGraphics, 200);
     gdInput.addEventListener("input", function () { applyGraphics(); syncGraphicsD(); });
     gdChips.forEach(function (chip) { chip.addEventListener("click", function () { gdType = chip.getAttribute("data-gd-type"); applyGraphics(); syncGraphics(); }); });
-    if (gdTech) gdTech.addEventListener("change", function () { applyGraphics(); syncGraphics(); });
-    if (gdReset) gdReset.addEventListener("click", function () { gdInput.value = ""; gdType = ""; if (gdTech) gdTech.value = ""; applyGraphics(); syncGraphics(); gdInput.focus(); });
+    if (gdStyle) gdStyle.addEventListener("change", function () { applyGraphics(); syncGraphics(); });
+    if (gdReset) gdReset.addEventListener("click", function () { gdInput.value = ""; gdType = ""; if (gdStyle) { gdStyle.value = ""; gdStyle.dispatchEvent(new Event("change")); } applyGraphics(); syncGraphics(); gdInput.focus(); });
     gdInput.value = gdParams.get("q") || "";
     if (gdChips.some(function (c) { return c.getAttribute("data-gd-type") === gdParams.get("type") && !c.disabled; })) gdType = gdParams.get("type");
-    if (gdTech && Array.prototype.some.call(gdTech.options, function (o) { return o.value === gdParams.get("tech"); })) gdTech.value = gdParams.get("tech") || "";
+    if (gdStyle && Array.prototype.some.call(gdStyle.options, function (o) { return o.value === gdParams.get("style"); })) gdStyle.value = gdParams.get("style") || "";
     applyGraphics();
   }
   /* Colour swatches copy their hex value. */
@@ -523,7 +515,7 @@
     });
     if (logoUse) logoUse.addEventListener("change", function () { applyLogos(); syncLogos(); });
     if (logoReset) logoReset.addEventListener("click", function () {
-      logoInput.value = ""; logoType = ""; if (logoUse) logoUse.value = "";
+      logoInput.value = ""; logoType = ""; if (logoUse) { logoUse.value = ""; logoUse.dispatchEvent(new Event("change")); }
       applyLogos(); syncLogos(); logoInput.focus();
     });
     logoInput.value = logoParams.get("q") || "";
@@ -614,8 +606,8 @@
     }
     if (siteReset) siteReset.addEventListener("click", function () {
       siteInput.value = "";
-      if (siteCategorySelect) siteCategorySelect.value = "";
-      if (siteVibeSelect) siteVibeSelect.value = "";
+      if (siteCategorySelect) { siteCategorySelect.value = ""; siteCategorySelect.dispatchEvent(new Event("change")); }
+      if (siteVibeSelect) { siteVibeSelect.value = ""; siteVibeSelect.dispatchEvent(new Event("change")); }
       applySites(true);
       syncURL({ q: null, category: null, vibe: null });
       siteInput.focus();
@@ -626,104 +618,6 @@
     applySites(false);
   }
 
-  /* ---------- page-reference filters ---------- */
-  var referenceIndexEl = document.getElementById("reference-index");
-  if (referenceIndexEl) {
-    var refIndex = JSON.parse(referenceIndexEl.textContent);
-    var refBySlug = {};
-    refIndex.forEach(function (item) { refBySlug[item.slug] = item; });
-    var refCards = Array.prototype.slice.call(document.querySelectorAll(".reference-card-item"));
-    var refInput = document.getElementById("reference-search");
-    var refChecks = Array.prototype.slice.call(document.querySelectorAll("[data-ref-filter]"));
-    var refDetails = Array.prototype.slice.call(document.querySelectorAll(".reference-filter-group"));
-    var refCount = document.getElementById("reference-count");
-    var refEmpty = document.getElementById("reference-no-result");
-    var refReset = document.getElementById("reference-reset");
-    var refGroups = ["productTypes", "pageTypes", "layouts", "moods", "states"];
-
-    if (window.matchMedia("(max-width: 760px)").matches) {
-      refDetails.forEach(function (details) {
-        details.open = false;
-        details.addEventListener("toggle", function () {
-          if (!details.open) return;
-          refDetails.forEach(function (other) { if (other !== details) other.open = false; });
-        });
-      });
-    }
-
-    function selectedFor(group) {
-      return refChecks.filter(function (box) {
-        return box.checked && box.getAttribute("data-ref-filter") === group;
-      }).map(function (box) { return box.value; });
-    }
-
-    function refApply() {
-      var query = refInput.value.trim().toLowerCase();
-      var visible = 0;
-      refCards.forEach(function (card) {
-        var item = refBySlug[card.getAttribute("data-reference-slug")];
-        var hay = [item.title, item.titleEn, item.summary, item.summaryEn]
-          .concat(item.scenarios || [], item.scenariosEn || [], item.structure || [], item.structureEn || [], item.visualTraits || [], item.visualTraitsEn || []).join(" ").toLowerCase();
-        var ok = !query || hay.indexOf(query) !== -1;
-        refGroups.forEach(function (group) {
-          var selected = selectedFor(group);
-          if (selected.length && !selected.some(function (value) { return (item[group] || []).indexOf(value) !== -1; })) ok = false;
-        });
-        card.hidden = !ok;
-        if (ok) visible++;
-      });
-      refCount.textContent = visible + " / " + refCards.length + " 个参考";
-      refEmpty.hidden = visible !== 0;
-    }
-
-    function refSync() {
-      var params = { q: refInput.value.trim() || null };
-      refGroups.forEach(function (group) {
-        var values = selectedFor(group);
-        params[group] = values.length ? values.join(",") : null;
-      });
-      syncURL(params);
-    }
-
-    var refApplyD = debounce(refApply, 60);
-    var refSyncD = debounce(refSync, 180);
-    refInput.addEventListener("input", function () { refApplyD(); refSyncD(); });
-    refChecks.forEach(function (box) {
-      box.addEventListener("change", function () { refApply(); refSyncD(); });
-    });
-    refReset.addEventListener("click", function () {
-      refInput.value = "";
-      refChecks.forEach(function (box) { box.checked = false; });
-      refApply();
-      refSync();
-    });
-
-    var refParams = new URLSearchParams(location.search);
-    refInput.value = refParams.get("q") || "";
-    refGroups.forEach(function (group) {
-      var values = (refParams.get(group) || "").split(",").filter(Boolean);
-      refChecks.forEach(function (box) {
-        if (box.getAttribute("data-ref-filter") === group) box.checked = values.indexOf(box.value) !== -1;
-      });
-    });
-    refApply();
-  }
-
-  /* ---------- reference specimen states ---------- */
-  document.querySelectorAll("[data-pm-demo] [data-demo-state]").forEach(function (button) {
-    button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
-    button.addEventListener("click", function () {
-      var demo = button.closest("[data-pm-demo]");
-      var state = button.getAttribute("data-demo-state");
-      demo.querySelectorAll("[data-demo-state]").forEach(function (item) {
-        item.classList.toggle("active", item === button);
-        item.setAttribute("aria-pressed", item === button ? "true" : "false");
-      });
-      demo.querySelectorAll("[data-demo-panel]").forEach(function (panel) {
-        panel.hidden = panel.getAttribute("data-demo-panel") !== state;
-      });
-    });
-  });
 
   /* ---------- cross-catalog selection and export ---------- */
   var selectionKey = "learnui-selection-v1";
@@ -789,7 +683,7 @@
       link.href = item.url;
       link.textContent = item.nameZh + (item.name && item.name !== item.nameZh ? " / " + item.name : "");
       var type = document.createElement("span");
-      type.textContent = item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "graphic-reference" ? "平面设计" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
+      type.textContent = item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "graphic-reference" ? "平面设计" : item.type === "ui-element" ? "UI 元素" : "视觉风格";
       var remove = document.createElement("button");
       remove.type = "button";
       remove.className = "icon-button";
@@ -837,7 +731,7 @@
     if (brief) lines.push("## 项目目标", "", brief, "");
     selectedItems().forEach(function (item) {
       lines.push("## " + item.nameZh + (item.name ? " (" + item.name + ")" : ""), "");
-      lines.push("- 类型：" + (item.type === "page-reference" ? "页面参考" : item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "graphic-reference" ? "平面设计" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
+      lines.push("- 类型：" + (item.type === "site-reference" ? "知名网站设计规范" : item.type === "logo-reference" ? "Logo 图鉴" : item.type === "graphic-reference" ? "平面设计" : item.type === "ui-element" ? "UI 元素" : "视觉风格"));
       lines.push("- 链接：" + location.origin + item.url);
       if (item.summary) lines.push("- 说明：" + item.summary);
       if (item.prompt) lines.push("", item.prompt);
@@ -964,9 +858,9 @@
     if (!catalog) { globalStatus.textContent = catalogFailed ? "参考库加载失败，请刷新页面重试。" : "参考库正在加载，请稍后重试。"; return; }
     var q = globalInput.value.trim().toLowerCase();
     var matches = catalog.items.filter(function (item) {
-      return !q || [item.name, item.nameZh, item.summary, item.type].concat(item.visualTraits || []).join(" ").toLowerCase().indexOf(q) !== -1;
+      return !q || [item.name, item.nameZh, item.summary, item.type].concat(item.visualTraits || [], item.styles || [], item.techniques || []).join(" ").toLowerCase().indexOf(q) !== -1;
     });
-    globalStatus.textContent = q ? (matches.length ? "找到 " + matches.length + " 个参考" : "没有找到相关参考。试试「按钮」「Linear」或「极简」。") : "从 " + catalog.items.length + " 个参考中开始探索，或输入关键词搜索。";
+    globalStatus.textContent = q ? (matches.length ? "找到 " + matches.length + " 个参考" : "没有找到相关参考。试试「按钮」「Linear」或「极简」。") : "";
     matches.slice(0, 30).forEach(function (item) {
       var link = document.createElement("a");
       link.className = "global-search-result";
@@ -977,12 +871,11 @@
       var description = document.createElement("p");
       description.textContent = item.summary || item.name;
       var type = document.createElement("span");
-      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "page-reference":"页面参考", "site-reference":"知名网站", "logo-reference":"Logo 图鉴", "graphic-reference":"平面设计"}[item.type] || "视觉风格";
+      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "site-reference":"知名网站", "logo-reference":"Logo 图鉴", "graphic-reference":"平面设计"}[item.type] || "视觉风格";
       content.append(title, description);
       link.append(content, type);
       globalResults.appendChild(link);
     });
-    if (matches.length > 30) globalStatus.textContent += "，显示前 30 项，请缩小搜索范围。";
   }
   function openGlobalSearch() {
     if (globalDialog.open) return;
@@ -1058,24 +951,6 @@
     });
   }
 
-  /* ---------- translate table filter ---------- */
-  var tableInput = document.getElementById("table-search");
-  if (tableInput) {
-    var rows = Array.prototype.slice.call(document.querySelectorAll("#translate-table tbody tr"));
-    var cnt = document.getElementById("table-count");
-    var cntZh = document.getElementById("table-count-zh");
-    tableInput.addEventListener("input", debounce(function () {
-      var q = tableInput.value.trim().toLowerCase();
-      var n = 0;
-      rows.forEach(function (r) {
-        var ok = !q || r.getAttribute("data-search").indexOf(q) !== -1;
-        r.style.display = ok ? "" : "none";
-        if (ok) n++;
-      });
-      if (cnt) cnt.textContent = cnt.getAttribute("data-tpl").replace("{n}", n).replace("{total}", rows.length);
-      if (cntZh) cntZh.textContent = cntZh.getAttribute("data-tpl").replace("{n}", n).replace("{total}", rows.length);
-    }, 80));
-  }
 
   /* ---------- double-press a word: plain-English definition ---------- */
   var pop = document.getElementById("def-pop");
@@ -1126,5 +1001,82 @@
   });
   document.addEventListener("keydown", function (ev) {
     if (ev.key === "Escape") hidePop();
+  });
+
+  /* ---------- filter selects: styled dropdown (the native <select> popup cannot be themed) ---------- */
+  document.querySelectorAll(".site-filter-select select").forEach(function (sel) {
+    var label = sel.closest(".site-filter-select");
+    if (!label || label.querySelector(".filter-dropdown")) return;
+    var wrap = document.createElement("div");
+    wrap.className = "filter-dropdown";
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "filter-dd-button";
+    btn.setAttribute("aria-haspopup", "listbox");
+    btn.setAttribute("aria-expanded", "false");
+    btn.innerHTML = '<span class="filter-dd-label"></span><svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var btnLabel = btn.querySelector(".filter-dd-label");
+    var menu = document.createElement("ul");
+    menu.className = "filter-dd-menu";
+    menu.setAttribute("role", "listbox");
+    menu.setAttribute("aria-label", sel.getAttribute("aria-label") || "筛选");
+    menu.hidden = true;
+    var items = Array.prototype.map.call(sel.options, function (opt, i) {
+      var li = document.createElement("li");
+      li.setAttribute("role", "option");
+      li.setAttribute("aria-selected", String(opt.selected));
+      if (opt.disabled) li.setAttribute("aria-disabled", "true");
+      li.tabIndex = -1;
+      li.textContent = opt.textContent;
+      li.addEventListener("click", function () { choose(i); });
+      menu.appendChild(li);
+      return li;
+    });
+    function sync() {
+      btnLabel.textContent = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].textContent : "";
+      items.forEach(function (li, i) { li.setAttribute("aria-selected", String(sel.options[i].selected)); });
+    }
+    function markFocus() { items.forEach(function (li, i) { li.classList.toggle("focus", i === focusIndex); }); }
+    var focusIndex = -1;
+    function open() {
+      wrap.classList.add("open"); menu.hidden = false; btn.setAttribute("aria-expanded", "true");
+      focusIndex = sel.selectedIndex; markFocus(); if (items[focusIndex]) items[focusIndex].focus();
+    }
+    function close() {
+      wrap.classList.remove("open"); menu.hidden = true; btn.setAttribute("aria-expanded", "false");
+      focusIndex = -1; markFocus(); btn.focus();
+    }
+    function choose(i) {
+      if (sel.options[i].disabled) return;
+      if (sel.selectedIndex !== i) { sel.selectedIndex = i; sel.dispatchEvent(new Event("change")); }
+      sync(); close();
+    }
+    function moveFocus(delta) {
+      if (!items.length) return;
+      focusIndex = (focusIndex + delta + items.length) % items.length;
+      markFocus(); items[focusIndex].focus();
+    }
+    btn.addEventListener("click", function () { wrap.classList.contains("open") ? close() : open(); });
+    btn.addEventListener("keydown", function (ev) {
+      if (ev.key === "ArrowDown" || ev.key === "ArrowUp" || ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); open(); }
+    });
+    menu.addEventListener("keydown", function (ev) {
+      var i = items.indexOf(ev.target);
+      if (i === -1) return;
+      if (ev.key === "ArrowDown") { ev.preventDefault(); moveFocus(1); }
+      else if (ev.key === "ArrowUp") { ev.preventDefault(); moveFocus(-1); }
+      else if (ev.key === "Home") { ev.preventDefault(); focusIndex = -1; moveFocus(1); }
+      else if (ev.key === "End") { ev.preventDefault(); focusIndex = 0; moveFocus(-1); }
+      else if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); choose(i); }
+      else if (ev.key === "Escape" || ev.key === "Tab") { ev.preventDefault(); if (ev.key === "Escape") close(); else { wrap.classList.remove("open"); menu.hidden = true; btn.setAttribute("aria-expanded", "false"); } }
+    });
+    document.addEventListener("click", function (ev) {
+      if (wrap.classList.contains("open") && !wrap.contains(ev.target)) { wrap.classList.remove("open"); menu.hidden = true; btn.setAttribute("aria-expanded", "false"); focusIndex = -1; markFocus(); }
+    });
+    sel.addEventListener("change", sync);
+    wrap.append(btn, menu);
+    label.appendChild(wrap);
+    sel.classList.add("is-enhanced");
+    sync();
   });
 })();

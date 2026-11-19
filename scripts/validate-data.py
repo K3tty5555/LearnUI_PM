@@ -19,44 +19,12 @@ def fail(message):
 
 
 def main():
-    refs = load("data/pm/references.json")
-    taxonomy = load("data/pm/taxonomy.json")
-    required = {
-        "slug", "title", "titleEn", "summary", "summaryEn", "productTypes", "pageTypes",
-        "scenariosEn", "structureEn", "visualTraitsEn",
-        "layouts", "moods", "states", "scenarios", "structure", "visualTraits",
-        "promptHints", "demo", "source"
-    }
-    allowed = {key: {item["id"] for item in values} for key, values in taxonomy.items()}
-    seen = set()
-    errors = 0
-
-    for ref in refs:
-        slug = ref.get("slug", "<missing>")
-        missing = required - set(ref)
-        if missing:
-            errors += fail(f"{slug}: missing fields {sorted(missing)}")
-        if slug in seen:
-            errors += fail(f"duplicate reference slug: {slug}")
-        seen.add(slug)
-        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
-            errors += fail(f"{slug}: invalid slug")
-        for key in ("productTypes", "pageTypes", "layouts", "moods", "states"):
-            unknown = set(ref.get(key, [])) - allowed[key]
-            if unknown:
-                errors += fail(f"{slug}: unknown {key}: {sorted(unknown)}")
-        if len(ref.get("states", [])) < 3:
-            errors += fail(f"{slug}: at least three states are required")
-        for en_key, zh_key in (("scenariosEn", "scenarios"), ("structureEn", "structure"), ("visualTraitsEn", "visualTraits")):
-            if len(ref.get(en_key, [])) != len(ref.get(zh_key, [])):
-                errors += fail(f"{slug}: {en_key} must mirror {zh_key}")
-        hints = ref.get("promptHints", {})
-        for en_key, zh_key in (("doEn", "do"), ("avoidEn", "avoid")):
-            if len(hints.get(en_key, [])) != len(hints.get(zh_key, [])):
-                errors += fail(f"{slug}: promptHints.{en_key} must mirror promptHints.{zh_key}")
-        demo = os.path.join(ROOT, "demos", ref.get("demo", "") + ".html")
-        if not os.path.isfile(demo):
-            errors += fail(f"{slug}: missing demo {ref.get('demo')}")
+    errors = validate_logos()
+    errors += validate_graphics()
+    if errors:
+        return 1
+    print("Validated logos and graphic design data.")
+    return 0
 
     errors += validate_logos()
     errors += validate_graphics()
@@ -126,8 +94,14 @@ def validate_graphics():
     types = {t["id"] for t in data["types"]}
     techs = {t["id"] for t in data["techniques"]}
     issues = {i["id"] for i in data["issues"]}
-    styles = {s["slug"] for s in (lambda d: d if isinstance(d, list) else d.get("styles", []))(load("data/styles.json"))}
-    errors, seen = 0, set()
+    style_tags = {}
+    errors = 0
+    for st in data.get("styleTags", []):
+        if not st.get("id") or not st.get("name") or not st.get("nameZh"):
+            errors += fail(f"styleTag {st.get('id')!r}: id, name and nameZh required")
+        else:
+            style_tags[st["id"]] = st
+    seen = set()
     for case in data["cases"]:
         slug = case.get("slug", "")
         if not re.fullmatch(r"[a-z0-9-]+", slug) or slug in seen:
@@ -140,8 +114,9 @@ def validate_graphics():
         unknown = set(case.get("techniques", [])) - techs
         if unknown or not case.get("techniques"):
             errors += fail(f"graphic {slug}: techniques missing or unknown {sorted(unknown)}")
-        if set(case.get("styles", [])) - styles:
-            errors += fail(f"graphic {slug}: unknown styles {sorted(set(case['styles']) - styles)}")
+        unknown_styles = set(case.get("styleTags", [])) - set(style_tags)
+        if unknown_styles or not case.get("styleTags"):
+            errors += fail(f"graphic {slug}: styleTags missing or unknown {sorted(unknown_styles)}")
         for en_key in ("summary", "read", "imagePrompt", "codePrompt"):
             if not case.get(en_key) or not case.get(en_key + "Zh"):
                 errors += fail(f"graphic {slug}: {en_key}/{en_key}Zh required")

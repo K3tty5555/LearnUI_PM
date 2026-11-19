@@ -34,6 +34,83 @@
    "nameZh": "包装"
   }
  ],
+ "styleTags": [
+  {
+   "id": "big-type",
+   "name": "Big-type poster",
+   "nameZh": "大字排版"
+  },
+  {
+   "id": "flat-blocks",
+   "name": "Flat colour blocks",
+   "nameZh": "扁平色块"
+  },
+  {
+   "id": "cosmic-scifi",
+   "name": "Cosmic sci-fi",
+   "nameZh": "星空科幻"
+  },
+  {
+   "id": "fine-line-editorial",
+   "name": "Fine-line editorial",
+   "nameZh": "细线编辑风"
+  },
+  {
+   "id": "constructivism",
+   "name": "Constructivism",
+   "nameZh": "构成主义"
+  },
+  {
+   "id": "bold-geometry",
+   "name": "Bold geometric",
+   "nameZh": "粗几何海报"
+  },
+  {
+   "id": "tactical-industrial",
+   "name": "Tactical industrial",
+   "nameZh": "战术工业风"
+  },
+  {
+   "id": "blockbuster-key-art",
+   "name": "Blockbuster key art",
+   "nameZh": "大片主视觉"
+  },
+  {
+   "id": "glow-gradient",
+   "name": "Luminous glow",
+   "nameZh": "光效渐变"
+  },
+  {
+   "id": "hazard-signage",
+   "name": "Hazard signage",
+   "nameZh": "警示标识风"
+  },
+  {
+   "id": "y2k",
+   "name": "Y2K",
+   "nameZh": "Y2K 千禧风"
+  },
+  {
+   "id": "minimal-contrast",
+   "name": "Minimal high-contrast",
+   "nameZh": "极简撞色"
+  },
+  {
+   "id": "street-brush",
+   "name": "Street-art brushwork",
+   "nameZh": "街头笔触"
+  },
+  {
+   "id": "swiss-style",
+   "name": "Swiss style",
+   "nameZh": "瑞士风格"
+  },
+  {
+   "id": "acid-graphics",
+   "name": "Acid graphics",
+   "nameZh": "酸性图形"
+  }
+ ],
  "techniques": [
   {
    "id": "condensed-display",
@@ -249,7 +326,7 @@
    "year": 2022,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["big-type", "flat-blocks"],
    "techniques": [
     "condensed-display",
     "type-weave",
@@ -344,7 +421,7 @@
    "year": 2025,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["cosmic-scifi", "fine-line-editorial"],
    "techniques": [
     "cosmic-glow",
     "line-ornaments",
@@ -442,9 +519,7 @@
    "year": 2023,
    "type": "game",
    "issue": 1,
-   "styles": [
-    "constructivism"
-   ],
+   "styleTags": ["constructivism", "bold-geometry"],
    "techniques": [
     "perspective-repeat",
     "color-field",
@@ -532,7 +607,7 @@
    "year": 2023,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["tactical-industrial", "minimal-contrast"],
    "techniques": [
     "diagonal-split",
     "silhouette",
@@ -630,7 +705,7 @@
    "year": 2026,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["blockbuster-key-art", "glow-gradient"],
    "techniques": [
     "light-ribbons",
     "centered-hero",
@@ -720,7 +795,7 @@
    "year": 2025,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["hazard-signage", "tactical-industrial"],
    "techniques": [
     "warning-palette",
     "angled-cut",
@@ -802,9 +877,7 @@
    "year": 2022,
    "type": "game",
    "issue": 1,
-   "styles": [
-    "y2k"
-   ],
+   "styleTags": ["y2k"],
    "techniques": [
     "reflective-shards",
     "skewed-type",
@@ -902,7 +975,7 @@
    "year": null,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["minimal-contrast", "big-type"],
    "techniques": [
     "condensed-display",
     "brand-sigil",
@@ -992,7 +1065,7 @@
    "year": 2026,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["street-brush", "blockbuster-key-art"],
    "techniques": [
     "centered-hero",
     "brush-splash",
@@ -1086,7 +1159,7 @@
    "year": null,
    "type": "game",
    "issue": 1,
-   "styles": [],
+   "styleTags": ["minimal-contrast", "big-type", "flat-blocks"],
    "techniques": [
     "color-field",
     "condensed-display",
@@ -1186,10 +1259,7 @@
    "year": 2026,
    "type": "poster",
    "issue": 2,
-   "styles": [
-    "swiss-style",
-    "acid-graphics"
-   ],
+   "styleTags": ["swiss-style", "acid-graphics", "cosmic-scifi"],
    "techniques": [
     "serif-sci-fi",
     "type-contrast",
