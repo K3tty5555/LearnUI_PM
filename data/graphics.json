@@ -15,6 +15,22 @@
    "platform": "小红书",
    "url": "https://www.xiaohongshu.com/discovery/item/6afa54eb000000001603eff5",
    "published": "2026-11-16"
+  },
+  {
+   "id": 3,
+   "title": "每日审美积累（蒙太奇拼贴）",
+   "author": "风起的审美库",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6abb92590000000014003142",
+   "published": "2026-09-29"
+  },
+  {
+   "id": 4,
+   "title": "终末地月卡设计教程",
+   "author": "叶子Studio",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6a2be1ca0000000008027814",
+   "published": "2026-06-12"
   }
  ],
  "types": [
@@ -314,6 +330,55 @@
    "nameZh": "色彩错位与扭曲",
    "definition": "Red and blue channels shifted apart and the image warped like liquid, for a glitchy, acid look.",
    "definitionZh": "把红蓝色彩通道错开，画面像液体一样扭曲，做出故障、酸性的效果。"
+  },
+  {
+   "id": "montage-cut",
+   "name": "Cut-out montage",
+   "nameZh": "蒙太奇剪贴",
+   "definition": "Photos, type and solid shapes cut out and layered like torn paper, edges kept raw.",
+   "definitionZh": "照片、文字和纯色形状像撕纸一样剪下叠放，边缘保留毛边。"
+  },
+  {
+   "id": "red-black-duo",
+   "name": "Two-col red and black",
+   "nameZh": "红黑双色",
+   "definition": "Only red and black (plus the paper itself): red for events, black for structure, nothing else.",
+   "definitionZh": "只用红与黑（外加纸色）：红负责事件，黑负责结构，不再有别的颜色。"
+  },
+  {
+   "id": "halftone-photo",
+   "name": "Halftone photo",
+   "nameZh": "照片加网",
+   "definition": "Photos broken into visible printing dots so they sit flat beside type instead of reading as windows.",
+   "definitionZh": "照片打成可见的印刷网点，和文字平起平坐，而不是像一扇透视的窗。"
+  },
+  {
+   "id": "gutter-grid",
+   "name": "Gutter grid",
+   "nameZh": "留缝网格",
+   "definition": "Blocks are separated by even paper-coloured gutters instead of borders; the gap is the structure.",
+   "definitionZh": "区块之间用等宽的纸色缝隙分隔，不画框线；缝隙本身就是结构。"
+  },
+  {
+   "id": "duotone-photo",
+   "name": "Duotone photo",
+   "nameZh": "双色调照片",
+   "definition": "Photo mapped to exactly two inks (e.g. red and black) so any image joins the palette.",
+   "definitionZh": "照片只映射到两种油墨（如红与黑），任何图片都自动归入配色。"
+  },
+  {
+   "id": "chip-frame",
+   "name": "Chip and frame",
+   "nameZh": "小片与大框",
+   "definition": "A small rounded chip carrying the subject, locked inside a large frame with generous padding.",
+   "definitionZh": "小圆角卡片承载主体，锁进一个大边框里，四周留足空白。"
+  },
+  {
+   "id": "number-badges",
+   "name": "Numbered badges",
+   "nameZh": "数字角标",
+   "definition": "Round number badges pinned to corners as anchors, like cards in a binder.",
+   "definitionZh": "圆形数字角标钉在区块角上，像档案卡上的编号。"
   }
  ],
  "cases": [
@@ -326,7 +391,10 @@
    "year": 2022,
    "type": "game",
    "issue": 1,
-   "styleTags": ["big-type", "flat-blocks"],
+   "styleTags": [
+    "big-type",
+    "flat-blocks"
+   ],
    "techniques": [
     "condensed-display",
     "type-weave",
@@ -421,7 +489,10 @@
    "year": 2025,
    "type": "game",
    "issue": 1,
-   "styleTags": ["cosmic-scifi", "fine-line-editorial"],
+   "styleTags": [
+    "cosmic-scifi",
+    "fine-line-editorial"
+   ],
    "techniques": [
     "cosmic-glow",
     "line-ornaments",
@@ -519,7 +590,10 @@
    "year": 2023,
    "type": "game",
    "issue": 1,
-   "styleTags": ["constructivism", "bold-geometry"],
+   "styleTags": [
+    "constructivism",
+    "bold-geometry"
+   ],
    "techniques": [
     "perspective-repeat",
     "color-field",
@@ -607,7 +681,10 @@
    "year": 2023,
    "type": "game",
    "issue": 1,
-   "styleTags": ["tactical-industrial", "minimal-contrast"],
+   "styleTags": [
+    "tactical-industrial",
+    "minimal-contrast"
+   ],
    "techniques": [
     "diagonal-split",
     "silhouette",
@@ -705,7 +782,10 @@
    "year": 2026,
    "type": "game",
    "issue": 1,
-   "styleTags": ["blockbuster-key-art", "glow-gradient"],
+   "styleTags": [
+    "blockbuster-key-art",
+    "glow-gradient"
+   ],
    "techniques": [
     "light-ribbons",
     "centered-hero",
@@ -795,7 +875,10 @@
    "year": 2025,
    "type": "game",
    "issue": 1,
-   "styleTags": ["hazard-signage", "tactical-industrial"],
+   "styleTags": [
+    "hazard-signage",
+    "tactical-industrial"
+   ],
    "techniques": [
     "warning-palette",
     "angled-cut",
@@ -877,7 +960,9 @@
    "year": 2022,
    "type": "game",
    "issue": 1,
-   "styleTags": ["y2k"],
+   "styleTags": [
+    "y2k"
+   ],
    "techniques": [
     "reflective-shards",
     "skewed-type",
@@ -975,7 +1060,10 @@
    "year": null,
    "type": "game",
    "issue": 1,
-   "styleTags": ["minimal-contrast", "big-type"],
+   "styleTags": [
+    "minimal-contrast",
+    "big-type"
+   ],
    "techniques": [
     "condensed-display",
     "brand-sigil",
@@ -1065,7 +1153,10 @@
    "year": 2026,
    "type": "game",
    "issue": 1,
-   "styleTags": ["street-brush", "blockbuster-key-art"],
+   "styleTags": [
+    "street-brush",
+    "blockbuster-key-art"
+   ],
    "techniques": [
     "centered-hero",
     "brush-splash",
@@ -1159,7 +1250,11 @@
    "year": null,
    "type": "game",
    "issue": 1,
-   "styleTags": ["minimal-contrast", "big-type", "flat-blocks"],
+   "styleTags": [
+    "minimal-contrast",
+    "big-type",
+    "flat-blocks"
+   ],
    "techniques": [
     "color-field",
     "condensed-display",
@@ -1259,7 +1354,11 @@
    "year": 2026,
    "type": "poster",
    "issue": 2,
-   "styleTags": ["swiss-style", "acid-graphics", "cosmic-scifi"],
+   "styleTags": [
+    "swiss-style",
+    "acid-graphics",
+    "cosmic-scifi"
+   ],
    "techniques": [
     "serif-sci-fi",
     "type-contrast",
@@ -1370,6 +1469,183 @@
    "imagePromptZh": "科普主题的文字海报，浅暖灰纸色底，横版约 1.9:1。左侧：粗重的中文衬线标题，下方是字距疏朗的古典衬线英文，再往下两行等宽字体的终端短句，左边缘有倾斜、渐隐的代码作纹理。右半边：颗粒感的黑白星云照片，周围是细线矩形框、很小的等宽状态标注、加号点阵和条形码条。黑色尖锐的四角星和螺旋桨形符号散布画面。整张叠一层细线网格（竖线间距为宽度的 1/7，横向 4 行）。国际主义风格结合酸性设计。使用你自己的主题和文字。",
    "codePrompt": "Build this poster in HTML/CSS/SVG at a 1.9:1 ratio: warm grey background; a hairline grid with verticals every 1/7 of the width and three horizontals; a heavy serif CJK title and a widely tracked serif English line in the first two columns; monospaced terminal lines; a column of code rotated about 8° and faded with a mask; a canvas-drawn grainy nebula on the right half with absolutely positioned thin boxes and tiny monospaced labels, plus-sign grids and barcode strips; SVG four-point stars. Add step buttons that reveal the layers in order (type, grid and code, nebula and labels, stars and terminal lines, acid glitch), and make the glitch with an SVG filter that splits the RGB channels and warps them with feTurbulence + feDisplacementMap. Honour prefers-reduced-motion.",
    "codePromptZh": "用 HTML/CSS/SVG 按 1.9:1 做这张海报：暖灰底；竖线间距为宽度 1/7、三条横线的细线网格；左两栏放粗衬线中文标题和字距疏朗的衬线英文；等宽字体终端短句；一列代码旋转约 8°，用遮罩渐隐；右半边用 canvas 画颗粒星云，周围绝对定位细线框和很小的等宽标注、加号点阵、条形码条；SVG 四角星。加分步按钮，按顺序显示各层（文字、网格与代码、星云与标注、星形与终端、酸性故障），故障效果用 SVG 滤镜拆开 RGB 通道并用 feTurbulence + feDisplacementMap 扭曲。支持减弱动态效果。"
+  },
+  {
+   "slug": "montage-red-black",
+   "game": "MONTAGE",
+   "gameZh": "蒙太奇拼贴",
+   "project": "Poster series",
+   "credits": "Original designers unknown (compiled by 风起的审美库)",
+   "year": null,
+   "type": "poster",
+   "issue": 3,
+   "styleTags": [
+    "constructivism",
+    "big-type"
+   ],
+   "techniques": [
+    "montage-cut",
+    "red-black-duo",
+    "halftone-photo",
+    "type-contrast",
+    "edge-bleed",
+    "zoned-info"
+   ],
+   "sourceLabel": "风起的审美库, “每日审美积累” (Xiaohongshu, 29 Sep 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6abb92590000000014003142"
+   ],
+   "images": [
+    {
+     "file": "montage-red-black-1.webp",
+     "caption": "Street corner with a red block",
+     "captionZh": "街角与红块",
+     "w": 1166,
+     "h": 1566,
+     "origin": "note"
+    },
+    {
+     "file": "montage-red-black-2.webp",
+     "caption": "Herd and headline",
+     "captionZh": "牛群与大标题",
+     "w": 1157,
+     "h": 1572,
+     "origin": "note"
+    },
+    {
+     "file": "montage-red-black-3.webp",
+     "caption": "Zebra crossing",
+     "captionZh": "斑马线",
+     "w": 1159,
+     "h": 1580,
+     "origin": "note"
+    },
+    {
+     "file": "montage-red-black-4.webp",
+     "caption": "German type sheet",
+     "captionZh": "德文字排样张",
+     "w": 1160,
+     "h": 1575,
+     "origin": "note"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#D8281E",
+     "name": "Signal red",
+     "nameZh": "信号红"
+    },
+    {
+     "hex": "#111111",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    },
+    {
+     "hex": "#F2EFE9",
+     "name": "Paper",
+     "nameZh": "纸色"
+    }
+   ],
+   "summary": "A four-poster documentary series built only from red, black and paper: street photographs halftoned into the palette, huge numerals and condensed headlines cutting across them, raw-edged blocks pinned by grid gutters.",
+   "summaryZh": "一组四张的纪实海报，只有红、黑和纸色：街头照片打成网点归入配色，巨大的数字和窄体大标题横穿画面，毛边色块靠等宽缝隙咬合成版面。",
+   "read": "Montage works when every piece obeys one rule. Here the rule is the palette: any photo becomes red-and-black halftone, so a cow, a zebra crossing and a street corner all speak the same language, and the one pure-red block per poster becomes an event.",
+   "readZh": "拼贴成立的关键是所有素材服从同一条规则。这组的规则是颜色：任何照片都转成红黑双色调网点，于是牛群、斑马线、街角说的是同一种话，每张海报里唯一的一块纯红就成了视觉事件。",
+   "layers": {
+    "grid": "Blocks divided by even paper gutters; the big numeral column and the photo column swap places across the series.",
+    "gridZh": "区块之间是等宽的纸色缝隙；大数字栏和照片栏在系列里互换位置。",
+    "type": "Two voices only: a huge condensed headline in caps, and a small typewriter-ish line for facts; the numeral is treated as an image, not text.",
+    "typeZh": "只有两个声音：占满栏宽的窄体大写标题，和一条打字机风格的小字信息；数字被当成图像而不是文字。",
+    "focus": "The single pure-red block or the red numeral, the only saturated thing on each sheet.",
+    "focusZh": "唯一的纯红色块或红色数字，每张纸上唯一饱和的东西。",
+    "space": "The paper gutter itself, kept even everywhere, holds the composition together.",
+    "spaceZh": "纸色的缝隙本身：处处等宽，是它把版面箍在一起。"
+   },
+   "imagePrompt": "Documentary montage poster series, red and black on paper only. Street photographs converted to red-black duotone halftone, raw torn edges; one huge condensed headline in capitals crossing the sheet; an oversized numeral treated as an image; blocks separated by even paper-coloured gutters; exactly one pure-red solid block per poster. Four posters sharing the same rules. Use your own documentary subject.",
+   "imagePromptZh": "纪实拼贴海报系列，只用红、黑与纸色。街头照片转成红黑双色调网点，保留撕纸毛边；一条窄体大写大标题横穿画面；一个超大数字当图像用；区块之间用等宽纸色缝隙分隔；每张海报恰好一块纯红色块。四张一套，规则一致。使用你自己的纪实主题。",
+   "codePrompt": "Build this poster series in HTML/CSS/SVG: paper background; photos drawn as canvas halftone (dots sized by darkness) mapped to red and black only; blocks as absolutely positioned boxes separated by a CSS grid with even gutters and no borders; a huge condensed headline using font-stretch: condensed and a small monospace fact line; one solid red block per poster; SVG halftone numeral where the number itself is drawn in dots. Provide a step control that assembles the poster layer by layer (photo, numeral, headline, red block, small type). Honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/CSS/SVG 做这组海报：纸色底；照片用 canvas 画成网点（点的大小随明暗），只映射红与黑；区块用等宽缝隙的 CSS 网格摆放，不画边框；一条 font-stretch: condensed 的大写大标题加一行等宽小字；每张海报一块纯红；超大数字用 SVG 网点绘制。加一个分步按钮，按顺序装配版面（照片、数字、标题、红块、小字）。支持减弱动态效果。"
+  },
+  {
+   "slug": "endfield-monthly",
+   "game": "ENDFIELD",
+   "gameZh": "明日方舟：终末地",
+   "project": "Monthly card design",
+   "credits": "鹰角网络 (Hypergryph); tutorial by 叶子Studio",
+   "year": 2026,
+   "type": "game",
+   "issue": 4,
+   "styleTags": [
+    "tactical-industrial",
+    "glow-gradient"
+   ],
+   "techniques": [
+    "chip-frame",
+    "number-badges",
+    "accent-block",
+    "type-contrast"
+   ],
+   "sourceLabel": "叶子Studio, “终末地月卡设计教程” (Xiaohongshu, 12 Jun 2026); artwork © Hypergryph",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6a2be1ca0000000008027814"
+   ],
+   "images": [
+    {
+     "file": "endfield-monthly-1.webp",
+     "caption": "Finished card (tutorial cover)",
+     "captionZh": "完成稿（教程封面）",
+     "w": 1080,
+     "h": 1540,
+     "origin": "note"
+    },
+    {
+     "file": "endfield-monthly-2.webp",
+     "caption": "Final comparison (end of tutorial)",
+     "captionZh": "最终对比（教程结尾）",
+     "w": 1080,
+     "h": 1540,
+     "origin": "note"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#0B0E13",
+     "name": "Deep space",
+     "nameZh": "深空黑"
+    },
+    {
+     "hex": "#D9A94E",
+     "name": "Yuan-sign gold",
+     "nameZh": "金币金"
+    },
+    {
+     "hex": "#2E3B4E",
+     "name": "Panel blue",
+     "nameZh": "面板蓝"
+    },
+    {
+     "hex": "#F5F2EA",
+     "name": "Paper white",
+     "nameZh": "纸白"
+    }
+   ],
+   "summary": "The game's monthly-pass card, rebuilt as a tutorial: a rounded chip holds the character art inside a dark panel with heavy padding; a gold yuan-sign badge, a gold button and a row of product icons are the only events on the quiet frame.",
+   "summaryZh": "游戏的月卡卡片，以教程形式发布：圆角小卡承载角色立绘，装在留足空白的深色面板里；一个金色¥角标、一枚金色按钮和一排道具图标，是安静版面上仅有的几件事。",
+   "read": "The tutorial's own advice is the lesson: build the chip first with pure rectangles and rounded corners, clip the artwork into it with a clipping mask, and only then add the gold accents. The card feels premium because almost everything is restraint, and gold is spent on exactly three places.",
+   "readZh": "教程本身就是方法论：先用纯矩形和圆角搭出小卡，用剪切蒙版把立绘裁进去，最后才点金色。卡片显贵是因为几乎一切都是克制，金色只花在三处。",
+   "layers": {
+    "grid": "A small chip (about 40% of the width) locked to the left of a wide padded panel; icons row aligned to the chip's bottom edge.",
+    "gridZh": "一块小卡（约 40% 宽）锁在留白面板的左侧；图标行的底边与小卡对齐。",
+    "type": "Quiet by design: one small product name and price in white, one gold button label; no headline at all.",
+    "typeZh": "刻意安静：一行白色的小字商品名与价格，一个金色按钮文字；没有大标题。",
+    "focus": "The character art chip, the only image block on the panel.",
+    "focusZh": "角色立绘小卡，面板上唯一的图像块。",
+    "space": "The heavy dark padding around the chip; the card floats rather than fills.",
+    "spaceZh": "小卡四周厚重的深色留白；卡片是浮在面板上的，不是撑满的。"
+   },
+   "imagePrompt": "Game monthly-pass card on a deep-space dark panel with heavy padding: a rounded chip on the left holding a character illustration clipped inside; a small gold coin badge on the chip corner; a gold purchase button on the right; a row of small product icons along the bottom aligned to the chip. Everything else quiet dark blue-grey. Use your own character and rewards.",
+   "imagePromptZh": "游戏月卡卡片，深空黑面板留足空白：左侧一块圆角小卡，角色立绘裁切在内；小卡角上一枚金色硬币角标；右侧一枚金色购买按钮；底部一排小道具图标与小卡对齐。其余一切都是安静的深蓝灰。使用你自己的角色和奖励内容。",
+   "codePrompt": "Build this monthly card in HTML/CSS: a dark panel with generous padding; inside, a rounded chip using overflow: hidden and a clip-path or border-radius to clip a character illustration (any placeholder art) standing on a gold coin badge; a gold gradient button (linear-gradient, not a flat colour) on the right; a row of small item icons using CSS grid aligned to the chip bottom; a thin gold hairline separating the icons row. Add a toggle between empty structure and finished card to mirror the tutorial's build order. Honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/CSS 做这张月卡：深色面板留足内边距；里面一块圆角小卡用 overflow: hidden（或 clip-path）裁切角色立绘（用占位图即可），立在金色硬币角标上；右侧一枚金色渐变按钮（linear-gradient，别用纯色）；底部一排小道具图标用 CSS 网格排列，与小卡底边对齐；图标行上方一条金色发丝线。加一个「结构 / 成品」切换，对应教程的搭建顺序。支持减弱动态效果。"
   }
  ]
 }

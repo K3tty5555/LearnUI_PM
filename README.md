@@ -9,7 +9,7 @@
 
 [在线演示 Live Demo](https://www.kettywu.art/UIUX/) · [风格图鉴 Name That Vibe](https://www.kettywu.art/UIUX/styles/) · [词条示例](https://www.kettywu.art/UIUX/web/text-scramble/) · [平面设计](https://www.kettywu.art/UIUX/graphics/)
 
-**当前构建：** 291 个静态页面；102 个 UI 标本、45 个风格标本、74 个知名网站设计规范、10 个 Logo 样本、11 个平面设计案例；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
+**当前构建：** 293 个静态页面；102 个 UI 标本、45 个风格标本、74 个知名网站设计规范、10 个 Logo 样本、13 个平面设计案例；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
