@@ -23,14 +23,6 @@
    "platform": "小红书",
    "url": "https://www.xiaohongshu.com/discovery/item/6abb92590000000014003142",
    "published": "2026-09-29"
-  },
-  {
-   "id": 4,
-   "title": "终末地月卡设计教程",
-   "author": "叶子Studio",
-   "platform": "小红书",
-   "url": "https://www.xiaohongshu.com/discovery/item/6a2be1ca0000000008027814",
-   "published": "2026-06-12"
   }
  ],
  "types": [
@@ -365,20 +357,6 @@
    "nameZh": "双色调照片",
    "definition": "Photo mapped to exactly two inks (e.g. red and black) so any image joins the palette.",
    "definitionZh": "照片只映射到两种油墨（如红与黑），任何图片都自动归入配色。"
-  },
-  {
-   "id": "chip-frame",
-   "name": "Chip and frame",
-   "nameZh": "小片与大框",
-   "definition": "A small rounded chip carrying the subject, locked inside a large frame with generous padding.",
-   "definitionZh": "小圆角卡片承载主体，锁进一个大边框里，四周留足空白。"
-  },
-  {
-   "id": "number-badges",
-   "name": "Numbered badges",
-   "nameZh": "数字角标",
-   "definition": "Round number badges pinned to corners as anchors, like cards in a binder.",
-   "definitionZh": "圆形数字角标钉在区块角上，像档案卡上的编号。"
   }
  ],
  "cases": [
@@ -1564,90 +1542,6 @@
    "imagePromptZh": "纪实拼贴海报系列，只用红、黑与纸色。街头照片转成红黑双色调网点，保留撕纸毛边；一条窄体大写大标题横穿画面；一个超大数字当图像用；区块之间用等宽纸色缝隙分隔；每张海报恰好一块纯红色块。四张一套，规则一致。使用你自己的纪实主题。",
    "codePrompt": "Build this poster series in HTML/CSS/SVG: paper background; photos drawn as canvas halftone (dots sized by darkness) mapped to red and black only; blocks as absolutely positioned boxes separated by a CSS grid with even gutters and no borders; a huge condensed headline using font-stretch: condensed and a small monospace fact line; one solid red block per poster; SVG halftone numeral where the number itself is drawn in dots. Provide a step control that assembles the poster layer by layer (photo, numeral, headline, red block, small type). Honour prefers-reduced-motion.",
    "codePromptZh": "用 HTML/CSS/SVG 做这组海报：纸色底；照片用 canvas 画成网点（点的大小随明暗），只映射红与黑；区块用等宽缝隙的 CSS 网格摆放，不画边框；一条 font-stretch: condensed 的大写大标题加一行等宽小字；每张海报一块纯红；超大数字用 SVG 网点绘制。加一个分步按钮，按顺序装配版面（照片、数字、标题、红块、小字）。支持减弱动态效果。"
-  },
-  {
-   "slug": "endfield-monthly",
-   "game": "ENDFIELD",
-   "gameZh": "明日方舟：终末地",
-   "project": "Monthly card design",
-   "credits": "鹰角网络 (Hypergryph); tutorial by 叶子Studio",
-   "year": 2026,
-   "type": "game",
-   "issue": 4,
-   "styleTags": [
-    "tactical-industrial",
-    "glow-gradient"
-   ],
-   "techniques": [
-    "chip-frame",
-    "number-badges",
-    "accent-block",
-    "type-contrast"
-   ],
-   "sourceLabel": "叶子Studio, “终末地月卡设计教程” (Xiaohongshu, 12 Jun 2026); artwork © Hypergryph",
-   "sourceUrls": [
-    "https://www.xiaohongshu.com/discovery/item/6a2be1ca0000000008027814"
-   ],
-   "images": [
-    {
-     "file": "endfield-monthly-1.webp",
-     "caption": "Finished card (tutorial cover)",
-     "captionZh": "完成稿：月卡横条（教程封面裁切）",
-     "w": 1080,
-     "h": 308,
-     "origin": "enhanced",
-     "hd": "endfield-monthly-1@2x.webp"
-    },
-    {
-     "file": "endfield-monthly-2.webp",
-     "caption": "Final comparison (end of tutorial)",
-     "captionZh": "最终对比（教程结尾裁切）",
-     "w": 1080,
-     "h": 308,
-     "origin": "enhanced",
-     "hd": "endfield-monthly-2@2x.webp"
-    }
-   ],
-   "palette": [
-    {
-     "hex": "#0B0E13",
-     "name": "Deep space",
-     "nameZh": "深空黑"
-    },
-    {
-     "hex": "#D9A94E",
-     "name": "Yuan-sign gold",
-     "nameZh": "金币金"
-    },
-    {
-     "hex": "#2E3B4E",
-     "name": "Panel blue",
-     "nameZh": "面板蓝"
-    },
-    {
-     "hex": "#F5F2EA",
-     "name": "Paper white",
-     "nameZh": "纸白"
-    }
-   ],
-   "summary": "The game's monthly-pass card, rebuilt as a tutorial: a rounded chip holds the character art inside a dark panel with heavy padding; a gold yuan-sign badge, a gold button and a row of product icons are the only events on the quiet frame.",
-   "summaryZh": "游戏的月卡卡片，以教程形式发布：圆角小卡承载角色立绘，装在留足空白的深色面板里；一个金色¥角标、一枚金色按钮和一排道具图标，是安静版面上仅有的几件事。",
-   "read": "The tutorial's own advice is the lesson: build the chip first with pure rectangles and rounded corners, clip the artwork into it with a clipping mask, and only then add the gold accents. The card feels premium because almost everything is restraint, and gold is spent on exactly three places.",
-   "readZh": "教程本身就是方法论：先用纯矩形和圆角搭出小卡，用剪切蒙版把立绘裁进去，最后才点金色。卡片显贵是因为几乎一切都是克制，金色只花在三处。",
-   "layers": {
-    "grid": "A wide horizontal band: character chip on the left third, name, rewards and gold button on the right, a gold hairline and the rewards icon row along the bottom.",
-    "gridZh": "一条横向长卡：左三分之一是角色小卡，右侧是名称、奖励与金色按钮，底部一条金色发丝线加奖励图标行。",
-    "type": "Quiet by design: one small product name and price in white, one gold button label; no headline at all.",
-    "typeZh": "刻意安静：一行白色的小字商品名与价格，一个金色按钮文字；没有大标题。",
-    "focus": "The character art chip, the only image block on the band.",
-    "focusZh": "角色立绘小卡，横条上唯一的图像块。",
-    "space": "The heavy dark padding between the chip and the button.",
-    "spaceZh": "小卡与按钮之间厚重的深色留白。"
-   },
-   "imagePrompt": "Game monthly-pass card on a deep-space dark panel with heavy padding: a rounded chip on the left holding a character illustration clipped inside; a small gold coin badge on the chip corner; a gold purchase button on the right; a row of small product icons along the bottom aligned to the chip. Everything else quiet dark blue-grey. Use your own character and rewards.",
-   "imagePromptZh": "游戏月卡卡片，深空黑面板留足空白：左侧一块圆角小卡，角色立绘裁切在内；小卡角上一枚金色硬币角标；右侧一枚金色购买按钮；底部一排小道具图标与小卡对齐。其余一切都是安静的深蓝灰。使用你自己的角色和奖励内容。",
-   "codePrompt": "Build this monthly card in HTML/CSS: a dark panel with generous padding; inside, a rounded chip using overflow: hidden and a clip-path or border-radius to clip a character illustration (any placeholder art) standing on a gold coin badge; a gold gradient button (linear-gradient, not a flat colour) on the right; a row of small item icons using CSS grid aligned to the chip bottom; a thin gold hairline separating the icons row. Add a toggle between empty structure and finished card to mirror the tutorial's build order. Honour prefers-reduced-motion.",
-   "codePromptZh": "用 HTML/CSS 做这张月卡：深色面板留足内边距；里面一块圆角小卡用 overflow: hidden（或 clip-path）裁切角色立绘（用占位图即可），立在金色硬币角标上；右侧一枚金色渐变按钮（linear-gradient，别用纯色）；底部一排小道具图标用 CSS 网格排列，与小卡底边对齐；图标行上方一条金色发丝线。加一个「结构 / 成品」切换，对应教程的搭建顺序。支持减弱动态效果。"
   }
  ]
 }
