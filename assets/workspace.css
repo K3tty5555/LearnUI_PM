@@ -23,7 +23,6 @@ main:focus { outline: none; }
 .header-in { height: 100%; display: flex; flex-direction: column; align-items: stretch; padding: 34px 18px 20px; gap: 0; }
 .wordmark { font-family: var(--font-sans); font-size: 22px; font-weight: 650; letter-spacing: -.04em; gap: 9px; padding: 0 9px; }
 .wordmark img { width: 32px; height: 32px; }
-.wordmark-ux { font-size: 11px; letter-spacing: 0; margin-left: 5px; padding: 2px 4px; border: 1px solid var(--line-strong); border-radius: 4px; vertical-align: middle; }
 .sidebar-caption { margin: 10px 0 30px 12px; font-size: 12px; color: var(--gray-600); }
 .global-search-open { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; font-size: 12px; color: var(--gray-600); cursor: pointer; }
 .global-search-open kbd { margin-left: auto; font: 10px var(--font-sans); white-space: nowrap; }

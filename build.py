@@ -234,17 +234,22 @@ def icon(name, size=18):
     return f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths.get(name, paths["grid"])}</svg>'
 
 
+def nav_links():
+    """Site sections shown in the sidebar (also drawn on the home share image by scripts/gen-og.py)."""
+    return [("/#top", "grid", "UI elements", "UI 元素", len(ENTRIES)),
+            ("/sites/", "globe", "Website systems", "知名网站", len(SITES)),
+            ("/logos/", "mark", "Logo atlas", "Logo 图鉴", len(LOGOS)),
+            ("/graphics/", "poster", "Graphic design", "平面设计", len(GRAPHICS)),
+            ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES))]
+
+
 def header():
-    links = [("/#top", "grid", "UI elements", "UI 元素", len(ENTRIES)),
-             ("/sites/", "globe", "Website systems", "知名网站", len(SITES)),
-             ("/logos/", "mark", "Logo atlas", "Logo 图鉴", len(LOGOS)),
-             ("/graphics/", "poster", "Graphic design", "平面设计", len(GRAPHICS)),
-             ("/styles/", "style", "Visual styles", "视觉风格", len(STYLES))]
+    links = nav_links()
     nav = "".join(f'<a href="{url}">{icon(glyph)}<span class="nav-label"><span class="lang-en">{en}</span><span class="lang-zh nav-zh">{zh}</span></span><span class="nav-count">{count}</span></a>' for url, glyph, en, zh, count in links)
     return f'''<a class="skip-link" href="#main-content">跳转到内容</a>
 <header class="site-header">
  <div class="wrap header-in">
-  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="32" height="32"><span>Learn UI<span class="wordmark-ux">UX</span></span></a>
+  <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="32" height="32"><span>Learn UIUX</span></a>
   <p class="sidebar-caption"><span class="lang-zh">寻之于目，识美于此。</span><span class="lang-en">Seek with your eyes. Know beauty here.</span></p>
   <button class="global-search-open" type="button" data-global-search>{icon("search")}<span class="lang-zh">搜索所有参考</span><span class="lang-en">Search library</span><kbd>⌘ K</kbd></button>
   <select id="mobile-language" class="mobile-language" aria-label="阅读语言"><option value="zh">中文</option><option value="en">EN</option></select>
@@ -288,10 +293,10 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title_zh)} · Learn UIUX</title>
+<title>{esc(title_zh) + " · " if title_zh else ""}Learn UIUX</title>
 <meta name="description" content="{esc(desc_zh)} {esc(desc_en)}">
 <link rel="canonical" href="{esc(url)}">
-<meta property="og:title" content="{esc(title_en)} · {esc(title_zh)} - {SITE_NAME}">
+<meta property="og:title" content="{esc(title_en) + " · " + esc(title_zh) + " - " if title_zh else ""}{SITE_NAME}">
 <meta property="og:description" content="{esc(desc_zh)} {esc(desc_en)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{esc(url)}">
@@ -431,7 +436,7 @@ def homepage():
 </main>
 {footer()}
 <script id="search-index" type="application/json" data-src="/api/search-index.json"></script>'''
-    return page(UI["heroTitle"], UI["heroTitleZh"], UI["heroSub"], UI["heroSubZh"], body, og_image="/assets/og/_home.png")
+    return page("", "", UI["heroSub"], UI["heroSubZh"], body, og_image="/assets/og/_home.png")
 
 def api_table(e, z):
     en_f, zh_f = t("framework"); en_s, zh_s = t("symbol"); en_n, zh_n = t("note")

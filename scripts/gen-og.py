@@ -57,7 +57,7 @@ def text_block(kind, name, zh, tag):
  <h1 class="og-name">{B.esc(name)}</h1>
  <p class="og-zh">{B.esc(zh)}</p>
  <p class="og-tag">{B.esc(tag)}</p>
-<div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">K3tty5555.github.io/LearnUI_PM</span></div>
+<div class="og-foot"><span class="og-mark">{B.SITE_NAME}</span><span class="og-url">{B.SITE_URL.split("://", 1)[-1]}</span></div>
 </div>'''
 
 
@@ -75,7 +75,7 @@ def page_vs(key, a, az, b, bz):
   <p class="og-kind">Compare · 对比</p>
   <div class="og-vsline"><h1 class="og-name">{B.esc(a["name"])}</h1><span class="og-vs">vs</span><h1 class="og-name">{B.esc(b["name"])}</h1></div>
   <p class="og-zh">{B.esc(az.get("name_zh", ""))} 对比 {B.esc(bz.get("name_zh", ""))}</p>
-  <div class="og-foot"><span class="og-mark">Learn UI PM</span><span class="og-url">K3tty5555.github.io/LearnUI_PM</span></div>
+  <div class="og-foot"><span class="og-mark">{B.SITE_NAME}</span><span class="og-url">{B.SITE_URL.split("://", 1)[-1]}</span></div>
  </div>
 </div>'''
     return key, shell(body)
@@ -84,6 +84,18 @@ def page_vs(key, a, az, b, bz):
 def page_generic(key, kind, name, zh, tag):
     body = f'<div class="og"><div class="og-stage" style="display:flex;align-items:center;justify-content:center"><span style="font-size:120px;font-weight:700;letter-spacing:-0.05em;color:#0a0a0a">?</span></div>{text_block(kind, name, zh, tag)}</div>'
     return key, shell(body)
+
+
+def page_home():
+    """Home share image: the site's current sections with live counts, plus the motto."""
+    rows = "".join(f'<li><span>{B.icon(glyph, 22)}{B.esc(zh)}</span><b>{count}</b></li>' for _url, glyph, _en, zh, count in B.nav_links())
+    stage = f'''<div class="og-stage" style="display:flex;align-items:center;justify-content:center">
+<ul style="list-style:none;margin:0;padding:0;width:360px;display:flex;flex-direction:column;gap:6px">{rows}</ul>
+<style>.og-stage li{{display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 20px;border-radius:12px;background:#fff;border:1px solid #ececef;font-size:20px;font-weight:500;color:#242428}}
+.og-stage li span{{display:flex;align-items:center;gap:14px}}.og-stage li svg{{color:#737373}}.og-stage li b{{font:500 16px "Geist",monospace;color:#a3a3a3}}</style></div>'''
+    sections = " · ".join(zh for _u, _g, _e, zh, _c in B.nav_links())
+    body = f'<div class="og">{stage}{text_block(B.SITE_NAME, "寻之于目，识美于此", B.UI["heroSub"], "察有形之美，汇万象之观。" + sections)}</div>'
+    return "_home", shell(body)
 
 
 def jobs():
@@ -99,9 +111,9 @@ def jobs():
         A, Bb = B.STYLE_BY_SLUG[a], B.STYLE_BY_SLUG[b]
         x, y = sorted([a, b])
         js.append(page_vs(f"vs-{x}-vs-{y}", A, B.style_zh(A), Bb, B.style_zh(Bb)))
-    js.append(page_generic("_home", "UI Dictionary · 页面参考", B.UI["heroTitle"], B.UI["heroTitleZh"], B.UI["heroSub"]))
+    js.append(page_home())
     js.append(page_generic("_styles", "Styles Atlas · 风格图鉴", B.UI["stylesTitle"], B.UI["stylesTitleZh"], B.STYLES_META.get("hubTagline", "")))
-    js.append(page_generic("_default", "Learn UI PM", "Learn UI PM", "UI 视觉词典", B.UI["tagline"]))
+    js.append(("_default", page_home()[1]))
     return js
 
 
