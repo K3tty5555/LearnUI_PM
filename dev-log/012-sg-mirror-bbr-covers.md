@@ -87,6 +87,8 @@ Mathis 公式 `MSS/(RTT×√p)` = 1460/(0.144×√0.1) = **31.3 KB/s**，与实�
 - 构建产物 `github.io` 出现次数：0；新地址在 index / sitemap 就位。
 - 分享图底部网址截图核对无误。
 
-### 待用户完成
+### 密钥配置与首次 CI 部署（2026-11-19 补记）
 
-- 把 `/tmp/ci_key` 的内容贴到 GitHub 仓库 Secrets（名字 `SG_MIRROR_KEY`），推送后 CI 自动部署才通；贴之前推送只跑检查不部署。
+- `SG_MIRROR_KEY` 已通过 `gh secret set` 写入仓库 Secrets（用户授权代操作；本地临时私钥文件已删除）。
+- 首次 CI 部署失败：known_hosts 用别名 `sg-server` 作键，而 ssh 按配置里的真实地址 `43.160.218.211` 查主机密钥，名字对不上被拒（"Host key verification failed"）。改为 IP 与别名各写一行（提交 `80f9933`）。
+- 修复后运行 44448422236 全绿，rsync 步骤成功，服务器 sitemap 已是新地址。自动部署链路（推送 → 全部检查 → rsync 上线）自此打通。
