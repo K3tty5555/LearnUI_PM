@@ -4,6 +4,8 @@
 For the hub and every case page, at desktop, wide and phone widths:
 - every cover and original image loads, is drawn at its own aspect ratio (no squashing, no cropping
   of mixed portrait/landscape work), and the box reserved before loading matches the file;
+- every image carries enough pixels for the screen it is drawn on, and a list-page cover carries no
+  more than the screen can show (a full-size original used as a thumbnail fails here);
 - on a 2x screen, images that have an @2x file actually load it;
 - the page never scrolls sideways;
 - every specimen marks type, focus and space somewhere (a view may carry no lettering), the default
@@ -28,21 +30,34 @@ logo_layout = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(logo_layout)
 serve = logo_layout.serve
 
-VIEWPORTS = [(1440, 1000), (2000, 1100), (390, 844)]
+# (width, height, device pixel ratio). A plain-density desktop is where oversized images show up;
+# the dense ones prove the 2x files are picked and that phone layouts hold.
+VIEWPORTS = [(1440, 1000, 1), (2000, 1100, 2), (390, 844, 2)]
+PIXELS_SHORT = 0.9  # below this many of the pixels the screen needs, the image renders soft
+PIXELS_WASTED = 2.2  # above this, bytes are being shipped that no screen can show
 RATIO_TOLERANCE = 0.015  # 1.5 % between drawn and natural aspect ratio
 
 LOAD_ALL = """() => Promise.race([
   Promise.all([...document.images].map(i => { i.loading = 'eager'; return i.decode().catch(() => {}); })),
   new Promise(r => setTimeout(r, 8000))])"""
 
-IMAGES = """() => [...document.querySelectorAll('.gd-cover img, .gd-orig img')].map(img => {
-  const r = img.getBoundingClientRect(), frame = img.closest('.gd-cover, a').getBoundingClientRect();
-  const src = img.currentSrc || img.src;
-  return {file: src.split('/').pop(), loaded: img.complete && img.naturalWidth > 0,
-          natural: img.naturalWidth / (img.naturalHeight || 1), drawn: r.width / (r.height || 1),
-          frame: frame.width / (frame.height || 1), w: Math.round(r.width), h: Math.round(r.height),
-          wantsHd: /@2x\\.webp/.test(img.getAttribute('srcset') || ''), hd: /@2x\\.webp$/.test(src)};
-})"""
+IMAGES = """async () => {
+  const out = [];
+  for (const img of document.querySelectorAll('.gd-cover img, .gd-orig img')) {
+    const r = img.getBoundingClientRect(), frame = img.closest('.gd-cover, a').getBoundingClientRect();
+    const src = img.currentSrc || img.src;
+    // img.naturalWidth is divided by the srcset density descriptor, so load the chosen file on its
+    // own to learn how many pixels it really carries.
+    let pixels = img.naturalWidth;
+    try { const probe = new Image(); probe.src = src; await probe.decode(); pixels = probe.naturalWidth; } catch (e) {}
+    out.push({file: src.split('/').pop(), loaded: img.complete && img.naturalWidth > 0,
+              natural: img.naturalWidth / (img.naturalHeight || 1), drawn: r.width / (r.height || 1),
+              pixels, needed: r.width * devicePixelRatio, cover: !!img.closest('.gd-cover'),
+              frame: frame.width / (frame.height || 1), w: Math.round(r.width), h: Math.round(r.height),
+              wantsHd: /@2x\\.webp/.test(img.getAttribute('srcset') || ''), hd: /@2x\\.webp$/.test(src)});
+  }
+  return out;
+}"""
 
 OVERFLOW = "() => document.scrollingElement.scrollWidth - window.innerWidth"
 
@@ -73,13 +88,23 @@ def main():
     args = parser.parse_args()
     cases = json.loads((ROOT / "data/graphics.json").read_text(encoding="utf-8"))["cases"]
     paths = ["/graphics/"] + [f"/graphics/{c['slug']}/" for c in cases]
+    # The most pixels each file could possibly carry: a cover cannot beat its source, an original
+    # cannot beat its 2x copy. Nothing is faulted for being smaller than that.
+    ceiling = {}
+    for case in cases:
+        for im in case["images"]:
+            ceiling[im["file"]] = im["w"]
+            if im.get("hd"):
+                ceiling[im["hd"]] = im["w"] * 2
+        ceiling[f'{case["slug"]}-cover.webp'] = case["images"][0]["w"]
+        ceiling[f'{case["slug"]}-cover@2x.webp'] = case["images"][0]["w"]
     server, base = serve(args.site, args.base)
     failures, checked = [], 0
     with sync_playwright() as p:
         for engine in args.engines.split(","):
             browser = getattr(p, engine).launch()
-            for width, height in VIEWPORTS:
-                context = browser.new_context(viewport={"width": width, "height": height}, device_scale_factor=2,
+            for width, height, dpr in VIEWPORTS:
+                context = browser.new_context(viewport={"width": width, "height": height}, device_scale_factor=dpr,
                                               reduced_motion="reduce")
                 page = context.new_page()
                 for path in paths:
@@ -95,8 +120,15 @@ def main():
                             failures.append(f"{where} {im['file']}: distorted, drawn {im['w']}x{im['h']} vs natural ratio {im['natural']:.3f}")
                         if abs(im["frame"] / im["natural"] - 1) > RATIO_TOLERANCE:
                             failures.append(f"{where} {im['file']}: frame ratio {im['frame']:.3f} crops the {im['natural']:.3f} image")
-                        if im["wantsHd"] and not im["hd"]:
+                        if dpr == 2 and im["wantsHd"] and not im["hd"]:
                             failures.append(f"{where} {im['file']}: 2x screen did not load the @2x file")
+                        # Enough pixels for this screen, and not far more than it can show.
+                        want = min(im["needed"], ceiling.get(im["file"], im["pixels"]))
+                        ratio = im["pixels"] / max(im["needed"], 1)
+                        if im["pixels"] < want * PIXELS_SHORT:
+                            failures.append(f"{where} {im['file']}: only {im['pixels']}px for a {round(im['needed'])}px slot — renders soft")
+                        elif im["cover"] and ratio > PIXELS_WASTED:
+                            failures.append(f"{where} {im['file']}: {im['pixels']}px for a {round(im['needed'])}px slot — {ratio:.1f}x more than the screen shows")
                     checked += 1
                     overflow = page.evaluate(OVERFLOW)
                     if overflow > 1:

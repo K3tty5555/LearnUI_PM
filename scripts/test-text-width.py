@@ -20,10 +20,9 @@ spec = importlib.util.spec_from_file_location("logo_layout", ROOT / "scripts/tes
 logo_layout = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(logo_layout)
 
-PAGES = ["/", "/web/tilt-card/", "/web/card-swap/", "/macos/sidebar/", "/styles/", "/styles/aqua/", "/references/",
-         "/references/ai-research-workspace/", "/sites/", "/sites/claude/", "/logos/", "/logos/reicon/",
-         "/graphics/", "/graphics/worlds-2022/", "/graphics/reionization/", "/guides/appkit-vs-swiftui/",
-         "/guides/translate/", "/sources/"]
+PAGES = ["/", "/web/tilt-card/", "/web/card-swap/", "/macos/sidebar/", "/styles/", "/styles/aqua/",
+         "/sites/", "/sites/claude/", "/logos/", "/logos/reicon/", "/graphics/", "/graphics/worlds-2022/",
+         "/graphics/reionization/", "/guides/appkit-vs-swiftui/", "/guides/swift-vs-electron/", "/sources/"]
 VIEWPORTS = [(1440, 1000), (2000, 1100)]
 
 SCAN = """() => {

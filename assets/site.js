@@ -135,8 +135,6 @@
       var ph = m === "en" ? input.getAttribute("data-ph-en") : input.getAttribute("data-ph-zh");
       input.setAttribute("placeholder", ph);
     });
-    var languageSelect = document.getElementById("mobile-language");
-    if (languageSelect) languageSelect.value = m;
     document.querySelectorAll("source[data-preview-en]").forEach(function (source) { source.media = m === "en" ? "all" : "(max-width: 0px)"; });
     translateDemos(m);
     document.dispatchEvent(new CustomEvent("learnui:languagechange", { detail: { mode: m } }));
@@ -907,11 +905,6 @@
     if (event.key === "ArrowUp" && results.length) { event.preventDefault(); if (index <= 0) globalInput.focus(); else results[index - 1].focus(); }
     if (event.key === "Enter" && document.activeElement === globalInput && results.length) { event.preventDefault(); results[0].click(); }
   });
-  var mobileLanguage = document.getElementById("mobile-language");
-  if (mobileLanguage) {
-    mobileLanguage.value = mode();
-    mobileLanguage.addEventListener("change", function () { document.querySelector('.ls-btn[data-mode="' + mobileLanguage.value + '"]').click(); });
-  }
   document.querySelectorAll(".tab[data-filter]").forEach(function (button) {
     button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
     button.addEventListener("click", function () {

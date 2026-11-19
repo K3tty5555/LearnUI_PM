@@ -86,6 +86,20 @@ def webp_size(path):
     return None
 
 
+def validate_covers(cases):
+    """List-page covers must exist and match the current source images (scripts/graphics/make_covers.py)."""
+    sys.path.insert(0, os.path.join(ROOT, "scripts/graphics"))
+    try:
+        import make_covers
+    except ImportError:  # Pillow missing: the layout test still catches a stale or absent cover.
+        return 0
+    errors = 0
+    for case in cases:
+        for problem in make_covers.build(case, check=True):
+            errors += fail(f"graphic {problem}")
+    return errors
+
+
 def validate_graphics():
     """Graphic design cases: known ids, a specimen file, bilingual text pairs, all five layer notes, valid colours."""
     if not os.path.exists(os.path.join(ROOT, "data/graphics.json")):
@@ -156,6 +170,7 @@ def validate_graphics():
                 errors += fail(f"graphic {slug}: missing assets/graphics/{im.get('file')}")
         if not os.path.isfile(os.path.join(ROOT, "demos/graphic", slug + ".html")):
             errors += fail(f"graphic {slug}: missing demos/graphic/{slug}.html")
+    errors += validate_covers(data["cases"])
     return errors
 
 

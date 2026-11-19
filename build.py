@@ -252,7 +252,7 @@ def header():
   <a class="wordmark" href="/"><img src="/assets/icons/ai-pm-client-circle-64.png" alt="" width="32" height="32"><span>Learn UIUX</span></a>
   <p class="sidebar-caption"><span class="lang-zh">寻之于目，识美于此。</span><span class="lang-en">Seek with your eyes. Know beauty here.</span></p>
   <button class="global-search-open" type="button" data-global-search>{icon("search")}<span class="lang-zh">搜索所有参考</span><span class="lang-en">Search library</span><kbd>⌘ K</kbd></button>
-  <select id="mobile-language" class="mobile-language" aria-label="阅读语言"><option value="zh">中文</option><option value="en">EN</option></select>
+  <div class="lang-switch mobile-language" role="group" aria-label="阅读语言"><button type="button" data-mode="zh" class="ls-btn">中文</button><button type="button" data-mode="en" class="ls-btn">EN</button></div>
   <nav class="site-nav" aria-label="主导航">{nav}</nav>
   <button class="sidebar-selection" type="button" data-open-selection>{icon("bookmark")}<span class="lang-zh">我的参考集</span><span class="lang-en">My collection</span><b data-selection-total>0</b></button>
   <div class="sidebar-bottom">
@@ -947,13 +947,28 @@ def graphic_tech_tags(case):
 def graphic_style_tags(case):
     return "".join(f'<span class="tag gd-style"><span class="lang-zh">{esc(GRAPHIC_STYLES[s]["nameZh"])}</span><span class="lang-en">{esc(GRAPHIC_STYLES[s]["name"])}</span></span>' for s in case["styleTags"])
 
+COVER_1X, COVER_2X = 450, 1000  # cover thumbnail widths; mirrored in scripts/graphics/make_covers.py
+
+def graphic_cover(case):
+    """List-page cover. A card renders at most ~440 CSS px wide, so ship a thumbnail sized to that
+    (and twice it for dense screens) instead of the full original; the picture is identical, the
+    bytes are a fraction. Detail-page images and click-to-enlarge files keep their full size."""
+    im = case["images"][0]
+    w, h = im["w"], im["h"]
+    shown_w = w if w <= COVER_1X else COVER_1X
+    shown_h = h if w <= COVER_1X else round(h * COVER_1X / w)
+    base = f'/assets/graphics/{esc(case["slug"])}-cover'
+    return (f'<div class="gd-cover" style="aspect-ratio:{w}/{h}">'
+            f'<img src="{base}.webp" srcset="{base}.webp 1x, {base}@2x.webp 2x" '
+            f'width="{shown_w}" height="{shown_h}" alt="" loading="lazy" decoding="async"></div>')
+
 def graphic_card(case):
     ty = GRAPHIC_TYPES[case["type"]]
     hay = " ".join([case["game"], case.get("gameZh", ""), case["project"], case["credits"], ty["name"], ty["nameZh"], case["summary"], case["summaryZh"]]
                    + [GRAPHIC_STYLES[s]["name"] + " " + GRAPHIC_STYLES[s]["nameZh"] for s in case["styleTags"]]).lower()
     return f'''<article class="catalog-item graphic-item" data-search="{esc(hay)}" data-type="{esc(case["type"])}" data-styles="{esc(" ".join(case["styleTags"]))}">
  <a class="style-card graphic-card" href="{graphic_url(case)}">
-  <div class="gd-cover" style="aspect-ratio:{case["images"][0]["w"]}/{case["images"][0]["h"]}"><img src="/assets/graphics/{esc(case["images"][0]["file"])}"{graphic_srcset(case["images"][0], enough=900)} width="{case["images"][0]["w"]}" height="{case["images"][0]["h"]}" alt="" loading="lazy" decoding="async"></div>
+  {graphic_cover(case)}
   <div class="card-meta">
    <h3 class="card-name"><span class="lang-zh card-name-zh">{esc(graphic_title_zh(case))}</span><span class="lang-en">{esc(graphic_title_en(case))}</span></h3>
    <p class="gd-credit">{esc(case["credits"])}{graphic_year(case)}</p>

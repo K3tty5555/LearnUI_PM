@@ -97,8 +97,9 @@
    脚本按尺寸自动处理：长边 ≤ 1400 的（笔记截图、小官方图）原样保存并生成 AI 2 倍图；1401–1819 的原样保存、不做 2 倍图；≥ 1820 的（官方大图）标准版缩到长边 1400，2 倍图直接用原图像素缩出，不经过 AI。
    用了官方或设计方的图，要在案例里填 `sourceUrls`（图片来源页面），详情页署名行会显示成链接。
    来源类型：`note`（截自别人的收录笔记）、`official`（官方或设计工作室发布）、`author`（设计师本人在笔记里发的原稿）。
-6. **写还原标本** `demos/graphic/<slug>.html`：照原图还原版式、字标和配色；插画和照片用形状代替。给标题加 `data-ov-type`，视觉焦点加 `data-ov-focus`，留白区域加 `data-ov-space`，网格画在 `.gd-grid`；有多种尺寸或物料的，做切换按钮并在切换时派发 `gd:layout`。
-7. **检查**：
+6. **生成列表页封面**：`python3 scripts/graphics/make_covers.py`。列表卡片最宽只有约 440 点，直接发 1400px 原图等于浪费 4 倍流量；脚本按 450 / 1000px 两档生成 `<slug>-cover.webp`，画质与原图无差（实测色差 1.38/255）。换过原图就要重跑，`validate-data.py` 会检查封面是否过期。
+7. **写还原标本** `demos/graphic/<slug>.html`：照原图还原版式、字标和配色；插画和照片用形状代替。给标题加 `data-ov-type`，视觉焦点加 `data-ov-focus`，留白区域加 `data-ov-space`，网格画在 `.gd-grid`；有多种尺寸或物料的，做切换按钮并在切换时派发 `gd:layout`。
+8. **检查**：
    ```bash
    python3 scripts/validate-data.py          # 字段、图片宽高与文件一致、2 倍图恰为 2 倍
    python3 build.py && python3 scripts/verify-site.py site

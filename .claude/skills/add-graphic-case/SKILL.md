@@ -22,8 +22,9 @@ description: 把用户发来的平面设计案例（小红书笔记链接或图�
 3. 官方大图：Steam 用 `cdn.cloudflare.steamstatic.com/steam/apps/<appid>/library_600x900_2x.jpg` / `library_hero.jpg`（其他 Steam 域名常超时）；其余搜官方新闻稿和设计方作品集。下载的文件放单独空目录。
 4. 数据：在 `data/graphics.json` 加期次（新笔记）和案例，字段照已有案例写全（中英文、`styleTags` 风格关键词、手法、四层拆解、配色、两组提示词、credits、sourceLabel）。
 5. 原图：`python3 scripts/graphics/export_originals.py <slug> <图...> [--origin official|author] [--start N]`（`author` = 设计师本人发的原稿），再把 `TODO` 图注补成中英文。官方大图会自动缩出标准版和真实像素的 2 倍图；用了官方 / 设计方的图要填案例的 `sourceUrls`。换图前把现有图和候选图拼成对照图，用 Read 逐张确认是同一张作品、版式一致。
-6. 标本：`demos/graphic/<slug>.html`，参考已有标本（如 `the-finals.html` 的多尺寸切换、`capcom-cup-12.html` 的多物料切换）。标记 `data-ov-type` / `data-ov-focus` / `data-ov-space` 和 `.gd-grid`；字号随画面尺寸缩放（ResizeObserver），切换视图时派发 `gd:layout`；支持 `prefers-reduced-motion`；目录卡里的小尺寸用 `@media (max-height:260px)` 处理。能用一个 SVG 按原图坐标（viewBox 等于原图比例）画的就用 SVG，缩放不用写 JS；会切换横竖版的，在 `@media (max-width:760px) and (min-height:261px)` 里给根元素预留最高版式的高度。海报文字放在 `[data-gd-canvas]` 里，网站不会翻译它。
-7. 新案例的 slug 加进 `build.py` 的 `NEW_SLUGS`；README / PRODUCT 里的数量跟着改。
+6. 封面：`python3 scripts/graphics/make_covers.py`（列表页缩略图，换过原图必须重跑；校验会拦截过期封面）。
+7. 标本：`demos/graphic/<slug>.html`，参考已有标本（如 `the-finals.html` 的多尺寸切换、`capcom-cup-12.html` 的多物料切换）。标记 `data-ov-type` / `data-ov-focus` / `data-ov-space` 和 `.gd-grid`；字号随画面尺寸缩放（ResizeObserver），切换视图时派发 `gd:layout`；支持 `prefers-reduced-motion`；目录卡里的小尺寸用 `@media (max-height:260px)` 处理。能用一个 SVG 按原图坐标（viewBox 等于原图比例）画的就用 SVG，缩放不用写 JS；会切换横竖版的，在 `@media (max-width:760px) and (min-height:261px)` 里给根元素预留最高版式的高度。海报文字放在 `[data-gd-canvas]` 里，网站不会翻译它。
+8. 新案例的 slug 加进 `build.py` 的 `NEW_SLUGS`；README / PRODUCT 里的数量跟着改。
 
 ## 检查（全部自己跑，不留给用户）
 

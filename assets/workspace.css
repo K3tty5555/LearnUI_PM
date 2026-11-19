@@ -282,7 +282,8 @@ main:focus { outline: none; }
 .mobile-language { display: none; }
 @media (max-width: 760px) {
   .header-in { grid-template-columns: 1fr auto auto auto; gap: 0 5px; }
-  .mobile-language { display: block; grid-row: 1; grid-column: 2; max-width: 60px; min-height: 36px; font-size: 11px; background: transparent; border: 0; color: var(--gray-600); }
+  .mobile-language { display: flex; grid-row: 1; grid-column: 2; align-self: center; margin: 0; }
+  .mobile-language .ls-btn { min-height: 28px; padding: 0 9px; font-size: 12px; }
   .global-search-open { grid-row: 1; grid-column: 3; }
   .sidebar-selection { grid-column: 4; }
 }
@@ -519,5 +520,10 @@ picture[data-preview] { position: absolute; inset: 0; }
 /* Every heading on a graphic case page uses the same section style (originals and the coded breakdown included). */
 .graphic-detail h2.section-title { margin: 0 0 16px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--gray-600); }
 .code-block pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+/* ---------- 文字跟随窗口宽度（用户拍板 2026-11-18，见 DESIGN.md） ----------
+   宽屏上段落、列表、提示词框、简介都铺满内容栏，不设固定行宽。
+   由 scripts/test-text-width.py 守护：删掉这条规则会让该测试失败。 */
+.sect, .entry-tag, .hero-sub, .guide-para, .atlas-note { max-width: none; }
+
 .entry .sect > ol.dna { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); column-gap: 36px; }
 .entry .sect > ol.dna > .dna-item, .entry .sect > ol.dna > .dna-item:first-child { padding: 16px 0; border-top: 1px solid var(--line); }

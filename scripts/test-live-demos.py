@@ -68,10 +68,10 @@ def run(site, base):
             page.locator('#search').scroll_into_view_if_needed()
             page.wait_for_timeout(250)
             assert page.locator('.live-specimen-frame').count() == 1, 'Filtered cards still run'
-            page.locator('.ls-btn[data-mode="en"]').click()
+            page.locator('.ls-btn[data-mode="en"]:visible').click()
             page.wait_for_selector('[data-live-demo="text-scramble"][data-live-state="running"]')
             assert page.frame_locator('[data-live-demo="text-scramble"] iframe').locator('html').get_attribute('data-lang-mode') == 'en'
-            page.locator('.ls-btn[data-mode="zh"]').click()
+            page.locator('.ls-btn[data-mode="zh"]:visible').click()
 
             page.evaluate("Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))")
             assert page.locator('.live-specimen-frame').count() == 0, 'Hidden tab retains running specimens'
