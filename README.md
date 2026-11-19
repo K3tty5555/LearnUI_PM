@@ -7,7 +7,7 @@
 > UI 视觉词典的中英双语对照版：看到元素，学会它的真名（Web CSS/ARIA + macOS AppKit/SwiftUI），认出风格，学会它的学名，然后精准地指挥你的 AI 编程代理。
 > A bilingual (EN/中文) visual dictionary of UI: see it, name it, and prompt your coding agent with precision.
 
-[在线演示 Live Demo](https://K3tty5555.github.io/LearnUI_PM/) · [风格图鉴 Name That Vibe](https://K3tty5555.github.io/LearnUI_PM/styles/) · [词条示例](https://K3tty5555.github.io/LearnUI_PM/web/text-scramble/) · [平面设计](https://K3tty5555.github.io/LearnUI_PM/graphics/)
+[在线演示 Live Demo](https://www.kettywu.art/UIUX/) · [风格图鉴 Name That Vibe](https://www.kettywu.art/UIUX/styles/) · [词条示例](https://www.kettywu.art/UIUX/web/text-scramble/) · [平面设计](https://www.kettywu.art/UIUX/graphics/)
 
 **当前构建：** 291 个静态页面；102 个 UI 标本、45 个风格标本、74 个知名网站设计规范、10 个 Logo 样本、11 个平面设计案例；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
@@ -100,7 +100,7 @@ learnui/
 - 知名网站与平面设计回归：筛选、多类选择持久化、Markdown/JSON 导出入口通过
 - 桌面与 390px 移动端 Playwright 检查无 JavaScript 错误、无横向溢出
 - 原有搜索、平台筛选、语言切换、随机词条和复制能力保留
-- 公网环境：<https://K3tty5555.github.io/LearnUI_PM/>，由 GitHub Pages 自动部署
+- 公网环境：<https://www.kettywu.art/UIUX/>，部署在自有服务器（见 DEPLOY.md）
 
 ## 限制与版权
 
@@ -122,7 +122,7 @@ learnui/
 
 A faithful content replica of [namethatui.com](https://namethatui.com/) (including the **Name That Vibe** styles atlas) with full Chinese-English parallel text, built for learning. See a UI element or a visual style, learn its real name, and prompt your coding agent with precision.
 
-**Live demo:** <https://K3tty5555.github.io/LearnUI_PM/>
+**Live demo:** <https://www.kettywu.art/UIUX/>
 
 - **102 entries** (71 Web + 31 macOS), each with a **live interactive specimen** (real HTML/CSS/JS, not screenshots)
 - **45 visual styles** (Skeuomorphism, Liquid Glass, Neobrutalism, Y2K, Frutiger Aero, Aqua, Swiss Style, Bauhaus, Memphis, Vaporwave, Art Deco, Cyberpunk, Pixel Art, Corporate Memphis, Material Design, Terminal Hacker, plus 21 more including Mono-color Editorial Print): style specimen, full style DNA signals, look-alike comparison, code starting points, copy-ready style brief
@@ -160,4 +160,4 @@ Maintained by 向阳乔木 · [qiaomu.ai](https://qiaomu.ai/) · X [@vista8](htt
 
 共享外壳 CSS/JS 随 HTML 提供。UI 词典的原始标本在视口附近运行，离屏、筛选隐藏或切到后台即停止。前三个标本代码内嵌，其余从 `api/specimens/` 按需加载。全库数据首次使用时获取，PWA 不预下载整站。其它参考目录保留轻量图片预览。当前动效验证见 [动态标本验证](docs/live-specimens.md)，托管网络限制见 [性能验证](docs/performance-glass.md)。
 
-动态标本回归：`python3 scripts/test-live-demos.py site --base /LearnUI_PM`（需 Playwright/Chromium，支持 `PLAYWRIGHT_CHROME_PATH` 指定本地浏览器）。CI 实测动效变化、全部 102 个标本、移动端、语言切换、减少动态效果、离屏停止与失败重试。
+动态标本回归：`python3 scripts/test-live-demos.py site --base /UIUX`（需 Playwright/Chromium，支持 `PLAYWRIGHT_CHROME_PATH` 指定本地浏览器）。CI 实测动效变化、全部 102 个标本、移动端、语言切换、减少动态效果、离屏停止与失败重试。

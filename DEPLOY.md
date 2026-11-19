@@ -1,21 +1,33 @@
 # Learn UIUX 部署说明
 
-正式公网地址：<https://K3tty5555.github.io/LearnUI_PM/>
+正式公网地址：<https://www.kettywu.art/UIUX/>
 
-## 自动部署
+## 正式部署（新加坡镜像）
 
-仓库使用 GitHub Actions 部署 GitHub Pages：
+网站部署在腾讯云轻量应用服务器（新加坡，锐驰型 2C2G，不限流量），SSH 别名 `sg-server`——IP 只写在 `~/.ssh/config`，不进仓库。
 
-- 工作流：`.github/workflows/deploy-pages.yml`
-- 触发条件：推送到 `main`，或在 Actions 页面手动执行
-- 构建命令：`python3 build.py`
-- 项目路径处理：`python3 scripts/prepare-pages.py site --base /LearnUI_PM`
-- 静态资源版本：构建器为 CSS/JS URL 注入内容哈希，避免新页面命中旧浏览器缓存
-- 发布目录：`site/`
+一条命令完成「校验 → 构建 → 同步」：
 
-推送代码后，Actions 会自动构建并发布。构建器默认使用
-`https://K3tty5555.github.io/LearnUI_PM` 生成 Canonical、Open Graph、RSS 和 Sitemap
-地址；如需临时预览其它地址，可通过 `SITE_URL` 环境变量覆盖。
+```bash
+scripts/deploy-sg.sh
+```
+
+脚本从 `git archive HEAD` 导出**已提交**的版本构建（不会把未提交的在途改动发上线），构建时按 `/UIUX` 子路径处理，然后 rsync 到服务器 `/var/www/UIUX/`。
+
+服务器侧（已配置，日常不用动）：
+
+- Nginx 静态站 + 限流（15r/s、单 IP 20 连接）+ gzip + 分层缓存（HTML 不缓存、assets 一天、api 一小时）；
+- Let's Encrypt 证书（certbot，`certbot.timer` 自动续期），http 301 到 https；
+- 域名根路径 `/` 留给个人主页，当前 302 到 `/UIUX/`；
+- 内核 BBR 拥塞控制（`/etc/sysctl.d/99-bbr.conf`）——高丢包跨境链路下比默认 CUBIC 快约 15 倍。
+
+需要 sudo 的服务器操作（改 Nginx、续证书、防火墙）由用户自己执行；只读检查可直接 `ssh sg-server`。
+
+## GitHub Pages（已停用）
+
+仓库曾用 GitHub Actions 自动发布 GitHub Pages，`K3tty5555.github.io/LearnUI_PM` 上的旧版本不会随新提交更新。`.github/workflows/deploy-pages.yml` 仍保留为**推送前的完整检查流程**（构建 + 全部回归测试），只是不再执行发布步骤。
+
+如需临时预览其它地址，通过 `SITE_URL` 环境变量覆盖构建时的 Canonical / Open Graph / RSS / Sitemap 地址。
 
 ## 本地验证
 
@@ -24,23 +36,19 @@ python3 build.py
 cd site && python3 -m http.server 8000
 ```
 
-打开 <http://127.0.0.1:8000/> 检查首页和静态资源。
+打开 <http://127.0.0.1:8000/> 检查首页和静态资源（本地是根路径，不带 /UIUX 前缀）。
 
 ## 说明
 
-- 本项目只维护 GitHub 仓库和 GitHub Pages，不维护其它域名、VPS、DNS、证书或第三方统计服务。
 - `site/` 是构建产物，已加入 `.gitignore`，不要手工提交；源文件修改后重新运行 `python3 build.py` 即可生成。
+- 构建器为 CSS/JS URL 注入内容哈希，避免新页面命中旧浏览器缓存。
+- Service Worker 安装只读取 `offline.html`，不预取全站；回访页面从缓存立即返回，后台更新。
 
 ## 2026-09-06 改版
 
-全站外壳使用 `assets/workspace.css`；原 `glass-theme.css` 已移除。浏览器通过 CSS/JS 内容哈希获取新资源；Service Worker 同步缓存新外壳。本地开发不注册 Service Worker，避免旧离线页面干扰验证。项目路径转换继续由 `scripts/prepare-pages.py` 统一处理。
-
-## 玻璃主题与加载优化
-
-共享外壳 CSS/JS 由构建器内联到 HTML；独立源文件仍随站点发布，便于调试。目录预览位于 `assets/demo-thumbs/`，生成后提交。Service Worker 安装只读取 `offline.html`，不预取全站；回访页面从缓存立即返回，后台更新。GitHub Pages 首次 TCP 连接延迟独立于页面渲染，应单独测量。
+全站外壳使用 `assets/workspace.css`；原 `glass-theme.css` 已移除。浏览器通过 CSS/JS 内容哈希获取新资源；Service Worker 同步缓存新外壳。本地开发不注册 Service Worker，避免旧离线页面干扰验证。
 
 UI 词典已恢复按视口运行的原始动效，演示源由构建器生成到 `api/specimens/`。发布工作流安装 Playwright/Chromium 并运行 `scripts/test-live-demos.py`，实际验证动效、离屏停止、移动端与错误恢复。普通站点构建仍只使用 Python 标准库。
-
 
 ## 知名网站自动加载
 

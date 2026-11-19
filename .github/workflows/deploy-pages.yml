@@ -1,4 +1,4 @@
-name: Deploy Learn UI PM to GitHub Pages
+name: Verify and deploy to the Singapore mirror
 
 on:
   push:
@@ -7,11 +7,9 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: true
 
 jobs:
@@ -25,16 +23,12 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
       - name: Build static site
-        env:
-          SITE_URL: https://K3tty5555.github.io/LearnUI_PM
         run: python3 build.py
-      - name: Prepare project-site paths
-        run: python3 scripts/prepare-pages.py site --base /LearnUI_PM
+      - name: Prepare site paths (/UIUX)
+        run: python3 scripts/prepare-pages.py site --base /UIUX
       - name: Verify generated links and assets
-        run: python3 scripts/verify-site.py site --base /LearnUI_PM
+        run: python3 scripts/verify-site.py site --base /UIUX
       - name: Verify catalog performance budgets
         run: python3 scripts/verify-performance.py site
       - name: Install animation test browser
@@ -42,27 +36,25 @@ jobs:
           python3 -m pip install playwright==1.58.0
           python3 -m playwright install --with-deps chromium
       - name: Verify live specimen behavior
-        run: python3 scripts/test-live-demos.py site --base /LearnUI_PM
+        run: python3 scripts/test-live-demos.py site --base /UIUX
       - name: Verify logo placement
-        run: python3 scripts/test-logo-layout.py site --base /LearnUI_PM
+        run: python3 scripts/test-logo-layout.py site --base /UIUX
       - name: Verify graphic design layout
-        run: python3 scripts/test-graphics-layout.py site --base /LearnUI_PM
+        run: python3 scripts/test-graphics-layout.py site --base /UIUX
       - name: Verify text follows the window width
-        run: python3 scripts/test-text-width.py site --base /LearnUI_PM
+        run: python3 scripts/test-text-width.py site --base /UIUX
       - name: Verify mobile language control
-        run: python3 scripts/test-mobile-language.py site --base /LearnUI_PM
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: site
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        run: python3 scripts/test-mobile-language.py site --base /UIUX
+      - name: Rsync site to the Singapore mirror
+        # Deploy only when every check above passes. SSH key is a repository secret
+        # (SG_MIRROR_KEY); the host key is pinned below instead of trusted blindly.
+        if: github.ref == 'refs/heads/main'
+        env:
+          SG_MIRROR_KEY: ${{ secrets.SG_MIRROR_KEY }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SG_MIRROR_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "sg-server ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s" > ~/.ssh/known_hosts
+          printf 'Host sg-server\n  HostName 43.160.218.211\n  User ubuntu\n  IdentityFile ~/.ssh/id_ed25519\n' > ~/.ssh/config
+          rsync -az --delete site/ ubuntu@sg-server:/var/www/UIUX/

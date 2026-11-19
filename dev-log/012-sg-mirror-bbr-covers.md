@@ -69,3 +69,24 @@ Mathis 公式 `MSS/(RTT×√p)` = 1460/(0.144×√0.1) = **31.3 KB/s**，与实�
 
 - 10% 丢包的链路问题客观存在，BBR 只是绕过其影响。观察几天晚高峰是否稳定。
 - `build.py` 的 `SITE_URL` 仍指向 GitHub Pages。若要把 `www.kettywu.art/UIUX` 定为正式地址，需改 `SITE_URL`、重跑 `scripts/gen-og.py --force` 并提交 `assets/og/` 变动——等用户拍板。
+
+## 追加（正式地址切换为 www.kettywu.art/UIUX，2026-11-19）
+
+用户拍板：正式地址改为 `www.kettywu.art/UIUX`，GitHub Pages 不再使用。本轮集中改完：
+
+- `build.py` 的 `SITE_URL`、`scripts/sync-sites.py` 的 `BASE`、`scripts/test-live-demos.py` 的 `--base` 默认值改为新地址；README / PRODUCT / DEPLOY 的链接与说明同步改写（DEPLOY.md 重写为新加坡镜像部署文档）。
+- `data/sites-manifest.json`：74 条 `sourceUrl` 和 `source` 改为新地址（它们是页面里的「源地址」链接数据）。
+- 重新生成全部分享图（`gen-og.py --force`，191 张）：图上印的网址换成 `www.kettywu.art/UIUX`。`assets/og/` 里旧的 `site-*.png` 与新命名并存，以实际生成的 191 张为准。
+- CI 工作流：保留全部检查，基路径统一改 `/UIUX`；删掉 GitHub Pages 发布，新增 rsync 到新加坡（`secrets.SG_MIRROR_KEY` + 主机密钥钉死 + `~/.ssh/config` 别名）。
+- 服务器上为 CI 生成专用受限密钥：authorized_keys 里用 `command=` 限制只能 `rsync --server -az --delete . /var/www/UIUX/`，加 `restrict`。已验证该密钥执行普通命令会被拒绝。
+- `scripts/deploy-sg.sh`（本地部署）不受影响，仍是「只发已提交版本」。
+
+### 验证
+
+- 新基路径下全套检查通过：verify-site（293 页 / 242 项）、102 标本无错误、logo 183、graphics 219、text-width 32、mobile-language 3。
+- 构建产物 `github.io` 出现次数：0；新地址在 index / sitemap 就位。
+- 分享图底部网址截图核对无误。
+
+### 待用户完成
+
+- 把 `/tmp/ci_key` 的内容贴到 GitHub 仓库 Secrets（名字 `SG_MIRROR_KEY`），推送后 CI 自动部署才通；贴之前推送只跑检查不部署。

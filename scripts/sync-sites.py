@@ -9,7 +9,7 @@ import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "https://K3tty5555.github.io/LearnUI_PM"
+BASE = "https://www.kettywu.art/UIUX"
 VENDOR = ROOT / "vendor" / "sites"
 OG_DIR = ROOT / "assets" / "og"
 USER_AGENT = "LearnUI-PM sites mirror/1.0"

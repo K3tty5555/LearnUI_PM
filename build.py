@@ -5,7 +5,7 @@ import json, html, os, shutil, datetime, subprocess, sys, hashlib, base64, re
 from urllib.parse import urlsplit
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE_URL = os.environ.get("SITE_URL", "https://K3tty5555.github.io/LearnUI_PM").rstrip("/")
+SITE_URL = os.environ.get("SITE_URL", "https://www.kettywu.art/UIUX").rstrip("/")
 SITE_NAME = "Learn UIUX"
 NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel","file-upload","loading-choreography","interaction-details","carousel","number-input","timeline","pagination","border-beam","card-swap","tick-slider","hold-to-record","context-meter"}
 STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
