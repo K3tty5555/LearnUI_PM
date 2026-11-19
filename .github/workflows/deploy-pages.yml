@@ -55,6 +55,7 @@ jobs:
           install -d -m 700 ~/.ssh
           printf '%s\n' "$SG_MIRROR_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          echo "sg-server ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s" > ~/.ssh/known_hosts
+          # ssh looks the host key up by the address in the config (not the alias), so key by IP.
+          printf '43.160.218.211 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s\nsg-server ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKA7XwttYDRIoMr0D5NB8N9wH5AYU8hb738bnYPm0d2s\n' > ~/.ssh/known_hosts
           printf 'Host sg-server\n  HostName 43.160.218.211\n  User ubuntu\n  IdentityFile ~/.ssh/id_ed25519\n' > ~/.ssh/config
           rsync -az --delete site/ ubuntu@sg-server:/var/www/UIUX/
