@@ -38,7 +38,14 @@ jobs:
       - name: Verify live specimen behavior
         run: python3 scripts/test-live-demos.py site --base /UIUX
       - name: Verify catalog specimens are never cut off
-        run: python3 scripts/test-catalog-states.py site --base /UIUX
+        run: python3 scripts/test-catalog-states.py site --base /UIUX --shots catalog-shots
+      - name: Keep screenshots of cut-off catalog cards
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-shots
+          path: catalog-shots/
+          if-no-files-found: ignore
       - name: Verify logo placement
         run: python3 scripts/test-logo-layout.py site --base /UIUX
       - name: Verify graphic design layout

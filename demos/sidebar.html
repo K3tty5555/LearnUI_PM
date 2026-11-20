@@ -54,6 +54,8 @@
   .demo-sidebar .glyph,
   .demo-sidebar .row { transition: none; }
 }
+/* Catalog card: with fonts taller than PingFang (Linux, Windows) the window outgrows the card stage. */
+@media (max-height: 260px) { .demo-sidebar .win { transform: scale(.84); } }
 </style>
 <script>
 (function () {
