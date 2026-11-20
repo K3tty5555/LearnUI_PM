@@ -17,6 +17,7 @@
 - 视频与现状不一致时以现状为准，并在卡片上说明。首期的三处：
   - Iconfinder 已被 Freepik 收购（2022），现访问会跳到 freepik.com/icons；Freepik 于 2026-04-28 更名为 Magnific，视频中展示的「M」就是 Magnific 的新标志。
   - Logobook 的官方标志是「书本 + 地球 + L」，视频中的皇冠「b」是该站「Crowns」分类的缩略图（别人的商标），未采用。
+  - 以上 Iconfinder、Logobook 两处处理，用户 2026-11-20 确认接受。
   - Remix Icon 自 2026 年 1 月起改用 Remix Icon License v1.0：可商用，但不得用作 logo、商标或 App 图标，不得作为图标包单独售卖。npm 元数据仍写 Apache-2.0，以包内 License 文件为准。
 - prompt 只讲构成方法，要求「不要复制原 logo」。
 

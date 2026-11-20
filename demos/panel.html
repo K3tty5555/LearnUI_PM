@@ -93,6 +93,8 @@
 @media (prefers-reduced-motion: reduce) {
   .demo-panel .lt svg { transition: none; }
 }
+/* Catalog card: a 200px scene is taller than the card stage. */
+@media (max-height: 260px) { .demo-panel { height: 176px; } }
 </style>
 <script>
 (function () {

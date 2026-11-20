@@ -136,17 +136,17 @@
   function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
   function rowsHTML(cls){var t=zh()?[['小林','刚刚分享了一张照片'],['阿青','收藏了你的作品'],['Momo','在评论里提到了你']]:[['Lin','shared a photo just now'],['Qing','saved your work'],['Momo','mentioned you in a comment']];
     return '<div class="lc-rows '+cls+'">'+t.map(function(r){return '<div class="lc-row"><span class="lc-av"></span><span class="lc-lines"><b>'+r[0]+'</b><b>'+r[1]+'</b></span><span class="lc-th"></span></div>'}).join('')+'</div>';}
-  function galleryHTML(){return '<div class="lc-gallery"><div class="lc-grid">'+[0,1,2,3].map(function(i){return '<div class="lc-img"><i class="lc-photo" style="--lc-photo:'+PHOTOS[i]+'"></i></div>'}).join('')+'</div><p class="lc-caption">'+(zh()?'周末去海边 · 4 张照片':'Weekend by the sea · 4 photos')+'</p></div>';}
+  function galleryHTML(){return '<div class="lc-gallery"><div class="lc-grid">'+[0,1,2,3].map(function(i){return '<div class="lc-img"><i class="lc-photo" data-clip-ok style="--lc-photo:'+PHOTOS[i]+'"></i></div>'}).join('')+'</div><p class="lc-caption">'+(zh()?'周末去海边 · 4 张照片':'Weekend by the sea · 4 photos')+'</p></div>';}
   function item(i){var n=zh()?['帆布托特包','陶瓷马克杯','亚麻衬衫','木质书架','香薰蜡烛','手冲壶','羊毛围巾','皮质笔记本','玻璃花瓶','棉麻抱枕','竹编篮','铜制台灯','藤编椅','珐琅锅']:['Canvas tote','Ceramic mug','Linen shirt','Oak shelf','Scented candle','Pour-over kettle','Wool scarf','Leather notebook','Glass vase','Linen cushion','Woven basket','Brass lamp','Rattan chair','Enamel pot'];
     return '<div class="lc-item"><i style="--lc-photo:'+PHOTOS[i%PHOTOS.length]+'"></i><span>'+n[i%n.length]+'<small>¥'+(59+i*17)+'</small></span></div>';}
-  function chatHTML(){return '<div class="lc-chat"><div class="lc-thread"><div class="lc-msg lc-me">'+(zh()?'帮我写一段新品介绍':'Write a launch blurb for me')+'</div></div></div>';}
+  function chatHTML(){return '<div class="lc-chat" data-clip-ok><div class="lc-thread"><div class="lc-msg lc-me">'+(zh()?'帮我写一段新品介绍':'Write a launch blurb for me')+'</div></div></div>';}
   var REPLY=function(){return zh()?['这款保温杯采用双层真空结构，热饮 12 小时仍然烫口。','杯盖一键弹开，单手就能喝，通勤路上也不洒。','三种低饱和配色，放进包里、摆在桌上都好看。']:['This bottle uses double-wall vacuum insulation, so drinks stay hot for 12 hours.','The lid pops open with one thumb, easy to sip on a commute without spills.','Three muted colours that look good in a bag or on a desk.'];};
   // Build both screens for the current pattern; frame(t) then drives them from one shared clock.
   function build(){
     S={};
     if(mode==='skeleton'){bad.innerHTML=rowsHTML('lc-pop')+'<span class="lc-spinner"></span>';good.innerHTML=rowsHTML('lc-shimmer');}
     if(mode==='blur'){bad.innerHTML=galleryHTML()+'<span class="lc-tag">'+(zh()?'↕ 版面跳动':'↕ layout shift')+'</span><span class="lc-spinner"></span>';good.innerHTML=galleryHTML();}
-    if(mode==='feed'){[bad,good].forEach(function(s,k){s.innerHTML='<div class="lc-feed"><div class="lc-track">'+[0,1,2,3].map(item).join('')+'<div class="lc-tail"></div></div>'+(k?'<div class="lc-threshold"><span>'+(zh()?'提前加载线':'prefetch line')+'</span></div>':'')+'</div>';S[k?'goodN':'badN']=4;});}
+    if(mode==='feed'){[bad,good].forEach(function(s,k){s.innerHTML='<div class="lc-feed" data-clip-ok><div class="lc-track">'+[0,1,2,3].map(item).join('')+'<div class="lc-tail"></div></div>'+(k?'<div class="lc-threshold"><span>'+(zh()?'提前加载线':'prefetch line')+'</span></div>':'')+'</div>';S[k?'goodN':'badN']=4;});}
     if(mode==='stream'){bad.innerHTML=chatHTML();good.innerHTML=chatHTML();S.badTyped=-1;S.goodParas=-1;}
   }
   function q(el,s){return el.querySelector(s);}

@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 import build
 
 OUT = ROOT / 'assets/demo-thumbs'
-SLUGS = [e['slug'] for e in build.ENTRIES] + ['style-' + s['slug'] for s in build.STYLES] + [r['demo'] for r in build.PM_REFERENCES]
+SLUGS = [e['slug'] for e in build.ENTRIES] + ['style-' + s['slug'] for s in build.STYLES]
 source = (ROOT / 'assets/site.js').read_text()
 translation = source[source.index('  var MODE_KEY'):source.index('  /* ---------- keyboard:')]
 

@@ -18,7 +18,7 @@
 
 ## 下一步
 
-- **线上地址迁移（用户拍板 2026-11-18）**：站点后续将从 `K3tty5555.github.io/LearnUI_PM/` 迁移到用户自己的公网域名，由另一个任务负责；在那之前不改 `SITE_URL` 和仓库名。迁移时需同步：`build.py` 的 `SITE_URL`、README/DEPLOY 里的链接、`scripts/test-live-demos.py` 的 `--base` 默认值、robots/sitemap 中的绝对地址。
+- **线上地址迁移（用户拍板 2026-11-18）**：站点后续将从 `K3tty5555.github.io/LearnUI_PM/` 迁移到用户自己的公网域名，由另一个任务负责；在那之前不改 `SITE_URL` 和仓库名。迁移时需同步：`build.py` 的 `SITE_URL`、README/DEPLOY 里的链接、`scripts/test-live-demos.py` 的 `--base` 默认值、robots/sitemap 中的绝对地址。（2026-11-20 核对：已完成，见 012 追加）
 
 ## 修订（2026-11-19）
 

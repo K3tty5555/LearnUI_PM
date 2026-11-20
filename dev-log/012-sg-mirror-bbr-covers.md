@@ -67,8 +67,8 @@ Mathis 公式 `MSS/(RTT×√p)` = 1460/(0.144×√0.1) = **31.3 KB/s**，与实�
 
 ## 下一步
 
-- 10% 丢包的链路问题客观存在，BBR 只是绕过其影响。观察几天晚高峰是否稳定。
-- `build.py` 的 `SITE_URL` 仍指向 GitHub Pages。若要把 `www.kettywu.art/UIUX` 定为正式地址，需改 `SITE_URL`、重跑 `scripts/gen-og.py --force` 并提交 `assets/og/` 变动——等用户拍板。
+- 10% 丢包的链路问题客观存在，BBR 只是绕过其影响。观察几天晚高峰是否稳定。（2026-11-20：实测首页 0.9–5.7 秒波动；用户体感「还好」，不处理，继续观察）
+- `build.py` 的 `SITE_URL` 仍指向 GitHub Pages。若要把 `www.kettywu.art/UIUX` 定为正式地址，需改 `SITE_URL`、重跑 `scripts/gen-og.py --force` 并提交 `assets/og/` 变动——等用户拍板。（2026-11-20 核对：已完成，见本篇追加）
 
 ## 追加（正式地址切换为 www.kettywu.art/UIUX，2026-11-19）
 

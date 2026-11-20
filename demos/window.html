@@ -219,6 +219,8 @@
     transition: none;
   }
 }
+/* Catalog card: the 200px desktop would lose its rounded top and bottom. */
+@media (max-height: 260px) { .demo-window .desktop { transform: scale(.88); } }
 </style>
 <script>
 (function () {

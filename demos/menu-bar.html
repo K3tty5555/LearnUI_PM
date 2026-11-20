@@ -87,6 +87,8 @@
   .demo-menu-bar .menu,
   .demo-menu-bar .menu button { transition: none; }
 }
+/* Catalog card: a 200px scene cuts the top of the menu bar off. */
+@media (max-height: 260px) { .demo-menu-bar { height: 176px; } }
 </style>
 <script>
 (function () {

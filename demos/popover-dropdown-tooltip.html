@@ -190,6 +190,8 @@
     transition: none;
   }
 }
+/* Catalog card: open panels hang below the triggers; lift the row so they fit. */
+@media (max-height: 260px) { .demo-popover-dropdown-tooltip .row { transform: translateY(-16px); } }
 </style>
 <script>
 (function () {

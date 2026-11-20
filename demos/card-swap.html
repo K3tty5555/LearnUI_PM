@@ -48,14 +48,17 @@
   function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
   // Slot k in the stack: deeper cards sit up and to the right, smaller and dimmer, so their edges peek out.
   function slot(k){return 'translate('+(k*13)+'px,'+(-k*10)+'px) scale('+(1-k*.055).toFixed(3)+')';}
-  function layout(){order.forEach(function(ci,k){var c=cards[ci];c.style.zIndex=10-k;c.style.transform=slot(k);c.style.filter='brightness('+(1-k*.07).toFixed(2)+')';c.classList.toggle('is-top',k===0);c.setAttribute('aria-hidden',k===0?'false':'true');});}
+  // While a card is dragged, thrown or flying back it leaves the stage on purpose (data-clip-ok,
+  // read by scripts/test-catalog-states.py); the mark clears once it has settled into its slot.
+  function loose(c){clearTimeout(c._settle);c.setAttribute('data-clip-ok','');}
+  function layout(){order.forEach(function(ci,k){var c=cards[ci];if(c.hasAttribute('data-clip-ok')){clearTimeout(c._settle);c._settle=setTimeout(function(){c.removeAttribute('data-clip-ok');},480);}c.style.zIndex=10-k;c.style.transform=slot(k);c.style.filter='brightness('+(1-k*.07).toFixed(2)+')';c.classList.toggle('is-top',k===0);c.setAttribute('aria-hidden',k===0?'false':'true');});}
   function text(){cards.forEach(function(c,i){c.querySelector('.cs-tag').textContent=NAMES[i][zh()?0:1];});status();}
   function status(){var top=NAMES[order[0]][zh()?0:1];read.textContent=(zh()?'顶部：':'top: ')+top+' · '+(zh()?'已交换 ':'swaps ')+swaps+(zh()?' 次 · 点击或拖走顶部卡片':' · click or drag the top card');}
   // Two phases: the top card leaves toward where it was thrown, then drops to the back slot while the rest move up one.
   function swap(dx,dy){
     if(busy)return;busy=true;var c=cards[order[0]];
     var len=Math.hypot(dx||0,dy||0),ux=len>8?dx/len:-1,uy=len>8?dy/len:.12;
-    c.classList.remove('is-drag');
+    c.classList.remove('is-drag');loose(c);
     c.style.transform='translate('+(ux*170).toFixed(0)+'px,'+(uy*120+16).toFixed(0)+'px) rotate('+(ux*-14).toFixed(1)+'deg) scale(.96)';
     setTimeout(function(){order.push(order.shift());c.style.zIndex=0;swaps++;layout();status();setTimeout(function(){busy=false;},reduce?0:300);},reduce?0:230);
   }
@@ -65,7 +68,7 @@
     if(auto){stopAuto();cards.forEach(function(x){x.classList.remove('is-drag');x.style.transition='';});if(!busy)layout();}
     var c=cards[order[0]];if(busy||!c.contains(e.target))return;
     drag={x:e.clientX,y:e.clientY,t:performance.now(),vx:0,lx:e.clientX,lt:performance.now(),c:c,dx:0,dy:0};
-    c.classList.add('is-drag');try{stage.setPointerCapture(e.pointerId);}catch(_){}
+    c.classList.add('is-drag');loose(c);try{stage.setPointerCapture(e.pointerId);}catch(_){}
   });
   stage.addEventListener('pointermove',function(e){
     if(!drag)return;var now=performance.now();drag.dx=e.clientX-drag.x;drag.dy=e.clientY-drag.y;
@@ -88,7 +91,7 @@
     ghost.style.transition='none';ghost.style.transform='translate('+x0+'px,'+y0+'px)';
     timer=setTimeout(function(){
       if(!auto)return;ghost.style.transition='transform .38s cubic-bezier(.3,.7,.3,1)';ghost.style.transform='translate('+(x0-70)+'px,'+(y0+14)+'px)';
-      var top=cards[order[0]];top.classList.add('is-drag');top.style.transition='transform .38s cubic-bezier(.3,.7,.3,1)';top.style.transform='translate(-70px,14px) rotate(-5deg)';
+      var top=cards[order[0]];top.classList.add('is-drag');loose(top);top.style.transition='transform .38s cubic-bezier(.3,.7,.3,1)';top.style.transform='translate(-70px,14px) rotate(-5deg)';
       timer=setTimeout(function(){top.style.transition='';if(auto)swap(-70,14);timer=setTimeout(cycle,1500);},400);
     },600);
   }

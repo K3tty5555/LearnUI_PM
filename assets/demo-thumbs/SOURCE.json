@@ -155,18 +155,6 @@
     "style-hand-drawn",
     "style-fantasy-rpg",
     "style-lcars",
-    "style-mono-color-editorial-print",
-    "pm/operations-order-list",
-    "pm/executive-metrics-dashboard",
-    "pm/ai-research-workspace",
-    "pm/course-learning-catalog",
-    "pm/mobile-task-inbox",
-    "pm/product-launch-landing",
-    "pm/customer-account-detail",
-    "pm/workspace-permission-settings",
-    "pm/data-import-wizard",
-    "pm/approval-activity-timeline",
-    "pm/issue-triage-board",
-    "pm/bulk-operation-result"
+    "style-mono-color-editorial-print"
   ]
 }

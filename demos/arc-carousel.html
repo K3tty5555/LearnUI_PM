@@ -42,7 +42,7 @@
     ['Glass Garden','Side B','#4a2a6b','#b07ae8'],['North Star','Live','#2b2b2b','#8d8d8d'],['Slow Bloom','LP','#6b3b12','#e8a54a'],['Echo Park','Remix','#5b1a3d','#e5578f']
   ];
   var discs=ITEMS.map(function(it,i){
-    var d=document.createElement('div');d.className='ac-disc';d.setAttribute('aria-hidden','true');
+    var d=document.createElement('div');d.className='ac-disc';d.setAttribute('data-clip-ok','');d.setAttribute('aria-hidden','true');
     d.style.background='conic-gradient(from '+(i*40)+'deg,'+it[2]+','+it[3]+','+it[2]+','+it[3]+','+it[2]+')';
     d.innerHTML='<span class="ac-label"><span>'+it[0].toUpperCase()+'</span></span>';ring.appendChild(d);return d;
   });

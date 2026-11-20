@@ -99,6 +99,8 @@
   .ix-badge{display:block;left:6px;top:6px;font-size:9px}
   .ix-panel{transform:scale(.7);transform-origin:50% 58%}
   .ix-btn{display:none}
+  /* Catalog card: four rows on a 30px pitch fit the 148px stage (dev-log 014). */
+  .ix-row{height:26px;font-size:10px}
 }
 @media (prefers-reduced-motion:reduce){.demo-ix-details *{transition:none!important}}
 </style>
@@ -133,14 +135,14 @@
      var b=el('button','ix-btn',null,zh()?'展开 / 收起':'Fan / stack');b.style.right='12px';b.style.bottom='12px';b.addEventListener('click',function(){stopAuto();set(!open)});
      return function(){ghostTo(W()-60,H()-24);later(function(){set(true)},700);later(function(){set(false)},2300);later(function(){set(true)},3600);return 5200;};}},
   {id:'wheel',name:['滚轮选择器','Wheel picker'],note:[['松手后速度先逐帧衰减，快停了才吸附','惯性和吸附同时做就会抖；先让速度每帧乘 0.94 慢慢变小，低于阈值再吸到最近一格。'],['Decay velocity every frame, snap only when nearly stopped','doing inertia and snapping at once jitters; multiply speed by 0.94 per frame, then snap below a threshold.']],
-   build:function(){var wrap=el('div','ix-wheel');el('div','ix-wheel-band',wrap);var list=el('div','ix-wheel-list',wrap);for(var i=0;i<60;i++)el('span','',list,String(i).padStart(2,'0'));
+   build:function(){var wrap=el('div','ix-wheel');wrap.setAttribute('data-clip-ok','');el('div','ix-wheel-band',wrap);var list=el('div','ix-wheel-list',wrap);for(var i=0;i<60;i++)el('span','',list,String(i).padStart(2,'0'));
      var meter=el('div','ix-meter');var y=-15*30,v=0,state='idle',ROW=30,mid=60;
      function render(){list.style.transform='translateY('+(mid-15+y).toFixed(1)+'px)';meter.textContent=(zh()?'速度 ':'v ')+v.toFixed(2)+' · '+(state==='inertia'?(zh()?'惯性衰减':'decaying'):state==='snap'?(zh()?'吸附中':'snapping'):(zh()?'停住':'at rest'));}
      onLoop(function(){if(state==='inertia'){y+=v*16;v*=0.94;if(Math.abs(v)<0.08){state='snap';}}else if(state==='snap'){var t=Math.round(y/ROW)*ROW;y+=(t-y)*.25;if(Math.abs(t-y)<.3){y=t;state='idle';v=0;}}y=Math.max(-59*ROW,Math.min(0,y));render();});
      drag(wrap,{down:function(){state='drag';v=0},move:function(p,d){y+=d[1]-(this._d||0);this._d=d[1];},up:function(vel){this._d=0;v=vel[1];state='inertia';}});
      render();return function(){var cx=W()/2;ghostTo(cx,H()/2+40);later(function(){ghostTo(cx,H()/2-50,350);v=-1.6;state='inertia';},700);later(function(){ghostTo(cx,H()/2+40);},2600);later(function(){ghostTo(cx,H()/2-10,300);v=.9;state='inertia';},3200);return 5600;};}},
   {id:'sheet',name:['半屏浮层','Bottom sheet'],note:[['位移或速度满足一个就关','只看拖了多远会漏掉「轻轻一甩」；拖过 40% 高度，或者松手速度够快，都应该关掉。'],['Close on distance OR velocity','distance alone misses a quick flick; close past 40% of the height or above a release speed.']],
-   build:function(){var dim=el('div','ix-dim'),sh=el('div','ix-sheet');for(var i=0;i<4;i++)el('div','ix-sheet-row',sh);var tag=el('span','ix-tag');tag.style.left='12px';tag.style.bottom='164px';tag.style.opacity=0;
+   build:function(){var dim=el('div','ix-dim'),sh=el('div','ix-sheet');sh.setAttribute('data-clip-ok','');for(var i=0;i<4;i++)el('div','ix-sheet-row',sh);var tag=el('span','ix-tag');tag.style.left='12px';tag.style.bottom='164px';tag.style.opacity=0;
      var y=0,open=true,anim=null,H0=150;function set(v,ms){sh.style.transition=ms?'transform '+ms+'ms cubic-bezier(.2,.8,.2,1)':'none';y=v;sh.style.transform='translateY('+v+'px)';dim.style.opacity=String(Math.max(0,1-v/H0)*1);}
      function say(t){tag.textContent=t;tag.style.opacity=1;later(function(){tag.style.opacity=0},1400);}
      function release(vy,dy){var close=dy>H0*.4||vy>.5;say(close?(dy>H0*.4?(zh()?'位移 > 40% → 关':'distance > 40% → close'):(zh()?'速度 '+vy.toFixed(2)+' → 关':'speed '+vy.toFixed(2)+' → close')):(zh()?'都不满足 → 弹回':'neither → spring back'));set(close?H0+20:0,300);open=!close;if(close)later(function(){set(0,350);open=true},1200);}
@@ -158,7 +160,7 @@
      pr.addEventListener('click',function(){stopAuto();fly()});pr.style.cursor='pointer';
      return function(){ghostTo(80,H()-60);later(fly,700);later(fly,2100);return 3800;};}},
   {id:'title',name:['大标题折叠','Large title collapse'],note:[['全部挂在同一个滚动进度上','缩放、横移、上移和导航栏底色不要写成四段动画，都由同一个 0→1 的进度算出来，才像同一件事。'],['Drive everything from one scroll progress','scale, x, y and the bar background all derive from one 0→1 value, so they read as one motion.']],
-   build:function(){var ph=el('div','ix-phone'),bar=el('div','ix-navbar',ph),bg=el('div','ix-navbar-bg',bar),title=el('div','ix-title',ph,zh()?'收件箱':'Inbox'),sc=el('div','ix-scroll',ph);for(var i=0;i<9;i++)el('i','',sc);
+   build:function(){var ph=el('div','ix-phone'),bar=el('div','ix-navbar',ph),bg=el('div','ix-navbar-bg',bar),title=el('div','ix-title',ph,zh()?'收件箱':'Inbox'),sc=el('div','ix-scroll',ph);sc.setAttribute('data-clip-ok','');for(var i=0;i<9;i++)el('i','',sc);
      var tag=el('span','ix-tag');tag.style.right='10px';tag.style.bottom='10px';var p=0,target=0;
      function render(){var e=p;title.style.transform='translate('+(e*58)+'px,'+(-e*31)+'px) scale('+(1-.36*e)+')';bg.style.opacity=e;sc.style.transform='translateY('+(-e*36)+'px)';tag.textContent='progress '+e.toFixed(2);}
      onLoop(function(){p+=(target-p)*.12;if(Math.abs(target-p)<.002)p=target;render();});
@@ -166,7 +168,7 @@
      drag(ph,{move:function(pt,d){target=Math.max(0,Math.min(1,(this._b==null?(this._b=target):this._b)-d[1]/80));},up:function(){this._b=null}});
      render();return function(){var cx=W()/2;ghostTo(cx,H()-40);later(function(){ghostTo(cx,H()-110,1200);target=1},600);later(function(){ghostTo(cx,H()-40,1200);target=0},2800);return 4800;};}},
   {id:'reorder',name:['拖拽排序','Drag to reorder'],note:[['只改数组顺序；被拖的关过渡，其余开过渡','被拖的那张不带过渡、紧跟手指；其余几张带过渡，根据新顺序自动让位。'],['Reorder the array; transition off for the dragged row, on for the rest','the dragged row follows the finger with no transition; the others animate into their new slots.']],
-   build:function(){var list=el('div','ix-list'),ROW=44,names=zh()?['购物清单','读书笔记','健身计划','旅行攻略']:['Groceries','Reading notes','Workout plan','Trip ideas'];
+   build:function(){var list=el('div','ix-list'),ROW=matchMedia('(max-height:260px)').matches?30:44,names=zh()?['购物清单','读书笔记','健身计划','旅行攻略']:['Groceries','Reading notes','Workout plan','Trip ideas'];
      var order=[0,1,2,3],rows=names.map(function(n,i){var r=el('div','ix-row',list,'<i style="background:'+PAL[i]+'"></i>'+n+'<s>⋮⋮</s>');return r;});
      function layout(skip){order.forEach(function(id,slot){if(id!==skip)rows[id].style.transform='translateY('+(slot*ROW)+'px)';});}layout();
      function start(id){rows[id].classList.add('is-dragging');}
@@ -219,7 +221,7 @@
      return function(){ghostTo(home[0],home[1]);var path=function(len,t0){for(var k=1;k<=12;k++)(function(k){later(function(){var p=[home[0]-len*k/12*.4,home[1]+len*k/12*.9];moveTo(p);ghostTo(p[0],p[1],60)},t0+k*55)})(k);};
        path(60,600);later(release,1350);later(function(){ghostTo(home[0],home[1])},2000);path(130,2600);later(release,3400);return 5400;};}},
   {id:'push',name:['页面转场','Page transition'],note:[['新页进来时，旧页同时后退、变暗','只让新页滑进来、旧页不动，新页看起来就像一张贴纸；旧页同时左移 30% 并压暗，才有前后层次。'],['Move and dim the old page while the new one enters','if only the new page slides, it looks like a sticker; shift the old page 30% left and dim it at the same time.']],
-   build:function(){var nav=el('div','ix-nav'),a=el('div','ix-page',nav,'<h4>'+(zh()?'设置':'Settings')+'</h4><i></i><i></i><i></i><i></i><i></i>'),shade=el('div','ix-shade',nav),b=el('div','ix-page ix-page-b',nav,'<h4>'+(zh()?'通知':'Notifications')+'</h4><i></i><i></i><i></i>');
+   build:function(){var nav=el('div','ix-nav'),a=el('div','ix-page',nav,'<h4>'+(zh()?'设置':'Settings')+'</h4><i></i><i></i><i></i><i></i><i></i>'),shade=el('div','ix-shade',nav),b=el('div','ix-page ix-page-b',nav,'<h4>'+(zh()?'通知':'Notifications')+'</h4><i></i><i></i><i></i>');b.setAttribute('data-clip-ok','');a.setAttribute('data-clip-ok','');
      var p=0,target=0;function render(){a.style.transform='translateX('+(-30*p)+'%)';shade.style.opacity=(p*.35).toFixed(3);b.style.transform='translateX('+(100*(1-p))+'%)';}
      onLoop(function(){p+=(target-p)*.14;if(Math.abs(target-p)<.002)p=target;render();});
      nav.addEventListener('click',function(){stopAuto();target=target?0:1;});nav.style.cursor='pointer';

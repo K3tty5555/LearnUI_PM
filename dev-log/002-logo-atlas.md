@@ -60,7 +60,7 @@
 
 ## 下一步
 
-- 待用户：确认 Iconfinder、Logobook 两处与视频不同的处理是否接受。
+- 待用户：确认 Iconfinder、Logobook 两处与视频不同的处理是否接受。（用户 2026-11-20 确认接受，已记入 `docs/logos.md`）
 - 后续期次可补「文字标」样本。新样本按 `docs/logos.md` 的规则取图、核实授权。
 - 2026-11-17 用户要求提交并推送到 main，由 GitHub Pages 工作流自动发布。
 
