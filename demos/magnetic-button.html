@@ -1,0 +1,101 @@
+<div class="demo demo-magnetic-button">
+  <div class="mb-stage">
+    <span class="mb-zone" aria-hidden="true"></span>
+    <div class="mb-col">
+      <span class="mb-kicker">Pre-orders open · ships in March</span>
+      <span class="mb-anchor"><button class="mb-btn" type="button"><span class="mb-label"><span class="mb-cta">Pre-order</span><span class="mb-sep"></span><span class="mb-price">$129</span></span></button></span>
+    </div>
+    <svg class="mb-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="mb-read"><code>outside · offset 0, 0</code></p>
+</div>
+<style>
+.demo-magnetic-button{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-magnetic-button *{box-sizing:border-box}
+.mb-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:grid;place-items:center}
+.mb-zone{position:absolute;left:0;top:0;border-radius:50%;border:1.5px dashed rgba(67,56,202,.28);pointer-events:none;transition:border-color .25s,background-color .25s}
+.mb-zone.is-in{border-color:rgba(67,56,202,.6);background:rgba(67,56,202,.04)}
+.mb-col{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px}
+.mb-kicker{color:#6b6f7a;font-size:11px;letter-spacing:.04em}
+.mb-anchor{display:inline-block}
+.mb-btn{display:inline-flex;align-items:center;height:46px;padding:0 22px;border:0;border-radius:999px;background:#1c1d21;color:#fff;font:600 14px/1 inherit;cursor:pointer;box-shadow:0 6px 16px rgba(28,29,33,.18);transform:translate(var(--mb-x,0px),var(--mb-y,0px)) scale(var(--mb-s,1));will-change:transform}
+.mb-btn:focus-visible{outline:2px solid #4338ca;outline-offset:3px}
+.mb-label{display:inline-flex;align-items:center;gap:12px;transform:translate(var(--mb-lx,0px),var(--mb-ly,0px))}
+.mb-sep{width:1px;height:16px;background:rgba(255,255,255,.3)}
+.mb-price{font-variant-numeric:tabular-nums;color:#c7d2fe}
+.mb-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-magnetic-button[data-auto="on"] .mb-ghost{opacity:1}
+.mb-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-height:260px){
+  .demo-magnetic-button{width:calc(100vw - 40px)}
+  .mb-stage{height:calc(100vh - 40px)}
+  .mb-col{gap:8px}.mb-kicker{font-size:9.5px}
+  .mb-btn{height:34px;padding:0 16px;font-size:12px}.mb-label{gap:9px}.mb-sep{height:12px}
+  .mb-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-magnetic-button');
+  var stage=root.querySelector('.mb-stage'),zone=root.querySelector('.mb-zone'),anchor=root.querySelector('.mb-anchor'),btn=root.querySelector('.mb-btn'),ghost=root.querySelector('.mb-ghost'),read=root.querySelector('.mb-read code');
+  var kicker=root.querySelector('.mb-kicker'),cta=root.querySelector('.mb-cta');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PULL=.35,LABEL=.45;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),last=start,idle;
+  var px=-9999,py=-9999,x=0,y=0,vx=0,vy=0,inside=false,R=84,c=[0,0];
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){kicker.textContent=zh()?'预售开启 · 3 月发货':'Pre-orders open · ships in March';cta.textContent=zh()?'立即预订':'Pre-order';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function along(path,t){
+    var T=path[path.length-1][0];t=t%T;
+    for(var i=1;i<path.length;i++){if(t<=path[i][0]){var a=path[i-1],b=path[i],p=b[0]>a[0]?ease((t-a[0])/(b[0]-a[0])):1;return [a[1]+(b[1]-a[1])*p,a[2]+(b[2]-a[2])*p];}}
+    return [path[0][1],path[0][2]];
+  }
+  // The button's resting centre comes from the untransformed anchor, so the pull never feeds back into itself.
+  function measure(){
+    var s=stage.getBoundingClientRect(),r=anchor.getBoundingClientRect();
+    c=[r.left-s.left+r.width/2,r.top-s.top+r.height/2];
+    R=Math.min(84,c[1]-6,stage.clientHeight-c[1]-6,r.width*.9);
+    zone.style.width=zone.style.height=(R*2)+'px';
+    zone.style.transform='translate('+(c[0]-R).toFixed(1)+'px,'+(c[1]-R).toFixed(1)+'px)';
+  }
+  var PATH=[[0,-2,.45],[1,-.75,.2],[1.6,-.3,-.18],[2.2,.25,.1],[2.8,-.15,.3],[3.05,1.95,-.35],[4.6,1.95,-.35],[5.4,.55,.55],[6,.1,.18],[6.6,-.45,-.3],[6.85,-2,.45],[8.4,-2,.45]];
+  function apply(){
+    root.style.setProperty('--mb-x',x.toFixed(2)+'px');root.style.setProperty('--mb-y',y.toFixed(2)+'px');
+    root.style.setProperty('--mb-lx',(x*LABEL).toFixed(2)+'px');root.style.setProperty('--mb-ly',(y*LABEL).toFixed(2)+'px');
+    var near=Math.max(0,1-Math.hypot(px-c[0],py-c[1])/R);root.style.setProperty('--mb-s',(1+.05*(inside?Math.min(1,near*2):0)).toFixed(3));
+    zone.classList.toggle('is-in',inside);
+    var d=Math.round(Math.hypot(px-c[0],py-c[1]));
+    read.textContent=(inside?'inside '+Math.round(R)+'px · distance '+d+'px · pull '+PULL:'outside · spring back')+' · offset '+x.toFixed(0)+', '+y.toFixed(0)+' px';
+  }
+  function step(dt){
+    var dx=px-c[0],dy=py-c[1];inside=Math.hypot(dx,dy)<R;
+    var tx=inside?dx*PULL:0,ty=inside?dy*PULL:0;
+    if(reduce){x=0;y=0;return;}
+    // Spring: firm and well damped while attracted; looser on release so it wobbles back twice.
+    var k=inside?260:190,d=inside?26:8.5,h=1/240;
+    for(var t=0;t<dt;t+=h){vx+=(k*(tx-x)-d*vx)*h;vy+=(k*(ty-y)-d*vy)*h;x+=vx*h;y+=vy*h;}
+  }
+  stage.addEventListener('pointermove',function(e){if(root.dataset.auto==='on'){setAuto(false);}clearTimeout(idle);var s=stage.getBoundingClientRect();px=e.clientX-s.left;py=e.clientY-s.top;resume();});
+  stage.addEventListener('pointerleave',function(){px=py=-9999;clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();resume();}},1800);});
+  btn.addEventListener('click',function(){read.textContent=zh()?'已点击：磁吸只是引导，按钮照常可点':'clicked: the pull only guides; the button still works normally';});
+  function tick(now){
+    raf=0;if(!visible)return;var dt=Math.min(.05,(now-last)/1000);last=now;
+    measure();
+    if(auto){var p=along(PATH,Math.max(0,now-start)/1000),w=stage.clientWidth,h=stage.clientHeight;px=Math.max(10,Math.min(w-20,c[0]+p[0]*R));py=Math.max(10,Math.min(h-20,c[1]+p[1]*R));ghost.style.transform='translate('+px.toFixed(1)+'px,'+py.toFixed(1)+'px)';}
+    step(dt);apply();
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(reduce&&root.dataset.auto==='on')return;if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(tick);}}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);measure();
+  if(reduce){
+    // Reduced motion: no pull at all; a still diagram shows where the zone is.
+    root.dataset.auto='on';px=c[0]-R*.55;py=c[1]+R*.25;ghost.style.transform='translate('+px+'px,'+py+'px)';inside=true;apply();
+    read.textContent=zh()?'减弱动态效果：磁吸关闭，按钮不跟随':'reduced motion: magnet off, the button stays put';
+  }
+  resume();
+})();
+</script>

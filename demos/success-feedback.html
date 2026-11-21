@@ -1,0 +1,103 @@
+<div class="demo demo-success-feedback">
+  <div class="sf-stage">
+    <span class="sf-bag" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg><b class="sf-count">0</b></span>
+    <div class="sf-product"><span class="sf-thumb" aria-hidden="true"></span><span class="sf-meta"><b class="sf-name">Ember desk lamp</b><span class="sf-price">$149</span></span></div>
+    <button class="sf-btn" type="button" data-state="idle">
+      <span class="sf-label">Add to bag</span>
+      <svg class="sf-spin" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+      <span class="sf-done"><svg class="sf-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span class="sf-done-label">Added</span></span>
+    </button>
+    <span class="sf-status" role="status" aria-live="polite"></span>
+    <svg class="sf-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="sf-read"><code>idle → loading → success → idle</code></p>
+</div>
+<style>
+.demo-success-feedback{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-success-feedback *{box-sizing:border-box}
+.sf-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.sf-bag{position:absolute;right:16px;top:14px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#fff;border:1px solid #e4e2da}
+.sf-bag svg{width:18px;height:18px;fill:none;stroke:#1c1d21;stroke-width:1.6;stroke-linejoin:round}
+.sf-count{position:absolute;right:-3px;top:-3px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#16a34a;color:#fff;font:700 10px/16px system-ui,sans-serif;text-align:center}
+.sf-bag.is-bump{animation:sf-bump .4s cubic-bezier(.3,.7,.3,1.5)}
+@keyframes sf-bump{40%{transform:scale(1.2)}}
+.sf-product{display:flex;align-items:center;gap:12px}
+.sf-thumb{width:44px;height:44px;border-radius:10px;background:linear-gradient(140deg,#2a2622,#ffb36b)}
+.sf-meta{display:flex;flex-direction:column}.sf-name{font-size:14px}.sf-price{color:#6b6f7a;font:12px ui-monospace,SFMono-Regular,Menlo,monospace}
+/* Fixed width: the label, spinner and tick swap inside the same box, so nothing around it jumps. */
+.sf-btn{position:relative;width:200px;height:46px;border:0;border-radius:12px;background:#1c1d21;color:#fff;font:600 14px/1 inherit;cursor:pointer;transition:background-color .3s}
+.sf-btn>*{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);transition:opacity .2s,transform .25s}
+.sf-label{white-space:nowrap}
+.sf-spin{width:20px;height:20px;opacity:0;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:32 60}
+.sf-btn[data-state="loading"] .sf-spin{opacity:1;animation:sf-spin .8s linear infinite}
+@keyframes sf-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.sf-done{display:flex;align-items:center;gap:6px;opacity:0;white-space:nowrap}
+.sf-check{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .35s .08s cubic-bezier(.3,.7,.2,1)}
+.sf-btn[data-state="loading"] .sf-label,.sf-btn[data-state="done"] .sf-label{opacity:0;transform:translate(-50%,-80%)}
+.sf-btn[data-state="done"]{background:#16a34a}
+.sf-btn[data-state="done"] .sf-done{opacity:1}
+.sf-btn[data-state="done"] .sf-check{stroke-dashoffset:0}
+.sf-btn:focus-visible{outline:2px solid #4338ca;outline-offset:3px}
+.sf-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sf-ghost{position:absolute;left:0;top:0;z-index:2;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-success-feedback[data-auto="on"] .sf-ghost{opacity:1}
+.sf-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-reduced-motion:reduce){.sf-btn,.sf-btn>*,.sf-check{transition:none}.sf-btn[data-state="loading"] .sf-spin{animation:none;stroke-dasharray:none;opacity:.5}.sf-bag.is-bump{animation:none}}
+@media (max-height:260px){
+  .demo-success-feedback{width:calc(100vw - 40px)}
+  .sf-stage{height:calc(100vh - 40px);gap:12px}
+  .sf-bag{right:10px;top:10px;width:28px;height:28px}.sf-bag svg{width:15px;height:15px}
+  .sf-thumb{width:34px;height:34px;border-radius:8px}.sf-name{font-size:12px}.sf-price{font-size:10.5px}
+  .sf-btn{width:160px;height:38px;font-size:12px;border-radius:10px}
+  .sf-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-success-feedback');
+  var stage=root.querySelector('.sf-stage'),ghost=root.querySelector('.sf-ghost'),read=root.querySelector('.sf-read code'),status=root.querySelector('.sf-status');
+  var btn=root.querySelector('.sf-btn'),label=root.querySelector('.sf-label'),doneLabel=root.querySelector('.sf-done-label'),name=root.querySelector('.sf-name'),bag=root.querySelector('.sf-bag'),count=root.querySelector('.sf-count');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,lastT=0,n=0,timers=[];
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){name.textContent=zh()?'余烬台灯':'Ember desk lamp';label.textContent=zh()?'加入购物袋':'Add to bag';doneLabel.textContent=zh()?'已加入':'Added';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function later(f,ms){timers.push(setTimeout(f,ms));}
+  // One click walks through three states; clicks while busy are ignored, so it cannot add twice.
+  function submit(){
+    if(btn.dataset.state!=='idle')return;
+    btn.dataset.state='loading';btn.setAttribute('aria-busy','true');status.textContent=zh()?'正在加入…':'Adding…';
+    read.textContent=zh()?'加载中：文字让位给转圈，按钮宽度不变，期间不能重复点击':'loading: the label makes room for a spinner; same width; extra clicks ignored';
+    later(function(){
+      btn.dataset.state='done';btn.removeAttribute('aria-busy');n++;count.textContent=n;bag.classList.remove('is-bump');void bag.offsetWidth;bag.classList.add('is-bump');
+      status.textContent=zh()?'已加入购物袋':'Added to bag';read.textContent=zh()?'成功：变绿，画出对勾，右上角购物袋 +1':'success: turns green, the tick draws itself, the bag count goes up';
+      later(function(){btn.dataset.state='idle';read.textContent=zh()?'1.8 秒后回到初始状态':'back to idle after 1.8 s';},1800);
+    },900);
+  }
+  btn.addEventListener('click',function(){if(!auto)submit();});
+  function pt(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function seg(t,t0,t1,a,b){var q=ease(Math.min(1,Math.max(0,(t-t0)/(t1-t0))));return [a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q];}
+  stage.addEventListener('pointermove',function(){if(root.dataset.auto==='on')setAuto(false);clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();lastT=0;resume();}},1800);});
+  function tick(now){
+    raf=0;if(!visible||!auto)return;
+    var t=(Math.max(0,now-start)/1000)%5.2,w=stage.clientWidth,h=stage.clientHeight,rest=[w*.66,h-20],B=pt(btn,.62,.55),p;
+    if(t<.8)p=seg(t,0,.8,rest,B);else if(t<2.2)p=B;else p=seg(t,2.2,3,B,rest);
+    if(lastT<1&&t>=1)submit();
+    if(n>=9){n=0;}
+    ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)'+(t>=1&&t<1.13?' scale(.85)':'');
+    lastT=t;raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible&&auto)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);
+  if(reduce){
+    root.dataset.auto='on';btn.dataset.state='done';n=1;count.textContent='1';
+    var p=pt(btn,.62,.55);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：不转圈，状态直接切换':'reduced motion: no spin, states switch directly';
+  }
+  resume();
+})();
+</script>

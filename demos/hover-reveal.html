@@ -1,0 +1,106 @@
+<div class="demo demo-hover-reveal">
+  <div class="hr-stage">
+    <span class="hr-head">Three reasons</span>
+    <div class="hr-row">
+      <a class="hr-card" href="#" data-k="0"><span class="hr-fill" aria-hidden="true"></span><span class="hr-num">01</span><b class="hr-title">Dimmable</b><span class="hr-line">From reading light to night light.</span><svg class="hr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></a>
+      <a class="hr-card" href="#" data-k="1"><span class="hr-fill" aria-hidden="true"></span><span class="hr-num">02</span><b class="hr-title">USB-C</b><span class="hr-line">Runs from the laptop charger.</span><svg class="hr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="8" rx="4"/><path d="M9 12h6"/></svg></a>
+      <a class="hr-card" href="#" data-k="2"><span class="hr-fill" aria-hidden="true"></span><span class="hr-num">03</span><b class="hr-title">Silent</b><span class="hr-line">No fan, no hum, no click.</span><svg class="hr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l4 6M21 9l-4 6"/></svg></a>
+    </div>
+    <svg class="hr-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="hr-read"><code>fill grows from the edge the pointer entered</code></p>
+</div>
+<style>
+.demo-hover-reveal{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-hover-reveal *{box-sizing:border-box}
+.hr-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:0 22px}
+.hr-head{color:#6b6f7a;font-size:11px;letter-spacing:.06em}
+.hr-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hr-card{position:relative;display:flex;flex-direction:column;gap:4px;min-height:132px;padding:14px;border-radius:12px;background:#fff;border:1px solid #e4e2da;color:#1c1d21;text-decoration:none;isolation:isolate}
+.hr-fill{position:absolute;inset:-1px;z-index:-1;border-radius:12px;background:#4338ca;clip-path:circle(0% at var(--x,50%) var(--y,50%));transition:clip-path .5s cubic-bezier(.3,.7,.2,1)}
+.hr-card.is-on .hr-fill{clip-path:circle(150% at var(--x,50%) var(--y,50%))}
+.hr-num{font:500 18px/1 Georgia,serif;color:#9a9da6;transition:color .3s}
+.hr-title{font-size:14px;margin-top:6px;transition:color .3s}
+.hr-line{font-size:11.5px;color:#5b5e67;transition:color .3s}
+.hr-card.is-on .hr-num,.hr-card.is-on .hr-line{color:rgba(255,255,255,.75)}
+.hr-card.is-on .hr-title{color:#fff}
+.hr-icon{position:absolute;right:12px;top:12px;width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;opacity:0;transform:translate(-4px,4px) scale(.8);transition:opacity .3s .08s,transform .4s .08s cubic-bezier(.3,.7,.2,1)}
+.hr-card.is-on .hr-icon{opacity:1;transform:none}
+.demo-hover-reveal .hr-card,.demo-hover-reveal .hr-card:hover,.demo-hover-reveal .hr-card *{text-decoration:none}
+.hr-card:focus-visible{outline:2px solid #4338ca;outline-offset:3px}
+.hr-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-hover-reveal[data-auto="on"] .hr-ghost{opacity:1}
+.hr-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.hr-stage{padding:0 14px}.hr-row{gap:7px}.hr-card{padding:11px}.hr-line{font-size:10.5px}}
+@media (prefers-reduced-motion:reduce){.hr-fill,.hr-icon,.hr-num,.hr-title,.hr-line{transition:none}}
+@media (max-height:260px){
+  .demo-hover-reveal{width:calc(100vw - 40px)}
+  .hr-stage{height:calc(100vh - 40px);padding:0 12px 22px;gap:5px}
+  .hr-head{font-size:9.5px}.hr-row{gap:7px}
+  .hr-card{min-height:0;height:calc(100vh - 100px);max-height:104px;padding:9px;border-radius:10px;gap:2px}.hr-fill{border-radius:10px}
+  .hr-num{font-size:13px}.hr-title{font-size:11.5px;margin-top:3px}.hr-line{font-size:9px;line-height:1.3}
+  .hr-icon{width:16px;height:16px;right:8px;top:8px}
+  .hr-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-hover-reveal');
+  var stage=root.querySelector('.hr-stage'),ghost=root.querySelector('.hr-ghost'),read=root.querySelector('.hr-read code'),head=root.querySelector('.hr-head');
+  var cards=[].slice.call(root.querySelectorAll('.hr-card'));
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,on=null;
+  var EN=[['Dimmable','From reading light to night light.'],['USB-C','Runs from the laptop charger.'],['Silent','No fan, no hum, no click.']];
+  var ZH=[['无级调光','从看书的亮度调到小夜灯。'],['USB-C 供电','笔记本充电器就能用。'],['完全静音','没有风扇，没有电流声。']];
+  var SIDE={en:{left:'left',right:'right',top:'top',bottom:'bottom'},zh:{left:'左边',right:'右边',top:'上边',bottom:'下边'}};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){var d=zh()?ZH:EN;head.textContent=zh()?'三个理由':'Three reasons';cards.forEach(function(c,i){c.querySelector('.hr-title').textContent=d[i][0];c.querySelector('.hr-line').textContent=d[i][1];});}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function rect(el){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return {l:r.left-s.left,t:r.top-s.top,w:r.width,h:r.height};}
+  // Snap the pointer to the nearest edge of the card: that edge is where the colour starts (or where it leaves).
+  function edge(card,x,y){
+    var r=rect(card),fx=(x-r.l)/r.w,fy=(y-r.t)/r.h,d={left:fx,right:1-fx,top:fy,bottom:1-fy},side='left';
+    for(var k in d)if(d[k]<d[side])side=k;
+    fx=Math.max(0,Math.min(1,fx));fy=Math.max(0,Math.min(1,fy));
+    if(side==='left')fx=0;if(side==='right')fx=1;if(side==='top')fy=0;if(side==='bottom')fy=1;
+    card.style.setProperty('--x',(fx*100).toFixed(0)+'%');card.style.setProperty('--y',(fy*100).toFixed(0)+'%');
+    return side;
+  }
+  function enter(card,x,y){var s=edge(card,x,y);void card.offsetWidth;card.classList.add('is-on');read.textContent=(zh()?'从'+SIDE.zh[s]+'进入卡片 '+(+card.dataset.k+1)+' · 底色从这里铺开':'entered card '+(+card.dataset.k+1)+' from the '+s+' · the fill grows from there');}
+  function leave(card,x,y){var s=edge(card,x,y);card.classList.remove('is-on');read.textContent=(zh()?'从'+SIDE.zh[s]+'离开 · 底色往这边收走':'left through the '+s+' · the fill retracts that way');}
+  function hit(x,y){for(var i=0;i<cards.length;i++){var r=rect(cards[i]);if(x>=r.l&&x<=r.l+r.w&&y>=r.t&&y<=r.t+r.h)return cards[i];}return null;}
+  function track(x,y){var c=hit(x,y);if(c!==on){if(on)leave(on,x,y);if(c)enter(c,x,y);on=c;}}
+  function plan(){
+    var a=rect(cards[0]),b=rect(cards[1]),c=rect(cards[2]),below=a.t+a.h+6,above=a.t-9;
+    var start=[a.l+a.w*.5,below];
+    return [[0,start],[.8,[a.l+a.w*.5,a.t+a.h*.55]],[1.8,[a.l+a.w*.45,a.t+a.h*.5]],[2.4,[a.l+a.w*.5,above]],[3,[b.l+b.w*.5,above]],[3.6,[b.l+b.w*.5,b.t+b.h*.5]],[4.6,[b.l+b.w*.55,b.t+b.h*.55]],[5.4,[c.l+c.w*.45,c.t+c.h*.5]],[6.3,[c.l+c.w*.5,c.t+c.h*.55]],[6.9,[c.l+c.w*.5,below]],[7.8,start],[8.4,start]];
+  }
+  function along(path,t){
+    var T=path[path.length-1][0];t=t%T;
+    for(var i=1;i<path.length;i++){if(t<=path[i][0]){var a=path[i-1],b=path[i],p=b[0]>a[0]?ease((t-a[0])/(b[0]-a[0])):1;return [a[1][0]+(b[1][0]-a[1][0])*p,a[1][1]+(b[1][1]-a[1][1])*p];}}
+    return path[0][1];
+  }
+  cards.forEach(function(c){c.addEventListener('click',function(e){e.preventDefault();});c.addEventListener('focus',function(){if(!auto){c.style.setProperty('--x','0%');c.style.setProperty('--y','50%');c.classList.add('is-on');}});c.addEventListener('blur',function(){if(!auto)c.classList.remove('is-on');});});
+  stage.addEventListener('pointermove',function(e){
+    if(root.dataset.auto==='on'){setAuto(false);if(on)on.classList.remove('is-on');on=null;}clearTimeout(idle);
+    var s=stage.getBoundingClientRect();track(e.clientX-s.left,e.clientY-s.top);
+  });
+  stage.addEventListener('pointerleave',function(e){var s=stage.getBoundingClientRect();if(!auto)track(e.clientX-s.left,e.clientY-s.top);if(on){on.classList.remove('is-on');on=null;}clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();resume();}},1800);});
+  function tick(now){
+    raf=0;if(!visible||!auto)return;
+    var p=along(plan(),Math.max(0,now-start)/1000);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';track(p[0],p[1]);
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible&&auto)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);
+  if(reduce){
+    root.dataset.auto='on';var r=rect(cards[1]);cards[1].style.setProperty('--x','50%');cards[1].style.setProperty('--y','0%');cards[1].classList.add('is-on');
+    ghost.style.transform='translate('+(r.l+r.w*.55).toFixed(1)+'px,'+(r.t+r.h*.5).toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：底色直接出现，不做铺开动画':'reduced motion: the fill appears at once, no sweep';
+  }
+  resume();
+})();
+</script>

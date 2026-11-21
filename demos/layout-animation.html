@@ -1,0 +1,124 @@
+<div class="demo demo-layout-animation">
+  <div class="la-stage">
+    <div class="la-bag">
+      <div class="la-head"><b class="la-title">Bag</b><span class="la-n">3</span></div>
+      <ul class="la-list" aria-live="polite"></ul>
+    </div>
+    <div class="la-side">
+      <span class="la-side-title">Goes well with</span>
+      <div class="la-chips"></div>
+      <div class="la-total"><span class="la-total-label">Total</span><b class="la-sum">$0</b></div>
+      <label class="la-switch"><input type="checkbox" checked> <span class="la-switch-label">Layout transition</span></label>
+    </div>
+    <svg class="la-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="la-read"><code>add or remove an item · the others glide to their new place</code></p>
+</div>
+<style>
+.demo-layout-animation{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-layout-animation *{box-sizing:border-box}
+.la-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:grid;grid-template-columns:1.45fr 1fr;gap:14px;align-items:center;padding:0 18px}
+.la-bag{background:#fff;border:1px solid #e4e2da;border-radius:12px;padding:10px 10px 6px}
+.la-head{display:flex;align-items:center;gap:6px;padding:0 4px 6px}
+.la-title{font-size:13px}.la-n{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#eef0ff;color:#4338ca;font:700 10px/18px system-ui,sans-serif;text-align:center}
+.la-list{list-style:none;margin:0;padding:0;height:168px}
+.la-row{display:flex;align-items:center;gap:8px;height:36px;margin-bottom:6px;padding:0 6px 0 8px;border-radius:9px;background:#f7f6f2}
+.la-sw{width:12px;height:12px;border-radius:4px;flex:none}
+.la-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.la-price{color:#6b6f7a;font:11px ui-monospace,SFMono-Regular,Menlo,monospace}
+.la-x{width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:#8a8d96;font:16px/1 inherit;cursor:pointer}
+.la-x:hover{background:#ebe9e2;color:#1c1d21}
+.la-side{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.la-side-title{color:#6b6f7a;font-size:11px}
+.la-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:28px}
+.la-chip{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border:1px dashed #b9b6ab;border-radius:999px;background:transparent;color:#1c1d21;font:600 11.5px/1 inherit;cursor:pointer;white-space:nowrap}
+.la-chip:hover:not(:disabled){border-style:solid;border-color:#4338ca;color:#4338ca}.la-chip:disabled{opacity:.45;cursor:not-allowed}
+.la-total{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.la-total-label{color:#6b6f7a;font-size:11px}.la-sum{font:700 18px/1 ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.la-switch{display:flex;align-items:center;gap:6px;color:#4b4e57;font-size:11px;cursor:pointer}
+.la-x:focus-visible,.la-chip:focus-visible{outline:2px solid #4338ca;outline-offset:2px}
+.la-ghost{position:absolute;left:0;top:0;z-index:2;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-layout-animation[data-auto="on"] .la-ghost{opacity:1}
+.la-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.la-stage{grid-template-columns:1.5fr 1fr;padding:0 12px;gap:10px}.la-chip{padding:0 8px}}
+@media (max-height:260px){
+  .demo-layout-animation{width:calc(100vw - 40px);font-size:11px}
+  .la-stage{height:calc(100vh - 40px);padding:0 10px;gap:9px;grid-template-columns:1.6fr 1fr}
+  .la-bag{padding:6px 6px 2px;border-radius:10px}.la-head{padding:0 3px 4px}.la-title{font-size:11px}.la-n{height:15px;line-height:15px;font-size:9px}
+  .la-list{height:108px}.la-row{height:24px;margin-bottom:3px;gap:6px;padding:0 4px 0 6px;border-radius:7px}
+  .la-sw{width:9px;height:9px;border-radius:3px}.la-price{font-size:9.5px}.la-x{width:16px;height:16px;font-size:12px}
+  .la-side{gap:5px}.la-side-title{font-size:9.5px}.la-chips{gap:4px;min-height:22px}.la-chip{height:22px;padding:0 7px;font-size:10px}
+  .la-total-label{font-size:9.5px}.la-sum{font-size:14px}
+  .la-switch{display:none}.la-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-layout-animation');
+  var stage=root.querySelector('.la-stage'),list=root.querySelector('.la-list'),chips=root.querySelector('.la-chips'),sum=root.querySelector('.la-sum'),nEl=root.querySelector('.la-n'),ghost=root.querySelector('.la-ghost'),read=root.querySelector('.la-read code'),toggle=root.querySelector('.la-switch input');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ITEMS={lamp:{en:'Desk lamp',zh:'台灯',p:129,c:'#f59e0b'},bulb:{en:'Warm bulb',zh:'暖光灯泡',p:12,c:'#fcd34d'},shade:{en:'Linen shade',zh:'亚麻灯罩',p:39,c:'#a8a29e'},cable:{en:'Braided cable',zh:'编织电源线',p:19,c:'#6366f1'},stand:{en:'Oak stand',zh:'橡木底座',p:45,c:'#a16207'}};
+  var ORDER=['lamp','bulb','shade','cable','stand'];
+  var bag=['lamp','bulb','shade'],auto=!reduce,visible=true,raf=0,idle,stepNo=0,busy=false,timer=0,gx=0,gy=0;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function nm(k){return ITEMS[k][zh()?'zh':'en'];}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function animated(){return !reduce&&toggle.checked&&!!Element.prototype.animate;}
+  function row(k){var li=document.createElement('li');li.className='la-row';li.dataset.k=k;li.innerHTML='<i class="la-sw" style="background:'+ITEMS[k].c+'"></i><span class="la-name"></span><span class="la-price">$'+ITEMS[k].p+'</span><button class="la-x" type="button">×</button>';li.querySelector('.la-name').textContent=nm(k);li.querySelector('.la-x').setAttribute('aria-label',(zh()?'移除':'Remove ')+nm(k));li.querySelector('.la-x').addEventListener('click',function(){if(!auto)remove(k);});return li;}
+  function chip(k){var b=document.createElement('button');b.type='button';b.className='la-chip';b.dataset.k=k;b.textContent='+ '+nm(k);b.addEventListener('click',function(){if(!auto)add(k);});return b;}
+  function rects(){var m={};[].forEach.call(root.querySelectorAll('.la-row,.la-chip'),function(el){m[el.className+':'+el.dataset.k]=el.getBoundingClientRect();});return m;}
+  // FLIP: remember where every row and chip was, change the DOM, then animate each from its old spot to the new one.
+  function flip(before,entered){
+    var moved=0,dist=0;
+    [].forEach.call(root.querySelectorAll('.la-row,.la-chip'),function(el){
+      var a=before[el.className+':'+el.dataset.k],b=el.getBoundingClientRect();
+      if(!a){if(el===entered)el.animate([{opacity:0,transform:'scale(.92)'},{opacity:1,transform:'none'}],{duration:260,easing:'cubic-bezier(.2,.8,.2,1)'});return;}
+      var dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)<.5&&Math.abs(dy)<.5)return;
+      moved++;dist=Math.max(dist,Math.round(Math.hypot(dx,dy)));
+      el.animate([{transform:'translate('+dx+'px,'+dy+'px)'},{transform:'none'}],{duration:320,easing:'cubic-bezier(.2,.8,.2,1)'});
+    });
+    return [moved,dist];
+  }
+  function render(){
+    var total=0;bag.forEach(function(k){total+=ITEMS[k].p;});sum.textContent='$'+total;nEl.textContent=bag.length;[].forEach.call(chips.children,function(c){c.disabled=bag.length>=4;c.title=bag.length>=4?(zh()?'演示里最多 4 件，先移除一件':'Up to 4 items in this demo; remove one first'):'';});
+  }
+  function report(verb,k,r){read.textContent=animated()?(zh()?verb+'「'+nm(k)+'」· '+r[0]+' 个元素平滑挪到新位置（最远 '+r[1]+'px，320ms）':verb+' "'+nm(k)+'" · '+r[0]+' items glide to their new place (up to '+r[1]+'px, 320ms)'):(zh()?verb+'「'+nm(k)+'」· 过渡关闭：其它元素直接跳到新位置':verb+' "'+nm(k)+'" · transition off: everything else jumps');}
+  function add(k){
+    if(busy||bag.indexOf(k)>=0||bag.length>=4)return;
+    var before=rects();bag.unshift(k);var li=row(k);list.insertBefore(li,list.firstChild);var c=chips.querySelector('[data-k="'+k+'"]');if(c)c.remove();render();
+    report(zh()?'加入':'added',k,animated()?flip(before,li):[0,0]);
+  }
+  function remove(k){
+    var li=list.querySelector('[data-k="'+k+'"]');if(busy||!li)return;
+    function finish(){var before=rects();li.remove();bag.splice(bag.indexOf(k),1);var c=chip(k),next=null;[].forEach.call(chips.children,function(x){if(!next&&ORDER.indexOf(x.dataset.k)>ORDER.indexOf(k))next=x;});chips.insertBefore(c,next);render();report(zh()?'移除':'removed',k,animated()?flip(before,c):[0,0]);busy=false;}
+    if(!animated()){finish();return;}
+    busy=true;var a=li.animate([{opacity:1,transform:'none'},{opacity:0,transform:'translateX(10px)'}],{duration:170,easing:'ease-in',fill:'forwards'});a.onfinish=finish;
+  }
+  function build(){list.innerHTML='';chips.innerHTML='';bag.forEach(function(k){list.appendChild(row(k));});ORDER.forEach(function(k){if(bag.indexOf(k)<0)chips.appendChild(chip(k));});render();}
+  function text(){root.querySelector('.la-title').textContent=zh()?'购物袋':'Bag';root.querySelector('.la-side-title').textContent=zh()?'搭配购买':'Goes well with';root.querySelector('.la-total-label').textContent=zh()?'合计':'Total';root.querySelector('.la-switch-label').textContent=zh()?'布局过渡':'Layout transition';build();}
+  function pt(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  // Auto: alternate between adding the first suggestion and removing a row, one step every 1.9 s.
+  function stepAuto(){
+    if(!auto||!visible)return;
+    var adding=bag.length<4&&(stepNo%2===0||bag.length<=3),target,act;
+    if(adding){var c=chips.firstElementChild;if(!c){adding=false;}else{target=c;act=function(){add(c.dataset.k);};}}
+    if(!adding){var rows=list.children,r=rows[(stepNo*2+1)%rows.length],k=r.dataset.k;target=r.querySelector('.la-x');act=function(){remove(k);};}
+    var from=[gx,gy],to=pt(target,.5,.55),t0=performance.now();
+    cancelAnimationFrame(raf);
+    (function move(now){var p=Math.min(1,(now-t0)/750),q=ease(p);gx=from[0]+(to[0]-from[0])*q;gy=from[1]+(to[1]-from[1])*q;ghost.style.transform='translate('+gx.toFixed(1)+'px,'+gy.toFixed(1)+'px)';if(p<1&&auto){raf=requestAnimationFrame(move);}else if(auto){ghost.style.transform+=' scale(.85)';setTimeout(function(){ghost.style.transform='translate('+gx.toFixed(1)+'px,'+gy.toFixed(1)+'px)';},130);act();}})(t0);
+    stepNo++;timer=setTimeout(stepAuto,1900);
+  }
+  stage.addEventListener('pointermove',function(){if(root.dataset.auto==='on'){setAuto(false);clearTimeout(timer);cancelAnimationFrame(raf);}clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce&&!auto){setAuto(true);stepAuto();}},1800);});
+  toggle.addEventListener('change',function(){read.textContent=toggle.checked?(zh()?'布局过渡：开':'layout transition: on'):(zh()?'布局过渡：关（对比用）':'layout transition: off (for comparison)');});
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){var was=visible;visible=es[0].isIntersecting;if(visible&&!was&&auto){clearTimeout(timer);timer=setTimeout(stepAuto,600);}}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);
+  var s0=pt(list,.5,1);gx=s0[0];gy=Math.min(stage.clientHeight-22,s0[1]);ghost.style.transform='translate('+gx+'px,'+gy+'px)';
+  if(reduce){
+    root.dataset.auto='on';var c=chips.firstElementChild;var p=pt(c,.5,.55);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：增删时其它元素直接跳到新位置':'reduced motion: other items jump straight to their new place';
+  }else timer=setTimeout(stepAuto,900);
+})();
+</script>

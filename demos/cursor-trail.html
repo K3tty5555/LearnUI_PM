@@ -1,0 +1,84 @@
+<div class="demo demo-cursor-trail">
+  <div class="ct-stage">
+    <div class="ct-copy"><span class="ct-kicker">2026 · night edition</span><b class="ct-title">Same lamp,<br>after dark.</b></div>
+    <canvas class="ct-canvas" aria-hidden="true"></canvas>
+    <svg class="ct-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="ct-read"><code>points 0 · life 380ms · width 1 → 6px</code></p>
+</div>
+<style>
+.demo-cursor-trail{width:min(560px,calc(100vw - 80px));color:#f4f4f5;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-cursor-trail *{box-sizing:border-box}
+.ct-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:radial-gradient(90% 120% at 85% 10%,#2a1c2e,#0e0f13 60%);display:flex;align-items:flex-end;padding:22px 26px}
+.ct-copy{display:flex;flex-direction:column;gap:6px}
+.ct-kicker{color:#f9a8a0;font:600 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}
+.ct-title{font:800 30px/1.05 "Avenir Next","Helvetica Neue",Arial,"PingFang SC",sans-serif;letter-spacing:-.02em}
+.ct-canvas{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.ct-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-cursor-trail[data-auto="on"] .ct-ghost{opacity:1}
+.ct-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-height:260px){
+  .demo-cursor-trail{width:calc(100vw - 40px)}
+  .ct-stage{height:calc(100vh - 40px);padding:14px 16px}
+  .ct-kicker{font-size:8.5px}.ct-title{font-size:19px}
+  .ct-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-cursor-trail');
+  var stage=root.querySelector('.ct-stage'),canvas=root.querySelector('.ct-canvas'),ctx=canvas.getContext('2d'),ghost=root.querySelector('.ct-ghost'),read=root.querySelector('.ct-read code');
+  var title=root.querySelector('.ct-title'),kicker=root.querySelector('.ct-kicker');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LIFE=380,MAXW=6;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,pts=[],W=0,H=0,dpr=1,head=null;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){kicker.textContent=zh()?'2026 · 夜间版':'2026 · night edition';title.innerHTML=zh()?'同一盏灯，<br>天黑以后。':'Same lamp,<br>after dark.';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=stage.clientWidth;H=stage.clientHeight;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
+  function add(x,y,now){var l=pts[pts.length-1];if(!l||Math.hypot(x-l.x,y-l.y)>1.5)pts.push({x:x,y:y,t:now});head={x:x,y:y};}
+  // Each segment is drawn thinner and fainter the older it is; old points are dropped, so when the pointer stops the tail shrinks back into it.
+  function draw(now,frozen){
+    ctx.clearRect(0,0,W,H);
+    if(!frozen)while(pts.length&&now-pts[0].t>LIFE)pts.shift();
+    for(var i=1;i<pts.length;i++){
+      var a=pts[i-1],b=pts[i],f=frozen?i/pts.length:Math.max(0,1-(now-b.t)/LIFE);
+      ctx.strokeStyle='rgba('+Math.round(255)+','+Math.round(122+90*f)+','+Math.round(89+13*f)+','+(f*.95).toFixed(3)+')';
+      ctx.lineWidth=1+(MAXW-1)*f;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    }
+    if(head&&(pts.length||frozen)){ctx.fillStyle='rgba(255,214,102,.95)';ctx.beginPath();ctx.arc(head.x,head.y,2.6,0,Math.PI*2);ctx.fill();}
+    read.textContent='points '+pts.length+' · life '+LIFE+'ms · width 1 → '+MAXW+'px';
+  }
+  // Auto path: sweeps with changes of speed and two full stops, so the shrinking tail is visible.
+  function autoPoint(t){
+    var T=7.2;t=t%T;var u;
+    if(t<2.6)u=t/2.6*Math.PI*2;else if(t<3.4)u=Math.PI*2;else if(t<6.2)u=Math.PI*2+(t-3.4)/2.8*Math.PI*2;else u=Math.PI*4;
+    var mx=W*.5,my=H*.48,ax=W*.36,ay=H*.3;
+    return [mx+ax*Math.sin(u*1),my+ay*Math.sin(u*2+.5)];
+  }
+  stage.addEventListener('pointermove',function(e){
+    if(root.dataset.auto==='on'){setAuto(false);pts=[];}clearTimeout(idle);
+    if(reduce)return;var s=stage.getBoundingClientRect();add(e.clientX-s.left,e.clientY-s.top,performance.now());resume();
+  });
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();pts=[];resume();}},1800);});
+  function tick(now){
+    raf=0;if(!visible)return;
+    if(auto){var p=autoPoint(Math.max(0,now-start)/1000);add(p[0],p[1],now);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';}
+    draw(now,false);
+    if(auto||pts.length)raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(reduce)return;if(!raf&&visible)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  if('ResizeObserver' in window)new ResizeObserver(function(){size();if(reduce)still();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  function still(){
+    // Reduced motion: no live trail. A frozen sample shows what the effect looks like.
+    pts=[];for(var i=0;i<=26;i++){var u=Math.PI*.15+i/26*Math.PI*.9;pts.push({x:W*.5+W*.36*Math.sin(u),y:H*.48+H*.3*Math.sin(u*2+.5),t:0});}
+    head=pts[pts.length-1];draw(0,true);ghost.style.transform='translate('+head.x.toFixed(1)+'px,'+head.y.toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：拖尾关闭（这里是静态示意）':'reduced motion: trail off (still sample shown)';
+  }
+  text();size();setAuto(auto);
+  if(reduce){root.dataset.auto='on';still();}
+  resume();
+})();
+</script>

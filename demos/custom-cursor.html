@@ -1,0 +1,107 @@
+<div class="demo demo-custom-cursor">
+  <div class="cc-stage">
+    <div class="cc-page">
+      <span class="cc-kicker">Desk lamp · three finishes</span>
+      <b class="cc-title">Light that follows you.</b>
+      <p class="cc-copy">One arm, one dial, nothing else on the desk.</p>
+      <div class="cc-actions"><button class="cc-btn cc-primary" type="button" data-cursor="grow">Buy now</button><button class="cc-btn" type="button" data-cursor="grow">Specs</button></div>
+    </div>
+    <span class="cc-ring" aria-hidden="true"></span>
+    <span class="cc-dot" aria-hidden="true"></span>
+  </div>
+  <p class="cc-read"><code>dot follows exactly · ring lags behind</code></p>
+</div>
+<style>
+.demo-custom-cursor{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-custom-cursor *{box-sizing:border-box}
+.cc-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:flex;align-items:center;padding:0 30px}
+@media (hover:hover) and (pointer:fine){.cc-stage,.cc-stage *{cursor:none}}
+.cc-page{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.cc-kicker{color:#6b6f7a;font-size:11px;letter-spacing:.04em}
+.cc-title{font:700 26px/1.15 Georgia,"Songti SC",serif}
+.cc-copy{margin:0;color:#4b4e57;font-size:12.5px}
+.cc-actions{display:flex;gap:10px;margin-top:6px}
+.cc-btn{height:36px;padding:0 18px;border-radius:999px;border:1px solid #c9c6bb;background:transparent;color:#1c1d21;font:600 13px/1 inherit}
+.cc-primary{background:#1c1d21;border-color:#1c1d21;color:#fff}
+.cc-btn:focus-visible{outline:2px solid #4338ca;outline-offset:3px}
+.cc-ring,.cc-dot{position:absolute;left:0;top:0;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .25s}
+.cc-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid #4338ca;transition:opacity .25s,width .28s cubic-bezier(.3,.7,.2,1),height .28s cubic-bezier(.3,.7,.2,1),margin .28s cubic-bezier(.3,.7,.2,1),background-color .28s}
+.cc-dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:#4338ca;transition:opacity .25s,transform 0s}
+.demo-custom-cursor[data-show="on"] .cc-ring,.demo-custom-cursor[data-show="on"] .cc-dot{opacity:1}
+.cc-ring.is-grow{width:56px;height:56px;margin:-28px 0 0 -28px;background:rgba(67,56,202,.16)}
+.cc-ring.is-down{width:26px;height:26px;margin:-13px 0 0 -13px}
+.demo-custom-cursor[data-show="on"] .cc-dot.is-hide{opacity:0}
+.cc-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.cc-stage{padding:0 20px}.cc-title{font-size:22px}}
+@media (prefers-reduced-motion:reduce){.cc-ring{transition:opacity .2s}}
+@media (max-height:260px){
+  .demo-custom-cursor{width:calc(100vw - 40px)}
+  .cc-stage{height:calc(100vh - 40px);padding:0 18px}
+  .cc-page{gap:5px}.cc-kicker{font-size:9.5px}.cc-title{font-size:17px}.cc-copy{display:none}
+  .cc-actions{gap:8px;margin-top:4px}.cc-btn{height:28px;padding:0 13px;font-size:11px}
+  .cc-ring.is-grow{width:42px;height:42px;margin:-21px 0 0 -21px}
+  .cc-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-custom-cursor');
+  var stage=root.querySelector('.cc-stage'),ring=root.querySelector('.cc-ring'),dot=root.querySelector('.cc-dot'),read=root.querySelector('.cc-read code');
+  var btns=[].slice.call(root.querySelectorAll('.cc-btn')),title=root.querySelector('.cc-title'),kicker=root.querySelector('.cc-kicker'),copy=root.querySelector('.cc-copy');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),last=start,lastT=0,idle,downUntil=0;
+  var tx=0,ty=0,rx=0,ry=0;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){var z=zh();kicker.textContent=z?'台灯 · 三种配色':'Desk lamp · three finishes';title.textContent=z?'光，跟着你走。':'Light that follows you.';copy.textContent=z?'一根灯臂，一个旋钮，桌上别无他物。':'One arm, one dial, nothing else on the desk.';btns[0].textContent=z?'立即购买':'Buy now';btns[1].textContent=z?'参数':'Specs';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function rel(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function along(path,t){
+    var T=path[path.length-1][0];t=t%T;
+    for(var i=1;i<path.length;i++){if(t<=path[i][0]){var a=path[i-1],b=path[i],p=b[0]>a[0]?ease((t-a[0])/(b[0]-a[0])):1;return [a[1][0]+(b[1][0]-a[1][0])*p,a[1][1]+(b[1][1]-a[1][1])*p];}}
+    return path[0][1];
+  }
+  function plan(){
+    var w=stage.clientWidth,h=stage.clientHeight,rest=[w*.8,h*.32];
+    return [[0,rest],[.9,rel(title,.7,.5)],[1.7,rel(title,.35,.5)],[2.5,rel(btns[0],.5,.5)],[3.6,rel(btns[0],.6,.5)],[4.2,rel(btns[1],.5,.5)],[5.2,rel(btns[1],.45,.5)],[6.1,[w*.78,h*.62]],[7,rest],[7.6,rest]];
+  }
+  function over(x,y){var s=stage.getBoundingClientRect();for(var i=0;i<btns.length;i++){var r=btns[i].getBoundingClientRect();if(x>=r.left-s.left&&x<=r.right-s.left&&y>=r.top-s.top&&y<=r.bottom-s.top)return btns[i];}return null;}
+  function setTarget(x,y){tx=x;ty=y;}
+  stage.addEventListener('pointermove',function(e){
+    if(root.dataset.auto==='on'){setAuto(false);}clearTimeout(idle);
+    var s=stage.getBoundingClientRect();setTarget(e.clientX-s.left,e.clientY-s.top);
+    root.dataset.show=(e.pointerType==='touch')?'off':'on';resume();
+  });
+  stage.addEventListener('pointerdown',function(){downUntil=performance.now()+180;});
+  stage.addEventListener('pointerleave',function(){root.dataset.show='off';clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();lastT=0;root.dataset.show='on';resume();}},1800);});
+  btns.forEach(function(b){b.addEventListener('click',function(){read.textContent=(zh()?'点击了「':'clicked "')+b.textContent+(zh()?'」：按下时圆圈收紧':'": the ring tightens on press');});});
+  function tick(now){
+    raf=0;if(!visible)return;var dt=Math.min(.05,(now-last)/1000);last=now;
+    if(auto){
+      var t=(Math.max(0,now-start)/1000)%7.6,p=along(plan(),t);setTarget(p[0],p[1]);
+      if(lastT<3.05&&t>=3.05)downUntil=now+200;
+      lastT=t;
+    }
+    // The dot sits exactly on the pointer; the ring eases toward it, which is what makes the pair feel alive.
+    var k=reduce?1:1-Math.pow(1e-5,dt);rx+=(tx-rx)*k;ry+=(ty-ry)*k;
+    dot.style.transform='translate('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px)';
+    ring.style.transform='translate('+rx.toFixed(1)+'px,'+ry.toFixed(1)+'px)';
+    var b=over(tx,ty),down=now<downUntil;
+    ring.classList.toggle('is-grow',!!b&&!down);ring.classList.toggle('is-down',down);dot.classList.toggle('is-hide',!!b);
+    var lag=Math.round(Math.hypot(tx-rx,ty-ry));
+    if(!down)read.textContent=b?(zh()?'在按钮上：圆圈放大成实心 · 小点隐藏':'over a button: ring grows and fills · dot hides'):(zh()?'小点紧跟指针 · 圆圈落后 '+lag+'px 跟上':'dot on the pointer · ring trails by '+lag+'px');
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(reduce&&root.dataset.auto==='on')return;if(!raf&&visible){last=performance.now();raf=requestAnimationFrame(tick);}}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);root.dataset.show='on';
+  var p0=plan()[0][1];tx=rx=p0[0];ty=ry=p0[1];
+  if(reduce){
+    // Reduced motion: no trailing, no size animation; the still state shows the ring grown on a button.
+    root.dataset.auto='on';var p=rel(btns[0],.55,.5);tx=rx=p[0];ty=ry=p[1];
+    dot.style.transform=ring.style.transform='translate('+p[0]+'px,'+p[1]+'px)';ring.classList.add('is-grow');dot.classList.add('is-hide');
+  }
+  resume();
+})();
+</script>

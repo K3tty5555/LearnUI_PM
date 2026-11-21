@@ -1,0 +1,98 @@
+<div class="demo demo-hover-underline">
+  <div class="hu-stage">
+    <nav class="hu-nav" aria-label="Demo navigation">
+      <b class="hu-logo">Atlas<i>.</i></b>
+      <span class="hu-links">
+        <a class="hu-link" href="#" data-k="lamps">Lamps</a>
+        <a class="hu-link" href="#" data-k="shades">Shades</a>
+        <a class="hu-link" href="#" data-k="journal">Journal</a>
+        <a class="hu-link" href="#" data-k="support">Support</a>
+      </span>
+    </nav>
+    <div class="hu-hero">
+      <b class="hu-title">A lamp for the smallest desk.</b>
+      <a class="hu-link hu-inline" href="#" data-k="notes">Read the design notes →</a>
+    </div>
+    <svg class="hu-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="hu-read"><code>hover → scaleX(1), origin left</code></p>
+</div>
+<style>
+.demo-hover-underline{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-hover-underline *{box-sizing:border-box}
+.hu-stage{position:relative;height:236px;padding:18px 24px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:flex;flex-direction:column}
+.hu-nav{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid #e4e2da}
+.hu-logo{font:700 17px/1 Georgia,"Songti SC",serif;letter-spacing:.02em}.hu-logo i{color:#4338ca;font-style:normal}
+.hu-links{display:flex;gap:20px}
+.hu-link{position:relative;display:inline-block;padding:3px 0;color:inherit;text-decoration:none;transition:color .25s}
+.hu-link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:currentColor;transform:scaleX(0);transform-origin:right center;transition:transform .34s cubic-bezier(.65,0,.35,1)}
+.hu-link:hover,.hu-link.is-hover{color:#4338ca}
+.hu-link:hover::after,.hu-link.is-hover::after{transform:scaleX(1);transform-origin:left center}
+.demo-hover-underline .hu-link,.demo-hover-underline .hu-link:hover{text-decoration:none}
+.hu-link:focus-visible{outline:2px solid #4338ca;outline-offset:3px;border-radius:2px}
+.hu-hero{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px}
+.hu-title{font:700 26px/1.15 Georgia,"Songti SC",serif;letter-spacing:-.01em;max-width:15em}
+.hu-inline{font-size:13px;color:#3a3c44}
+.hu-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-hover-underline[data-auto="on"] .hu-ghost{opacity:1}
+.hu-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:760px){.hu-stage{padding:16px 18px}.hu-links{gap:14px}.hu-title{font-size:22px}}
+@media (prefers-reduced-motion:reduce){.hu-link,.hu-link::after{transition:none}}
+@media (max-height:260px){
+  .demo-hover-underline{width:calc(100vw - 40px);font-size:11px}
+  .hu-stage{height:calc(100vh - 40px);padding:12px 14px}
+  .hu-nav{padding-bottom:8px}.hu-logo{font-size:13px}.hu-links{gap:11px}
+  .hu-title{font-size:16px}.hu-inline{font-size:10.5px}.hu-hero{gap:6px}
+  .hu-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-hover-underline');
+  var stage=root.querySelector('.hu-stage'),ghost=root.querySelector('.hu-ghost'),read=root.querySelector('.hu-read code');
+  var links=[].slice.call(root.querySelectorAll('.hu-link')),title=root.querySelector('.hu-title');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,current=null;
+  var EN={lamps:'Lamps',shades:'Shades',journal:'Journal',support:'Support',notes:'Read the design notes →'};
+  var ZH={lamps:'台灯',shades:'灯罩',journal:'手记',support:'支持',notes:'看设计手记 →'};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){var d=zh()?ZH:EN;links.forEach(function(a){a.textContent=d[a.dataset.k];});title.textContent=zh()?'小桌子也放得下的台灯。':'A lamp for the smallest desk.';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function rel(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function along(path,t){
+    var T=path[path.length-1][0];t=t%T;
+    for(var i=1;i<path.length;i++){if(t<=path[i][0]){var a=path[i-1],b=path[i],p=b[0]>a[0]?ease((t-a[0])/(b[0]-a[0])):1;return [a[1][0]+(b[1][0]-a[1][0])*p,a[1][1]+(b[1][1]-a[1][1])*p];}}
+    return path[0][1];
+  }
+  function label(a){return a?a.textContent.replace(' →',''):'';}
+  // Which link the pointer is on decides the state; CSS does the rest:
+  // origin left while hovered (grows from the left), origin right on leave (exits to the right).
+  function setHover(a){
+    if(a===current)return;
+    if(current)current.classList.remove('is-hover');
+    if(a){a.classList.add('is-hover');read.textContent='hover "'+label(a)+'" → scaleX(1), transform-origin: left';}
+    else if(current){read.textContent='leave "'+label(current)+'" → scaleX(0), transform-origin: right';}
+    current=a;
+  }
+  function hit(x,y){var s=stage.getBoundingClientRect();for(var i=0;i<links.length;i++){var r=links[i].getBoundingClientRect();if(x>=r.left-s.left-2&&x<=r.right-s.left+2&&y>=r.top-s.top-4&&y<=r.bottom-s.top+4)return links[i];}return null;}
+  function plan(){
+    var h=stage.clientHeight,w=stage.clientWidth,rest=[w*.62,h-22];
+    return [[0,rest],[.8,rel(links[0],.5,.6)],[1.6,rel(links[0],.55,.6)],[2.1,rel(links[1],.5,.6)],[2.9,rel(links[1],.55,.6)],[3.4,rel(links[2],.5,.6)],[4.2,rel(links[2],.55,.6)],[4.8,[w*.7,h*.48]],[5.6,rel(links[4],.45,.6)],[6.8,rel(links[4],.6,.6)],[7.6,rest],[8.4,rest]];
+  }
+  links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});a.addEventListener('mouseenter',function(){if(!auto)read.textContent='hover "'+label(a)+'" → scaleX(1), transform-origin: left';});a.addEventListener('mouseleave',function(){if(!auto)read.textContent='leave "'+label(a)+'" → scaleX(0), transform-origin: right';});});
+  stage.addEventListener('pointermove',function(){if(root.dataset.auto==='on'){setAuto(false);setHover(null);}clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();resume();}},1800);});
+  function tick(now){
+    raf=0;if(!visible)return;
+    if(auto){var p=along(plan(),Math.max(0,now-start)/1000);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';setHover(hit(p[0],p[1]));}
+    raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible&&auto)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);
+  if(reduce){root.dataset.auto='on';var p=rel(links[2],.55,.6);ghost.style.transform='translate('+p[0]+'px,'+p[1]+'px)';setHover(links[2]);}
+  resume();
+})();
+</script>

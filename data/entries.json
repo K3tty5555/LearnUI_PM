@@ -920,7 +920,7 @@
   ],
   "prompt": "Build the form field with full anatomy: a real <label for> above the input (clicking it focuses the field), placeholder text as a hint only — never as the label, helper text below linked via aria-describedby, and required marked with the required attribute plus a visual asterisk. On invalid input set aria-invalid=\"true\", style the red state with :user-invalid, and point aria-describedby at the error message.",
   "debugPrompt": "Debug my form field (label for/id, aria-describedby, placeholder). Rule out: the placeholder doing the label's job and vanishing on first keystroke; the label not associated so clicking it does not focus the input; error text not linked via aria-describedby so screen readers never hear it; autofill's yellow/blue fill overriding your styles (-webkit-autofill). The symptom:",
-  "description": "“The gray text inside the box that disappears when you type” is the placeholder — one of five parts of a form field that each have a real name. The word above the box is the label (<label for>), the little red star is the required indicator, the small gray line underneath is helper text, and the red line that replaces it is the validation message. Wiring them up (for/id, aria-describedby, aria-invalid) is what makes the field usable by screen readers, not just sighted users.",
+  "description": "“The gray text inside the box that disappears when you type” is the placeholder — one of five parts of a form field that each have a real name. The word above the box is the label (<label for>), the little red star is the required indicator, the small gray line underneath is helper text, and the red line that replaces it is the validation message. Wiring them up (for/id, aria-describedby, aria-invalid) is what makes the field usable by screen readers, not just sighted users. A public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") shows the validation message as error feedback: a mistyped email makes the input shake twice and a red line appears beneath it.",
   "parts": [
    {
     "id": "field-label",
@@ -3294,7 +3294,7 @@
   ],
   "prompt": "Show a Toast (Snackbar) through a role=\"status\" live region after the action succeeds. Place it in a consistent corner without blocking the page, auto-dismiss only nonessential messages after a short delay, and pause that timer while the toast is hovered or contains keyboard focus.",
   "debugPrompt": "Debug my toast (aria-live region, sonner). Rule out: no aria-live region so screen readers never announce it; the auto-dismiss timer not pausing on hover/focus; stacked toasts overlapping instead of shifting; the exit animation racing the removal so it snaps; toasts rendering under modals because of z-index order. The symptom:",
-  "description": "A toast is a compact, non-modal status message that appears in a screen corner after an action and dismisses automatically. It confirms transient outcomes such as saving or copying without interrupting the workflow. Unlike a notification banner, it does not occupy a persistent place in the page layout or demand acknowledgement.",
+  "description": "A toast is a compact, non-modal status message that appears in a screen corner after an action and dismisses automatically. It confirms transient outcomes such as saving or copying without interrupting the workflow. Unlike a notification banner, it does not occupy a persistent place in the page layout or demand acknowledgement. Also one of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\"), as an added-to-bag toast with a countdown line that dismisses itself.",
   "parts": [
    {
     "id": "toast-viewport",
@@ -3368,7 +3368,7 @@
   ],
   "prompt": "Use a Modal Dialog built with <dialog> and open it with HTMLDialogElement.showModal() so the browser places it in the top layer, makes the page behind it inert, provides ::backdrop, and supports Escape. Use a side Drawer for contextual editing or a bottom Sheet for compact/mobile actions; add a scrim and modal focus management only when those surfaces are actually modal.",
   "debugPrompt": "Debug my dialog/drawer/sheet (HTMLDialogElement, Radix Dialog, vaul). Rule out: show() used where showModal() was needed so there is no backdrop and no inert background; body scroll not locked so the page scrolls behind; focus not returned to the trigger on close; Escape closing it because onCancel is unhandled when you wanted it blocked; a nested dialog closing its parent. The symptom:",
-  "description": "A modal dialog is centered, blocks the underlying interface, and suits a short decision or focused task. A drawer slides from a side edge and preserves more visual context for browsing or editing. A sheet is edge-attached too, most often rising from the bottom for compact actions or mobile layouts; all three need explicit dismissal and managed focus when modal.",
+  "description": "A modal dialog is centered, blocks the underlying interface, and suits a short decision or focused task. A drawer slides from a side edge and preserves more visual context for browsing or editing. A sheet is edge-attached too, most often rising from the bottom for compact actions or mobile layouts; all three need explicit dismissal and managed focus when modal. Two of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") are covered here: the bag as a right-hand drawer that dims the page, and a modal that grows out of the link that opened it over a darkened, blurred background.",
   "parts": [
    {
     "id": "modal-surface",
@@ -3441,7 +3441,7 @@
   ],
   "prompt": "Use the HTML popover attribute for the click-triggered rich overlay, role=\"menu\" for the keyboard-navigable action list, and role=\"tooltip\" only for a brief non-interactive hover or focus hint. Link the tooltip from its trigger with aria-describedby, keep every overlay anchored to its trigger, and implement the correct Escape, outside-click, and focus-dismissal behavior for each pattern.",
   "debugPrompt": "Debug my popover/dropdown/tooltip (Popover API, Radix, floating-ui). Rule out: the wrong primitive — tooltips are hover+focus, never interactive content; the panel clipped by an overflow ancestor instead of portaled to body or using the top-layer Popover API; flip/shift middleware missing so it overflows at viewport edges; outside-click closing it before the inside click registers. The symptom:",
-  "description": "A popover opens on click and can contain rich text, controls, or forms; it stays until explicitly or externally dismissed. A dropdown menu also opens on click, but presents a keyboard-navigable list of actions and normally closes after selection. A tooltip is a brief, non-interactive label that appears on hover or keyboard focus and disappears when that trigger is left or blurred.",
+  "description": "A popover opens on click and can contain rich text, controls, or forms; it stays until explicitly or externally dismissed. A dropdown menu also opens on click, but presents a keyboard-navigable list of actions and normally closes after selection. A tooltip is a brief, non-interactive label that appears on hover or keyboard focus and disappears when that trigger is left or blurred. Two of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") are this pattern: a navigation dropdown that opens on hover with its items dropping in one by one, and a tooltip with a small arrow on a technical term.",
   "parts": [
    {
     "id": "overlay-trigger",
@@ -3574,7 +3574,7 @@
   ],
   "prompt": "Mark the loading region aria-busy=\"true\" and use a skeleton when the final card layout is known, preserving its geometry while data arrives. Use a spinner with role=\"status\" when the wait has no meaningful content shape, and replace either indicator when loading completes.",
   "debugPrompt": "Debug my skeleton/spinner (loading placeholders). Rule out: skeleton flashing for sub-200ms loads — add an appearance delay; the shimmer looping forever because the error state never replaces it; skeleton shapes not matching real content so the swap causes layout shift; dozens of simultaneously animating placeholders janking scroll. The symptom:",
-  "description": "A skeleton previews the geometry of content that has not arrived, reducing layout shift and making a predictable page feel faster. A spinner communicates an indeterminate wait when the eventual shape is unknown or the operation is detached from a specific layout. Neither should remain after the result or error state is available.",
+  "description": "A skeleton previews the geometry of content that has not arrived, reducing layout shift and making a predictable page feel faster. A spinner communicates an indeterminate wait when the eventual shape is unknown or the operation is detached from a specific layout. Neither should remain after the result or error state is available. A public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") includes the skeleton as one of its 26 effects: review cards that show a skeleton with a shimmer while loading.",
   "parts": [
    {
     "id": "skeleton-block",
@@ -3815,7 +3815,7 @@
   ],
   "prompt": "Build an Accordion from <details> and <summary> elements. Give grouped <details> elements the same name when only one section may be open, preserve native keyboard behavior, and animate the revealed panel without adding redundant aria-expanded; use aria-expanded only for a fully custom disclosure primitive.",
   "debugPrompt": "Debug my accordion (details/summary, Radix Accordion). Rule out: height auto refusing to animate — animate grid-template-rows 0fr to 1fr or use interpolate-size; single vs multiple type letting two panels open when one was intended; the default disclosure marker still rendering next to a custom icon; focus landing inside a closed panel because contents were hidden with opacity instead of display. The symptom:",
-  "description": "An accordion is a vertical stack of headings that disclose or hide associated content. Opening a section expands it in place and moves the sections below, with either one or several panels allowed open depending on the pattern. Native details and summary elements provide the basic disclosure semantics.",
+  "description": "An accordion is a vertical stack of headings that disclose or hide associated content. Opening a section expands it in place and moves the sections below, with either one or several panels allowed open depending on the pattern. Native details and summary elements provide the basic disclosure semantics. Also one of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\"), as an FAQ that opens one answer at a time with the plus turning into a minus.",
   "parts": [
    {
     "id": "disclosure-trigger",
@@ -3883,7 +3883,7 @@
   ],
   "prompt": "Build accessible Tabs with a role=\"tablist\", one role=\"tab\" marked aria-selected=\"true\", and a matching role=\"tabpanel\" connected with aria-controls and aria-labelledby. Keep only the active tab at tabindex=\"0\", move between tabs with Left and Right Arrow, and switch the shared panel without navigating away.",
   "debugPrompt": "Debug my tabs (role=tablist/tab/tabpanel, roving tabindex). Rule out: every tab in the Tab order instead of one roving tabindex with arrow-key movement; panels missing aria-labelledby back-references; the active indicator not moving on resize because its position was measured once; panel state lost on switch because inactive panels unmount when they should hide. The symptom:",
-  "description": "Tabs organize peer views into one shared region, with exactly one tab and panel active at a time. The selected label is visually persistent, often with an underline, and keyboard users move across the tab list with arrow keys. Use them for closely related views, not for a sequential workflow.",
+  "description": "Tabs organize peer views into one shared region, with exactly one tab and panel active at a time. The selected label is visually persistent, often with an underline, and keyboard users move across the tab list with arrow keys. Use them for closely related views, not for a sequential workflow. Also one of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\"), with an indicator that slides between tabs while the content slides in.",
   "parts": [
    {
     "id": "tab-list",
@@ -4622,7 +4622,7 @@
   ],
   "prompt": "Build an animated counter that transitions from the previous value to the next with a 450ms ease-out. Keep digits aligned with tabular numerals, format currency and separators without layout jumps, expose only the settled value to aria-live, cancel an in-flight tween when the value changes again, and render the final value immediately for prefers-reduced-motion.",
   "debugPrompt": "Debug my animated counter. Check that numeric formatting does not change width; the animation cancels cleanly on a new value; requestAnimationFrame is not left running offscreen; screen readers do not hear every intermediate number; a decrease animates as deliberately as an increase; NaN and missing values have a clear fallback; and reduced-motion renders the settled value immediately. The symptom:",
-  "description": "An animated counter turns a numeric change into a short, legible transition. It is useful when the change itself matters, such as a completed task count or a price update; it should clarify the new value rather than delay access to it.",
+  "description": "An animated counter turns a numeric change into a short, legible transition. It is useful when the change itself matters, such as a completed task count or a price update; it should clarify the new value rather than delay access to it. A public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") shows a variant called number rolling: quantity and price roll digit by digit like an odometer.",
   "parts": [
    {"id": "counter-value", "name": "Settled value", "api": "aria-live", "description": "The formatted number users ultimately need to read and act on.", "prompt": "a single live region containing only the final formatted value after the tween settles"},
    {"id": "digit-track", "name": "Digit track", "api": "tabular-nums", "description": "The aligned visual digits that move during the transition.", "prompt": "right-aligned tabular numerals with stable width while each digit changes"},
@@ -5968,7 +5968,7 @@
  ],
  "prompt": "Build a pointer-driven tilt card: on pointermove over the stage, map pointer position across the card to rotateY (±18°) and rotateX (±14°) with perspective about 760px; smooth toward the target each frame; put the text layer at translateZ(36px) and a back plate at translateZ(-18px) with preserve-3d; draw a screen-blended radial-gradient glare centred on the pointer. Ease back to flat on pointerleave. Under prefers-reduced-motion keep the card flat.",
  "debugPrompt": "Debug my tilt card. Check that perspective is on the parent, not the card; rotateX uses the vertical position and rotateY the horizontal one with the right signs (the card should lean toward the pointer); motion is smoothed rather than jumping per event; preserve-3d is not flattened by overflow or filters on the card; glare coordinates match the pointer; the card resets on pointerleave and touch; and reduced motion disables tilting. The symptom:",
- "description": "A tilt card turns pointer position into a small 3D rotation, so a flat panel feels like a physical object you can turn in the light. Inner layers at different depths add parallax, and a moving glare sells the material. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "description": "A tilt card turns pointer position into a small 3D rotation, so a flat panel feels like a physical object you can turn in the light. Inner layers at different depths add parallax, and a moving glare sells the material. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\"). Two of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") use this technique: a tilt card with a moving glare, and a hero product that turns to follow the pointer as if it were watching you.",
  "parts": [
   {
    "id": "tilt",
@@ -6134,7 +6134,7 @@
  ],
  "prompt": "Build a pointer particle field on a canvas: seed a few hundred short flakes on a jittered grid, each storing a home position; every frame, push particles within a 70px radius away from the pointer with force proportional to closeness, pull each back to its home with spring 0.035, multiply velocity by damping 0.88, and rotate each flake by its velocity so it tumbles. Brighten flakes while they move. Scale the canvas for devicePixelRatio, stop the loop offscreen, and under prefers-reduced-motion draw a still field.",
  "debugPrompt": "Debug my particle field. Check that the canvas is sized for devicePixelRatio and resized with its container; pointer coordinates are converted to canvas space; force falls off with distance and never divides by zero; spring and damping bring particles to rest without oscillating forever; the loop pauses when offscreen or hidden; particle count stays reasonable on small screens; and reduced motion shows a static field. The symptom:",
- "description": "A pointer particle field makes a background feel alive: particles rest in place, scatter from the pointer, tumble while moving, and settle back. The feel comes from three numbers: the repel radius, the spring back to home, and the damping that calms the motion. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\").",
+ "description": "A pointer particle field makes a background feel alive: particles rest in place, scatter from the pointer, tumble while moving, and settle back. The feel comes from three numbers: the repel radius, the spring back to home, and the damping that calms the motion. The name follows a public breakdown by 蓝戈AI (\"AI vibecoding: five common interaction effects\"). A public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") shows the same idea as a pointer-reactive background: a dot grid whose dots near the pointer are pushed aside and change colour.",
  "parts": [
   {
    "id": "field",
@@ -6426,7 +6426,7 @@
  ],
  "prompt": "Build these interactions with the following details: (1) a card stack that fans out by rotating each card around a transform-origin far below the stack, using one layout for both states; (2) a wheel picker whose release velocity decays by about 0.94 per frame and snaps to the nearest row only once speed drops below a threshold; (3) a draggable bottom sheet that closes when drag distance passes 40% of its height OR release velocity passes a threshold, otherwise springs back; (4) add-to-cart that flies an item on an arc made of two nested layers, outer x linear and inner y ease-out; (5) a large title whose scale, x, y and navigation bar background are all computed from one scroll progress; (6) drag-to-reorder that only changes the array order, with transitions off for the dragged row and on for the others; (7) thumbnail-to-full with FLIP: pin the full image onto the thumbnail box, then release on the next frame; (8) handwriting that draws through getCoalescedEvents(); (9) a pull-away unread badge whose root shrinks with distance, springs back before a limit and breaks past it; (10) a page push where the old page shifts back and dims while the new page slides in. Honour prefers-reduced-motion.",
  "debugPrompt": "Debug my interaction details. Check that the fan's transform-origin is outside the cards and both states use the same layout; the picker does not snap while inertia is still running; the sheet's close decision considers both distance and velocity; the cart arc uses two nested elements with different easings; every collapsing-title property reads the same progress value; the dragged row has transition: none while siblings keep theirs; the FLIP start frame is committed before the transition is enabled; coalesced events are used for strokes; the badge breaks only past its distance limit; and the previous page actually moves and dims during the push. The symptom:",
- "description": "The same gesture can feel cheap or physical depending on three things: whether the element follows the finger the whole way, which threshold decides the outcome, and how it snaps into place. These ten details apply that idea to familiar components. Each is a small implementation choice that AI-generated interfaces usually skip. The ten details follow a public breakdown by 西瓜同学 (\"10 premium interaction designs for apps and mini programs\").",
+ "description": "The same gesture can feel cheap or physical depending on three things: whether the element follows the finger the whole way, which threshold decides the outcome, and how it snaps into place. These ten details apply that idea to familiar components. Each is a small implementation choice that AI-generated interfaces usually skip. The ten details follow a public breakdown by 西瓜同学 (\"10 premium interaction designs for apps and mini programs\"). The page transition tab also matches one of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\"), where a curtain sweeps across before the checkout page appears.",
  "parts": [
   {
    "id": "stack-fan",
@@ -6554,7 +6554,7 @@
  ],
  "prompt": "Build an auto-rotating carousel: one slide visible at a time in a rounded viewport; advance every 3.2 seconds with a 550ms ease-out slide; show previous/next arrows on hover and focus, and position dots where the active dot fills as a countdown; pause auto-rotation on hover and keyboard focus; support Left/Right arrow keys; mark it up with aria-roledescription carousel/slide and hide inactive slides from assistive tech; under prefers-reduced-motion switch slides without sliding.",
  "debugPrompt": "Debug my carousel. Check that auto-rotation pauses on hover, focus and when the tab is hidden; manual navigation resets the timer instead of stacking timers; the countdown dot restarts on every change; the track wraps cleanly at both ends; inactive slides are aria-hidden and their links not focusable; arrows are reachable by keyboard; and reduced motion removes the sliding transition. The symptom:",
- "description": "A carousel shows one item from a set at a time and moves on by itself on a timer. It suits a few promotional slides of equal weight; navigation arrows, position dots and a pause on hover keep it from taking control away from people. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\").",
+ "description": "A carousel shows one item from a set at a time and moves on by itself on a timer. It suits a few promotional slides of equal weight; navigation arrows, position dots and a pause on hover keep it from taking control away from people. Listed in a public note by Sue的AI知识库 (\"8 special controls and what to call them when prompting AI\"). Also one of the 26 effects in a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\"), as a product image carousel with arrows, dragging and position dots.",
  "parts": [
   {
    "id": "viewport",
@@ -7250,5 +7250,907 @@
    "level-indicator"
   ],
   "demo": "web/context-meter"
+ },
+ {
+  "slug": "hover-underline",
+  "platform": "web",
+  "name": "Hover Underline (Link Hover State)",
+  "tagline": "A link underline that grows in from the left on hover and slides out to the right on leave",
+  "aka": [
+   "link hover effect",
+   "underline sweep",
+   "animated underline",
+   "nav link hover"
+  ],
+  "fuzzy": [
+   "the line that grows under a menu link when the mouse is on it",
+   "underline draws in from the left and leaves to the right",
+   "nav links that react when you point at them",
+   "the little bar under the menu item",
+   "hover line under text links"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": ":hover / :focus-visible",
+    "note": "the state that triggers it; give keyboard focus the same look"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "::after + transform: scaleX()",
+    "note": "the underline is a pseudo-element scaled from 0 to 1, so it never shifts the layout"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transform-origin: left → right",
+    "note": "origin left while hovered, right at rest: it enters from the left and exits to the right"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transition: transform 0.3s",
+    "note": "about 300 ms with an ease-in-out curve; turn it off for reduced motion"
+   }
+  ],
+  "prompt": "Give the navigation links a hover underline: a 2px line drawn with ::after under each link, transform: scaleX(0) at rest with transform-origin: right, and scaleX(1) with transform-origin: left on :hover and :focus-visible, transition transform 0.3s ease-in-out. The line grows in from the left and slides out to the right. The link colour also shifts to the accent. Do not use text-decoration or border-bottom (they jump instead of animating). Under prefers-reduced-motion, show and hide the line without a transition.",
+  "debugPrompt": "Debug my hover underline (::after + scaleX). Check: the line exits the same way it came in because transform-origin is only set in one state (it needs right at rest, left on hover); the pseudo-element is missing position: absolute or the link is missing position: relative, so the line spans the wrong box; text-decoration or border-bottom causes a jump; the line is at the wrong height because of line-height; keyboard focus gets no underline; reduced-motion users still see the sweep. The symptom:",
+  "description": "The plainest hover effect on a website is the link underline that draws itself in. Done well, it grows from the left when the pointer arrives and slides away to the right when it leaves, instead of reversing back. The trick is a pseudo-element scaled with transform and a transform-origin that differs between the two states. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "line",
+    "name": "Underline",
+    "api": "::after scaleX",
+    "description": "The 2px line under the link, scaled rather than resized.",
+    "prompt": "a 2px ::after underline scaled with transform: scaleX"
+   },
+   {
+    "id": "origin",
+    "name": "Direction",
+    "api": "transform-origin",
+    "description": "Left while hovered, right at rest, so it never retraces its path.",
+    "prompt": "transform-origin left on hover, right at rest"
+   },
+   {
+    "id": "state",
+    "name": "Hover and focus",
+    "api": ":hover, :focus-visible",
+    "description": "Keyboard focus gets the same underline as the pointer.",
+    "prompt": "the same underline on :focus-visible"
+   }
+  ],
+  "related": [
+   "popover-dropdown-tooltip",
+   "focus-ring-web",
+   "magnetic-button",
+   "hover-reveal",
+   "easing"
+  ],
+  "demo": "web/hover-underline"
+ },
+ {
+  "slug": "magnetic-button",
+  "platform": "web",
+  "name": "Magnetic Button",
+  "tagline": "A button that leans toward the pointer when it comes close and springs back when it leaves",
+  "aka": [
+   "magnet button",
+   "magnetic hover",
+   "cursor attraction",
+   "sticky button"
+  ],
+  "fuzzy": [
+   "the button that gets pulled toward my mouse",
+   "button follows the cursor a little then snaps back",
+   "button that wobbles back into place when I move away",
+   "the CTA that seems to stick to the pointer",
+   "button moves when the mouse is near it"
+  ],
+  "api": [
+   {
+    "framework": "JS",
+    "symbol": "pointermove + getBoundingClientRect()",
+    "note": "distance from the pointer to the button centre decides whether it is inside the pull radius"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transform: translate()",
+    "note": "move the button by a fraction of that distance (about 0.3); move the label a little more for depth"
+   },
+   {
+    "framework": "JS",
+    "symbol": "spring (stiffness + damping)",
+    "note": "a slightly underdamped spring brings it back with a wobble or two"
+   },
+   {
+    "framework": "Library",
+    "symbol": "GSAP quickTo / Motion useSpring",
+    "note": "ready-made smoothing for the same idea"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "@media (hover: hover) and prefers-reduced-motion",
+    "note": "only on mouse devices; off for reduced motion"
+   }
+  ],
+  "prompt": "Make the main call-to-action a magnetic button. Inside a radius of about 80px from its centre, translate the button toward the pointer by 0.35 of the offset and the label inside by a further 0.45 of that, with a slight scale-up. When the pointer leaves the radius, return it with an underdamped spring (stiffness ~190, damping ~9) so it wobbles back once or twice. Measure the resting centre from an untransformed wrapper, run the update in requestAnimationFrame, enable it only on (hover: hover) devices, keep the click target and keyboard focus normal, and disable the pull entirely under prefers-reduced-motion.",
+  "debugPrompt": "Debug my magnetic button. Check: the centre is measured from the transformed element, so the pull feeds back into itself and drifts (measure an untransformed wrapper); the pointer listener sits on the button only, so it never sees the pointer approaching (listen on the section); the offset is not clamped and the button escapes its row; it snaps back with no spring because the transition is a plain ease; it jitters because updates run on every event instead of once per animation frame; it runs on touch devices or for reduced-motion users. The symptom:",
+  "description": "A magnetic button notices the pointer before it arrives: within a pull radius the button slides a little toward the cursor, as if attracted, and when the cursor moves away it springs back and settles. It suits one prominent call to action, not every button on the page. The feel is set by three numbers: the radius, the pull fraction and the spring that brings it home. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "zone",
+    "name": "Pull radius",
+    "api": "distance check",
+    "description": "The circle around the button where the pull starts.",
+    "prompt": "a pull radius of about 80px around the button centre"
+   },
+   {
+    "id": "pull",
+    "name": "Pull",
+    "api": "translate × 0.35",
+    "description": "The button moves a fraction of the offset; the label moves a bit more.",
+    "prompt": "button moves 0.35 of the offset, label a little more"
+   },
+   {
+    "id": "spring",
+    "name": "Spring back",
+    "api": "stiffness + damping",
+    "description": "Leaving the radius releases it into a spring that overshoots slightly.",
+    "prompt": "an underdamped spring back to rest with one or two wobbles"
+   }
+  ],
+  "related": [
+   "tilt-card",
+   "custom-cursor",
+   "spring",
+   "hover-underline",
+   "click-ripple"
+  ],
+  "demo": "web/magnetic-button"
+ },
+ {
+  "slug": "custom-cursor",
+  "platform": "web",
+  "name": "Custom Cursor (Dot and Ring)",
+  "tagline": "The system arrow replaced by a small dot and a trailing ring that grows over things you can click",
+  "aka": [
+   "cursor follower",
+   "dot and ring cursor",
+   "magnetic cursor",
+   "cursor: none follower"
+  ],
+  "fuzzy": [
+   "replace the mouse arrow with a little dot and a circle",
+   "the circle that follows the cursor a bit late",
+   "the ring that gets bigger over buttons",
+   "custom mouse pointer on a portfolio site",
+   "the cursor turns into a filled circle on links"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "cursor: none",
+    "note": "hide the system arrow only inside the area, and only for fine pointers"
+   },
+   {
+    "framework": "JS",
+    "symbol": "pointermove → transform: translate()",
+    "note": "the dot sits exactly on the pointer; the ring eases toward it each frame"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transition: width, height",
+    "note": "the ring grows and fills over interactive elements"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "@media (hover: hover) and (pointer: fine)",
+    "note": "keep the normal cursor on touch screens"
+   },
+   {
+    "framework": "A11y",
+    "symbol": "pointer-events: none",
+    "note": "the cursor layers never block clicks or hover"
+   }
+  ],
+  "prompt": "Replace the cursor inside the hero with a custom cursor: a 7px accent dot that follows the pointer exactly and a 34px ring with a 1.5px border that eases after it (lerp about 0.18 per frame). Over buttons and links the ring grows to 56px and fills with the accent at 16% opacity while the dot hides; on press the ring tightens. Set cursor: none only inside that section and only under (hover: hover) and (pointer: fine), give both layers pointer-events: none, hide them when the pointer leaves, and under prefers-reduced-motion drop the trailing and the size animation.",
+  "debugPrompt": "Debug my custom cursor (dot + ring). Check: the system arrow is hidden on touch devices or across the whole page; the cursor layers have no pointer-events: none and block clicks; the ring jumps instead of trailing because it is set straight to the pointer (it should lerp each frame); the position uses top/left and causes layout work instead of transform; the hover state is checked against the cursor element instead of the element under the pointer; the custom cursor stays visible after the pointer leaves the window; reduced-motion users still get the lag. The symptom:",
+  "description": "A custom cursor hides the system arrow inside part of a page and draws its own: usually a small dot that sits exactly on the pointer and a ring that follows slightly late. Over buttons the ring grows into a filled circle, telling people what is clickable. It is a branding choice for showcase pages; on touch screens and in forms, the normal cursor is better. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "dot",
+    "name": "Dot",
+    "api": "translate",
+    "description": "The small dot drawn exactly at the pointer.",
+    "prompt": "a small dot exactly at the pointer"
+   },
+   {
+    "id": "ring",
+    "name": "Trailing ring",
+    "api": "lerp",
+    "description": "The ring eases toward the dot every frame, which gives it the lag.",
+    "prompt": "a ring that eases toward the dot each frame"
+   },
+   {
+    "id": "grow",
+    "name": "Hover state",
+    "api": "width/height",
+    "description": "Over clickable things the ring grows and fills.",
+    "prompt": "the ring grows and fills over buttons and links"
+   }
+  ],
+  "related": [
+   "pointer",
+   "cursor-trail",
+   "magnetic-button",
+   "cursor-spotlight",
+   "focus-ring-web"
+  ],
+  "demo": "web/custom-cursor"
+ },
+ {
+  "slug": "cursor-trail",
+  "platform": "web",
+  "name": "Cursor Trail",
+  "tagline": "A fading tail drawn behind the pointer as it moves, shrinking back into it when it stops",
+  "aka": [
+   "mouse trail",
+   "pointer trail",
+   "comet cursor",
+   "trailing cursor effect"
+  ],
+  "fuzzy": [
+   "a tail that follows the mouse",
+   "the glowing line behind the cursor",
+   "mouse leaves a streak that fades",
+   "the trail shrinks back when I stop moving",
+   "comet tail on the pointer"
+  ],
+  "api": [
+   {
+    "framework": "Canvas",
+    "symbol": "CanvasRenderingContext2D",
+    "note": "one canvas over the area; redraw the recent points each frame"
+   },
+   {
+    "framework": "JS",
+    "symbol": "pointermove + timestamped points",
+    "note": "keep points from the last ~400 ms; drop older ones so the tail retracts when the pointer stops"
+   },
+   {
+    "framework": "Canvas",
+    "symbol": "lineWidth + globalAlpha by age",
+    "note": "newer segments thicker and brighter, older ones thinner and fainter"
+   },
+   {
+    "framework": "JS",
+    "symbol": "devicePixelRatio",
+    "note": "size the canvas for sharp lines on retina screens"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "prefers-reduced-motion",
+    "note": "turn the trail off"
+   }
+  ],
+  "prompt": "Add a cursor trail to the dark showcase section: a canvas covering the section (pointer-events: none, sized by devicePixelRatio) that keeps the pointer positions from the last 380 ms with timestamps. Each frame, drop old points and draw the rest as connected segments whose width runs from 1px (oldest) to 6px (newest) and whose opacity fades with age, in a warm coral-to-amber colour, plus a small dot at the head. When the pointer stops the tail shrinks back into it. Only run the loop while there are points or the pointer is moving, keep it inside this section only, and disable it under prefers-reduced-motion.",
+  "debugPrompt": "Debug my cursor trail (canvas). Check: the canvas is not sized by devicePixelRatio, so lines are blurry; points are kept by count instead of by age, so the tail never retracts when the pointer stops; the canvas blocks clicks because it lacks pointer-events: none; the loop keeps running at 60fps when nothing moves; the canvas size is not updated on resize so points are offset; the trail covers the whole page instead of one section; reduced-motion users still see it. The symptom:",
+  "description": "A cursor trail leaves a short, fading line behind the pointer. The newest part is thick and bright, the oldest thin and faint, and because old points expire after a fraction of a second, the tail pulls back into the pointer as soon as it stops. It works as a moment of character on a dark section, not as a site-wide default. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "points",
+    "name": "Recent points",
+    "api": "timestamped array",
+    "description": "Positions from the last fraction of a second; older ones are dropped.",
+    "prompt": "pointer positions from the last ~400 ms, older ones dropped"
+   },
+   {
+    "id": "taper",
+    "name": "Taper and fade",
+    "api": "lineWidth, alpha",
+    "description": "Width and opacity fall with age, so it reads as a tail.",
+    "prompt": "width 1→6px and opacity rising from tail to head"
+   },
+   {
+    "id": "retract",
+    "name": "Retract",
+    "api": "expiry",
+    "description": "When the pointer stops, the points expire and the tail shrinks into it.",
+    "prompt": "the tail shrinks back into the pointer when it stops"
+   }
+  ],
+  "related": [
+   "custom-cursor",
+   "particle-repel",
+   "cursor-spotlight",
+   "pointer"
+  ],
+  "demo": "web/cursor-trail"
+ },
+ {
+  "slug": "hover-reveal",
+  "platform": "web",
+  "name": "Hover Reveal (Direction-aware Fill)",
+  "tagline": "A card whose colour floods in from the edge the pointer entered, uncovering a hidden icon",
+  "aka": [
+   "direction-aware hover",
+   "hover fill",
+   "reveal on hover",
+   "directional hover"
+  ],
+  "fuzzy": [
+   "the colour comes in from the side my mouse entered",
+   "the card fills with blue when I hover it",
+   "a hidden icon appears when I hover the card",
+   "hover background that follows the mouse direction",
+   "the fill leaves the way the mouse left"
+  ],
+  "api": [
+   {
+    "framework": "JS",
+    "symbol": "pointerenter / pointerleave",
+    "note": "find the nearest card edge to the entry point; that edge is where the fill starts"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "clip-path: circle(r at x y)",
+    "note": "the fill is a full-size layer clipped to a circle that grows from that point"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transition: clip-path, color",
+    "note": "the fill sweeps in about 0.5 s; text turns white with it"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "opacity + transform on the icon",
+    "note": "the hidden icon fades and slides in slightly after the fill"
+   },
+   {
+    "framework": "A11y",
+    "symbol": ":focus-visible",
+    "note": "keyboard focus shows the revealed state too"
+   }
+  ],
+  "prompt": "Give the three feature cards a direction-aware hover reveal. On pointerenter, find which edge of the card the pointer crossed and set --x/--y to that point on the edge; a full-size accent layer behind the content goes from clip-path: circle(0% at var(--x) var(--y)) to circle(150% at …) with a 0.5s ease-out, and the text turns white. A hidden icon in the top-right corner fades in and slides 4px into place 80 ms later. On pointerleave, move the circle centre to the exit edge and shrink it, so the colour leaves that way. Keyboard focus shows the filled state; under prefers-reduced-motion the fill appears without the sweep.",
+  "debugPrompt": "Debug my direction-aware hover reveal. Check: the entry point is not snapped to the nearest edge, so the fill starts in the middle; the circle radius is too small (150% of the reference size is needed to cover the far corner); the centre is updated after the class is added, so the first frame starts from the old point; the text has no stacking order above the fill and disappears; the fill layer sits outside the rounded corners; leaving retracts to the entry side because the centre is not moved to the exit point; keyboard focus never shows the state; reduced-motion users still get the sweep. The symptom:",
+  "description": "A hover reveal fills a card with colour from the side the pointer came in, then uncovers something that was hidden, such as an icon or an extra line. When the pointer leaves, the colour drains out through the side it left. It makes a row of cards feel responsive to how you move, not just whether you are over them. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "edge",
+    "name": "Entry edge",
+    "api": "nearest edge",
+    "description": "The edge the pointer crossed becomes the origin of the fill.",
+    "prompt": "the edge the pointer crossed is where the fill starts"
+   },
+   {
+    "id": "fill",
+    "name": "Fill",
+    "api": "clip-path circle",
+    "description": "A full-size colour layer revealed by a growing circle.",
+    "prompt": "a full-size accent layer revealed by a growing clip-path circle"
+   },
+   {
+    "id": "hidden",
+    "name": "Hidden content",
+    "api": "opacity + translate",
+    "description": "The icon that only appears once the card is filled.",
+    "prompt": "a hidden icon that fades and slides in after the fill"
+   }
+  ],
+  "related": [
+   "hover-card",
+   "tilt-card",
+   "hover-underline",
+   "cursor-spotlight",
+   "bento-grid"
+  ],
+  "demo": "web/hover-reveal"
+ },
+ {
+  "slug": "cursor-spotlight",
+  "platform": "web",
+  "name": "Cursor Spotlight (Glow Card)",
+  "tagline": "A soft glow that follows the pointer across dark cards, lighting up the nearby border too",
+  "aka": [
+   "spotlight card",
+   "glow card",
+   "mouse-tracking glow",
+   "spotlight border"
+  ],
+  "fuzzy": [
+   "the soft light that follows my mouse on dark cards",
+   "card border lights up near the cursor",
+   "flashlight effect on a dark page",
+   "glow under the pointer on pricing cards",
+   "the cards light up where the mouse is"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "radial-gradient(circle at var(--x) var(--y))",
+    "note": "the glow is a gradient whose centre is the pointer position in the card"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "padding: 1px + gradient background",
+    "note": "an outer box with the brighter gradient, an inner box on top: the 1px gap reads as a border that lights up"
+   },
+   {
+    "framework": "JS",
+    "symbol": "pointermove → style.setProperty()",
+    "note": "one pointer position, written into each card in its own coordinates so light spills across neighbours"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "mask-composite (alternative)",
+    "note": "another way to light only the border ring"
+   }
+  ],
+  "prompt": "Add a cursor spotlight to the dark edition cards. Track the pointer over the whole row and write its position into each card as --x/--y in that card's own coordinates. Each card is an outer box with padding: 1px whose background is radial-gradient(160px circle at var(--x) var(--y), rgba(255,206,140,.9), transparent 70%) over #26282f, and an inner box (#15161b) with a fainter 190px glow at the same point. The 1px gap reads as a border that lights up nearest the pointer, and the light spills across neighbouring cards. Fade the glow in when the pointer enters and out when it leaves, update in requestAnimationFrame, and follow without easing under prefers-reduced-motion.",
+  "debugPrompt": "Debug my cursor spotlight cards. Check: the pointer position is in page coordinates instead of each card's own, so the glow is offset; only the hovered card listens, so light cannot spill into the next card; the border glow does not show because the inner box has no solid background or the outer box has no padding; the gradient custom properties are not registered and Safari ignores calc() in the colour; the glow stays at its last position after the pointer leaves; style updates on every pointermove cause jank instead of once per frame. The symptom:",
+  "description": "A cursor spotlight puts a soft pool of light under the pointer on dark cards and brightens the stretch of border closest to it. Because the same pointer position is passed to every card, the light spills across neighbours as you move, which makes a dark grid feel like a physical surface. It reads best on dark pages with only a few cards. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "glow",
+    "name": "Surface glow",
+    "api": "radial-gradient",
+    "description": "The soft light inside the card, centred on the pointer.",
+    "prompt": "a soft radial glow inside the card centred on the pointer"
+   },
+   {
+    "id": "border",
+    "name": "Border light",
+    "api": "1px padding",
+    "description": "The outer gradient showing through a 1px gap lights the nearest stretch of border.",
+    "prompt": "a 1px border that lights up nearest the pointer"
+   },
+   {
+    "id": "shared",
+    "name": "Shared pointer",
+    "api": "per-card coordinates",
+    "description": "One position for the whole row, converted for each card.",
+    "prompt": "one pointer position converted into each card's coordinates"
+   }
+  ],
+  "related": [
+   "border-beam",
+   "tilt-card",
+   "hover-reveal",
+   "custom-cursor",
+   "liquid-glass-material"
+  ],
+  "demo": "web/cursor-spotlight"
+ },
+ {
+  "slug": "shared-element-transition",
+  "platform": "web",
+  "name": "Shared Element Transition",
+  "tagline": "Tap a card and its picture and title fly into place on the detail view, then fly back",
+  "aka": [
+   "shared element transition",
+   "hero transition",
+   "view transition",
+   "FLIP transition",
+   "magic move"
+  ],
+  "fuzzy": [
+   "the picture flies from the card into the detail page",
+   "click a card and it expands into the page",
+   "the image and the name move to the new page together",
+   "like the iOS App Store card opening",
+   "smooth transition from list to detail keeping the same image"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "view-transition-name + document.startViewTransition()",
+    "note": "the View Transitions API pairs elements with the same name across two states and animates between them"
+   },
+   {
+    "framework": "JS",
+    "symbol": "FLIP (First, Last, Invert, Play)",
+    "note": "the manual way: measure before and after, invert with a transform, play to none"
+   },
+   {
+    "framework": "JS",
+    "symbol": "Element.animate()",
+    "note": "Web Animations API runs the transform without layout work"
+   },
+   {
+    "framework": "Library",
+    "symbol": "Motion layoutId / Flutter Hero",
+    "note": "framework versions of the same pattern"
+   },
+   {
+    "framework": "A11y",
+    "symbol": "focus management + Escape",
+    "note": "move focus into the detail and back to the card on close"
+   }
+  ],
+  "prompt": "Use a shared element transition from the product grid to the detail view. When a card is clicked, the product image and the name move from their place in the card to their place in the detail view (FLIP: measure the card elements, show the detail, measure the detail elements, animate transform from the inverted offset and scale to none over 560ms with cubic-bezier(.2,.8,.2,1)). The detail background fades in under them and the description, price and buttons fade up 250ms later. Closing plays the same flight in reverse, back into the same card. Hide the originals during the flight, move focus into the detail and back on close, support Escape, prefer document.startViewTransition with view-transition-name where available, and swap instantly under prefers-reduced-motion.",
+  "debugPrompt": "Debug my shared element transition. Check: the original card image is still visible during the flight, so there are two copies; the detail is measured before it is shown (display: none gives a zero rect); transform-origin is not top left, so the inverted scale lands in the wrong place; text is scaled and looks stretched (scale the box, or cross-fade text); closing flies to the wrong card because the index is lost; the grid scroll position changes between open and close; two view-transition-name values are the same at once; focus is not returned; reduced-motion users still get the flight. The symptom:",
+  "description": "In a shared element transition, the same picture and title appear to travel from the list into the detail view: you click a card and its image and name fly to their new place, while the rest of the page changes around them. Closing sends them back. It keeps people oriented because the thing they chose never disappears. The View Transitions API now does this natively; the manual technique is FLIP. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "pair",
+    "name": "Shared elements",
+    "api": "view-transition-name",
+    "description": "The image and title that exist in both views and are paired up.",
+    "prompt": "the image and title paired between the card and the detail view"
+   },
+   {
+    "id": "flight",
+    "name": "Flight",
+    "api": "FLIP transform",
+    "description": "They move and scale from the old box to the new one.",
+    "prompt": "they move and scale from the card box to the detail box"
+   },
+   {
+    "id": "stage",
+    "name": "Everything else",
+    "api": "fade",
+    "description": "The detail background and the rest of the content fade in around them.",
+    "prompt": "the detail background and other content fade in around them"
+   },
+   {
+    "id": "return",
+    "name": "Return",
+    "api": "reverse",
+    "description": "Closing flies the same elements back into the card they came from.",
+    "prompt": "closing flies them back into the same card"
+   }
+  ],
+  "related": [
+   "interaction-details",
+   "lightbox",
+   "container-morph",
+   "layout-animation",
+   "dialog-drawer-sheet"
+  ],
+  "demo": "web/shared-element-transition"
+ },
+ {
+  "slug": "icon-morph",
+  "platform": "web",
+  "name": "Icon Morph",
+  "tagline": "One icon turns into another by moving its shapes: play into pause, an outline heart into a filled one",
+  "aka": [
+   "animated icon",
+   "icon transition",
+   "morphing icon",
+   "play pause morph",
+   "like animation"
+  ],
+  "fuzzy": [
+   "the play button turns into pause smoothly",
+   "the heart fills in with a little pop",
+   "icon changes shape instead of swapping",
+   "the like button with small dots bursting out",
+   "animated toggle icon"
+  ],
+  "api": [
+   {
+    "framework": "SVG",
+    "symbol": "path d interpolation",
+    "note": "both shapes use the same number of points in the same order, so each point can travel to its partner"
+   },
+   {
+    "framework": "JS",
+    "symbol": "requestAnimationFrame / GSAP MorphSVG / flubber",
+    "note": "interpolate the path data; CSS d transitions only work in some browsers"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "@keyframes scale",
+    "note": "the heart dips, fills and overshoots before settling"
+   },
+   {
+    "framework": "ARIA",
+    "symbol": "aria-pressed + aria-label",
+    "note": "the button state and its name change with the icon"
+   },
+   {
+    "framework": "Library",
+    "symbol": "Lottie",
+    "note": "designer-made icon animations exported as JSON"
+   }
+  ],
+  "prompt": "Animate the icon state changes in the player bar. The play button morphs into pause: draw play as two four-point shapes (the triangle split down the middle) and pause as two bars with the same point count and order, and interpolate the path d over 260ms with ease-in-out (requestAnimationFrame or GSAP MorphSVG, not a CSS d transition). While playing, a five-bar equaliser next to the label moves. The save button turns an outline heart into a filled red one: it dips to 0.7, fills, overshoots to 1.18 and settles in 460ms, with eight small dots bursting outward and fading; unsaving just returns to the outline. Update aria-pressed and the label, and swap icons instantly with no burst under prefers-reduced-motion.",
+  "debugPrompt": "Debug my icon morph. Check: the two paths have different point counts or orders, so the morph twists or flips (split the triangle into two quads that match the two bars); the CSS d transition works in Chrome but does nothing in Safari; the morph restarts from the wrong shape when clicked mid-animation (start from the current interpolated state); the heart burst plays on unsave as well; the pop animation does not replay because the class is never removed; aria-pressed and the accessible name do not change; reduced-motion users still see the morph and burst. The symptom:",
+  "description": "An icon morph changes one icon into another by moving its shapes rather than swapping images: the play triangle splits and becomes two pause bars, an outline heart dips, fills and pops with a small burst of dots. The motion confirms the tap and shows that the button now means the opposite. It works when both icons are built from matching points. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "points",
+    "name": "Matching points",
+    "api": "path d",
+    "description": "Both icons are drawn with the same number of points in the same order.",
+    "prompt": "both icons drawn with the same number of points in the same order"
+   },
+   {
+    "id": "morph",
+    "name": "Morph",
+    "api": "interpolation",
+    "description": "Every point travels to its partner over about 260 ms.",
+    "prompt": "every point travels to its partner over about 260 ms"
+   },
+   {
+    "id": "pop",
+    "name": "Pop and burst",
+    "api": "@keyframes",
+    "description": "The heart dips, fills, overshoots and sends out a ring of dots.",
+    "prompt": "the heart dips, fills, overshoots and bursts a ring of dots"
+   }
+  ],
+  "related": [
+   "hamburger-menu",
+   "switch-checkbox-radio",
+   "success-feedback",
+   "spring",
+   "container-morph"
+  ],
+  "demo": "web/icon-morph"
+ },
+ {
+  "slug": "click-ripple",
+  "platform": "web",
+  "name": "Click Ripple",
+  "tagline": "A button that dips when pressed and sends a ripple out from the exact point you touched",
+  "aka": [
+   "ripple effect",
+   "ink ripple",
+   "material ripple",
+   "touch ripple",
+   "press feedback"
+  ],
+  "fuzzy": [
+   "the circle that spreads from where I clicked the button",
+   "button wave effect on click",
+   "Material Design ink effect",
+   "the button gets pushed in when I press it",
+   "water ripple on a button"
+  ],
+  "api": [
+   {
+    "framework": "JS",
+    "symbol": "pointerdown + getBoundingClientRect()",
+    "note": "the ripple starts at the press point inside the button"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "overflow: hidden + border-radius",
+    "note": "the button clips the ripple to its own shape"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "@keyframes scale(0 → 1) + opacity",
+    "note": "a circle sized to reach the farthest corner grows and fades in about 0.65 s"
+   },
+   {
+    "framework": "CSS",
+    "symbol": ":active / transform: scale(.96)",
+    "note": "the press itself: a slight dip"
+   },
+   {
+    "framework": "Library",
+    "symbol": "Material Web md-ripple",
+    "note": "the reference implementation"
+   }
+  ],
+  "prompt": "Add press feedback to the purchase buttons: on pointerdown the button scales to 0.96 for about 120ms, and a ripple starts at the exact press point. Create a span inside the button (which has overflow: hidden and position: relative) sized to twice the distance from the press point to the farthest corner, centred on the press point, and animate it from scale(0) at 34% opacity to scale(1) at 0% over 650ms, then remove it. Use white ripples on filled buttons and accent ripples on outline buttons. Keyboard Enter/Space starts the ripple from the centre. Under prefers-reduced-motion, use a brief background tint instead of the spreading ripple.",
+  "debugPrompt": "Debug my click ripple. Check: the ripple starts at the button centre because the press point is not converted to button coordinates; it is too small to cover the far corner (size it to the farthest corner, not the width); it spills outside the button because overflow: hidden or position: relative is missing; ripple spans pile up because they are never removed; the ripple sits on top of the label and blocks the click target (pointer-events: none); it starts on click instead of pointerdown, so it feels late; keyboard activation has no feedback; reduced-motion users still see it. The symptom:",
+  "description": "A click ripple answers a press immediately: the button dips slightly and a circle of light spreads from the exact point you touched until it fills the button and fades. Starting on pointerdown, not on release, is what makes it feel instant. It became familiar through Material Design and still works for buttons that commit an action. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "origin",
+    "name": "Press point",
+    "api": "pointerdown",
+    "description": "The ripple starts where the pointer landed, not in the centre.",
+    "prompt": "the ripple starts at the press point"
+   },
+   {
+    "id": "wave",
+    "name": "Ripple",
+    "api": "scale + opacity",
+    "description": "A circle big enough to reach the far corner grows and fades.",
+    "prompt": "a circle sized to the farthest corner grows and fades in 650 ms"
+   },
+   {
+    "id": "press",
+    "name": "Press",
+    "api": "scale(.96)",
+    "description": "The button itself dips for a moment.",
+    "prompt": "the button dips to 0.96 on press"
+   },
+   {
+    "id": "clip",
+    "name": "Clip",
+    "api": "overflow: hidden",
+    "description": "The button's shape contains the ripple.",
+    "prompt": "overflow hidden keeps the ripple inside the button shape"
+   }
+  ],
+  "related": [
+   "success-feedback",
+   "magnetic-button",
+   "focus-ring-web",
+   "destructive-action",
+   "interaction-details"
+  ],
+  "demo": "web/click-ripple"
+ },
+ {
+  "slug": "success-feedback",
+  "platform": "web",
+  "name": "Success Feedback (Loading to Tick)",
+  "tagline": "A button that shows a spinner while it works, then turns into a tick when it succeeds",
+  "aka": [
+   "button loading state",
+   "stateful button",
+   "submit feedback",
+   "async button",
+   "progress button"
+  ],
+  "fuzzy": [
+   "the button spins and then shows a check mark",
+   "add to cart button that confirms it worked",
+   "the button turns green with a tick",
+   "button shows loading so I do not click twice",
+   "loading button then success"
+  ],
+  "api": [
+   {
+    "framework": "HTML",
+    "symbol": "data-state=\"idle | loading | done\"",
+    "note": "one attribute drives three looks in the same box"
+   },
+   {
+    "framework": "ARIA",
+    "symbol": "aria-busy + role=\"status\"",
+    "note": "announce \"Adding…\" and \"Added to bag\" to screen readers"
+   },
+   {
+    "framework": "SVG",
+    "symbol": "stroke-dashoffset",
+    "note": "the tick draws itself by animating its dash offset to 0"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "fixed width",
+    "note": "label, spinner and tick swap in place so nothing around the button moves"
+   },
+   {
+    "framework": "JS",
+    "symbol": "ignore clicks while busy",
+    "note": "a second click during loading must not submit twice"
+   }
+  ],
+  "prompt": "Give the Add to bag button success feedback with three states in one fixed-width box. Click: the label slides up and fades, a spinner appears and the button ignores further clicks (aria-busy, status \"Adding…\"). When the request resolves (about 900ms here), the button turns green, a tick draws itself with stroke-dashoffset over 350ms next to \"Added\", the bag count in the corner goes up with a small bump, and a status message announces \"Added to bag\". After 1.8s it returns to idle. If the request fails, show an error state instead of the tick. Under prefers-reduced-motion, no spinning or drawing: switch states directly.",
+  "debugPrompt": "Debug my loading-to-success button. Check: the button changes width between states, so the layout jumps (fix the width and stack the label, spinner and tick); a second click during loading submits again; the success state shows even when the request failed; the tick does not draw because stroke-dasharray is missing or the path length is wrong; the state never returns to idle or returns while the request is still pending; screen readers hear nothing (aria-busy and a status region); reduced-motion users still get the spin. The symptom:",
+  "description": "Success feedback walks one button through three states: the label gives way to a spinner while the request is in flight, then the button turns green with a tick that draws itself, and after a moment it returns to normal. People see that their click registered, that it worked, and that clicking again is unnecessary. It is the add-to-cart and save pattern on most shops. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "loading",
+    "name": "Loading",
+    "api": "spinner + aria-busy",
+    "description": "The label makes room for a spinner and further clicks are ignored.",
+    "prompt": "a spinner replaces the label and extra clicks are ignored"
+   },
+   {
+    "id": "done",
+    "name": "Success",
+    "api": "stroke-dashoffset",
+    "description": "The button turns green and a tick draws itself.",
+    "prompt": "the button turns green and a tick draws itself"
+   },
+   {
+    "id": "reset",
+    "name": "Reset",
+    "api": "timeout",
+    "description": "After a short hold, the button returns to its first state.",
+    "prompt": "returns to idle after about 1.8 s"
+   },
+   {
+    "id": "announce",
+    "name": "Announcement",
+    "api": "role=\"status\"",
+    "description": "The same states are spoken to screen-reader users.",
+    "prompt": "a status region announces adding and added"
+   }
+  ],
+  "related": [
+   "click-ripple",
+   "skeleton-spinner",
+   "toast",
+   "progress-indicators",
+   "animated-counter"
+  ],
+  "demo": "web/success-feedback"
+ },
+ {
+  "slug": "layout-animation",
+  "platform": "web",
+  "name": "Layout Animation (FLIP Reflow)",
+  "tagline": "When an item is added or removed, everything else glides to its new place instead of jumping",
+  "aka": [
+   "layout transition",
+   "FLIP animation",
+   "auto-animate",
+   "reorder animation",
+   "list reflow animation"
+  ],
+  "fuzzy": [
+   "the other items slide into place when I delete one",
+   "list moves smoothly when something is added",
+   "items do not jump when the cart changes",
+   "smooth reshuffle of cards",
+   "animate the gap closing"
+  ],
+  "api": [
+   {
+    "framework": "JS",
+    "symbol": "FLIP (First, Last, Invert, Play)",
+    "note": "record every item's box, change the DOM, then animate each from its old box to the new one"
+   },
+   {
+    "framework": "JS",
+    "symbol": "Element.animate()",
+    "note": "animate only transform so the browser does no layout per frame"
+   },
+   {
+    "framework": "Library",
+    "symbol": "Motion layout / AutoAnimate",
+    "note": "the same idea packaged: add a prop and the list animates"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "View Transitions API",
+    "note": "give each item a view-transition-name and the browser animates the reflow"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "prefers-reduced-motion",
+    "note": "let items jump straight to their new place"
+   }
+  ],
+  "prompt": "Use a layout transition in the bag. When a suggestion chip is clicked, the new row appears at the top (fading and scaling in from 0.92) while the existing rows slide down to make room; when a row's × is clicked, it fades and nudges right in 170ms, then is removed and the rows below slide up to close the gap. The suggestion chips reflow the same way. Implement with FLIP: record every row and chip's getBoundingClientRect, change the DOM, then animate each from translate(old − new) to none over 320ms with cubic-bezier(.2,.8,.2,1) (or Motion's layout prop / AutoAnimate). Update the count and total, and skip the animation under prefers-reduced-motion.",
+  "debugPrompt": "Debug my FLIP layout animation. Check: positions are recorded after the DOM change instead of before, so nothing moves; items are matched by index instead of a stable key, so the wrong ones animate; the removed item is taken out before it fades, so its neighbours jump; a running animation is not cancelled and the next measurement includes its transform; scroll position changes between the two measurements; animating top/height causes layout every frame (animate transform only); reduced-motion users still see the movement. The symptom:",
+  "description": "A layout animation smooths the moment a list changes. Without it, adding or removing an item makes everything after it jump; with it, the neighbours glide to their new place in a third of a second, so people can follow what moved. The usual technique is FLIP; Motion's layout prop, AutoAnimate and the View Transitions API wrap it up. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "first",
+    "name": "Before",
+    "api": "getBoundingClientRect",
+    "description": "Every item's box is recorded before the change.",
+    "prompt": "record every item's position before the change"
+   },
+   {
+    "id": "glide",
+    "name": "Glide",
+    "api": "translate → none",
+    "description": "After the change, each item starts at its old place and glides to the new one.",
+    "prompt": "each item glides from its old place to the new one in 320 ms"
+   },
+   {
+    "id": "enter-exit",
+    "name": "Enter and exit",
+    "api": "opacity + scale",
+    "description": "New items fade in; removed items fade out before the rest close the gap.",
+    "prompt": "new items fade in, removed items fade out before the gap closes"
+   },
+   {
+    "id": "key",
+    "name": "Stable key",
+    "api": "data-key",
+    "description": "Items are matched by an id, not by their position in the list.",
+    "prompt": "items matched by a stable id, not by index"
+   }
+  ],
+  "related": [
+   "shared-element-transition",
+   "drag-and-drop",
+   "interaction-details",
+   "container-morph",
+   "dialog-drawer-sheet"
+  ],
+  "demo": "web/layout-animation"
  }
 ]

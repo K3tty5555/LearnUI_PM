@@ -1,0 +1,93 @@
+<div class="demo demo-click-ripple">
+  <div class="cr-stage">
+    <div class="cr-product"><span class="cr-thumb" aria-hidden="true"></span><span class="cr-meta"><b class="cr-name">Harbor desk lamp</b><span class="cr-price">$139</span></span></div>
+    <div class="cr-actions">
+      <button class="cr-btn cr-primary" type="button">Add to bag</button>
+      <button class="cr-btn cr-ghostbtn" type="button">Save</button>
+    </div>
+    <svg class="cr-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="cr-read"><code>press anywhere on a button</code></p>
+</div>
+<style>
+.demo-click-ripple{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-click-ripple *{box-sizing:border-box}
+.cr-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.cr-product{display:flex;align-items:center;gap:12px}
+.cr-thumb{width:44px;height:44px;border-radius:10px;background:linear-gradient(140deg,#dfe6fb,#6b8cff)}
+.cr-meta{display:flex;flex-direction:column}
+.cr-name{font-size:14px}.cr-price{color:#6b6f7a;font:12px ui-monospace,SFMono-Regular,Menlo,monospace}
+.cr-actions{display:flex;gap:10px}
+/* overflow:hidden is what keeps each ripple inside the button's shape. */
+.cr-btn{position:relative;overflow:hidden;height:46px;padding:0 26px;border-radius:12px;font:600 14px/1 inherit;cursor:pointer;transition:transform .12s,background-color .2s;-webkit-tap-highlight-color:transparent}
+.cr-primary{min-width:200px;border:0;background:#4338ca;color:#fff}
+.cr-ghostbtn{border:1px solid #c9c6bb;background:#fff;color:#1c1d21}
+.cr-btn.is-down{transform:scale(.96)}
+.cr-btn:focus-visible{outline:2px solid #4338ca;outline-offset:3px}
+.cr-ripple{position:absolute;border-radius:50%;pointer-events:none;background:currentColor;opacity:0;transform:scale(0);animation:cr-ripple .65s cubic-bezier(.2,.7,.3,1) forwards}
+.cr-primary .cr-ripple{color:#fff}.cr-ghostbtn .cr-ripple{color:#4338ca}
+@keyframes cr-ripple{0%{opacity:.34;transform:scale(0)}100%{opacity:0;transform:scale(1)}}
+.cr-btn.is-flash{background-color:#3730a3}.cr-ghostbtn.is-flash{background-color:#eef0ff}
+.cr-ghost{position:absolute;left:0;top:0;z-index:2;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-click-ripple[data-auto="on"] .cr-ghost{opacity:1}
+.cr-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-reduced-motion:reduce){.cr-btn{transition:none}.cr-btn.is-down{transform:none}}
+@media (max-height:260px){
+  .demo-click-ripple{width:calc(100vw - 40px)}
+  .cr-stage{height:calc(100vh - 40px);gap:12px}
+  .cr-thumb{width:34px;height:34px;border-radius:8px}.cr-name{font-size:12px}.cr-price{font-size:10.5px}
+  .cr-btn{height:38px;padding:0 18px;font-size:12px;border-radius:10px}.cr-primary{min-width:150px}
+  .cr-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-click-ripple');
+  var stage=root.querySelector('.cr-stage'),ghost=root.querySelector('.cr-ghost'),read=root.querySelector('.cr-read code');
+  var b1=root.querySelector('.cr-primary'),b2=root.querySelector('.cr-ghostbtn'),name=root.querySelector('.cr-name');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,lastT=0;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){name.textContent=zh()?'港湾台灯':'Harbor desk lamp';b1.textContent=zh()?'加入购物袋':'Add to bag';b2.textContent=zh()?'收藏':'Save';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  // The ripple starts where the finger landed and is sized to reach the farthest corner.
+  function ripple(btn,x,y,still){
+    var w=btn.offsetWidth,h=btn.offsetHeight,r=Math.ceil(Math.max(Math.hypot(x,y),Math.hypot(w-x,y),Math.hypot(x,h-y),Math.hypot(w-x,h-y)));
+    btn.classList.add('is-down');setTimeout(function(){btn.classList.remove('is-down');},130);
+    read.textContent=(zh()?'涟漪起点 ':'ripple from ')+Math.round(x)+', '+Math.round(y)+(zh()?' · 扩到 ':' · grows to ')+(r*2)+'px · 650ms';
+    if(reduce&&!still){btn.classList.add('is-flash');setTimeout(function(){btn.classList.remove('is-flash');},160);return;}
+    var s=document.createElement('span');s.className='cr-ripple';s.setAttribute('data-clip-ok','');
+    s.style.width=s.style.height=(r*2)+'px';s.style.left=(x-r)+'px';s.style.top=(y-r)+'px';
+    if(still){s.style.animation='none';s.style.opacity='.3';s.style.transform='scale(.55)';}
+    btn.appendChild(s);
+    if(!still){s.addEventListener('animationend',function(){s.remove();});setTimeout(function(){s.remove();},1200);}
+  }
+  [b1,b2].forEach(function(b){b.addEventListener('pointerdown',function(e){if(auto)return;var r=b.getBoundingClientRect();ripple(b,e.clientX-r.left,e.clientY-r.top);});b.addEventListener('keydown',function(e){if(!auto&&(e.key==='Enter'||e.key===' '))ripple(b,b.offsetWidth/2,b.offsetHeight/2);});});
+  function pt(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function seg(t,t0,t1,a,b){var q=ease(Math.min(1,Math.max(0,(t-t0)/(t1-t0))));return [a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q];}
+  stage.addEventListener('pointermove',function(){if(root.dataset.auto==='on')setAuto(false);clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();lastT=0;resume();}},1800);});
+  // Auto: four presses at different spots, so the ripple visibly starts in different places.
+  var CLICKS=[[1,b1,.18,.4],[2.2,b1,.84,.62],[3.4,b2,.5,.5],[4.6,b1,.5,.45]];
+  function tick(now){
+    raf=0;if(!visible||!auto)return;
+    var t=(Math.max(0,now-start)/1000)%6,w=stage.clientWidth,h=stage.clientHeight,rest=[w*.5,h-20],p=rest,prev=rest,prevT=0;
+    for(var i=0;i<CLICKS.length;i++){var c=CLICKS[i],q=pt(c[1],c[2],c[3]);if(t<c[0]){p=seg(t,prevT,c[0]-.2,prev,q);break;}prev=q;prevT=c[0]+.3;p=t<prevT?q:seg(t,prevT,5.4,q,rest);}
+    CLICKS.forEach(function(c){if(lastT<c[0]&&t>=c[0]){var r=c[1].getBoundingClientRect();ripple(c[1],r.width*c[2],r.height*c[3]);}});
+    var down=CLICKS.some(function(c){return t>=c[0]&&t<c[0]+.13;});
+    ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)'+(down?' scale(.85)':'');
+    lastT=t;raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible&&auto)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);
+  if(reduce){
+    root.dataset.auto='on';ripple(b1,b1.offsetWidth*.3,b1.offsetHeight*.45,true);b1.classList.remove('is-down');
+    var p=pt(b1,.3,.45);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：按下只闪一下底色，不扩散':'reduced motion: a brief tint instead of a spreading ripple';
+  }
+  resume();
+})();
+</script>

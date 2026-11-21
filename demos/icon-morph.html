@@ -1,0 +1,108 @@
+<div class="demo demo-icon-morph">
+  <div class="im-stage">
+    <div class="im-row">
+      <div class="im-pill">
+        <button class="im-play" type="button" aria-pressed="false" aria-label="Play sample"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="im-a" d="M6 4L12 7.69L12 16.31L6 20Z"/><path class="im-b" d="M12 7.69L19 12L19 12L12 16.31Z"/></svg></button>
+        <span class="im-label">Play sample</span>
+        <span class="im-eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <button class="im-like" type="button" aria-pressed="false" aria-label="Save"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.3s-7.6-4.6-7.6-10.1A4.3 4.3 0 0 1 12 7.7a4.3 4.3 0 0 1 7.6 2.5c0 5.5-7.6 10.1-7.6 10.1z"/></svg><span class="im-burst" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button>
+    </div>
+    <svg class="im-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="im-read"><code>play ⇄ pause: the same two shapes morph · heart: outline → filled</code></p>
+</div>
+<style>
+.demo-icon-morph{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-icon-morph *{box-sizing:border-box}
+.im-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:grid;place-items:center}
+.im-row{display:flex;align-items:center;gap:14px}
+.im-pill{display:flex;align-items:center;gap:12px;height:56px;padding:0 20px 0 8px;border-radius:999px;border:1px solid #d9d6cc;background:#fff}
+.im-play{display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:#1c1d21;color:#fff;cursor:pointer}
+.im-play svg{width:18px;height:18px;fill:currentColor}
+.im-label{font-weight:600;font-size:14px;white-space:nowrap}
+.im-eq{display:flex;align-items:center;gap:3px;height:22px;width:34px}
+.im-eq i{width:3px;height:4px;border-radius:2px;background:#9a9da6;transition:height .2s,background-color .2s}
+.im-pill.is-on .im-eq i{background:#4338ca;animation:im-eq .9s ease-in-out infinite alternate}
+.im-pill.is-on .im-eq i:nth-child(2){animation-delay:-.3s}.im-pill.is-on .im-eq i:nth-child(3){animation-delay:-.6s}.im-pill.is-on .im-eq i:nth-child(4){animation-delay:-.15s}.im-pill.is-on .im-eq i:nth-child(5){animation-delay:-.45s}
+@keyframes im-eq{from{height:4px}to{height:20px}}
+.im-like{position:relative;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;border:1px solid #d9d6cc;background:#fff;cursor:pointer}
+.im-like svg{width:26px;height:26px;fill:transparent;stroke:#1c1d21;stroke-width:1.7;stroke-linejoin:round;transition:fill .2s,stroke .2s}
+.im-like[aria-pressed="true"] svg{fill:#e5484d;stroke:#e5484d}
+.im-like.is-pop svg{animation:im-pop .46s cubic-bezier(.3,.7,.3,1.4)}
+@keyframes im-pop{0%{transform:scale(1)}28%{transform:scale(.7)}64%{transform:scale(1.18)}100%{transform:scale(1)}}
+.im-burst{position:absolute;left:50%;top:50%;width:0;height:0}
+.im-burst i{position:absolute;left:-2.5px;top:-2.5px;width:5px;height:5px;border-radius:50%;background:#e5484d;opacity:0}
+.im-burst i:nth-child(even){background:#f59e0b;width:4px;height:4px;left:-2px;top:-2px}
+.im-like.is-pop .im-burst i{animation:im-burst .55s .12s ease-out both}
+@keyframes im-burst{0%{opacity:1;transform:rotate(var(--a)) translateY(-14px) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateY(-34px) scale(.3)}}
+.im-burst i:nth-child(1){--a:0deg}.im-burst i:nth-child(2){--a:45deg}.im-burst i:nth-child(3){--a:90deg}.im-burst i:nth-child(4){--a:135deg}.im-burst i:nth-child(5){--a:180deg}.im-burst i:nth-child(6){--a:225deg}.im-burst i:nth-child(7){--a:270deg}.im-burst i:nth-child(8){--a:315deg}
+.im-play:focus-visible,.im-like:focus-visible{outline:2px solid #4338ca;outline-offset:3px}
+.im-ghost{position:absolute;left:0;top:0;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-icon-morph[data-auto="on"] .im-ghost{opacity:1}
+.im-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-reduced-motion:reduce){.im-pill.is-on .im-eq i{animation:none;height:12px}.im-like.is-pop svg,.im-like.is-pop .im-burst i{animation:none}}
+@media (max-height:260px){
+  .demo-icon-morph{width:calc(100vw - 40px)}
+  .im-stage{height:calc(100vh - 40px)}
+  .im-row{gap:10px}
+  .im-pill{height:44px;gap:8px;padding:0 14px 0 6px}.im-play{width:32px;height:32px}.im-play svg{width:15px;height:15px}
+  .im-label{font-size:12px}.im-eq{width:28px;height:18px}
+  .im-like{width:44px;height:44px}.im-like svg{width:22px;height:22px}
+  .im-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-icon-morph');
+  var stage=root.querySelector('.im-stage'),ghost=root.querySelector('.im-ghost'),read=root.querySelector('.im-read code');
+  var play=root.querySelector('.im-play'),pill=root.querySelector('.im-pill'),label=root.querySelector('.im-label'),like=root.querySelector('.im-like');
+  var pa=root.querySelector('.im-a'),pb=root.querySelector('.im-b');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Both icons use two four-point shapes with matching point order, so each point has a partner to travel to.
+  var PLAY=[[6,4,12,7.69,12,16.31,6,20],[12,7.69,19,12,19,12,12,16.31]];
+  var PAUSE=[[6,4,10,4,10,20,6,20],[14,4,18,4,18,20,14,20]];
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,lastT=0,playing=false,liked=false,m=0,mFrom=0,mTo=0,mStart=0,mRaf=0;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){label.textContent=zh()?'试听样音':'Play sample';play.setAttribute('aria-label',playing?(zh()?'暂停':'Pause'):(zh()?'播放':'Play sample'));like.setAttribute('aria-label',zh()?'收藏':'Save');}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function d(a,b,t){var o='';for(var i=0;i<a.length;i+=2)o+=(i?'L':'M')+(a[i]+(b[i]-a[i])*t).toFixed(2)+' '+(a[i+1]+(b[i+1]-a[i+1])*t).toFixed(2);return o+'Z';}
+  function drawMorph(t){pa.setAttribute('d',d(PLAY[0],PAUSE[0],t));pb.setAttribute('d',d(PLAY[1],PAUSE[1],t));}
+  function morph(to){
+    mFrom=m;mTo=to;mStart=performance.now();cancelAnimationFrame(mRaf);
+    if(reduce){m=to;drawMorph(m);return;}
+    (function f(now){var p=Math.min(1,(now-mStart)/260);m=mFrom+(mTo-mFrom)*ease(p);drawMorph(m);if(p<1)mRaf=requestAnimationFrame(f);})(mStart);
+  }
+  function togglePlay(){playing=!playing;play.setAttribute('aria-pressed',String(playing));pill.classList.toggle('is-on',playing);morph(playing?1:0);text();read.textContent=playing?(zh()?'播放 → 暂停：三角拆成两半，各自变成一根竖条':'play → pause: the triangle splits and each half becomes a bar'):(zh()?'暂停 → 播放：两根竖条合回三角':'pause → play: the bars merge back into a triangle');}
+  function toggleLike(){liked=!liked;like.setAttribute('aria-pressed',String(liked));like.classList.remove('is-pop');if(liked){void like.offsetWidth;like.classList.add('is-pop');}read.textContent=liked?(zh()?'收藏：先缩一下，再变实心弹大，周围迸出小点':'save: shrink, fill, pop past full size, burst of dots'):(zh()?'取消收藏：直接变回空心，不庆祝':'unsave: back to outline, no celebration');}
+  play.addEventListener('click',function(){if(!auto)togglePlay();});
+  like.addEventListener('click',function(){if(!auto)toggleLike();});
+  like.addEventListener('animationend',function(e){if(e.target.parentElement===like.querySelector('.im-burst')&&e.target===like.querySelector('.im-burst i:last-child'))like.classList.remove('is-pop');});
+  function pt(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function seg(t,t0,t1,a,b){var q=ease(Math.min(1,Math.max(0,(t-t0)/(t1-t0))));return [a[0]+(b[0]-a[0])*q,a[1]+(b[1]-a[1])*q];}
+  stage.addEventListener('pointermove',function(){if(root.dataset.auto==='on')setAuto(false);clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce){setAuto(true);start=performance.now();lastT=0;resume();}},1800);});
+  // Auto: play, like, pause, unlike - 7.2 s.
+  function tick(now){
+    raf=0;if(!visible||!auto)return;
+    var t=(Math.max(0,now-start)/1000)%7.2,w=stage.clientWidth,h=stage.clientHeight,rest=[w*.5,h*.78],P=pt(play,.55,.55),L=pt(like,.55,.55),p;
+    if(t<.7)p=seg(t,0,.7,rest,P);else if(t<1.6)p=P;else if(t<2.2)p=seg(t,1.6,2.2,P,L);else if(t<3.4)p=L;else if(t<4)p=seg(t,3.4,4,L,P);else if(t<4.6)p=P;else if(t<5.2)p=seg(t,4.6,5.2,P,L);else if(t<6)p=L;else p=seg(t,6,6.8,L,rest);
+    [[.9,togglePlay],[2.4,toggleLike],[4.2,togglePlay],[5.4,toggleLike]].forEach(function(e){if(lastT<e[0]&&t>=e[0])e[1]();});
+    if(t<lastT){if(playing)togglePlay();if(liked)toggleLike();}
+    var down=[.9,2.4,4.2,5.4].some(function(c){return t>=c&&t<c+.14;});
+    ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)'+(down?' scale(.85)':'');
+    lastT=t;raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible&&auto)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',text);
+  text();setAuto(auto);drawMorph(0);
+  if(reduce){
+    root.dataset.auto='on';togglePlay();liked=true;like.setAttribute('aria-pressed','true');
+    var p=pt(like,.55,.55);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：图标直接切换，没有形变和迸点':'reduced motion: icons swap instantly, no morph or burst';
+  }
+  resume();
+})();
+</script>
