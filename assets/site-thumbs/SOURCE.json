@@ -1,0 +1,454 @@
+{
+  "description": "Card previews for /sites/. 'screenshot' = first screen of the site's real homepage (1440x900 viewport, scaled to 600px wide, top-aligned crop to 600x315). 'template-fallback' = brand-style mock rendered by scripts/gen-site-previews.py. Screenshot rights belong to each website.",
+  "generator": "scripts/capture-site-screens.py",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "items": {
+    "claude": {
+      "url": "https://www.claude.com/",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "cohere": {
+      "url": "https://cohere.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "elevenlabs": {
+      "url": "https://elevenlabs.io",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "minimax": {
+      "url": "https://minimax.io",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "mistral-ai": {
+      "url": "https://mistral.ai",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "ollama": {
+      "url": "https://ollama.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "opencode-ai": {
+      "url": "https://opencode.ai",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "replicate": {
+      "url": "https://replicate.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "runwayml": {
+      "url": "https://runwayml.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "together-ai": {
+      "url": "https://together.ai",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "voltagent": {
+      "url": "https://voltagent.dev",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "x-ai": {
+      "url": "https://x.ai",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "cursor": {
+      "url": "https://cursor.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "expo": {
+      "url": "https://expo.dev",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "lovable": {
+      "url": "https://lovable.dev",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "raycast": {
+      "url": "https://raycast.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "superhuman": {
+      "url": "https://superhuman.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "vercel": {
+      "url": "https://vercel.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "warp": {
+      "url": "https://warp.dev",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "clickhouse": {
+      "url": "https://clickhouse.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "composio": {
+      "url": "https://composio.dev",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "hashicorp": {
+      "url": "https://hashicorp.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "mongodb": {
+      "url": "https://mongodb.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "posthog": {
+      "url": "https://posthog.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "sanity": {
+      "url": "https://sanity.io",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "sentry": {
+      "url": "https://sentry.io",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "supabase": {
+      "url": "https://supabase.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "cal": {
+      "url": "https://cal.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "intercom": {
+      "url": "https://intercom.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "linear-app": {
+      "url": "https://linear.app",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "mintlify": {
+      "url": "https://mintlify.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "notion": {
+      "url": "https://notion.so",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "resend": {
+      "url": "https://resend.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "slack": {
+      "url": "https://slack.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "zapier": {
+      "url": "https://zapier.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "airtable": {
+      "url": "https://airtable.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "clay": {
+      "url": "https://clay.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "figma": {
+      "url": "https://figma.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "incomplete: hero carousel images never loaded (grey placeholders)"
+    },
+    "framer": {
+      "url": "https://framer.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "miro": {
+      "url": "https://miro.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: TimeoutError"
+    },
+    "webflow": {
+      "url": "https://webflow.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "binance": {
+      "url": "https://binance.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "coinbase": {
+      "url": "https://coinbase.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "kraken": {
+      "url": "https://kraken.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "mastercard": {
+      "url": "https://www.mastercard.com/us/en.html",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "blocked: Akamai 'Access Denied' page"
+    },
+    "revolut": {
+      "url": "https://revolut.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "stripe": {
+      "url": "https://stripe.com/en-us",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "wise": {
+      "url": "https://wise.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "airbnb": {
+      "url": "https://airbnb.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "meta": {
+      "url": "https://meta.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://meta.com/"
+    },
+    "nike": {
+      "url": "https://www.nike.com/us/",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "region: nike.com redirects to nike.com.cn; nike.com/us/ returned a 404 page"
+    },
+    "shopify": {
+      "url": "https://shopify.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "starbucks": {
+      "url": "https://starbucks.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "apple": {
+      "url": "https://www.apple.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "hp": {
+      "url": "https://www.hp.com/us-en/home.html",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "ibm": {
+      "url": "https://www.ibm.com/us-en",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "nvidia": {
+      "url": "https://www.nvidia.com/en-us/",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "pinterest": {
+      "url": "https://pinterest.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "playstation": {
+      "url": "https://www.playstation.com/en-us/",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "spacex": {
+      "url": "https://spacex.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "blocked: Cloudflare error 1009, region banned"
+    },
+    "spotify": {
+      "url": "https://spotify.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "theverge": {
+      "url": "https://theverge.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "uber": {
+      "url": "https://uber.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "vodafone": {
+      "url": "https://vodafone.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "blank: page rendered only the logo; later attempts failed DNS"
+    },
+    "wired": {
+      "url": "https://wired.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "bmw": {
+      "url": "https://www.bmw.com/en/index.html",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "region: bmw.com did not resolve; only the China site bmw.com.cn opened"
+    },
+    "bmw-m": {
+      "url": "https://bmw-m.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "bugatti": {
+      "url": "https://bugatti.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "ferrari": {
+      "url": "https://ferrari.com",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "lamborghini": {
+      "url": "https://www.lamborghini.com/en-en",
+      "capturedOn": "2026-11-21",
+      "status": "screenshot",
+      "webpQuality": 80
+    },
+    "renault": {
+      "url": "https://renault.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "tesla": {
+      "url": "https://tesla.com",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "blocked: Akamai 'Access Denied' page"
+    },
+    "dell-1996": {
+      "url": "https://web.archive.org/web/19961220if_/http://www.dell.com/",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    },
+    "nintendo-2001": {
+      "url": "https://web.archive.org/web/20010401if_/http://www.nintendo.com/",
+      "capturedOn": null,
+      "status": "template-fallback",
+      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+    }
+  }
+}
