@@ -129,7 +129,8 @@ main:focus { outline: none; }
 .site-filter-meta { margin-top: 14px; }
 .site-result-count { font-size: 11px; }
 .sites-grid .stage-card { height: 205px; }
-.sites-grid .stage-fallback { object-fit: cover; }
+/* Site cards show a homepage screenshot: keep its top (logo, nav, headline) and crop from the bottom. */
+.sites-grid .stage-fallback { object-fit: cover; object-position: top center; }
 .entry-head { padding: 38px 0 28px; }
 .entry-title, .reference-title { letter-spacing: -.03em; line-height: 1.3; }
 .entry-tag { line-height: 1.9; }

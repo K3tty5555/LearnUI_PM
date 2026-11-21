@@ -709,7 +709,7 @@ def sources_page():
  <header class="entry-head"><h1 class="reference-title">来源与许可证 <span>Sources &amp; License</span></h1><p class="entry-tag">原始内容与新增内容分开管理，便于识别来源和同步上游。</p></header>
  <section class="sect"><h2>上游内容</h2><p>UI 词典、指南和部分视觉风格来自 <a href="https://github.com/joeseesun/learnui" rel="noopener">joeseesun/learnui</a>。其英文源内容复刻自 <a href="https://namethatui.com/" rel="noopener">namethatui.com</a>，版权归原作者。</p></section>
  <section class="sect"><h2>已移除的栏目</h2><p>「页面参考」和「术语对照」已于 2026-11-18 移除（用户拍板）：前者是虚构模板页，与全站「看真实作品学设计」的定位不符；后者是上游遗留的 Mac 开发者 API 对照表，与本站无关。历史数据保留在 git 历史中。</p></section>
- <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。</p></section>
+ <section class="sect"><h2>知名网站图鉴</h2><p><code>/sites/</code> 镜像自原 LearnUI 线上页面。条目中的 DESIGN.md 来自 <a href="https://github.com/VoltAgent/awesome-design-md" rel="noopener">VoltAgent/awesome-design-md</a>（MIT License），中文解读与品牌 mock 保留原页面来源说明。卡片预览图是各网站首页的截图（2026 年 11 月截取），版权归各网站所有，仅用于设计学习参考；暂时无法截取的站点使用本站绘制的风格示意图，清单见 <code>assets/site-thumbs/SOURCE.json</code>。</p></section>
  <section class="sect"><h2>Logo 图鉴</h2><p><code>/logos/</code> 样本取自小红书视频介绍的网站：第 1 期《好用的设计网站之LOGO/图标》（李李说设计（大学陪跑）），第 2 期《2026 年的图标库，根本不是人用的》（默默然）。logo 图片取自各网站公开发布的图标文件，商标归各自所有者，仅用于识别与学习；每个详情页标明原始文件地址。</p></section>
  <section class="sect"><h2>平面设计</h2><p><code>/graphics/</code> 的案例收录自小红书笔记。详情页的原作图片截取自收录笔记中的原作画面，注明原作设计方、年份和图源；代码标本是对原作版式、字体和配色的学习性还原。原作版权归原权利人，本站不盈利、仅用于学习交流；权利人如要求删除，请通过 GitHub 仓库联系，我们会立即删除。</p></section>
  <section class="sect"><h2>许可证</h2><p>代码与本地新增示例按仓库中的 <a href="/LICENSE.txt">MIT License</a> 使用。原始内容的版权边界以 README 和上游说明为准。</p></section>
