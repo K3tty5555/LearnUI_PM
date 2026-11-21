@@ -7,6 +7,9 @@ at a fixed line length. For one page of every kind, at 1440 and 2000 px, every t
 the element must still be as wide as the space its parent offers. Card grids and media are free to
 size themselves; only text blocks are checked.
 
+Section headings must also start on the content's left edge in the shown language, and sit
+clearly closer to the content below them than to the block above.
+
 Usage: python3 scripts/test-text-width.py site [--base /LearnUI_PM] [--engines chromium,webkit]
 """
 import argparse
@@ -49,6 +52,41 @@ SCAN = """() => {
 }"""
 
 
+# Section headings start on the same left edge as the text under them (user decision 2026-11-18).
+# In Chinese mode the English half is hidden, so a margin meant to separate the two halves must
+# not push the Chinese title inward (it did by 10px until 2026-11-21).
+ALIGN = """() => [...document.querySelectorAll('main h2.section-title')].map(h => {
+  const shown = [...h.children].find(c => getComputedStyle(c).display !== 'none' && c.textContent.trim());
+  if (!shown) return null;
+  const left = h.getBoundingClientRect().left + parseFloat(getComputedStyle(h).paddingLeft);
+  const off = Math.round(shown.getBoundingClientRect().left - left);
+  return off > 1 ? (h.textContent.trim().slice(0, 12) + ' indented ' + off + 'px') : null;
+}).filter(Boolean)"""
+
+# A section heading belongs to the content under it: clearly more space above it than below it.
+# (Until 2026-11-21 a broken selector list zeroed every section's top margin, so headings sat
+# glued to the block above and read as its last line.)
+RHYTHM = """() => {
+  const out = [];
+  for (const h of document.querySelectorAll('main h2.section-title')) {
+    if (!h.offsetParent) continue;
+    let prev = null;
+    for (let n = h; n && n.tagName !== 'MAIN' && !prev; n = n.parentElement) {
+      for (let s = n.previousElementSibling; s; s = s.previousElementSibling) {
+        if (s.getBoundingClientRect().height > 0 && getComputedStyle(s).position !== 'absolute') { prev = s; break; }
+      }
+    }
+    const next = h.nextElementSibling;
+    if (!prev || !next) continue;
+    const r = h.getBoundingClientRect();
+    const above = Math.round(r.top - prev.getBoundingClientRect().bottom);
+    const below = Math.round(next.getBoundingClientRect().top - r.bottom);
+    if (above < 28 || above < below * 1.5) out.push(h.innerText.trim().slice(0, 12) + ': ' + above + 'px above, ' + below + 'px below');
+  }
+  return out;
+}"""
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("site")
@@ -68,6 +106,10 @@ def main():
                     checked += 1
                     for hit in page.evaluate(SCAN):
                         failures.append(f"{engine} {width}px {path}: {hit}")
+                    for hit in page.evaluate(ALIGN):
+                        failures.append(f"{engine} {width}px {path}: heading {hit}")
+                    for hit in page.evaluate(RHYTHM):
+                        failures.append(f"{engine} {width}px {path}: heading spacing {hit}")
                 page.close()
             browser.close()
     server.shutdown()

@@ -7,8 +7,22 @@ from urllib.parse import urlsplit
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = os.environ.get("SITE_URL", "https://www.kettywu.art/UIUX").rstrip("/")
 SITE_NAME = "Learn UIUX"
-NEW_SLUGS = {"text-scramble","spring","easing","masonry","bento-grid","hamburger-menu","lightbox","marquee","container-morph","otp-input","duration-picker","animated-counter","scroll-progress-indicator","code-block","destructive-action","ai-status-orb","agent-processing-state","streaming-response","agent-approval-card","diff-viewer","agent-input-composer","inline-citations","agent-task-list","scroll-triggered","scroll-linked","parallax","scroll-snap","horizontal-scroll","liquid-glass-material","typography-details","scroll-zoom-out","arc-carousel","tilt-card","hover-fan-out","particle-repel","file-upload","loading-choreography","interaction-details","carousel","number-input","timeline","pagination","border-beam","card-swap","tick-slider","hold-to-record","context-meter","hover-underline","magnetic-button","custom-cursor","cursor-trail","hover-reveal","cursor-spotlight","shared-element-transition","icon-morph","click-ripple","success-feedback","layout-animation","digit-roll","input-shake"}
-STYLE_NEW_SLUGS = {"frutiger-metro","anti-design","acid-graphics","risograph","zine-collage","steampunk","dieselpunk","biopunk","afrofuturism","de-stijl","constructivism","pop-art","surrealism","art-nouveau","holographic","isometric-3d","line-art","hand-drawn","fantasy-rpg","lcars","mono-color-editorial-print"}
+NEW_SLUGS = {"text-scramble": "2026-07-15", "spring": "2026-07-15", "easing": "2026-07-15", "masonry": "2026-07-15", "bento-grid": "2026-07-15", "hamburger-menu": "2026-07-15", "lightbox": "2026-07-15", "marquee": "2026-07-15", "container-morph": "2026-09-12", "otp-input": "2026-09-12", "duration-picker": "2026-09-12", "animated-counter": "2026-09-12", "scroll-progress-indicator": "2026-09-12", "code-block": "2026-07-16", "destructive-action": "2026-09-12", "ai-status-orb": "2026-09-12", "agent-processing-state": "2026-09-12", "streaming-response": "2026-09-12", "agent-approval-card": "2026-09-12", "diff-viewer": "2026-09-12", "agent-input-composer": "2026-09-12", "inline-citations": "2026-09-12", "agent-task-list": "2026-09-12", "scroll-triggered": "2026-10-18", "scroll-linked": "2026-10-18", "parallax": "2026-10-18", "scroll-snap": "2026-10-18", "horizontal-scroll": "2026-10-18", "liquid-glass-material": "2026-11-17", "typography-details": "2026-11-17", "scroll-zoom-out": "2026-11-17", "arc-carousel": "2026-11-17", "tilt-card": "2026-11-17", "hover-fan-out": "2026-11-17", "particle-repel": "2026-11-17", "file-upload": "2026-11-17", "loading-choreography": "2026-11-17", "interaction-details": "2026-11-17", "carousel": "2026-11-17", "number-input": "2026-11-17", "timeline": "2026-09-12", "pagination": "2026-11-17", "border-beam": "2026-11-17", "card-swap": "2026-11-18", "tick-slider": "2026-11-18", "hold-to-record": "2026-11-18", "context-meter": "2026-11-18", "hover-underline": "2026-11-21", "magnetic-button": "2026-11-21", "custom-cursor": "2026-11-21", "cursor-trail": "2026-11-21", "hover-reveal": "2026-11-21", "cursor-spotlight": "2026-11-21", "shared-element-transition": "2026-11-21", "icon-morph": "2026-11-21", "click-ripple": "2026-11-21", "success-feedback": "2026-11-21", "layout-animation": "2026-11-21", "digit-roll": "2026-11-21", "input-shake": "2026-11-21"}
+STYLE_NEW_SLUGS = {"frutiger-metro": "2026-07-16", "anti-design": "2026-07-16", "acid-graphics": "2026-07-16", "risograph": "2026-07-16", "zine-collage": "2026-07-16", "steampunk": "2026-07-16", "dieselpunk": "2026-07-16", "biopunk": "2026-07-16", "afrofuturism": "2026-07-16", "de-stijl": "2026-07-16", "constructivism": "2026-07-16", "pop-art": "2026-07-16", "surrealism": "2026-07-16", "art-nouveau": "2026-07-16", "holographic": "2026-07-16", "isometric-3d": "2026-07-16", "line-art": "2026-07-16", "hand-drawn": "2026-07-16", "fantasy-rpg": "2026-07-16", "lcars": "2026-07-16", "mono-color-editorial-print": "2026-09-12"}
+
+# "New" badges: slug -> date it joined the library. A badge shows for NEW_DAYS after that date.
+# Pages carry the end date too, so site.js hides an expired badge even if the site is not rebuilt.
+NEW_DAYS = 30
+BUILD_DATE = datetime.date.fromisoformat(os.environ.get("LEARNUI_BUILD_DATE") or datetime.date.today().isoformat())
+
+def new_badge(slug, table):
+    since = table.get(slug)
+    if not since:
+        return ""
+    until = datetime.date.fromisoformat(since) + datetime.timedelta(days=NEW_DAYS)
+    if BUILD_DATE >= until:
+        return ""
+    return f'<span class="tag tag-new" data-new-until="{until.isoformat()}">{esc(UI["newBadge"])}</span>'
 
 def load(p):
     with open(os.path.join(ROOT, p), encoding="utf-8") as f:
@@ -174,15 +188,21 @@ def live_stage(entry):
             f' data-live-name="{esc(entry["name"])}" data-live-state="idle"'
             f' data-live-source="/api/specimens/{esc(entry["slug"])}.json?v={revision}" inert>'
             + initial +
-            ('<span class="live-demo-loading"><span class="lang-zh">动效加载中…</span><span class="lang-en">Loading animation…</span></span>' if not first_row else '') +
-            '<span class="live-demo-error"><span class="lang-zh">动效加载失败，点开详情查看</span><span class="lang-en">Animation unavailable. Open the detail to retry.</span></span>'
-            f'<noscript><img class="stage-preview" src="/assets/demo-thumbs/{esc(entry["slug"])}-zh.webp" width="600" height="360" loading="lazy" alt=""><style>.live-demo-loading{{display:none}}</style></noscript></div>')
+            # Until the live frame runs (and if it fails), the card shows the specimen's own still
+            # preview instead of a blank "loading" box; it is fetched only near the viewport.
+            (f'<picture data-preview><source media="(max-width: 0px)" data-preview-en="/assets/demo-thumbs/{esc(entry["slug"])}-en.webp">'
+             f'<img class="stage-preview" data-src="/assets/demo-thumbs/{esc(entry["slug"])}-zh.webp" width="600" height="360" alt="" decoding="async"></picture>'
+             if not first_row else '') +
+            # Message text lives in CSS (once per page, not 115 times); see .live-demo-error::after.
+            '<span class="live-demo-error"></span>'
+            f'<noscript><img class="stage-preview" src="/assets/demo-thumbs/{esc(entry["slug"])}-zh.webp" width="600" height="360" loading="lazy" alt=""></noscript></div>')
 
 
 def select_button(item_id, compact=False):
     cls = "select-toggle select-toggle-compact" if compact else "btn select-toggle"
     return (f'<button type="button" class="{cls}" data-select-id="{esc(item_id)}" '
-            f'aria-pressed="false"><span data-select-label>加入参考</span></button>')
+            # The label text comes from CSS (state x language), written once per page, not per card.
+            f'aria-pressed="false"><span data-select-label></span></button>')
 
 def selection_panel():
     return f'''<div class="selection-dock" id="selection-dock" hidden>
@@ -272,9 +292,19 @@ def footer():
  <div class="def-src" id="def-src"></div>
 </div>'''
 
+def minify_css(css):
+    """The chrome CSS is inlined into every page (no extra request), so strip comments and
+    whitespace on the way in: about 10 KB per page. Only whitespace around { } ; , > goes;
+    the stylesheet has no strings containing those characters (checked 2026-11-21)."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};,>])\s*", r"\1", css)
+    return css.replace(";}", "}").strip()
+
+
 def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/og/_default.png", jsonld=""):
     body = body.replace('<main ', '<main id="main-content" tabindex="-1" ', 1)
-    chrome_css = "\n".join(open(os.path.join(ROOT, "assets", name), encoding="utf-8").read() for name in ("site.css", "workspace.css"))
+    chrome_css = minify_css("\n".join(open(os.path.join(ROOT, "assets", name), encoding="utf-8").read() for name in ("site.css", "workspace.css")))
     chrome_js = open(os.path.join(ROOT, "assets/site.js"), encoding="utf-8").read()
     if 'data-live-demo=' in body:
         live_data = {"translations": DEMO_I18N, "items": {entry["slug"]: specimen_payload(entry) for entry in ENTRIES[:3]}}
@@ -352,7 +382,7 @@ def entry_url(e):
 
 def card(e):
     z = ZH[e["slug"]]
-    new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if e["slug"] in NEW_SLUGS else ""
+    new = new_badge(e["slug"], NEW_SLUGS)
     sym = e["api"][0]["symbol"]
     return f'''<article class="catalog-item" data-platform="{e["platform"]}" data-slug="{e["slug"]}">
 <a class="card" href="{entry_url(e)}">
@@ -471,7 +501,7 @@ def entry_page(e):
     z = ZH[e["slug"]]
     en_b, zh_b = t("indexCrumb")
     plat_label = "Web" if e["platform"] == "web" else "macOS"
-    new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if e["slug"] in NEW_SLUGS else ""
+    new = new_badge(e["slug"], NEW_SLUGS)
     aka_en = ", ".join(e["aka"]); aka_zh = "、".join(z["aka_zh"])
     fuzzy_rows = "".join(
         f'<li><span class="lang-en">“{esc(f)}”</span><span class="lang-zh zh-line">「{esc(z["fuzzy_zh"][i])}」</span></li>'
@@ -811,8 +841,9 @@ def logos_hub_page():
     counts = {tid: sum(1 for l in LOGOS if l["type"] == tid) for tid in LOGO_TYPES}
     type_chips = ['<button type="button" class="logo-type-chip" data-logo-type="" aria-pressed="true"><span class="lang-zh">全部类型</span><span class="lang-en">All types</span><b>' + str(len(LOGOS)) + '</b></button>']
     for tid, t_ in LOGO_TYPES.items():
-        disabled = ' disabled' if not counts[tid] else ''
-        type_chips.append(f'<button type="button" class="logo-type-chip" data-logo-type="{esc(tid)}" aria-pressed="false"{disabled} title="{esc(t_["definitionZh"])}"><span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span><b>{counts[tid]}</b></button>')
+        if not counts[tid]:
+            continue  # an empty category is a dead end; it appears once it has a sample
+        type_chips.append(f'<button type="button" class="logo-type-chip" data-logo-type="{esc(tid)}" aria-pressed="false" title="{esc(t_["definitionZh"])}"><span class="lang-zh">{esc(t_["nameZh"])}</span><span class="lang-en">{esc(t_["name"])}</span><b>{counts[tid]}</b></button>')
     empty_note = '<em><span class="lang-zh">暂无样本</span><span class="lang-en">No sample yet</span></em>'
     glossary = "".join(f'<div class="logo-glossary-item"><dt><span class="lang-zh">{esc(t_["nameZh"])} <small>{esc(t_["name"])}</small></span><span class="lang-en">{esc(t_["name"])}</span></dt><dd><span class="lang-zh">{esc(t_["definitionZh"])}</span><span class="lang-en">{esc(t_["definition"])}</span>{"" if counts[tid] else empty_note}</dd></div>' for tid, t_ in LOGO_TYPES.items())
     use_options = ['<option value="">全部用途</option>'] + [f'<option value="{esc(uid)}">{esc(u["nameZh"])}</option>' for uid, u in LOGO_USES.items()]
@@ -907,7 +938,7 @@ def logo_page(logo):
  </section>
  {related_sect}
  <section class="sect reference-detail-actions">
-  <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
+  <button type="button" class="btn" id="copy-md" data-done-zh="已复制" data-done-en="Copied"><span class="lang-zh">复制本页 Markdown</span><span class="lang-en">Copy page as Markdown</span></button>
   <template id="md-source">{esc(logo_markdown(logo))}</template>
   <span><span class="lang-zh">logo 为 {esc(logo["makerZh"])} 的商标，取自<a href="{esc(logo["imageSource"])}" rel="noopener">官方图标文件</a>，仅用于识别与学习。</span><span class="lang-en">The logo is a trademark of {esc(logo["maker"])}, taken from its <a href="{esc(logo["imageSource"])}" rel="noopener">published icon file</a>, for identification and study only.</span></span>
  </section>
@@ -920,7 +951,7 @@ def graphic_url(case):
     return f'/graphics/{case["slug"]}/'
 
 def graphic_title_zh(case):
-    return f'{case.get("gameZh") or case["game"]} · {case["project"]}'
+    return f'{case.get("gameZh") or case["game"]} · {case.get("projectZh") or case["project"]}'
 
 def graphic_title_en(case):
     return f'{case["game"]} · {case["project"]}'
@@ -995,8 +1026,9 @@ def graphics_hub_page():
     type_counts = {tid: sum(1 for c in GRAPHICS if c["type"] == tid) for tid in GRAPHIC_TYPES}
     type_chips = ['<button type="button" class="logo-type-chip" data-gd-type="" aria-pressed="true"><span class="lang-zh">全部类型</span><span class="lang-en">All types</span><b>' + str(len(GRAPHICS)) + '</b></button>']
     for tid, ty in GRAPHIC_TYPES.items():
-        dis = '' if type_counts[tid] else ' disabled'
-        type_chips.append(f'<button type="button" class="logo-type-chip" data-gd-type="{esc(tid)}" aria-pressed="false"{dis}><span class="lang-zh">{esc(ty["nameZh"])}</span><span class="lang-en">{esc(ty["name"])}</span><b>{type_counts[tid]}</b></button>')
+        if not type_counts[tid]:
+            continue  # an empty category is a dead end; it appears once it has a case
+        type_chips.append(f'<button type="button" class="logo-type-chip" data-gd-type="{esc(tid)}" aria-pressed="false"><span class="lang-zh">{esc(ty["nameZh"])}</span><span class="lang-en">{esc(ty["name"])}</span><b>{type_counts[tid]}</b></button>')
     used_styles = [sid for sid in GRAPHIC_STYLES if any(sid in c["styleTags"] for c in GRAPHICS)]
     style_options = ['<option value="">全部风格</option>'] + [f'<option value="{esc(s)}">{esc(GRAPHIC_STYLES[s]["nameZh"])}（{sum(1 for c in GRAPHICS if s in c["styleTags"])}）</option>' for s in used_styles]
     cards = "\n".join(graphic_card(c) for c in GRAPHICS)
@@ -1115,7 +1147,7 @@ def graphic_page(case):
  </section>
  {related_sect}
  <section class="sect reference-detail-actions">
-  <button type="button" class="btn" id="copy-md" data-done-zh="已复制">复制本页 Markdown</button>
+  <button type="button" class="btn" id="copy-md" data-done-zh="已复制" data-done-en="Copied"><span class="lang-zh">复制本页 Markdown</span><span class="lang-en">Copy page as Markdown</span></button>
   <template id="md-source">{esc(graphic_markdown(case))}</template>
   <span><span class="lang-zh">收录自小红书「{esc(iss["author"])}」的笔记《{esc(iss["title"])}》，<a href="{esc(iss["url"])}" rel="noopener" target="_blank">查看原笔记</a>。</span><span class="lang-en">Collected from the Xiaohongshu note "{esc(iss["title"])}" by {esc(iss["author"])}; <a href="{esc(iss["url"])}" rel="noopener" target="_blank">view the note</a>.</span></span>
  </section>
@@ -1138,7 +1170,7 @@ def style_card(s):
     z = style_zh(s)
     hay = " ".join([s.get("name") or "", z.get("name_zh") or "", s.get("tagline") or "", z.get("tagline_zh") or ""] +
                    (s.get("aliases") or []) + (z.get("aliases_zh") or [])).lower()
-    new = f'<span class="tag tag-new">{esc(UI["newBadge"])}</span>' if s["slug"] in STYLE_NEW_SLUGS else ""
+    new = new_badge(s["slug"], STYLE_NEW_SLUGS)
     return f'''<article class="catalog-item style-catalog-item" data-search="{esc(hay)}" data-slug="{s["slug"]}">
 <a class="style-card" href="{style_url(s)}">
  {stage("style-" + s["slug"])}

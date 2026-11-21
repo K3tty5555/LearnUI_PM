@@ -81,7 +81,6 @@ main:focus { outline: none; }
 .search-box { min-width: 180px; max-width: none; height: 44px; border-radius: 8px; background: #fff; }
 .search-box input { font-size: 12px; }
 .search-box:focus-within { border-color: var(--blue); box-shadow: none; }
-.search-box input::-webkit-search-cancel-button { -webkit-appearance: auto; cursor: pointer; }
 .tabs { height: 40px; background: #ebebf0; padding: 3px; gap: 2px; border: 0; border-radius: 7px; }
 .tab { font-family: var(--font-sans); font-size: 11px; text-transform: none; letter-spacing: 0; padding: 0 12px; border-radius: 5px; }
 .tab + .tab { border: 0; }
@@ -137,10 +136,19 @@ main:focus { outline: none; }
 .entry .stage-detail { margin-top: 6px; }
 .sect { margin-top: 42px; }
 .sect h2 { font-family: var(--font-sans); letter-spacing: 0; font-size: 16px; text-transform: none; }
+/* Hierarchy (2026-11-21): section headings are the page's second level, so they are ink and
+   clearly larger than body text, not grey labels the size of a paragraph. */
+.sect h2.section-title, .graphic-detail h2.section-title { font-size: 18px; font-weight: 600; color: var(--fg); }
+.sect h2.section-title .lang-zh, .graphic-detail h2.section-title .lang-zh { color: inherit; }
+/* Per-part prompt fragments are supporting detail: a quiet rule on the left instead of a grey box,
+   so they no longer outweigh the part names and the main prompt. */
+.part-prompt { background: none; border: 0; border-left: 2px solid var(--line); border-radius: 0; padding: 2px 0 2px 12px; }
 .copy-block, .code-block { border-radius: 12px; background: #ededf3; }
 .copy-text p { line-height: 1.9; }
 .stage-hint { font-size: 11px; color: var(--gray-500); }
 .selection-dock { right: 24px; bottom: 24px; }
+/* While the floating "selected references" button shows, leave room under the last row of cards. */
+body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; }
 .selection-dock-button { border: 0; border-radius: 10px; background: var(--blue); color: white; box-shadow: 0 6px 24px rgba(43,43,43,.18); min-height: 46px; }
 .selection-dialog { width: min(480px, 100%); border: 0; box-shadow: var(--shadow-pop); }
 .selection-dialog[open] { display: flex; flex-direction: column; animation: drawer-in 240ms var(--ease-out); }
@@ -218,6 +226,9 @@ main:focus { outline: none; }
   .sidebar-selection { margin: 0; border: 0; min-height: 36px; padding: 7px; gap: 4px; grid-column: 3; grid-row: 1; }
   .sidebar-selection > span { display: none !important; }
   .site-nav { grid-column: 1 / -1; flex-direction: row; margin: 12px -4px 0; padding: 0; width: auto; overflow-x: auto; gap: 4px; border: 0; }
+  /* The nav scrolls sideways on phones: fade its right edge so the cut-off last item reads as
+     "more this way", and pad the end so the last item can scroll clear of the fade. */
+  .site-nav { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); padding-right: 24px; scrollbar-width: none; }
   .site-nav a { gap: 0; padding: 10px 11px; min-height: 43px; border-radius: 6px 6px 0 0; flex: none; }
   .site-nav svg, .nav-count { display: none; }
   .nav-zh, [data-lang-mode="zh"] .nav-zh, .site-nav a { font-size: 12px; }
@@ -365,7 +376,8 @@ picture[data-preview] { position: absolute; inset: 0; }
 [data-live-demo].is-live > picture, [data-live-demo].is-live > .preview-loading { visibility: hidden; }
 .live-demo-error { display: none; }
 [data-live-state="error"] .live-demo-error { display: block; position: absolute; bottom: 7px; left: 8px; right: 8px; text-align: center; font-size: 10px; color: var(--gray-600); background: rgba(255,255,255,.8); }
-.live-demo-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--gray-500); font-size: 11px; }
+.live-demo-error::after { content: "动效加载失败，点开详情查看"; }
+[data-lang-mode="en"] .live-demo-error::after { content: "Animation unavailable. Open the detail to retry."; }
 .live-demo-still *, .live-demo-still *::before, .live-demo-still *::after { animation: none !important; transition: none !important; }
 [data-live-demo].is-live > .live-demo-still, [data-live-demo].is-live > .live-demo-loading, [data-live-state="error"] > .live-demo-loading { visibility: hidden; }
 .site-auto-note { margin: 10px 0 0; color: var(--gray-500); font-size: 10px; }
@@ -489,15 +501,16 @@ picture[data-preview] { position: absolute; inset: 0; }
 .gd-cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .graphic-card:hover .gd-cover img { transform: scale(1.02); }
 .graphic-card .card-meta { padding-top: 12px; }
-.gd-originals { margin-top: 18px; }
+.gd-originals { margin-top: 42px; }
 .gd-orig { margin: 0; }
 .gd-orig a { display: block; overflow: hidden; border-radius: 10px; background: #111; }
 .gd-orig img { display: block; width: 100%; height: auto; }
 .gd-orig figcaption { margin-top: 5px; font-size: 12px; color: var(--gray-500); }
 .gd-orig-split { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr); gap: 14px; align-items: start; }
 .gd-orig-split .gd-orig-lead { width: calc(min(72vh, 640px) * (var(--ar))); max-width: 46vw; }
-.gd-orig-rest { columns: 2 200px; column-gap: 12px; }
-.gd-orig-rest .gd-orig { display: inline-block; width: 100%; margin: 0 0 12px; break-inside: avoid; }
+/* A grid, not CSS columns: columns put two images in the first column and left the second empty. */
+.gd-orig-rest { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; align-items: start; }
+.gd-orig-rest .gd-orig { width: 100%; }
 .gd-orig-stack { display: grid; gap: 12px; }
 /* The wide lead is as wide as its image at 600px tall (never wider than the column), so no mat shows beside it. */
 .gd-orig-wide .gd-orig { width: min(100%, calc(600px * (var(--ar)))); margin: 0 auto; }
@@ -512,13 +525,16 @@ picture[data-preview] { position: absolute; inset: 0; }
 /* ---------- text follows the window width (user decision 2026-11-18) ----------
    On wide screens paragraphs, lists, prompt boxes and intros fill the content column; no fixed measure.
    Checked by scripts/test-text-width.py. */
-.sect, .entry-tag, .hero-sub, .guide-para, /* The dashed rule separates English from Chinese, so it only shows when both are visible. */
+/* The dashed rule separates English from Chinese, so it only shows when both are visible.
+   (Until 2026-11-21 a half-written ".sect, .entry-tag, .hero-sub, .guide-para," selector list
+   was glued onto this rule and zeroed the top margin of every section; the max-width rule it
+   belonged to is below.) */
 [data-lang-mode="zh"] .copy-text .zh-copy { margin-top: 0; padding-top: 0; border-top: 0; }
 /* The 10px gap belongs between the two languages, not in front of a heading that starts in Chinese. */
-.section-title .lang-zh:first-child { margin-left: 0; }
+.section-title .lang-zh:first-child, [data-lang-mode="zh"] .section-title .lang-zh { margin-left: 0; }
 .section-title .lang-zh:first-child + .lang-en { margin-left: 10px; }
 /* Every heading on a graphic case page uses the same section style (originals and the coded breakdown included). */
-.graphic-detail h2.section-title { margin: 0 0 16px; font-family: var(--font-sans); font-size: 16px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--gray-600); }
+.graphic-detail h2.section-title { margin: 0 0 16px; font-family: var(--font-sans); letter-spacing: 0; text-transform: none; }
 .code-block pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 /* ---------- 文字跟随窗口宽度（用户拍板 2026-11-18，见 DESIGN.md） ----------
    宽屏上段落、列表、提示词框、简介都铺满内容栏，不设固定行宽。

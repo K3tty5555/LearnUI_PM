@@ -23,7 +23,8 @@
     image.addEventListener("error", function () {
       stage.classList.remove("preview-pending");
       picture.hidden = true;
-      stage.querySelector(".stage-preview-error").hidden = false;
+      var message = stage.querySelector(".stage-preview-error");
+      if (message) message.hidden = false;
     });
     var source = picture.querySelector("source[data-preview-en]");
     source.srcset = source.getAttribute("data-preview-en");
@@ -39,6 +40,14 @@
   } else {
     document.querySelectorAll("picture[data-preview]").forEach(loadPreview);
   }
+
+  /* "New" badges carry their end date: hide them once it has passed, even without a rebuild. */
+  (function () {
+    var today = new Date().toISOString().slice(0, 10);
+    document.querySelectorAll("[data-new-until]").forEach(function (badge) {
+      if (today >= badge.getAttribute("data-new-until")) badge.remove();
+    });
+  })();
 
   /* ---------- language mode ---------- */
   var MODE_KEY = "ntui-lang-mode";
@@ -656,11 +665,16 @@
       var active = selectedIds.indexOf(button.getAttribute("data-select-id")) !== -1;
       button.classList.toggle("selected", active);
       button.setAttribute("aria-pressed", active ? "true" : "false");
-      button.setAttribute("aria-label", (active ? "移除参考：" : "加入参考：") + ((catalogById[button.getAttribute("data-select-id")] || {}).nameZh || button.getAttribute("data-select-id")));
-      var label = button.querySelector("[data-select-label]");
-      if (label) label.textContent = active ? "已加入" : "加入参考";
+      var en = mode() === "en", item = catalogById[button.getAttribute("data-select-id")] || {};
+      // The item's real name: from the catalog once loaded, else the card or page title shown.
+      var host = button.closest(".catalog-item") || document;
+      var shown = [].filter.call(host.querySelectorAll(".card-name > span, .entry-title > span, .logo-title > span, h1 > span, h3 > span"), function (n) { return n.offsetParent && !n.classList.contains("tag"); })[0];
+      var name = (en ? item.name : item.nameZh) || (shown ? shown.textContent.trim() : document.title);
+      button.setAttribute("aria-label", (active ? (en ? "Remove from references: " : "移除参考：") : (en ? "Add to references: " : "加入参考：")) + name);
     });
   }
+
+  document.addEventListener("learnui:languagechange", refreshSelectionButtons);
 
   function renderSelection() {
     if (!selectionList) return;
@@ -913,26 +927,30 @@
   });
 
   /* ---------- copy buttons ---------- */
-  function flash(btn, done) {
-    var en = btn.querySelector(".lang-en");
-    var zh = btn.querySelector(".lang-zh");
-    var oEn = en ? en.textContent : btn.textContent;
-    var oZh = zh ? zh.textContent : "";
-    btn.classList.add("done");
-    if (en) en.textContent = btn.getAttribute("data-done-en") || "Copied";
-    if (zh) zh.textContent = btn.getAttribute("data-done-zh") || "已复制";
-    if (!en && !zh) btn.textContent = mode() === "en" ? (btn.getAttribute("data-done-en") || "Copied") : (btn.getAttribute("data-done-zh") || "已复制");
-    setTimeout(function () {
-      btn.classList.remove("done");
-      if (en) en.textContent = oEn;
-      if (zh) zh.textContent = oZh;
-    }, 1600);
+  /* Copy feedback: the button says "copied" (or "copy failed") in the page language for a moment,
+     then returns to its own label. The label is remembered once, so a second click inside the
+     window cannot capture "copied" as the label, and the bilingual spans are never replaced. */
+  function flash(btn, ok) {
+    var en = btn.querySelector(".lang-en"), zh = btn.querySelector(".lang-zh");
+    if (!btn._label) btn._label = { en: en ? en.textContent : null, zh: zh ? zh.textContent : null, text: btn.textContent };
+    var doneEn = ok === false ? "Copy failed, try again" : (btn.getAttribute("data-done-en") || "Copied");
+    var doneZh = ok === false ? "复制失败，请重试" : (btn.getAttribute("data-done-zh") || "已复制");
+    clearTimeout(btn._flashTimer);
+    btn.classList.toggle("done", ok !== false);
+    btn.classList.toggle("failed", ok === false);
+    if (en || zh) { if (en) en.textContent = doneEn; if (zh) zh.textContent = doneZh; }
+    else btn.textContent = mode() === "en" ? doneEn : doneZh;
+    btn._flashTimer = setTimeout(function () {
+      btn.classList.remove("done", "failed");
+      if (en || zh) { if (en) en.textContent = btn._label.en; if (zh) zh.textContent = btn._label.zh; }
+      else btn.textContent = btn._label.text;
+    }, ok === false ? 2400 : 1600);
   }
   document.querySelectorAll("[data-copy]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var target = document.getElementById(btn.getAttribute("data-copy"));
       if (!target) return;
-      copyText(target.textContent).then(function () { flash(btn); }, function () { btn.textContent = "复制失败，请重试"; });
+      copyText(target.textContent).then(function () { flash(btn); }, function () { flash(btn, false); });
     });
   });
   var copyMd = document.getElementById("copy-md");
@@ -940,7 +958,7 @@
     copyMd.addEventListener("click", function () {
       var tpl = document.getElementById("md-source");
       if (!tpl) return;
-      copyText(tpl.content.textContent).then(function () { flash(copyMd); }, function () { copyMd.textContent = "复制失败，请重试"; });
+      copyText(tpl.content.textContent).then(function () { flash(copyMd); }, function () { flash(copyMd, false); });
     });
   }
 

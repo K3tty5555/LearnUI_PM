@@ -54,6 +54,8 @@ jobs:
         run: python3 scripts/test-text-width.py site --base /UIUX
       - name: Verify mobile language control
         run: python3 scripts/test-mobile-language.py site --base /UIUX
+      - name: Verify copy and add-to-reference feedback
+        run: python3 scripts/test-feedback.py site --base /UIUX
       - name: Rsync site to the Singapore mirror
         # Deploy only when every check above passes. SSH key is a repository secret
         # (SG_MIRROR_KEY); the server address is a secret too (SG_MIRROR_HOST) so it never

@@ -189,6 +189,14 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 }
 .select-toggle:hover, .select-toggle-compact:hover { border-color: var(--gray-400); color: var(--fg); }
 .select-toggle.selected, .select-toggle-compact.selected { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+/* "Add to references" label: state x language, in CSS so 115 catalog cards don't repeat it. */
+/* Search fields: the browser's clear button is blue by default; draw it in the site's ink.
+   Slashes inside the data URI are escaped (%2F): prepare-pages would otherwise prefix them with /UIUX. */
+input[type="search"]::-webkit-search-cancel-button, .search-box input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; width: 14px; height: 14px; cursor: pointer; background: center / 14px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23696973'%2F%3E%3Cpath d='M5.5 5.5l5 5m0-5l-5 5' stroke='white' stroke-width='1.6' stroke-linecap='round'%2F%3E%3C%2Fsvg%3E"); }
+[data-select-label]::after { content: "加入参考"; }
+.selected [data-select-label]::after { content: "已加入"; }
+[data-lang-mode="en"] [data-select-label]::after { content: "Add to references"; }
+[data-lang-mode="en"] .selected [data-select-label]::after { content: "Added"; }
 .entry-actions { margin-top: 20px; display: flex; gap: 10px; }
 
 .no-result { padding: 48px 0 64px; text-align: center; color: var(--gray-600); font-size: 14px; }
