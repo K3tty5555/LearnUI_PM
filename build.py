@@ -932,6 +932,18 @@ def graphic_srcset(im, enough=None):
         return ""
     return f' srcset="/assets/graphics/{esc(im["file"])} 1x, /assets/graphics/{esc(hd)} 2x"'
 
+def graphic_recreate_head(case):
+    """Heading over the specimen: a coded reconstruction of the original, or (for trend boards,
+    "specimen": "style-demo") a coded demonstration poster in that style with a made-up title."""
+    if case.get("specimen") == "style-demo":
+        return ('<h2 class="section-title"><span class="lang-zh">风格示范与拆解</span><span class="lang-en">Style demonstration and breakdown</span></h2>\n'
+                '  <p class="gd-recreate-note"><span class="lang-zh">用代码做的风格示范：标题自拟，不是看板里的某一张原作。逐层打开可以看到这种风格的手法怎么落地。</span>'
+                '<span class="lang-en">A coded demonstration of the style with a made-up title, not one of the posters on the board. Open the layers to see how its techniques are applied.</span></p>')
+    return ('<h2 class="section-title"><span class="lang-zh">代码还原与拆解</span><span class="lang-en">Coded reconstruction and breakdown</span></h2>\n'
+            '  <p class="gd-recreate-note"><span class="lang-zh">用代码还原原作的版式、字体和配色，再逐层打开拆解。插画、摄影和角色画面不重画，用简化的形状代替，请对照上方原图。</span>'
+            '<span class="lang-en">Layout, type and colour rebuilt in code so each layer can be opened. Illustration, photography and characters are simplified shapes; compare with the originals above.</span></p>')
+
+
 def graphic_year(case, sep=" · "):
     return f'{sep}{case["year"]}' if case.get("year") else ""
 
@@ -1078,8 +1090,7 @@ def graphic_page(case):
   <p class="gd-orig-credit"><span class="lang-zh">原作：{esc(case["credits"])}{graphic_year(case, "，")}。图源：{esc(case["sourceLabel"])}{source_links}。版权归原权利人，仅用于学习交流，权利人要求即删除。{ai_zh}点图片可看大图。</span><span class="lang-en">Original: {esc(case["credits"])}{graphic_year(case, ", ")}. Source: {esc(case["sourceLabel"])}{source_links}. Rights belong to the original owners; shown for study and removed on request. {ai_en}Click an image to open it full size.</span></p>
  </section>
  <section class="gd-recreate">
-  <h2 class="section-title"><span class="lang-zh">代码还原与拆解</span><span class="lang-en">Coded reconstruction and breakdown</span></h2>
-  <p class="gd-recreate-note"><span class="lang-zh">用代码还原原作的版式、字体和配色，再逐层打开拆解。插画、摄影和角色画面不重画，用简化的形状代替，请对照上方原图。</span><span class="lang-en">Layout, type and colour rebuilt in code so each layer can be opened. Illustration, photography and characters are simplified shapes; compare with the originals above.</span></p>
+  {graphic_recreate_head(case)}
  </section>
  {stage("graphic/" + case["slug"], detail=True)}
  <div class="gd-layer-bar" role="group" aria-label="拆解图层"><span class="gd-layer-label"><span class="lang-zh">拆解</span><span class="lang-en">Break down</span></span>{layer_btns}</div>

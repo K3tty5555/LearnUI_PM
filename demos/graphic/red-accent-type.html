@@ -1,0 +1,148 @@
+<div class="demo gd-specimen gd-redtype" data-mode="red">
+  <div class="ra-frame" data-gd-canvas>
+    <svg class="ra-svg" viewBox="0 0 736 920" role="img" aria-label="ITERATION-01 Fade into you poster">
+      <defs>
+        <!-- Paper grain over everything, like the scanned original. -->
+        <filter id="ra-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.05"/>
+        </filter>
+        <!-- Halftone for the crowd: dark dots on a mid grey, so each figure reads as a printed photo. -->
+        <pattern id="ra-dots" width="4.2" height="4.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="4.2" height="4.2" fill="#474747"/>
+          <circle cx="2.1" cy="2.1" r="1.8" fill="#1d1d1d"/>
+        </pattern>
+        <linearGradient id="ra-bodyfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EFEFEF" stop-opacity="0"/><stop offset=".8" stop-color="#EFEFEF" stop-opacity=".9"/></linearGradient>
+        <filter id="ra-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+        <linearGradient id="ra-headfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".35" stop-color="#fff"/></linearGradient>
+        <mask id="ra-crowdmask" maskUnits="userSpaceOnUse" x="0" y="0" width="736" height="920"><rect x="0" y="200" width="736" height="720" fill="url(#ra-headfade)"/></mask>
+        <clipPath id="ra-gridclip"><path d="M572 0H736V920H490V454H572Z"/></clipPath>
+      </defs>
+
+      <rect width="736" height="920" fill="#EFEFEF"/>
+      <!-- Graph-paper grid: 41-unit cells, right column from x 572, widening to x 490 below y 454. -->
+      <g class="ra-grid" clip-path="url(#ra-gridclip)" stroke="#9b9b9b" stroke-width=".9" opacity=".55"></g>
+
+      <!-- Crowd: two rows of identical figures receding toward the top centre (drawn by script). -->
+      <g class="ra-crowd" mask="url(#ra-crowdmask)"></g>
+
+      <!-- Margin rule and corner L -->
+      <line class="ra-rs" x1="14.5" y1="222" x2="14.5" y2="735" stroke-width="1.6"/>
+      <path class="ra-r" d="M0 733H27V902H105V920H0Z"/>
+      <text class="ra-r" transform="translate(44 892) rotate(-90)" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11" letter-spacing=".5">KAERU</text>
+
+      <!-- Top-left label columns -->
+      <g class="ra-labels" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11.4" data-ov-type="成列的小号标签" data-ov-type-en="Small labels in columns">
+        <g class="ra-r"><rect x="27" y="33" width="5" height="5"/><rect x="51" y="33" width="5" height="5"/><rect x="75" y="33" width="5" height="5"/><rect x="177" y="33" width="5" height="5"/>
+          <rect x="27" y="203" width="5" height="5"/><rect x="51" y="203" width="5" height="5"/><rect x="75" y="203" width="5" height="5"/></g>
+        <g class="ra-r">
+          <text x="27" y="60">Curated absence</text><text x="27" y="73">Co-existing forms</text>
+          <text x="177" y="60">01</text><text x="177" y="73">02</text><text x="177" y="86">03</text>
+          <text x="27" y="97">Existence Loop</text><text x="27" y="110">Version 1.2</text>
+          <text x="27" y="151">Figures</text><text x="27" y="164">Primary</text><text x="27" y="177">Secondary</text><text x="27" y="190">Residual</text>
+        </g>
+      </g>
+      <g class="ra-r" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="11.4">
+        <rect x="465" y="33" width="5" height="5"/><rect x="490" y="33" width="5" height="5"/>
+        <text x="464" y="60">Version 1.2</text>
+        <rect x="465" y="139" width="5" height="5"/><rect x="490" y="139" width="5" height="5"/><rect x="516" y="139" width="5" height="5"/>
+        <text x="569" y="163" text-anchor="end">Where do i begin</text>
+        <text x="565" y="324" text-anchor="end">Where do you end</text>
+        <rect x="285" y="328" width="5" height="5"/><rect x="309" y="328" width="5" height="5"/><rect x="333" y="328" width="5" height="5"/>
+        <rect x="412" y="903" width="5" height="5"/><rect x="428" y="903" width="5" height="5"/><rect x="444" y="903" width="5" height="5"/>
+      </g>
+
+      <!-- Red bar and the ITERATION block -->
+      <rect class="ra-r" x="536" y="0" width="36" height="144"/>
+      <g class="ra-iter ra-r" font-family="'Helvetica Neue Condensed','HelveticaNeue-CondensedBold','Arial Narrow','Roboto Condensed',sans-serif" font-weight="700" font-stretch="condensed" font-size="54" text-anchor="end" data-ov-type="粗体窄字标题块" data-ov-type-en="Bold condensed title block" data-ov-focus="右上角红字块，全页最饱和的一处" data-ov-focus-en="The red title block, the most saturated spot">
+        <text x="728" y="48" textLength="98" lengthAdjust="spacingAndGlyphs">ITER</text>
+        <text x="728" y="100" textLength="135" lengthAdjust="spacingAndGlyphs">ATION</text>
+        <text x="724" y="152" textLength="68" lengthAdjust="spacingAndGlyphs">-01</text>
+      </g>
+      <path class="ra-r" d="M656 246V219L665 228 683 210 693 220 675 238 684 246Z"/>
+      <rect class="ra-rs" x="654.5" y="290.5" width="41" height="41" stroke-width="1.2"/>
+      <g class="ra-r"><rect x="533" y="463" width="13" height="13"/><rect x="558" y="463" width="13" height="13"/><rect x="546" y="476" width="12" height="12"/></g>
+
+      <!-- Existence, the two outline boxes -->
+      <g class="ra-thin" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="100" font-size="62">
+        <text class="ra-r" x="362" y="388" textLength="200" lengthAdjust="spacingAndGlyphs">Existe</text>
+        <text class="ra-r" x="414" y="436" textLength="148" lengthAdjust="spacingAndGlyphs">-nce</text>
+      </g>
+      <g class="ra-rs" stroke-width="1.1">
+        <rect x="87.5" y="395.5" width="88" height="92"/>
+        <path d="M118 487.5 140 528"/>
+        <rect x="117.5" y="528.5" width="62" height="48"/>
+      </g>
+      <text class="ra-rs" x="122" y="570" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="44" stroke-width=".9" textLength="52" lengthAdjust="spacingAndGlyphs">01</text>
+
+      <!-- The vertical title -->
+      <g class="ra-title ra-r" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="100" font-size="124" data-ov-type="极细大字转 90° 竖排" data-ov-type-en="Hairline display type turned 90°">
+        <text transform="translate(590 900) rotate(-90)" textLength="277" lengthAdjust="spacingAndGlyphs">Fade</text>
+        <text transform="translate(690 900) rotate(-90)" textLength="440" lengthAdjust="spacingAndGlyphs">into you</text>
+      </g>
+      <rect class="ra-r" x="600" y="894" width="5" height="5"/>
+
+      <rect class="ra-quiet" x="200" y="24" width="250" height="190" fill="none" data-ov-space="上半部的空纸面，人群从这里以下才出现" data-ov-space-en="Bare paper up top; the crowd starts below it"/>
+      <rect width="736" height="920" filter="url(#ra-grain)" opacity=".22" style="mix-blend-mode:multiply" pointer-events="none"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="77.7" y1="0" x2="77.7" y2="100"/><line x1="2" y1="0" x2="2" y2="100"/><line x1="0" y1="18" x2="100" y2="18"/><line x1="0" y1="49.3" x2="100" y2="49.3"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Colour"><button type="button" data-mode-btn="red" aria-pressed="true">Final</button><button type="button" data-mode-btn="mono" aria-pressed="false">Without red</button></div>
+</div>
+<style>
+.gd-redtype{width:min(370px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif;--ra-red:#FD3738}
+.gd-redtype *{box-sizing:border-box}
+.gd-redtype[data-mode="mono"]{--ra-red:#9a9a9a}
+.ra-frame{position:relative;width:100%;aspect-ratio:736/920;overflow:hidden;border-radius:4px;background:#EFEFEF}
+.ra-svg{display:block;width:100%;height:100%}
+.ra-r{fill:var(--ra-red);transition:fill .45s ease}
+.ra-rs{fill:none;stroke:var(--ra-red);transition:stroke .45s ease}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-redtype{width:min(170px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.ra-r,.ra-rs{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-redtype');
+  var svg=root.querySelector('.ra-svg'),NS='http://www.w3.org/2000/svg';
+  function el(name,attrs,parent){var n=document.createElementNS(NS,name);for(var k in attrs)n.setAttribute(k,attrs[k]);parent.appendChild(n);return n;}
+  // Grid: the cells measured on the original are 41 units, lines at x 490…736 and y 2…920.
+  var g=svg.querySelector('.ra-grid');
+  for(var x=490;x<=736;x+=41)el('line',{x1:x,y1:0,x2:x,y2:920},g);
+  for(var y=2;y<=920;y+=41)el('line',{x1:0,y1:y,x2:736,y2:y},g);
+  // Crowd: one file of identical figures that curves in from the top centre and comes down to the lower
+  // left, positions measured on the original. The photo is not redrawn: each figure is a halftone body
+  // with a pale, blurred head, the way the original's heads dissolve into the paper.
+  var crowd=svg.querySelector('.ra-crowd');
+  function figure(cx,shoulder,w,far,fade){
+    var f=el('g',{},crowd),foot=Math.min(930,shoulder+w*3.6),r=w*0.42;
+    if(far)f.setAttribute('filter','url(#ra-soft)');
+    el('path',{d:'M'+(cx-w*0.36)+' '+foot+'L'+(cx-w/2)+' '+(shoulder+r)+'Q'+(cx-w/2)+' '+shoulder+' '+(cx-w/2+r)+' '+shoulder
+      +'H'+(cx+w/2-r)+'Q'+(cx+w/2)+' '+shoulder+' '+(cx+w/2)+' '+(shoulder+r)+'L'+(cx+w*0.36)+' '+foot+'Z',
+      fill:far?'#4d4d4d':'url(#ra-dots)',stroke:'#EFEFEF','stroke-opacity':.6,'stroke-width':Math.max(1,w*0.016)},f);
+    // Lower body dissolves into the paper, which is what separates one figure from the next.
+    if(fade)el('rect',{x:cx-w/2-2,y:shoulder+w*1.3,width:w+4,height:foot-shoulder-w*1.3,fill:'url(#ra-bodyfade)'},f);
+    el('ellipse',{cx:cx+w*0.04,cy:shoulder-w*0.2,rx:w*0.19,ry:w*0.24,fill:'#cdcdcd',filter:'url(#ra-soft)',opacity:.85},f);
+  }
+  // [centre x, shoulder y, shoulder width], far to near.
+  [[215,250,16],[228,252,20],[245,256,27],[268,262,36],[296,272,48],[330,284,64],[373,300,88],
+   [391,412,125],[302,466,130],[225,510,134],[105,545,180]].forEach(function(p,i){figure(p[0],p[1],p[2],i<5,i>=5&&i<=8);});
+  // Colour toggle
+  var btns=[].slice.call(root.querySelectorAll('[data-mode-btn]'));
+  var NAMES={red:['成稿','Final'],mono:['去掉红色','Without red']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.modeBtn][zh()?0:1];});}
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    root.dataset.mode=b.dataset.modeBtn;
+    btns.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  });});
+  document.addEventListener('learnui:languagechange',text);
+  text();
+})();
+</script>

@@ -1,0 +1,142 @@
+<div class="demo gd-specimen gd-gate" data-step="5">
+  <div class="gf-frame" data-gd-canvas>
+    <svg class="gf-svg" viewBox="0 0 1280 720" role="img" aria-label="The Gate Future">
+      <defs>
+        <linearGradient id="gf-fade" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".12" stop-color="#0a0a0a"/><stop offset=".55" stop-color="#8a8a8a"/><stop offset="1" stop-color="#e2e2e2" stop-opacity="0"/></linearGradient>
+        <pattern id="gf-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-50)"><line x1="0" y1="0" x2="0" y2="9" stroke="#fff" stroke-opacity=".09" stroke-width="2"/></pattern>
+        <!-- Step 4: analogue signal fault. Long horizontal turbulence shifts rows sideways only. -->
+        <filter id="gf-signal" x="-2%" y="0" width="104%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.0015 0.16" numOctaves="1" seed="4" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="A" result="w"/>
+          <feOffset in="w" dx="2" result="wr"/>
+          <feColorMatrix in="wr" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+          <feColorMatrix in="w" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="gb"/>
+          <feBlend in="r" in2="gb" mode="screen"/>
+        </filter>
+        <!-- Step 5: the Looks grade, fitted to the before/after frames (blacks to slate, whites pulled down). -->
+        <filter id="gf-grade" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values=".73 0 0 0 .2  0 .72 0 0 .24  0 0 .68 0 .29  0 0 0 1 0"/>
+        </filter>
+      </defs>
+      <g class="gf-grade">
+       <g class="gf-sig">
+        <rect width="1280" height="720" fill="#E2E2E2"/>
+        <!-- 2 · structure: the faint 3D render behind, grid, left fade, gate lines -->
+        <g class="st2">
+          <g fill="#cfcfcf" opacity=".55"><path d="M760 300 L1240 250 L1280 330 L800 420Z"/><path d="M880 430 L1280 380 L1280 470 L960 520Z" fill="#d8d8d8"/><path d="M1180 300 L1280 260 L1280 520 L1210 560Z" fill="#c4c4c4"/><path d="M700 330 L840 300 L860 360 L720 400Z" fill="#c9c9c9"/></g>
+          <g fill="none" stroke="#d2d2d2" stroke-width="1.2"><circle cx="590" cy="405" r="70"/><circle cx="590" cy="405" r="95"/><circle cx="590" cy="405" r="120"/><circle cx="590" cy="405" r="148"/><circle cx="590" cy="405" r="180"/><circle cx="590" cy="405" r="215"/></g>
+          <g stroke="#9a9a9a" stroke-width="1.1"><line x1="590" y1="0" x2="590" y2="720" stroke-opacity=".5"/><line x1="735" y1="0" x2="735" y2="720"/><line x1="875" y1="0" x2="875" y2="720"/><line x1="1017" y1="0" x2="1017" y2="720"/><line x1="1157" y1="0" x2="1157" y2="720"/><line x1="535" y1="103" x2="1280" y2="103"/><line x1="590" y1="245" x2="1280" y2="245"/><line x1="720" y1="385" x2="1280" y2="385"/><line x1="560" y1="527" x2="1280" y2="527"/></g>
+          <g fill="#7d7d7d"><circle cx="1157" cy="103" r="5"/><circle cx="733" cy="245" r="5"/><circle cx="873" cy="385" r="5"/></g>
+          <rect width="620" height="720" fill="url(#gf-fade)"/>
+          <rect width="420" height="720" fill="url(#gf-hatch)"/>
+          <g fill="none" stroke="#3a3a3a" stroke-opacity=".35" stroke-width="14"><rect x="285" y="45" width="70" height="70" transform="rotate(25 320 80)"/><rect x="120" y="560" width="80" height="80" transform="rotate(20 160 600)"/></g>
+          <g stroke="#7a7a7a" stroke-width="1.6" fill="none"><path d="M663 172 L470 365"/><path d="M535 300 L800 300"/><path d="M615 300 L800 492"/><path d="M470 365 L470 440 L535 505 L640 505 L672 470 L672 300" stroke-opacity=".45"/></g>
+        </g>
+        <!-- 3 · information bits that make it read as a scanning interface -->
+        <g class="st3">
+          <rect x="1157" y="527" width="123" height="193" fill="#c8c8c8"/>
+          <path class="gf-star" fill="#141414"/>
+          <g font-family="'JetBrains Mono','SF Mono',Menlo,Consolas,monospace" fill="#f2f2f2">
+            <text x="20" y="37" font-size="11.5">⧓ 42  _ Deepfakes</text>
+            <g font-size="5.6" text-anchor="end" fill="#d8d8d8"><text x="150" y="52">If the end of the world has already arrived</text><text x="150" y="60">Who else can terminate it</text><text x="150" y="120">The crumbling symphony resounds throughout</text><text x="150" y="129">Scattered among the stars</text><text x="150" y="188">The sound of raindrops falling is like tears</text><text x="150" y="197">Pushing open the door to the future</text></g>
+            <text x="442" y="109" font-size="9">^channel</text>
+            <text x="316" y="129" font-size="10">11</text><text x="238" y="183" font-size="10">27</text>
+            <text x="59" y="345" font-size="7">1.848596\\</text><text x="50" y="447" font-size="7">0.571024</text><text x="41" y="489" font-size="7">dimension..</text><text x="315" y="544" font-size="8">hallucination</text>
+          </g>
+          <g fill="none" stroke="#f0f0f0" stroke-width="1.3"><rect x="332" y="98" width="37" height="36"/><rect x="217" y="171" width="40" height="17"/><line x1="350" y1="134" x2="286" y2="270"/><line x1="248" y1="188" x2="330" y2="340"/><line x1="357" y1="112" x2="480" y2="112" stroke-width=".8"/><line x1="365" y1="118" x2="470" y2="118" stroke-width=".8"/><rect x="265" y="500" width="42" height="45" stroke="#9d9d9d" stroke-width="7"/></g>
+          <g fill="#9c9c9c" fill-opacity=".85"><rect x="187" y="235" width="258" height="14"/><rect x="136" y="268" width="258" height="14"/><rect x="81" y="302" width="258" height="14"/></g>
+          <g font-family="'JetBrains Mono','SF Mono',Menlo,monospace" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle"><text x="316" y="246">New tab</text><text x="265" y="279">New tab</text><text x="210" y="313">New tab</text></g>
+          <rect x="110" y="368" width="259" height="34" fill="#cfcfcf" fill-opacity=".45"/>
+          <text x="140" y="396" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="32" fill="#8d8d8d">eakdown</text>
+          <text x="250" y="415" font-family="'Helvetica Neue',Arial,sans-serif" font-size="12" fill="#9a9a9a">rvous</text>
+          <g class="gf-bars" fill="#f4f4f4"></g>
+          <g class="gf-ticks" fill="#e8e8e8"></g>
+          <g class="gf-plus" font-family="Menlo,monospace" font-size="12" fill="#6d6d6d"></g>
+          <g font-family="'JetBrains Mono','SF Mono',Menlo,monospace" font-size="7.5" fill="#8a8a8a"><text x="225" y="345">[ 新建标签页 ]</text><text x="225" y="356" font-size="5.5">Tracking instructions</text><text x="437" y="565">◆ Restraint\\\</text><text x="437" y="576" font-size="6">[ 想挣脱，但又得继续前行。]</text><text x="437" y="586" font-size="6">--&gt;?---  -&gt;?</text><text x="502" y="627">&gt;&gt; _disorderly</text><text x="660" y="93">[angel \\^</text><text x="990" y="147" font-family="'Helvetica Neue',Arial,sans-serif" font-size="10">Error</text><text x="790" y="162" font-size="5.5">^ Surface Worldview</text><text x="798" y="171" font-size="5.5">2025.&gt;&gt;&gt;&gt;2-000</text><text x="1170" y="184" font-size="6.5">[ 我深深地破碎.. ]</text><text x="1190" y="195" font-size="5.5">deeply broken +</text><text x="758" y="430" font-size="5.5">[ 循环往往的事.. ]</text><text x="675" y="539" font-size="5.5">[ 如同此刻摇摇一般.. ]</text><text x="1167" y="542" font-size="6.5">IMageDev ^ Me</text><text x="900" y="600" font-size="9.5">access</text><text x="900" y="610" font-size="6">[ 访问.. ]</text></g>
+          <g fill="none" stroke="#fff" stroke-width="2.4"><path d="M1022 62 V50 H1034 M1058 50 H1070 V62 M1070 85 V97 H1058 M1034 97 H1022 V85"/></g>
+          <text x="1033" y="78" font-family="'Helvetica Neue',Arial,sans-serif" font-size="11" fill="#fff">spire</text>
+          <g font-family="'Helvetica Neue',Arial,sans-serif" fill="#141414">
+            <path d="M1169 116 L1182 129 M1182 116 L1169 129" stroke="#141414" stroke-width="2"/>
+            <text x="1192" y="128" font-size="16" data-ov-type="界面标注：中等无衬线" data-ov-type-en="Interface labels: medium sans">Time axis</text>
+            <text x="881" y="546" font-size="16">Message</text>
+            <text x="890" y="570" font-size="20">✳</text>
+          </g>
+          <g font-family="'Helvetica Neue',Arial,sans-serif" font-size="9" fill="#8a8a8a"><text x="578" y="345">01.</text><text x="490" y="406">02.</text><text x="652" y="415">04.</text><text x="566" y="468" font-size="12">03.</text></g>
+          <g fill="#8a8a8a"><path d="M566 336 h12 l-6 9z"/><path d="M507 397 v12 l9 -6z"/><path d="M648 405 v12 l-9 -6z"/><path d="M566 455 h12 l-6 -9z"/></g>
+        </g>
+        <!-- 1 · title, subtitle and the X emblem -->
+        <g class="gf-title" font-family="'Space Grotesk','Helvetica Neue','Inter',Arial,sans-serif" font-weight="700" fill="#141414" data-ov-type="主标题：粗几何无衬线，两行右对齐" data-ov-type-en="Title: heavy geometric sans, two right-aligned lines">
+          <text x="1193" y="288" font-size="124" text-anchor="end" textLength="532" lengthAdjust="spacingAndGlyphs">The Gate</text>
+          <text x="1193" y="389" font-size="124" text-anchor="end" textLength="378" lengthAdjust="spacingAndGlyphs">Future</text>
+        </g>
+        <g font-family="'Helvetica Neue',Arial,sans-serif" font-size="15" fill="#2a2a2a" text-anchor="end"><text x="1192" y="422">You observe the world.</text><text x="1192" y="442">I observe you.</text></g>
+        <g class="gf-x" data-ov-focus="X 形符号和 Convolution 标签" data-ov-focus-en="The X emblem and its Convolution label">
+          <g fill="#141414"><path class="gf-blade" transform="translate(572 402) rotate(-135)"/><path class="gf-blade" transform="translate(572 402) rotate(-45)"/><path class="gf-blade" transform="translate(572 402) rotate(45)"/><path class="gf-blade" transform="translate(572 402) rotate(135)"/><path d="M560 400 L572 412 L584 400 L572 404Z"/></g>
+          <rect x="514" y="361" width="158" height="37" fill="#fafafa"/>
+          <text x="601" y="387" text-anchor="middle" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="600" font-size="23" fill="#141414" textLength="136" lengthAdjust="spacingAndGlyphs">Convolution</text>
+        </g>
+        <rect x="900" y="452" width="230" height="60" fill="none" data-ov-space="标题下方几乎空着的亮区" data-ov-space-en="Bright, nearly empty band under the title"/>
+       </g>
+       <image class="st4 gf-noise" x="0" y="0" width="1280" height="720" preserveAspectRatio="none"/>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="46.1" y1="0" x2="46.1" y2="100"/><line x1="57.4" y1="0" x2="57.4" y2="100"/><line x1="68.4" y1="0" x2="68.4" y2="100"/><line x1="79.5" y1="0" x2="79.5" y2="100"/><line x1="90.4" y1="0" x2="90.4" y2="100"/><line x1="0" y1="14.3" x2="100" y2="14.3"/><line x1="0" y1="34" x2="100" y2="34"/><line x1="0" y1="53.5" x2="100" y2="53.5"/><line x1="0" y1="73.2" x2="100" y2="73.2"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Title · emblem</button><button type="button" data-step-btn="2">2 Grid · fade</button><button type="button" data-step-btn="3">3 Info bits</button><button type="button" data-step-btn="4">4 Signal</button><button type="button" data-step-btn="5" aria-pressed="true">5 Looks grade</button></div>
+</div>
+<style>
+.gd-gate{width:min(800px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-gate *{box-sizing:border-box}
+.gf-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:4px;background:#E2E2E2}
+.gf-svg{display:block;width:100%;height:100%}
+.gd-gate .st2,.gd-gate .st3,.gd-gate .st4{transition:opacity .55s ease}
+.gd-gate[data-step="1"] .st2,.gd-gate[data-step="1"] .st3,.gd-gate[data-step="2"] .st3,.gd-gate[data-step="1"] .st4,.gd-gate[data-step="2"] .st4,.gd-gate[data-step="3"] .st4{opacity:0}
+.gd-gate[data-step="4"] .gf-sig,.gd-gate[data-step="5"] .gf-sig{filter:url(#gf-signal)}
+.gd-gate[data-step="5"] .gf-grade{filter:url(#gf-grade)}
+.gf-noise{opacity:.75}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-gate{width:calc(100vw - 40px)}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-gate .st2,.gd-gate .st3,.gd-gate .st4{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-gate');
+  var svg=root.querySelector('.gf-svg'),NS='http://www.w3.org/2000/svg';
+  function el(name,attrs,parent,text){var n=document.createElementNS(NS,name);for(var k in attrs)n.setAttribute(k,attrs[k]);if(text!=null)n.textContent=text;parent.appendChild(n);return n;}
+  function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  // Propeller blade: thin at the hub, swelling to a rounded tip about 96 units out.
+  [].forEach.call(svg.querySelectorAll('.gf-blade'),function(p){p.setAttribute('d','M4 -1.5 C22 -6 52 -15 80 -13 C99 -11 99 11 80 13 C52 15 22 6 4 1.5Z');});
+  // Concave four-point star in the bottom-right corner, taller than wide.
+  var cx=1160,cy=668,rx=105,ry=96,k=9;
+  svg.querySelector('.gf-star').setAttribute('d','M'+cx+' '+(cy-ry)+'Q'+(cx+k)+' '+(cy-k)+' '+(cx+rx)+' '+cy+'Q'+(cx+k)+' '+(cy+k)+' '+cx+' '+(cy+ry)+'Q'+(cx-k)+' '+(cy+k)+' '+(cx-rx)+' '+cy+'Q'+(cx-k)+' '+(cy-k)+' '+cx+' '+(cy-ry)+'Z');
+  var rnd=seeded(42);
+  var bars=svg.querySelector('.gf-bars');
+  for(var p=0;p<101;){var w=1+Math.floor(rnd()*3);el('rect',{x:268+p,y:425,width:w,height:10},bars);p+=w+1+Math.floor(rnd()*3);}
+  var ticks=svg.querySelector('.gf-ticks');
+  for(var y=283;y<490;y+=rnd()<.5?9:17)el('rect',{x:15,y:y,width:y>380?6+rnd()*6:10,height:1.4},ticks);
+  var plus=svg.querySelector('.gf-plus');
+  for(var r=0;r<5;r++)for(var c=0;c<5;c++)el('text',{x:22+c*33,y:532+r*33},plus,'+');
+  // Signal streaks: rows of short bright/dark dashes, densest at the very bottom like the original.
+  var cv=document.createElement('canvas');cv.width=640;cv.height=360;var x=cv.getContext('2d'),R=seeded(9);
+  for(var row=0;row<360;row++){var dens=row>336?.8:(R()<.2?.32:.07);
+    for(var i=0;i<640*dens/6;i++){var px=R()*640,len=2+R()*14,light=R()<.6;x.fillStyle=light?'rgba(255,255,255,'+(.06+R()*.16).toFixed(3)+')':'rgba(20,24,30,'+(.05+R()*.15).toFixed(3)+')';x.fillRect(px,row,len,1);}}
+  for(row=338;row<360;row++)for(i=0;i<160;i++){x.fillStyle=R()<.5?'rgba(255,255,255,.5)':'rgba(0,0,0,.45)';x.fillRect(R()*640,row,1+R()*2,1);}
+  svg.querySelector('.gf-noise').setAttribute('href',cv.toDataURL('image/png'));
+  // Steps follow the tutorial: layout (title, structure, information), then After Effects (signal, Looks grade).
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 标题 · 符号','1 Title · emblem'],2:['2 网格 · 渐变','2 Grid · fade'],3:['3 信息元素','3 Info bits'],4:['4 Signal 失真','4 Signal'],5:['5 Looks 调色','5 Looks grade']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%5+1);cycle();},+root.dataset.step===5?4200:2400);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

@@ -1,0 +1,77 @@
+<div class="demo gd-specimen gd-diffuse">
+  <div class="df-frame" data-gd-canvas>
+    <svg class="df-art" viewBox="0 0 300 400" aria-hidden="true">
+      <defs>
+        <!-- One heavy blur over the whole group: the blobs lose every edge and bleed into each other. -->
+        <filter id="df-blur" filterUnits="userSpaceOnUse" x="-120" y="-120" width="540" height="640">
+          <feGaussianBlur stdDeviation="26"/>
+        </filter>
+        <filter id="df-halo" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+        <!-- Fine monochrome grain: hides banding and makes the colour feel photographed. -->
+        <filter id="df-grain" filterUnits="userSpaceOnUse" x="0" y="0" width="300" height="400">
+          <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="4" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+          <feComponentTransfer><feFuncA type="table" tableValues="0 .5"/></feComponentTransfer>
+        </filter>
+      </defs>
+      <rect width="300" height="400" fill="#FFF6E6"/>
+      <g class="df-blobs" filter="url(#df-blur)">
+        <circle class="df-b df-b1" cx="214" cy="104" r="78" fill="#B9A2FF"/>
+        <circle class="df-b df-b2" cx="96" cy="236" r="96" fill="#FF5A4E"/>
+        <circle class="df-b df-b3" cx="214" cy="226" r="80" fill="#F2389A"/>
+        <circle class="df-b df-b4" cx="160" cy="388" r="96" fill="#FF9A3C"/>
+        <circle class="df-b df-b5" cx="18" cy="372" r="56" fill="#D8F36A"/>
+        <circle class="df-b df-b6" cx="150" cy="226" r="34" fill="#FFE6A8"/>
+      </g>
+      <rect width="300" height="400" filter="url(#df-grain)" opacity=".55" style="mix-blend-mode:multiply"/>
+      <!-- Headline twice: a blurred halo behind a sharp copy, the only clean edge on the sheet. -->
+      <g font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="500" letter-spacing="-2.4">
+        <text x="150" y="318" font-size="62" text-anchor="middle" fill="#F2389A" filter="url(#df-halo)" opacity=".85" textLength="268" lengthAdjust="spacingAndGlyphs">afterglow</text>
+        <text x="150" y="318" font-size="62" text-anchor="middle" fill="#FFF6E6" textLength="268" lengthAdjust="spacingAndGlyphs" data-ov-type="大号小写标题 · 虚实双层" data-ov-type-en="Large lower-case headline · blurred and sharp">afterglow</text>
+      </g>
+      <g font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="7.4" fill="#3A1D2E" letter-spacing=".2">
+        <g data-ov-type="四角小字 · 细无衬线" data-ov-type-en="Corner details · thin sans">
+          <text x="16" y="26">soft light sessions</text>
+          <text x="16" y="36">vol. 03</text>
+        </g>
+        <text x="284" y="26" text-anchor="end">a night of slow</text>
+        <text x="284" y="36" text-anchor="end">ambient music</text>
+        <text x="16" y="372" fill="#3A1D2E">21.03.2027</text>
+        <text x="16" y="382" fill="#3A1D2E">19:00 — late</text>
+        <text x="284" y="372" text-anchor="end">lumen hall</text>
+        <text x="284" y="382" text-anchor="end">shanghai</text>
+      </g>
+      <text x="16" y="60" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="5.6" fill="#3A1D2E" opacity=".7" letter-spacing=".5">STYLE DEMO · 风格示范</text>
+    </svg>
+    <span class="gd-mark" data-ov-focus="珊瑚红与玫红交融的最亮处" data-ov-focus-en="Where coral and rose fuse brightest" style="left:50%;top:56.5%;width:2%;height:2%"></span>
+    <span class="gd-mark" data-ov-space="色团淡出的奶油色角落" data-ov-space-en="Cream corner where the colour fades" style="left:4%;top:16%;width:30%;height:20%"></span>
+    <svg class="gd-grid" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true"><line x1="16" y1="0" x2="16" y2="400"/><line x1="284" y1="0" x2="284" y2="400"/><line x1="150" y1="0" x2="150" y2="400"/><line x1="0" y1="40" x2="300" y2="40"/><line x1="0" y1="362" x2="300" y2="362"/></svg>
+  </div>
+</div>
+<style>
+.gd-diffuse{width:min(360px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-diffuse *{box-sizing:border-box}
+.df-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#FFF6E6}
+.df-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.df-b{transform-box:fill-box;transform-origin:center}
+.gd-diffuse.df-live .df-b1{animation:df-drift1 16s ease-in-out infinite alternate}
+.gd-diffuse.df-live .df-b2{animation:df-drift2 19s ease-in-out infinite alternate}
+.gd-diffuse.df-live .df-b3{animation:df-drift3 14s ease-in-out infinite alternate}
+@keyframes df-drift1{to{transform:translate(-14px,18px) scale(1.08)}}
+@keyframes df-drift2{to{transform:translate(16px,-12px) scale(.94)}}
+@keyframes df-drift3{to{transform:translate(-10px,14px) scale(1.1)}}
+.gd-mark{position:absolute;pointer-events:none}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+@media (max-height:260px){.gd-diffuse{width:min(165px,calc(100vw - 40px))}}
+@media (prefers-reduced-motion:reduce){.gd-diffuse.df-live .df-b{animation:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-diffuse');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Drift only while on screen: re-blurring the colour every frame is not free.
+  if(!reduce&&'IntersectionObserver' in window)new IntersectionObserver(function(es){root.classList.toggle('df-live',es[0].isIntersecting);}).observe(root);
+})();
+</script>

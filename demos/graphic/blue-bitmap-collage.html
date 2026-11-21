@@ -1,0 +1,167 @@
+<div class="demo gd-specimen gd-bluecol" data-step="4">
+  <div class="bc-frame" data-gd-canvas>
+    <svg class="bc-svg" viewBox="0 0 1136 2323" role="img" aria-label="Blue digital collage poster">
+      <defs>
+        <pattern id="bc-dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="3.4" fill="#0311C6"/></pattern>
+        <pattern id="bc-dots-fine" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="5.5" cy="5.5" r="2.6" fill="#0311C6"/></pattern>
+        <pattern id="bc-x" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M6 6 16 16M16 6 6 16" stroke="#0311C6" stroke-width="3"/></pattern>
+        <!-- Grain: noise multiplied into whatever it is applied to (photo cut-outs, the textured panel). -->
+        <filter id="bc-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="3" result="n"/>
+          <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+          <feComposite in="g" in2="SourceGraphic" operator="in" result="gi"/>
+          <feBlend in="SourceGraphic" in2="gi" mode="multiply"/>
+        </filter>
+        <filter id="bc-mottle" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".035 .06" numOctaves="3" seed="9" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 .01  0 0 0 0 .07  0 0 0 0 .78  0 0 0 -2.4 1.25" result="b"/>
+          <feComposite in="b" in2="SourceGraphic" operator="in"/>
+        </filter>
+        <path id="bc-dove" d="M40 62C30 45 28 22 34 2 46 18 56 40 60 60ZM5 66C20 60 45 58 65 62 75 60 85 56 95 54 92 62 86 68 78 70 65 76 45 78 30 76 20 74 12 70 5 66L0 58 2 72ZM50 62C58 40 74 18 98 8 90 30 78 50 66 64Z"/>
+        <!-- The reaching hand, as a flat silhouette (the photo is not redrawn); it is sliced into bands below. -->
+        <g id="bc-hand">
+          <path d="M0 2323V2050C40 1880 150 1700 330 1640 430 1610 520 1640 560 1720 600 1820 590 2000 540 2323Z"/>
+          <path d="M330 1690C380 1560 420 1420 440 1300L565 1255C560 1400 540 1560 545 1710Z"/>
+          <path d="M380 1290C350 1180 360 1060 400 1000 450 940 540 950 590 1010L700 1080C740 1100 760 1140 730 1170 690 1190 640 1170 600 1160 580 1240 520 1300 450 1310Z"/>
+          <rect x="372" y="770" width="48" height="250" rx="24" transform="rotate(-4 396 895)"/>
+          <rect x="433" y="760" width="48" height="260" rx="24" transform="rotate(6 457 890)"/>
+          <rect x="498" y="800" width="44" height="230" rx="22" transform="rotate(16 520 915)"/>
+          <rect x="556" y="870" width="40" height="190" rx="20" transform="rotate(30 576 965)"/>
+        </g>
+        <clipPath id="bc-paper"><rect width="1136" height="2323"/></clipPath>
+      </defs>
+
+      <g clip-path="url(#bc-paper)">
+      <rect width="1136" height="2323" fill="#F3F1F0"/>
+
+      <!-- 1 · ground: blue band, panels, dot fields -->
+      <g class="bc-s1">
+        <rect x="0" y="33" width="137" height="1960" fill="#0311C6"/>
+        <rect x="0" y="0" width="476" height="21" fill="#333"/>
+        <rect x="91" y="33" width="484" height="19" fill="#8a8a8a"/>
+        <rect x="215" y="238" width="598" height="1028" fill="url(#bc-dots)" stroke="#2734AC" stroke-width="3"/>
+        <path d="M17 656H440V700H462V1591H60V1560H17Z" fill="#fff" stroke="#8a8a8a" stroke-width="2"/>
+        <rect x="592" y="999" width="297" height="848" fill="#BFC2EE" stroke="#2734AC" stroke-width="3"/>
+        <rect x="592" y="999" width="297" height="848" filter="url(#bc-mottle)" fill="#000"/>
+        <rect x="674" y="918" width="139" height="110" fill="#0311C6"/>
+        <rect x="801" y="918" width="198" height="81" fill="url(#bc-dots-fine)" stroke="#0311C6" stroke-width="3"/>
+        <rect x="87" y="1795" width="726" height="145" fill="#8a8a8a"/>
+        <rect x="70" y="1469" width="313" height="76" fill="url(#bc-dots-fine)"/>
+        <rect x="0" y="1990" width="140" height="333" fill="url(#bc-dots-fine)"/>
+        <rect x="253" y="1522" width="302" height="40" fill="#0311C6"/>
+        <rect x="502" y="1432" width="71" height="46" fill="#0311C6"/>
+        <rect x="1045" y="545" width="91" height="35" fill="#0311C6"/>
+        <rect x="1070" y="602" width="45" height="10" fill="#0311C6"/>
+        <rect x="1070" y="682" width="45" height="10" fill="#0311C6"/>
+      </g>
+
+      <!-- 2 · lines and shapes: orbit arcs, the grey planet with its star, the black disc, the lower circles -->
+      <g class="bc-s2">
+        <g fill="none" stroke="#2734AC" stroke-width="2.2" opacity=".75">
+          <circle cx="560" cy="880" r="690"/><circle cx="1180" cy="560" r="470"/><circle cx="930" cy="1600" r="640"/><circle cx="160" cy="1950" r="560"/>
+        </g>
+        <circle cx="836" cy="2114" r="348" fill="#A0A4E1"/>
+        <path d="M560 2010A330 330 0 0 1 1136 1890" fill="none" stroke="#0311C6" stroke-width="24"/>
+        <ellipse cx="900" cy="2150" rx="250" ry="70" transform="rotate(-18 900 2150)" fill="none" stroke="#0311C6" stroke-width="5"/>
+        <circle cx="906" cy="1777" r="64" fill="#fff" stroke="#0311C6" stroke-width="4"/>
+        <circle cx="906" cy="1777" r="60" fill="url(#bc-x)"/>
+        <circle cx="337" cy="348" r="215" fill="#8F8DA5"/>
+        <path d="M395 272Q408 388 523 401 408 414 395 530 382 414 267 401 382 388 395 272Z" fill="#fff" stroke="#333" stroke-width="3"/>
+        <g fill="none" stroke="#fff" stroke-width="6"><ellipse cx="325" cy="314" rx="290" ry="70" transform="rotate(-16 325 314)"/><ellipse cx="345" cy="330" rx="262" ry="58" transform="rotate(-16 345 330)"/></g>
+        <circle cx="192" cy="1260" r="107" fill="#000"/>
+        <rect x="905" y="1110" width="220" height="190" fill="none" data-ov-space="纹理面板右侧留出的浅灰空地" data-ov-space-en="Bare grey ground right of the textured panel"/>
+      </g>
+
+      <!-- 3 · cut-outs: the dark hand, the sliced reaching hand, doves -->
+      <g class="bc-s3">
+        <g fill="#2a2a2a" stroke="#fff" stroke-width="9" stroke-linejoin="round" filter="url(#bc-grain)">
+          <rect x="805" y="200" width="40" height="230" rx="20" transform="rotate(10 825 315)"/>
+          <rect x="872" y="220" width="40" height="290" rx="20" transform="rotate(5 892 365)"/>
+          <rect x="945" y="230" width="38" height="320" rx="19" transform="rotate(-1 964 390)"/>
+          <rect x="1018" y="230" width="36" height="270" rx="18" transform="rotate(-7 1036 365)"/>
+          <path d="M1136 0H800C760 60 720 120 700 170L640 212C612 230 628 252 660 246L760 232C800 262 860 282 920 282L1136 300Z"/>
+        </g>
+        <g class="bc-slices" data-ov-focus="被横切错位的灰色大手" data-ov-focus-en="The grey hand, sliced and shifted"></g>
+        <g fill="#fff" stroke="#0311C6" stroke-width="1.5">
+          <use href="#bc-dove" transform="translate(35 60) scale(2.7) rotate(-25 50 40)"/>
+          <use href="#bc-dove" transform="translate(743 1340) scale(2.2) rotate(-35 50 40)"/>
+          <use href="#bc-dove" transform="translate(1136 1330) scale(-1.6 1.6)"/>
+          <use href="#bc-dove" transform="translate(640 1610) scale(2) rotate(-55 50 40)"/>
+          <use href="#bc-dove" transform="translate(476 2130) scale(1.1) rotate(-65 50 40)"/>
+        </g>
+        <use href="#bc-dove" transform="translate(1136 780) scale(-2.6 2.6) rotate(-20 50 40)" fill="#0311C6"/>
+        <use href="#bc-dove" transform="translate(580 1815) scale(1.6) rotate(15 50 40)" fill="#0311C6"/>
+      </g>
+
+      <!-- 4 · type: typewriter notes in a white box, a blue strip and on the lower circle -->
+      <g class="bc-s4" font-family="'Courier Prime','Courier New',Courier,monospace">
+        <g font-size="27" fill="#222" data-ov-type="打字机式等宽小字，像日记" data-ov-type-en="Small typewriter lines, like a diary">
+          <text x="33" y="691">No matter what</text><text x="33" y="721">you do, I will eventually</text><text x="33" y="751">become myself.</text>
+          <text x="33" y="783">I will endure it,</text><text x="33" y="813">I will have money,</text><text x="40" y="843">I will be free</text>
+        </g>
+        <rect x="453" y="407" width="683" height="95" fill="#0311C6"/>
+        <g font-size="21" fill="#fff"><text x="517" y="451">All is well and the end will be well, I pray</text><text x="517" y="474">you're still alive</text><text x="517" y="497" opacity=".6">There's nothing you can do</text></g>
+        <g font-size="27" fill="#fff" data-ov-type="同一种字压在色块上" data-ov-type-en="The same face, reversed out on colour"><text x="674" y="2207">You finally have no reason</text><text x="684" y="2241">to be valuable</text><text x="684" y="2275">congratulations</text></g>
+      </g>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="12.06" y1="0" x2="12.06" y2="100"/><line x1="18.9" y1="0" x2="18.9" y2="100"/><line x1="71.6" y1="0" x2="71.6" y2="100"/><line x1="0" y1="10.2" x2="100" y2="10.2"/><line x1="0" y1="54.5" x2="100" y2="54.5"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Blocks</button><button type="button" data-step-btn="2">2 Shapes</button><button type="button" data-step-btn="3">3 Cut-outs</button><button type="button" data-step-btn="4" aria-pressed="true">4 Final</button></div>
+</div>
+<style>
+.gd-bluecol{width:min(220px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-bluecol *{box-sizing:border-box}
+.bc-frame{position:relative;width:100%;aspect-ratio:1136/2323;overflow:hidden;border-radius:4px;background:#F3F1F0}
+.bc-svg{display:block;width:100%;height:100%}
+.gd-bluecol .bc-s2,.gd-bluecol .bc-s3,.gd-bluecol .bc-s4{transition:opacity .5s ease}
+.gd-bluecol[data-step="1"] .bc-s2,.gd-bluecol[data-step="1"] .bc-s3,.gd-bluecol[data-step="2"] .bc-s3,.gd-bluecol[data-step="1"] .bc-s4,.gd-bluecol[data-step="2"] .bc-s4,.gd-bluecol[data-step="3"] .bc-s4{opacity:0}
+.bc-slices use{transition:transform .12s steps(2)}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-bluecol{width:min(280px,calc(100vw - 80px))}}
+@media (max-height:260px){.gd-bluecol{width:min(104px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-bluecol .bc-s2,.gd-bluecol .bc-s3,.gd-bluecol .bc-s4,.bc-slices use{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-bluecol');
+  var svg=root.querySelector('.bc-svg'),NS='http://www.w3.org/2000/svg';
+  function el(name,attrs,parent){var n=document.createElementNS(NS,name);for(var k in attrs)n.setAttribute(k,attrs[k]);parent.appendChild(n);return n;}
+  // Slice the hand into horizontal bands and push some sideways (offsets read off the original's breaks).
+  var defs=svg.querySelector('defs'),slices=svg.querySelector('.bc-slices');
+  var BANDS=[[740,900,0],[900,980,-22],[980,1080,14],[1080,1190,0],[1190,1300,-30],[1300,1420,8],[1420,1660,0],[1660,1745,26],[1745,2000,-10],[2000,2323,0]];
+  var uses=BANDS.map(function(b,i){
+    var cp=el('clipPath',{id:'bc-band-'+i,clipPathUnits:'userSpaceOnUse'},defs);
+    el('rect',{x:-200,y:b[0],width:1500,height:b[1]-b[0]},cp);
+    var g=el('g',{'clip-path':'url(#bc-band-'+i+')'},slices);
+    var u=el('use',{href:'#bc-hand',fill:'#9a9a9a',stroke:'#fff','stroke-width':8,filter:'url(#bc-grain)'},g);
+    u.style.transform='translateX('+b[2]+'px)';
+    return u;
+  });
+  // A short twitch on two slices now and then; none under reduced motion.
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){(function twitch(){setTimeout(function(){
+    var a=1+Math.floor(Math.random()*8),b=(a+3)%10;
+    uses[a].style.transform='translateX('+(BANDS[a][2]+(Math.random()<.5?-1:1)*34)+'px)';
+    uses[b].style.transform='translateX('+(BANDS[b][2]-18)+'px)';
+    setTimeout(function(){uses[a].style.transform='translateX('+BANDS[a][2]+'px)';uses[b].style.transform='translateX('+BANDS[b][2]+'px)';twitch();},170);
+  },2600+Math.random()*1800);})();}
+  // Build steps
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 色块','1 Blocks'],2:['2 图形','2 Shapes'],3:['3 抠图','3 Cut-outs'],4:['4 成稿','4 Final']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    root.dataset.step=b.dataset.stepBtn;
+    btns.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  });});
+  document.addEventListener('learnui:languagechange',text);
+  text();
+})();
+</script>

@@ -1,0 +1,105 @@
+<div class="demo gd-specimen gd-nfolk" data-step="3">
+  <div class="nf-frame" data-gd-canvas>
+    <svg class="nf-svg" viewBox="0 0 600 800" role="img" aria-label="节气手作市集 — neo-folk poster (style demo)">
+      <defs>
+        <!-- 回纹 (key fret) tile -->
+        <pattern id="nf-fret" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M3 27 V3 H27 V21 H11 V11 H19" fill="none" stroke="#24406B" stroke-width="3.2" stroke-linecap="square"/>
+        </pattern>
+        <!-- Papercut: white = paper left standing, black = cut away. Filled by script with 12-fold repeats. -->
+        <mask id="nf-cut" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="800"><g class="nf-mask"></g></mask>
+        <filter id="nf-grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="11"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .35  0 0 0 0 .25  0 0 0 .09 0"/></filter>
+      </defs>
+      <rect width="600" height="800" fill="#F3EADB"/>
+      <rect width="600" height="800" filter="url(#nf-grain)"/>
+
+      <g font-family="'Helvetica Neue',Inter,Arial,'PingFang SC',sans-serif" font-size="12.5" font-weight="600" fill="#24406B" letter-spacing=".5">
+        <text x="40" y="46">VOL.07 — SOLAR TERMS</text>
+        <text x="560" y="46" text-anchor="end">2027.03.20 — 03.22</text>
+      </g>
+      <line x1="40" y1="60" x2="560" y2="60" stroke="#24406B" stroke-width="1.2"/>
+
+      <!-- step 1: the old pattern -->
+      <g class="nf-old">
+        <rect class="nf-medal" x="100" y="96" width="400" height="400" fill="#C23B2B" mask="url(#nf-cut)"/>
+        <rect x="40" y="520" width="520" height="30" fill="url(#nf-fret)"/>
+        <circle cx="300" cy="296" r="10" fill="none" data-ov-focus="剪纸团花：十二向放射对称，图案靠镂空" data-ov-focus-en="Papercut medallion: 12-fold symmetry made of cut-outs"/>
+      </g>
+      <rect x="40" y="80" width="56" height="420" fill="none" data-ov-space="纹样四周留出整圈纸色" data-ov-space-en="A full ring of bare paper around the motif"/>
+
+      <!-- step 2: the modern grid and type -->
+      <g class="nf-new">
+        <g stroke="#24406B" stroke-width="1.2">
+          <line x1="40" y1="566" x2="560" y2="566"/><line x1="40" y1="752" x2="560" y2="752"/>
+          <line x1="300" y1="566" x2="300" y2="752"/><line x1="430" y1="566" x2="430" y2="752"/>
+        </g>
+        <g font-family="'Songti SC','STSong','Noto Serif CJK SC','Source Han Serif SC',serif" font-weight="900" font-size="78" fill="#24406B" data-ov-type="中文标题：粗宋体，传统气质" data-ov-type-en="Chinese title: heavy Song serif">
+          <text x="36" y="650">节气</text><text x="36" y="738">手作</text>
+        </g>
+        <g font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-weight="800" font-size="21" fill="#24406B" letter-spacing=".4" data-ov-type="英文：粗无衬线，现代感" data-ov-type-en="English: bold grotesk, the modern voice">
+          <text x="312" y="596">SOLAR</text><text x="312" y="620">TERMS</text><text x="312" y="644">CRAFT</text><text x="312" y="668">MARKET</text>
+        </g>
+        <g font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="11.5" font-weight="500" fill="#24406B">
+          <text x="312" y="726">West St. 12</text><text x="312" y="742">10:00 — 18:00</text>
+        </g>
+        <g font-family="'PingFang SC','Helvetica Neue',Arial,sans-serif" font-size="12" fill="#24406B">
+          <text x="442" y="592">蓝染 Indigo dye</text><text x="442" y="612">剪纸 Paper cut</text><text x="442" y="632">竹编 Bamboo</text><text x="442" y="652">粗陶 Clay</text><text x="442" y="672">刺绣 Embroidery</text>
+        </g>
+        <rect x="508" y="700" width="40" height="40" fill="#C23B2B"/>
+        <text x="528" y="729" text-anchor="middle" font-family="'Songti SC','STSong','Noto Serif CJK SC',serif" font-weight="900" font-size="26" fill="#F3EADB">手</text>
+        <text x="40" y="778" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="11.5" font-weight="600" fill="#24406B" letter-spacing="1.2">MADE BY HAND · SET IN A GRID</text>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 600 800" preserveAspectRatio="none" aria-hidden="true"><line x1="40" y1="0" x2="40" y2="800"/><line x1="560" y1="0" x2="560" y2="800"/><line x1="300" y1="0" x2="300" y2="800"/><line x1="430" y1="560" x2="430" y2="800"/><line x1="0" y1="296" x2="600" y2="296"/><line x1="0" y1="566" x2="600" y2="566"/></svg>
+  </div>
+  <p class="nf-note"></p>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3" aria-pressed="true">3</button></div>
+</div>
+<style>
+.gd-nfolk{width:min(340px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-nfolk *{box-sizing:border-box}
+.nf-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#F3EADB}
+.nf-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nf-old,.nf-new{transition:opacity .45s ease}
+.gd-nfolk[data-step="1"] .nf-new,.gd-nfolk[data-step="2"] .nf-old{opacity:0}
+.nf-note{margin:8px 0 0;text-align:center;color:#6b7280;font-size:11px}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:6px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-nfolk{width:min(150px,calc(100vw - 40px))}.gd-controls,.nf-note{display:none}}
+@media (prefers-reduced-motion:reduce){.nf-old,.nf-new{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-nfolk');
+  var NS='http://www.w3.org/2000/svg',mask=root.querySelector('.nf-mask'),note=root.querySelector('.nf-note');
+  var CX=300,CY=296;
+  function el(tag,attrs){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);mask.appendChild(e);return e;}
+  function around(n,fn){for(var i=0;i<n;i++)fn(i*360/n,i);}
+  // Paper left standing: a disc with a scalloped rim.
+  el('circle',{cx:CX,cy:CY,r:174,fill:'#fff'});
+  around(24,function(a){el('circle',{cx:CX,cy:CY-174,r:16,fill:'#fff',transform:'rotate('+a+' '+CX+' '+CY+')'});});
+  // Cut away (black): pin holes in the rim, twelve petals, diamonds between them, a thin ring and a centre flower.
+  around(24,function(a){el('circle',{cx:CX,cy:CY-174,r:5.5,fill:'#000',transform:'rotate('+a+' '+CX+' '+CY+')'});});
+  around(12,function(a){el('path',{d:'M'+CX+' '+(CY-96)+' C'+(CX+20)+' '+(CY-110)+' '+(CX+16)+' '+(CY-140)+' '+CX+' '+(CY-158)+' C'+(CX-16)+' '+(CY-140)+' '+(CX-20)+' '+(CY-110)+' '+CX+' '+(CY-96)+'Z',fill:'#000',transform:'rotate('+a+' '+CX+' '+CY+')'});});
+  around(12,function(a){el('path',{d:'M'+CX+' '+(CY-150)+' l7 12 l-7 12 l-7 -12z',fill:'#000',transform:'rotate('+(a+15)+' '+CX+' '+CY+')'});});
+  around(12,function(a){el('circle',{cx:CX,cy:CY-112,r:4,fill:'#000',transform:'rotate('+(a+15)+' '+CX+' '+CY+')'});});
+  el('circle',{cx:CX,cy:CY,r:81,fill:'none',stroke:'#000','stroke-width':6});
+  around(8,function(a){el('ellipse',{cx:CX,cy:CY-42,rx:11,ry:26,fill:'#000',transform:'rotate('+a+' '+CX+' '+CY+')'});});
+  around(16,function(a){el('circle',{cx:CX,cy:CY-70,r:3.2,fill:'#000',transform:'rotate('+a+' '+CX+' '+CY+')'});});
+  el('circle',{cx:CX,cy:CY,r:9,fill:'#000'});
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 传统纹样','1 Old pattern'],2:['2 现代网格','2 New grid'],3:['3 合起来','3 Together']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});note.textContent=zh()?'风格示范：自拟海报，不是看板里的原作':'Style demo: an invented poster, not a work from the board';}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%3+1);cycle();},3200);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

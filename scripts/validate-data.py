@@ -128,6 +128,8 @@ def validate_graphics():
         unknown = set(case.get("techniques", [])) - techs
         if unknown or not case.get("techniques"):
             errors += fail(f"graphic {slug}: techniques missing or unknown {sorted(unknown)}")
+        if case.get("specimen", "reconstruction") not in ("reconstruction", "style-demo"):
+            errors += fail(f"graphic {slug}: specimen must be 'reconstruction' or 'style-demo'")
         unknown_styles = set(case.get("styleTags", [])) - set(style_tags)
         if unknown_styles or not case.get("styleTags"):
             errors += fail(f"graphic {slug}: styleTags missing or unknown {sorted(unknown_styles)}")

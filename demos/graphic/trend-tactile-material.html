@@ -1,0 +1,102 @@
+<div class="demo gd-specimen gd-tactile" data-step="3">
+  <div class="tm-frame" data-gd-canvas>
+    <svg class="tm-svg" viewBox="0 0 600 800" role="img" aria-label="soft matter — tactile material poster (style demo)">
+      <defs>
+        <radialGradient id="tm-clay" cx=".25" cy=".18" r="1.05"><stop offset="0" stop-color="#EDC1A5"/><stop offset=".55" stop-color="#DCA382"/><stop offset="1" stop-color="#C4876A"/></radialGradient>
+        <linearGradient id="tm-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EBBC9F"/><stop offset="1" stop-color="#D79D7C"/></linearGradient>
+        <radialGradient id="tm-gel" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#7C9BFF"/><stop offset=".45" stop-color="#2A54D4"/><stop offset="1" stop-color="#0D2775"/></radialGradient>
+        <filter id="tm-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="5"/></filter>
+        <filter id="tm-softer" x="-100%" y="-300%" width="300%" height="700%"><feGaussianBlur stdDeviation="9"/></filter>
+        <filter id="tm-noise" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="2"/><feColorMatrix values="0 0 0 0 .3  0 0 0 0 .16  0 0 0 0 .08  0 0 0 .2 0"/></filter>
+      </defs>
+      <rect width="600" height="800" fill="url(#tm-clay)"/>
+      <g font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#5A3020" letter-spacing=".6">
+        <text x="40" y="46">MATERIAL WEEK — 04</text>
+        <text x="560" y="46" text-anchor="end">WAX / GEL / STONE / CLOTH</text>
+      </g>
+
+      <!-- the words: flat in step 1, pressed out of the clay and lit from the top left in steps 2–3 -->
+      <g class="tm-words" font-family="'Arial Rounded MT Bold','Nunito','Varela Round','Helvetica Neue',Arial,sans-serif" font-weight="900" text-anchor="middle" data-ov-type="压印浮雕字：和底同色，靠光影读出" data-ov-type-en="Embossed type: same colour as the ground, read by light and shadow">
+        <g class="tm-shadow" fill="#7E432A" opacity=".55" filter="url(#tm-soft)" transform="translate(7 9)">
+          <text x="300" y="338" font-size="236" textLength="500" lengthAdjust="spacingAndGlyphs">soft</text>
+          <text x="300" y="560" font-size="176" textLength="520" lengthAdjust="spacingAndGlyphs">matter</text>
+        </g>
+        <g class="tm-light" fill="#FFF1E6" opacity=".9" filter="url(#tm-soft)" transform="translate(-5 -6)">
+          <text x="300" y="338" font-size="236" textLength="500" lengthAdjust="spacingAndGlyphs">soft</text>
+          <text x="300" y="560" font-size="176" textLength="520" lengthAdjust="spacingAndGlyphs">matter</text>
+        </g>
+        <g class="tm-body">
+          <text x="300" y="338" font-size="236" textLength="500" lengthAdjust="spacingAndGlyphs">soft</text>
+          <text x="300" y="560" font-size="176" textLength="520" lengthAdjust="spacingAndGlyphs">matter</text>
+        </g>
+      </g>
+
+      <!-- step 3: a gel drop, tracing paper, grain -->
+      <g class="tm-mat">
+        <ellipse cx="482" cy="262" rx="40" ry="12" fill="#1A2F7A" opacity=".35" filter="url(#tm-softer)"/>
+        <circle cx="470" cy="214" r="46" fill="url(#tm-gel)"/>
+        <ellipse cx="455" cy="194" rx="17" ry="10" fill="#fff" opacity=".75" transform="rotate(-30 455 194)"/>
+        <circle cx="490" cy="236" r="4" fill="#fff" opacity=".5"/>
+        <circle cx="470" cy="214" r="12" fill="none" data-ov-focus="蓝色凝胶滴：全页唯一的饱和色" data-ov-focus-en="The blue gel drop, the only saturated colour"/>
+        <g transform="rotate(4 120 150)">
+          <rect x="44" y="92" width="150" height="74" fill="#FBF6F1" opacity=".55"/>
+          <text x="58" y="122" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12" font-weight="600" fill="#5A3020" opacity=".75">No. 04</text>
+          <text x="58" y="142" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12" fill="#5A3020" opacity=".75">translucent paper</text>
+        </g>
+        <rect width="600" height="800" filter="url(#tm-noise)" style="mix-blend-mode:multiply"/>
+      </g>
+      <rect x="410" y="600" width="150" height="130" fill="none" data-ov-space="空出的陶土面" data-ov-space-en="Bare clay left empty"/>
+      <g font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#5A3020" letter-spacing=".6">
+        <text x="40" y="772">HALL 2 · OPEN DAILY 11—19</text>
+        <text x="560" y="772" text-anchor="end">TM—27</text>
+      </g>
+    </svg>
+    <div class="tm-glass" data-ov-type="磨砂玻璃上的小字保持清晰" data-ov-type-en="Small type stays sharp on the frosted glass">
+      <b>MATERIAL WEEK</b>
+      <span>wax · glass · gel · frosted · stone · cloth</span>
+      <span>18.04 — 02.05.2027</span>
+    </div>
+    <svg class="gd-grid" viewBox="0 0 600 800" preserveAspectRatio="none" aria-hidden="true"><line x1="40" y1="0" x2="40" y2="800"/><line x1="560" y1="0" x2="560" y2="800"/><line x1="300" y1="0" x2="300" y2="800"/><line x1="0" y1="338" x2="600" y2="338"/><line x1="0" y1="560" x2="600" y2="560"/></svg>
+  </div>
+  <p class="tm-note"></p>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3" aria-pressed="true">3</button></div>
+</div>
+<style>
+.gd-tactile{width:min(340px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-tactile *{box-sizing:border-box}
+.tm-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#DCA382;container-type:inline-size}
+.tm-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tm-body text{fill:url(#tm-body);transition:fill .45s ease}
+.tm-shadow,.tm-light,.tm-mat,.tm-glass{transition:opacity .45s ease}
+.gd-tactile[data-step="1"] .tm-body text{fill:#6B3A26}
+.gd-tactile[data-step="1"] .tm-shadow,.gd-tactile[data-step="1"] .tm-light{opacity:0}
+.gd-tactile:not([data-step="3"]) .tm-mat,.gd-tactile:not([data-step="3"]) .tm-glass{opacity:0}
+.tm-glass{position:absolute;left:6.7%;top:60%;width:52%;height:25%;display:flex;flex-direction:column;justify-content:flex-end;gap:.6cqw;padding:3.4cqw;border-radius:2.6cqw;background:rgba(255,246,240,.24);border:1px solid rgba(255,255,255,.55);-webkit-backdrop-filter:blur(2.2cqw) saturate(1.15);backdrop-filter:blur(2.2cqw) saturate(1.15);box-shadow:0 1.4cqw 3cqw rgba(110,55,30,.18);color:#4A2617;font-family:"Helvetica Neue",Inter,Arial,sans-serif}
+.tm-glass b{font-size:3.6cqw;letter-spacing:.06em}
+.tm-glass span{font-size:2.3cqw;font-weight:500}
+.tm-note{margin:8px 0 0;text-align:center;color:#6b7280;font-size:11px}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:6px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-tactile{width:min(150px,calc(100vw - 40px))}.gd-controls,.tm-note{display:none}}
+@media (prefers-reduced-motion:reduce){.tm-body text,.tm-shadow,.tm-light,.tm-mat,.tm-glass{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-tactile');
+  var note=root.querySelector('.tm-note');
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 平面字','1 Flat'],2:['2 打光压印','2 Light it'],3:['3 加材质','3 Materials']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});note.textContent=zh()?'风格示范：自拟海报，不是看板里的原作':'Style demo: an invented poster, not a work from the board';}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%3+1);cycle();},3200);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

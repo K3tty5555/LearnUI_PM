@@ -23,6 +23,70 @@
    "platform": "小红书",
    "url": "https://www.xiaohongshu.com/discovery/item/6abb92590000000014003142",
    "published": "2026-09-29"
+  },
+  {
+   "id": 5,
+   "title": "2027设计流行趋势｜灵感大爆炸 0.2",
+   "author": "LiKE品牌设计",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6af9845a000000002a03ba6a",
+   "published": "2026-11-16"
+  },
+  {
+   "id": 6,
+   "title": "2027年度设计流行趋势前瞻",
+   "author": "蟹黄糕Design",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afec927000000002b03d216",
+   "published": "2026-11-19"
+  },
+  {
+   "id": 7,
+   "title": "审美积累｜黑白与红，版式设计的力量感",
+   "author": "屿野_YeDesign",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6ae46fdf000000001802ca6c",
+   "published": "2026-10-30"
+  },
+  {
+   "id": 9,
+   "title": "blue｜审美积累（29/100）",
+   "author": "因为",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6aedc4c6000000002a028dae",
+   "published": "2026-11-06"
+  },
+  {
+   "id": 10,
+   "title": "TOICO Works｜BISON ENERGY® 日本储能科技",
+   "author": "RICO",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afd8e5d000000002301093b",
+   "published": "2026-11-18"
+  },
+  {
+   "id": 11,
+   "title": "高亮黄大字报与都市漫游美学",
+   "author": "珍妮弗兰克",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afe8780000000002b037503",
+   "published": "2026-11-19"
+  },
+  {
+   "id": 12,
+   "title": "【辅助设计】如何制作离解复合PV风格化平面",
+   "author": "IMageDev",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6ad8357a00000000310275cc",
+   "published": "2026-10-21"
+  },
+  {
+   "id": 13,
+   "title": "《沉沦在世界树之下》构成视觉｜设计第22",
+   "author": "浮白",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6af3c9fa000000001c033423",
+   "published": "2026-11-11"
   }
  ],
  "types": [
@@ -40,6 +104,11 @@
    "id": "packaging",
    "name": "Packaging",
    "nameZh": "包装"
+  },
+  {
+   "id": "brand",
+   "name": "Brand identity",
+   "nameZh": "品牌视觉"
   }
  ],
  "styleTags": [
@@ -117,6 +186,51 @@
    "id": "acid-graphics",
    "name": "Acid graphics",
    "nameZh": "酸性图形"
+  },
+  {
+   "id": "neo-fauvism",
+   "name": "Neo-Fauvism",
+   "nameZh": "狂野艺术风"
+  },
+  {
+   "id": "diffuse-gradient",
+   "name": "Diffuse gradient",
+   "nameZh": "弥散渐变"
+  },
+  {
+   "id": "swiss-punk",
+   "name": "Swiss punk",
+   "nameZh": "瑞士朋克"
+  },
+  {
+   "id": "retro-futurism",
+   "name": "Retro-futurism",
+   "nameZh": "复古未来"
+  },
+  {
+   "id": "expressive-type",
+   "name": "Expressive type",
+   "nameZh": "字体即图形"
+  },
+  {
+   "id": "neo-folk",
+   "name": "Neo-folk",
+   "nameZh": "新地域主义"
+  },
+  {
+   "id": "tactile-material",
+   "name": "Tactile material",
+   "nameZh": "触感材质"
+  },
+  {
+   "id": "neo-brutalism",
+   "name": "Neo-brutalism",
+   "nameZh": "新粗野主义"
+  },
+  {
+   "id": "glitch",
+   "name": "Glitch",
+   "nameZh": "故障风"
   }
  ],
  "techniques": [
@@ -357,6 +471,258 @@
    "nameZh": "双色调照片",
    "definition": "Photo mapped to exactly two inks (e.g. red and black) so any image joins the palette.",
    "definitionZh": "照片只映射到两种油墨（如红与黑），任何图片都自动归入配色。"
+  },
+  {
+   "id": "clash-colors",
+   "name": "Clashing saturated colours",
+   "nameZh": "高饱和撞色",
+   "definition": "Three or more fully saturated colours, often complements, placed side by side with nothing to soften the meeting.",
+   "definitionZh": "三种以上的纯色（常是互补色）直接贴在一起，中间不加过渡色去调和。"
+  },
+  {
+   "id": "crayon-scribble",
+   "name": "Crayon scribbles",
+   "nameZh": "蜡笔涂鸦线",
+   "definition": "Loose hand-drawn lines, loops and crosses with a dry crayon or marker edge, scrawled over photos and type.",
+   "definitionZh": "带干蜡笔、马克笔毛边的随手乱线、圈和叉，直接画在照片和文字上面。"
+  },
+  {
+   "id": "distorted-figure",
+   "name": "Exaggerated figure",
+   "nameZh": "夸张变形人像",
+   "definition": "A face or body drawn with deliberately wrong proportions: oversized eyes, long necks, lopsided mouths, flat colour instead of shading.",
+   "definitionZh": "人脸或身体故意画错比例：大眼、长脖子、歪嘴，用平涂色块代替明暗。"
+  },
+  {
+   "id": "hand-lettering",
+   "name": "Hand-drawn lettering",
+   "nameZh": "手写字标题",
+   "definition": "The headline is drawn rather than typeset: letters of uneven size and angle, wobbly strokes, no baseline.",
+   "definitionZh": "标题是画出来的而不是打出来的：字母大小、角度都不统一，笔画会抖，没有统一的基线。"
+  },
+  {
+   "id": "soft-blur-blobs",
+   "name": "Defocused colour blobs",
+   "nameZh": "虚焦色团",
+   "definition": "Large blobs of colour blurred until they have no edge, overlapping so neighbours mix into a third colour, like light seen out of focus.",
+   "definitionZh": "几团大色块模糊到看不见边，彼此重叠混出第三种颜色，像失焦镜头里的光。"
+  },
+  {
+   "id": "film-grain",
+   "name": "Film grain",
+   "nameZh": "颗粒噪点",
+   "definition": "A fine layer of monochrome noise over gradients and flat colour, which hides colour banding and makes digital colour feel printed or photographed.",
+   "definitionZh": "在渐变和色块上叠一层细小的单色噪点，消除渐变色带，让电脑上的颜色像印出来或拍出来的。"
+  },
+  {
+   "id": "exposed-grid",
+   "name": "Exposed grid",
+   "nameZh": "网格外露",
+   "definition": "The column grid is printed or implied so plainly that the reader sees it, and the type is seen obeying or breaking it.",
+   "definitionZh": "栏网格直接画出来或排得一眼可见，读者能看到文字在遵守它，或者故意冲破它。"
+  },
+  {
+   "id": "rotated-type",
+   "name": "Rotated type",
+   "nameZh": "竖转大字",
+   "definition": "A headline turned 90 degrees to run up a column edge, so the biggest word reads sideways and becomes a vertical bar.",
+   "definitionZh": "把标题转 90 度沿栏边竖着走，最大的那个词变成一根竖条。"
+  },
+  {
+   "id": "striped-sunset",
+   "name": "Striped sunset",
+   "nameZh": "条纹落日",
+   "definition": "A large sun or planet in a warm gradient, cut by horizontal bands that thicken towards the bottom; the 1970s–80s sci-fi emblem.",
+   "definitionZh": "一个暖色渐变的大圆（落日或行星），下半部被越往下越粗的横条切开，是 70–80 年代科幻的标志图形。"
+  },
+  {
+   "id": "horizon-grid",
+   "name": "Perspective floor grid",
+   "nameZh": "透视地平网格",
+   "definition": "A grid of lines running to a vanishing point on the horizon, laid under the subject as an endless floor.",
+   "definitionZh": "一张线条汇向地平线消失点的网格，铺在主体下面，像一块无限延伸的地面。"
+  },
+  {
+   "id": "faded-print",
+   "name": "Faded print colour",
+   "nameZh": "褪色印刷感",
+   "definition": "White turned to cream, blacks lifted to deep navy, one colour plate nudged off register by a pixel or two: new artwork made to look like an old print.",
+   "definitionZh": "白色压成米黄、黑色提成深蓝、某一层颜色故意错开一两个像素：新作品做成旧印刷品的样子。"
+  },
+  {
+   "id": "liquid-type",
+   "name": "Liquid type",
+   "nameZh": "液态字",
+   "definition": "Letters drip, melt or ripple as if made of liquid; the distortion sets the mood before the word is read.",
+   "definitionZh": "字母像液体一样流淌、融化或起波纹，扭曲本身先传达情绪，然后才被读成字。"
+  },
+  {
+   "id": "stretched-type",
+   "name": "Extreme stretch",
+   "nameZh": "极端拉伸字",
+   "definition": "Letters of one word pushed to extreme widths or heights, so the rhythm of fat and thin letters becomes the picture.",
+   "definitionZh": "同一个词里的字母被拉到极宽或极窄，胖瘦交替的节奏本身就是画面。"
+  },
+  {
+   "id": "folk-pattern",
+   "name": "Folk pattern",
+   "nameZh": "传统纹样",
+   "definition": "A traditional motif (window lattice, cloud scroll, weave, embroidery) redrawn in flat, clean lines and repeated as a border or tile.",
+   "definitionZh": "把窗棂、云纹、织锦、刺绣这类传统图案重新画成干净的平涂线条，当边框或底纹重复使用。"
+  },
+  {
+   "id": "heritage-grid",
+   "name": "Heritage on a modern grid",
+   "nameZh": "老纹样配新网格",
+   "definition": "Traditional imagery set inside a strict modern grid with sans-serif type and generous margins: the old is the content, the grid makes it current.",
+   "definitionZh": "传统图像放进严格的现代网格，配无衬线字和大留白：老东西是内容，网格让它显得是当下的。"
+  },
+  {
+   "id": "papercut-symmetry",
+   "name": "Papercut symmetry",
+   "nameZh": "剪纸式对称",
+   "definition": "A motif folded and mirrored like a paper cut: radial or left-right symmetry in one flat colour, the pattern made by the cut-out holes.",
+   "definitionZh": "像剪纸一样对折、镜像：一种颜色平涂，放射或左右对称，图案靠镂空的部分出来。"
+  },
+  {
+   "id": "embossed-type",
+   "name": "Embossed type",
+   "nameZh": "压印浮雕字",
+   "definition": "Letters pressed into or raised out of a surface and lit from one side, so they are read through shadow and highlight rather than colour.",
+   "definitionZh": "字母压进或鼓出材质表面，从一侧打光，靠阴影和高光而不是颜色被读出来。"
+  },
+  {
+   "id": "frosted-glass",
+   "name": "Frosted glass layer",
+   "nameZh": "磨砂玻璃层",
+   "definition": "A translucent, blurred panel laid over the picture: what is behind it softens into colour while the text on it stays sharp.",
+   "definitionZh": "一块半透明、带模糊的面板盖在画面上，后面的东西化成柔和色块，面板上的字依旧清楚。"
+  },
+  {
+   "id": "dense-info",
+   "name": "Packed information",
+   "nameZh": "信息塞满",
+   "definition": "Dates, codes, credits and numbers fill the cells at one small size; next to a huge headline they read as texture.",
+   "definitionZh": "日期、编号、名单、数字这类小字用同一个小字号塞满格子，衬着超大标题读起来像纹理。"
+  },
+  {
+   "id": "mono-contrast",
+   "name": "Black and white",
+   "nameZh": "黑白高对比",
+   "definition": "Pure black and pure white with no greys between (at most one loud accent colour), so every edge is hard.",
+   "definitionZh": "只用纯黑和纯白，中间不留灰（最多加一个刺眼的强调色），所有边缘都是硬的。"
+  },
+  {
+   "id": "directional-type",
+   "name": "Type along the motion",
+   "nameZh": "字顺着动线走",
+   "definition": "Words are turned, tilted or laid into the picture's perspective so they run along its lines of movement (a stride, a corridor floor, a tall edge) instead of sitting on a level baseline.",
+   "definitionZh": "文字被转向、倾斜或铺进画面的透视里，顺着画面的走向（人的步伐、通道地面、竖直的边）排，而不是老老实实放在水平基线上。"
+  },
+  {
+   "id": "bitmap-dither",
+   "name": "Pixel dither",
+   "nameZh": "像素颗粒图",
+   "definition": "A photo reduced to two flat colours, its light and shade carried only by how densely the square pixels are scattered, like an old computer screen or a thermal print (not round print dots).",
+   "definitionZh": "照片只剩两种颜色，明暗全靠方形像素点的疏密来表现，像老电脑屏幕或热敏小票，而不是印刷的圆网点。"
+  },
+  {
+   "id": "slice-shift",
+   "name": "Sliced and shifted",
+   "nameZh": "横切错位",
+   "definition": "A cut-out image is sliced into horizontal strips and a few strips are pushed sideways, so it looks like a signal that skipped.",
+   "definitionZh": "把抠出来的图横着切成几条，再把其中几条往旁边推开一点，像信号跳了一下。"
+  },
+  {
+   "id": "typewriter-notes",
+   "name": "Typed notes",
+   "nameZh": "打字机笔记",
+   "definition": "Short sentences set small in a typewriter-style monospaced font, sometimes run through a marker highlight or a colour strip, so they read like private notes pinned onto the picture.",
+   "definitionZh": "用打字机式的等宽字排几句小字，有时压上荧光笔或一条色带，读起来像随手钉在画面上的私人笔记。"
+  },
+  {
+   "id": "merged-motif-mark",
+   "name": "Merged-motif mark",
+   "nameZh": "多个意象合成一个标",
+   "definition": "Several ideas (an animal, a symbol, a landform) are fused into one silhouette, so the mark tells the whole story without extra parts.",
+   "definitionZh": "把几个意象（动物、符号、地形）熔成同一个剪影，一个标志就讲完品牌故事，不需要额外拼装。"
+  },
+  {
+   "id": "extended-wordmark",
+   "name": "Wide heavy wordmark",
+   "nameZh": "加宽粗体字标",
+   "definition": "The name is set in a very wide, very heavy sans in caps and stacked in tight lines, so it reads as a solid block.",
+   "definitionZh": "名字用又宽又粗的无衬线大写字母，分行紧密堆叠，整体像一块实心的砖。"
+  },
+  {
+   "id": "photo-color-type",
+   "name": "One bright colour on photos",
+   "nameZh": "照片上只压一种亮色字",
+   "definition": "Every piece of type on a photo uses the same saturated colour, picked to stand out from the image, so a whole series reads as one voice.",
+   "definitionZh": "照片上所有文字都用同一种饱和色，选一个和照片拉得开的颜色，整组作品就像同一个声音。"
+  },
+  {
+   "id": "vertical-title",
+   "name": "Vertical title",
+   "nameZh": "竖排标题",
+   "definition": "The main title runs top to bottom along one edge, as a vertical column of CJK text or a Latin word turned 90 degrees.",
+   "definitionZh": "主标题沿一条边从上往下排：中日文直接竖排，英文转 90 度。"
+  },
+  {
+   "id": "side-fade",
+   "name": "Side fade",
+   "nameZh": "单侧黑白渐变",
+   "definition": "One side of the frame fades from black to white: the dense information side sinks into shadow, the title side stays bright, and the picture gains depth.",
+   "definitionZh": "画面一侧从黑渐到白：信息密的一边压进暗处，主标题所在的一边留亮，画面一下分出前后层次。"
+  },
+  {
+   "id": "signal-interference",
+   "name": "Signal interference",
+   "nameZh": "信号干扰",
+   "definition": "The whole frame gets an analogue-signal fault: horizontal scan streaks, shifted rows and fine noise, like a screen losing its signal. In After Effects this is usually a plug-in such as Signal on an adjustment layer.",
+   "definitionZh": "整张画面加一层模拟信号失真：横向扫描纹、错开的行和细碎噪点，像信号不稳的屏幕。AE 里一般在调整图层上加 Signal 这类插件来做。"
+  },
+  {
+   "id": "finishing-grade",
+   "name": "Final colour grade",
+   "nameZh": "最后统一调色",
+   "definition": "Once layout and effects are done, one grade goes on top of everything: blacks lifted to a slate blue, whites pulled down a little, so every element sits in the same tone.",
+   "definitionZh": "版面和特效都做完后，最上面再加一层整体调色：黑色提成灰蓝，白色压暗一点，所有元素落进同一种色调。"
+  },
+  {
+   "id": "wall-texture",
+   "name": "Wall texture ground",
+   "nameZh": "墙面肌理底",
+   "definition": "A grey ground with added noise, then a photo of a concrete wall laid over it in Multiply, so everything looks printed on a rough wall.",
+   "definitionZh": "灰色底先加杂色，再把水泥墙照片用「正片叠底」盖上去，后面的东西都像印在粗糙的墙面上。"
+  },
+  {
+   "id": "radial-slice",
+   "name": "Radial slicing",
+   "nameZh": "放射线切圆",
+   "definition": "Lines radiate from the centre; a disc is then cut along some of them, with slices removed or pushed outward, so a plain circle gets rhythm and spin.",
+   "definitionZh": "从中心拉出一圈放射线，再沿其中几条把圆盘切开，有的扇形挖掉、有的往外推出，一个普通的圆就有了节奏和转动感。"
+  },
+  {
+   "id": "contour-trace",
+   "name": "Contour-line photo",
+   "nameZh": "等高线线稿",
+   "definition": "A photo is run through a contour (trace) filter and inverted, so it becomes white lines on black or black lines on grey and matches the flat graphics.",
+   "definitionZh": "照片用「风格化 - 等高线」滤镜处理再反相，变成黑底白线或灰底黑线的线稿，和平面图形的风格统一起来。"
+  },
+  {
+   "id": "orbit-ring",
+   "name": "Orbit rings",
+   "nameZh": "穿插圆环",
+   "definition": "Thin tilted ellipses circle the main subject, erased where they pass behind it, so the flat poster gains a sense of depth; small objects such as moons can sit along the orbit.",
+   "definitionZh": "细细的倾斜椭圆环绕主体，经过主体背后的那段擦掉，平面画面就有了前后空间；月亮这类小物件可以沿环摆放。"
+  },
+  {
+   "id": "pixel-accents",
+   "name": "Pixel accents",
+   "nameZh": "像素点缀",
+   "definition": "Small checkerboards of square pixels in opposite corners, in the accent colour, to balance the picture and add a digital note.",
+   "definitionZh": "在对角放几块方形像素组成的棋盘格，用强调色，平衡画面，也带一点数字感。"
   }
  ],
  "cases": [
@@ -1542,6 +1908,1254 @@
    "imagePromptZh": "纪实拼贴海报系列，只用红、黑与纸色。街头照片转成红黑双色调网点，保留撕纸毛边；一条窄体大写大标题横穿画面；一个超大数字当图像用；区块之间用等宽纸色缝隙分隔；每张海报恰好一块纯红色块。四张一套，规则一致。使用你自己的纪实主题。",
    "codePrompt": "Build this poster series in HTML/CSS/SVG: paper background; photos drawn as canvas halftone (dots sized by darkness) mapped to red and black only; blocks as absolutely positioned boxes separated by a CSS grid with even gutters and no borders; a huge condensed headline using font-stretch: condensed and a small monospace fact line; one solid red block per poster; SVG halftone numeral where the number itself is drawn in dots. Provide a step control that assembles the poster layer by layer (photo, numeral, headline, red block, small type). Honour prefers-reduced-motion.",
    "codePromptZh": "用 HTML/CSS/SVG 做这组海报：纸色底；照片用 canvas 画成网点（点的大小随明暗），只映射红与黑；区块用等宽缝隙的 CSS 网格摆放，不画边框；一条 font-stretch: condensed 的大写大标题加一行等宽小字；每张海报一块纯红；超大数字用 SVG 网点绘制。加一个分步按钮，按顺序装配版面（照片、数字、标题、红块、小字）。支持减弱动态效果。"
+  },
+  {
+   "slug": "trend-neo-fauvism",
+   "game": "NEO FAUVISM",
+   "gameZh": "狂野艺术风",
+   "project": "2027 trend",
+   "credits": "Posters by various designers via Pinterest (board compiled by LiKE品牌设计)",
+   "year": null,
+   "type": "poster",
+   "issue": 5,
+   "styleTags": [
+    "neo-fauvism",
+    "street-brush"
+   ],
+   "techniques": [
+    "clash-colors",
+    "crayon-scribble",
+    "distorted-figure",
+    "hand-lettering",
+    "color-field"
+   ],
+   "sourceLabel": "LiKE品牌设计, “2027设计流行趋势｜灵感大爆炸 0.2” (Xiaohongshu video, 16 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af9845a000000002a03ba6a"
+   ],
+   "images": [
+    {
+     "file": "trend-neo-fauvism-1.webp",
+     "caption": "Trend board screenshot (video frame at 9.5 s, every poster flown in)",
+     "captionZh": "趋势看板截图（视频第 9.5 秒，海报全部飞入后）",
+     "w": 720,
+     "h": 915,
+     "hd": "trend-neo-fauvism-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F6D21E",
+     "name": "Cadmium yellow",
+     "nameZh": "镉黄"
+    },
+    {
+     "hex": "#E8338B",
+     "name": "Hot magenta",
+     "nameZh": "洋红"
+    },
+    {
+     "hex": "#2448C9",
+     "name": "Cobalt blue",
+     "nameZh": "钴蓝"
+    },
+    {
+     "hex": "#E8401C",
+     "name": "Vermilion",
+     "nameZh": "朱红"
+    },
+    {
+     "hex": "#2DA44E",
+     "name": "Leaf green",
+     "nameZh": "叶绿"
+    },
+    {
+     "hex": "#161616",
+     "name": "Crayon black",
+     "nameZh": "蜡笔黑"
+    }
+   ],
+   "summary": "Neo-Fauvism brings Matisse's 1905 “wild beasts” into posters: colour is chosen for shock, not truth, so yellow, magenta, cobalt and vermilion collide; faces and animals are drawn bent and oversized as a child or a street painter would; crayon and marker scrawl runs across photos and headlines. You spot it when three or more pure colours meet with no softening and every line is visibly hand-made, shaky and over the edge.",
+   "summaryZh": "「新野兽派」把 1905 年马蒂斯那批「野兽」画家的做法搬进海报：颜色只求刺激、不求真实，柠檬黄、洋红、钴蓝、朱红直接撞在一起；人脸和动物被画得歪斜夸张，像孩子或街头画家的手笔；蜡笔、马克笔的乱线压在照片和标题上。认法：画面里有三种以上的纯色硬碰硬、没有一处在调和，线条一看就是手画的，会抖、会出格。",
+   "read": "How to make one: start from a flood of one loud colour (lemon yellow, sky blue or pink); place one exaggerated subject, a face with huge eyes and a crooked mouth, or a straight photograph you then attack; draw the headline by hand with letters of different sizes and angles; finally scrawl over everything with crayon-textured loops, crosses and patches, which is the step that makes it wild. Keep the background and the subject's outline as big simple shapes and confine the scribble to a few zones, or it turns to mud. On the board, the portrait buried under red scribble and the children's-drawing poster about the bomb both work this way: something orderly torn open by a hand.",
+   "readZh": "怎么做：先铺一整块响亮的底色（柠檬黄、天蓝或粉红）；放一个夸张变形的主体，比如大眼睛、歪嘴的脸，或者一张规规矩矩的照片等着被「破坏」；标题用手画，字母大小、角度都不统一；最后用蜡笔质感的乱线、圈、叉和小色块在上面涂一遍，这一步决定了「野」。要守住的度：底色和主体轮廓保持大块、简单，乱线只集中在几处，否则整张会糊成一团。看板里被红色乱线盖住的人像、用儿童画讲核弹的那张，都是这个路子：规整的东西被一只手撕开。",
+   "layers": {
+    "grid": "No grid: three big zones only, a colour field, a figure filling the middle and a hand-drawn title band at the bottom; scribbles cross all three on purpose.",
+    "gridZh": "没有网格，只有三个大区：满版底色、占满中部的人像、底部的手写标题带；乱线故意横穿三区。",
+    "type": "One drawn headline with letters jumping in size and angle, plus a few lines of small set type kept straight so the wildness has something to push against.",
+    "typeZh": "一个手画标题，字母大小、角度乱跳；再配几行排得很正的小字，让野性有个参照。",
+    "focus": "The oversized eye in the distorted face, ringed in a clashing colour.",
+    "focusZh": "变形人脸上那只被撞色圈住的大眼睛。",
+    "space": "The flat yellow field around the head, left empty so the clash of colours can breathe.",
+    "spaceZh": "头部四周那片平涂的黄色，留空让撞色有喘气的地方。"
+   },
+   "imagePrompt": "Neo-Fauvist poster: a full flood of cadmium yellow; a large distorted face drawn with flat clashing colours (magenta cheek, cobalt hair, green neck, vermilion mouth), one huge eye; crayon and marker scribbles, loops and crosses over the face and background; a hand-drawn headline with letters of uneven size and tilt; a few small straight lines of event text. Raw, childlike, energetic, visible crayon texture, no gradients or realistic shading. Use your own subject and title.",
+   "imagePromptZh": "新野兽派海报：满版镉黄底；一张大幅变形人脸，用平涂撞色画成（洋红脸颊、钴蓝头发、绿色脖子、朱红嘴），一只超大眼睛；脸和背景上叠蜡笔、马克笔乱线、圈和叉；手画标题，字母大小、倾斜都不统一；几行排得很正的小字活动信息。粗粝、孩子气、有冲劲，看得见蜡笔质感，不用渐变也不画写实明暗。主题和标题用你自己的。",
+   "codePrompt": "Build a 3:4 Neo-Fauvist poster in one SVG: a flat colour-field background; a face assembled from flat-filled paths in clashing colours; an SVG filter (feTurbulence + feDisplacementMap) applied to all strokes and shapes so edges wobble like crayon; scribble lines generated in JS as seeded random polylines with round caps; a headline as individual <text> letters, each with its own size, rotation and colour; small straight labels in a plain sans. Offer a toggle that removes the scribble layer to show how much of the wildness it carries. Honour prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做 3:4 新野兽派海报：满版纯色背景；人脸由平涂撞色的路径拼成；对所有线条和形状加一个 SVG 滤镜（feTurbulence + feDisplacementMap），让边缘像蜡笔一样发抖；乱线用 JS 按固定随机种子生成折线，圆头线帽；标题拆成单个 <text> 字母，每个字母各自的字号、旋转和颜色；小字用普通无衬线字排正。加一个开关可以去掉乱线层，看出野性有多少来自它。支持减弱动态效果。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-dust-fusion",
+   "game": "DUST FUSION",
+   "gameZh": "弥散渐变风",
+   "project": "2027 trend",
+   "credits": "Posters by various designers via Pinterest (board compiled by LiKE品牌设计)",
+   "year": null,
+   "type": "poster",
+   "issue": 5,
+   "styleTags": [
+    "diffuse-gradient",
+    "glow-gradient"
+   ],
+   "techniques": [
+    "soft-blur-blobs",
+    "film-grain",
+    "type-contrast",
+    "edge-bleed"
+   ],
+   "sourceLabel": "LiKE品牌设计, “2027设计流行趋势｜灵感大爆炸 0.2” (Xiaohongshu video, 16 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af9845a000000002a03ba6a"
+   ],
+   "images": [
+    {
+     "file": "trend-dust-fusion-1.webp",
+     "caption": "Trend board screenshot (video frame at 16.95 s, every poster flown in)",
+     "captionZh": "趋势看板截图（视频第 16.95 秒，海报全部飞入后）",
+     "w": 720,
+     "h": 915,
+     "hd": "trend-dust-fusion-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#FFF6E6",
+     "name": "Cream",
+     "nameZh": "奶油白"
+    },
+    {
+     "hex": "#FF5A4E",
+     "name": "Coral red",
+     "nameZh": "珊瑚红"
+    },
+    {
+     "hex": "#FF9A3C",
+     "name": "Apricot",
+     "nameZh": "杏橙"
+    },
+    {
+     "hex": "#F2389A",
+     "name": "Rose",
+     "nameZh": "玫红"
+    },
+    {
+     "hex": "#B9A2FF",
+     "name": "Lilac",
+     "nameZh": "淡紫"
+    },
+    {
+     "hex": "#D8F36A",
+     "name": "Lime haze",
+     "nameZh": "黄绿"
+    }
+   ],
+   "summary": "Diffuse gradient uses colour as fog and light: a few saturated blobs (coral, apricot, rose, lilac, lime) melt into each other with no edge at all, as if seen through frosted glass or a lens that missed focus, and a fine grain turns screen gradients into photographed light. You spot it when nothing in the picture has a hard edge except small, very orderly sans-serif type.",
+   "summaryZh": "弥散渐变把颜色当成雾和光来用：几团高饱和色（珊瑚红、杏橙、玫红、淡紫、黄绿）彼此晕开，完全没有边界，像隔着毛玻璃或对焦失败的镜头看光；再撒一层细颗粒，屏幕上的渐变就变成了「拍出来的光」。认法：整张画面找不到一条硬边，唯一清楚的是很小、很规矩的无衬线文字。",
+   "read": "How to make one: lay a pale ground (cream or butter yellow); place three to five large circles of colour and blur each heavily, 40 to 80 px or more, so neighbours mix into a third colour where they meet; make the blobs big enough to run off the edges, never a whole circle on show; add 5–10 % monochrome noise to kill banding; set the words small, in a clean thin sans, and let sharp-against-soft carry the hierarchy. A headline can be doubled, one blurred copy behind one sharp copy. The trap is colour count: too many hues turn grey and dirty, so keep one family plus one contrast.",
+   "readZh": "怎么做：先铺浅色底（奶油白或淡黄）；放 3–5 个大圆色团，每个都做很重的高斯模糊（40–80px 以上），让相邻色团在交界处混出第三种颜色；色团要大到溢出画面，不要让任何一个圆完整露出来；叠一层 5%–10% 的单色噪点，消掉渐变色带；文字用小号、偏细的干净无衬线字，靠「清楚对模糊」撑起层级，标题也可以做成一层模糊、一层清楚的虚实双影。坑在颜色数量：色相太多会发灰发脏，守住一个主色系加一个对比色。",
+   "layers": {
+    "grid": "A quiet two-column text grid at the edges only; the colour has no grid and ignores it.",
+    "gridZh": "只有画面边缘一套安静的两栏文字网格；色团没有网格，也不理会网格。",
+    "type": "A large lower-case headline doubled (blurred halo behind a sharp copy), with small sans-serif details in the corners.",
+    "typeZh": "大号小写标题做成虚实双层（后面一层模糊光晕、前面一层清楚），四角是小号无衬线信息。",
+    "focus": "The hottest overlap, where coral and rose fuse into the brightest point.",
+    "focusZh": "珊瑚红和玫红交融出的最亮处。",
+    "space": "The pale cream corner where the blobs fade out, kept for breathing room and the small type.",
+    "spaceZh": "色团淡出后的奶油色角落，留给呼吸感和小字。"
+   },
+   "imagePrompt": "Diffuse gradient poster: pale cream background; four or five large, heavily blurred colour blobs in coral red, apricot, rose and lilac with a touch of lime, overlapping and mixing, running off the edges; fine film grain over everything; one large lower-case headline with a soft blurred halo behind a sharp copy; tiny clean sans-serif details in the corners. Dreamy, airy, out-of-focus light, no hard edges except the type. Use your own title.",
+   "imagePromptZh": "弥散渐变海报：奶油色底；四五个大而极度模糊的色团（珊瑚红、杏橙、玫红、淡紫，带一点黄绿），互相重叠混色并溢出画面；全画面叠细颗粒；一个大号小写标题，后面一层模糊光晕、前面一层清楚；四角是很小的干净无衬线信息。梦幻、通透、像失焦的光，除了文字没有任何硬边。标题用你自己的。",
+   "codePrompt": "Build a 3:4 diffuse-gradient poster in HTML/CSS: a cream base; four or five absolutely positioned circles with radial-gradient fills and filter: blur() scaled to the poster width, several deliberately off-canvas; mix-blend-mode: multiply or screen on some to create the third colours; an SVG feTurbulence grain layer at low opacity with mix-blend-mode: overlay; a headline rendered twice, one copy blurred behind the sharp one; small corner labels in a thin sans. Animate the blobs drifting slowly with transform only, and stop the drift under prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/CSS 做 3:4 弥散渐变海报：奶油色底；四五个绝对定位的圆，用径向渐变填色，再按海报宽度比例做 filter: blur()，其中几个故意放到画面外；部分色团用 mix-blend-mode: multiply 或 screen 混出第三种颜色；用 SVG feTurbulence 做一层低透明度颗粒，mix-blend-mode: overlay；标题渲染两份，模糊的一份垫在清楚的一份后面；四角小字用细无衬线字。色团只用 transform 做缓慢漂移，减弱动态效果时停止漂移。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-swiss-punk",
+   "game": "SWISS PUNK",
+   "gameZh": "瑞士朋克风",
+   "project": "2027 trend",
+   "credits": "Posters by various designers via Pinterest (board compiled by LiKE品牌设计)",
+   "year": null,
+   "type": "poster",
+   "issue": 5,
+   "styleTags": [
+    "swiss-punk",
+    "swiss-style"
+   ],
+   "techniques": [
+    "exposed-grid",
+    "slice-shift",
+    "rotated-type",
+    "condensed-display",
+    "accent-block"
+   ],
+   "sourceLabel": "LiKE品牌设计, “2027设计流行趋势｜灵感大爆炸 0.2” (Xiaohongshu video, 16 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af9845a000000002a03ba6a"
+   ],
+   "images": [
+    {
+     "file": "trend-swiss-punk-1.webp",
+     "caption": "Trend board screenshot (video frame at 24.95 s, every poster flown in)",
+     "captionZh": "趋势看板截图（视频第 24.95 秒，海报全部飞入后）",
+     "w": 720,
+     "h": 915,
+     "hd": "trend-swiss-punk-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F2F0EA",
+     "name": "Paper",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#111111",
+     "name": "Black",
+     "nameZh": "黑"
+    },
+    {
+     "hex": "#FF4FA3",
+     "name": "Fluoro pink",
+     "nameZh": "荧光粉"
+    },
+    {
+     "hex": "#C6F04A",
+     "name": "Acid green",
+     "nameZh": "酸性绿"
+    },
+    {
+     "hex": "#2F5BFF",
+     "name": "Electric blue",
+     "nameZh": "电光蓝"
+    }
+   ],
+   "summary": "Swiss punk is the Swiss grid with punk damage: the skeleton is still a strict multi-column grid, sans-serif type and flush-left listings, but the headline is blown past the column width, sliced and shifted, turned on its side, and hit with colours that have no business together, fluoro pink against acid green. The name goes back to Wolfgang Weingart's 1970s revolt in Basel against the clean International Style; a poster on the board carries his name. You spot it when you can see where the grid lines are and also see something crossing them on purpose.",
+   "summaryZh": "瑞士朋克是「瑞士网格 + 朋克破坏」：骨架仍是严格的多栏网格、无衬线字和左对齐信息栏，但标题被放大到撑爆栏宽、切开错位、侧转 90 度，再撞上荧光粉配酸性绿这种不讲理的颜色。这个叫法可以追溯到 1970 年代 Wolfgang Weingart 在巴塞尔对干净的国际主义风格的反叛，看板里就有一张印着他名字的海报。认法：你能看出网格线在哪，同时又能看到有东西故意越线。",
+   "read": "How to make one: draw a six- or twelve-column grid and set the small information (dates, line-ups, venue) obediently in its columns: that is the Swiss half. Then pick one word, set it in the heaviest condensed or grotesque face as large as it will go, and break it: across columns, off the edge, sliced into shifted strips, or rotated to run up a column: that is the punk half. Colour stays black and paper plus one or two fluorescents, and even the colour blocks snap to column edges. The rule is obey first, then break: the tidier the small type, the more deliberate the damage looks.",
+   "readZh": "怎么做：先画 6 栏或 12 栏网格，把小字信息（日期、阵容、地点）老老实实排进栏里，这是「瑞士」那一半；再挑一个词，用最粗的窄体或怪诞体放到最大，然后破坏它：跨栏、出血、切成错位的条、或者转 90 度沿栏竖排，这是「朋克」那一半。颜色只用黑、纸白加一两个荧光色，连色块也要贴着栏边落。原则是先守规矩再破坏：小字越整齐，大字的破坏越显得是故意的。",
+   "layers": {
+    "grid": "Six equal columns with a top band; every listing, rule and colour block snaps to a column edge.",
+    "gridZh": "六等分栏加顶部横带；所有信息、细线和色块都贴着栏边落。",
+    "type": "Three voices: a huge sliced headline, a rotated condensed word running up the last column, and small flush-left listings in a plain grotesque.",
+    "typeZh": "三种声音：切片错位的巨大标题、沿最后一栏竖排的窄体字、左对齐的小号怪诞体信息。",
+    "focus": "The slice where the headline jumps sideways, the one point where the grid is visibly broken.",
+    "focusZh": "标题横向错开的那一刀，网格被明显打破的唯一位置。",
+    "space": "The empty paper column between the listings and the rotated word.",
+    "spaceZh": "信息栏和竖排字之间那一整栏空白纸面。"
+   },
+   "imagePrompt": "Swiss punk poster: off-white paper with a visible six-column grid; small flush-left event listings in a neo-grotesque sans set exactly in the columns; one enormous black condensed headline sliced into horizontal strips shifted against each other and bleeding off the edge; a second word rotated 90 degrees running up the last column; one fluoro pink block and one acid green block snapped to the grid; thin black rules. Rigid but rebellious, mechanical, high contrast. Use your own title.",
+   "imagePromptZh": "瑞士朋克海报：米白纸底，看得见的六栏网格；小号左对齐活动信息用新怪诞体无衬线字，严格排在栏里；一个巨大的黑色窄体标题被切成横条、互相错开并溢出画面；第二个词转 90 度沿最后一栏竖排；一块荧光粉、一块酸性绿色块贴着网格落；黑色细线。严格又叛逆、机械感、高对比。标题用你自己的。",
+   "codePrompt": "Build a 3:4 Swiss-punk poster with CSS grid: grid-template-columns: repeat(6, 1fr) with fixed gutters, and draw the column lines in a toggleable overlay; listings as small flush-left blocks placed by grid-column; the headline repeated in several stacked wrappers, each with clip-path: inset() showing one horizontal strip and a different translateX, so the word looks sliced; a second word with writing-mode: vertical-rl and rotate(180deg) in the last column; colour blocks placed by grid-column so they snap to the grid. Size type in container units (cqw).",
+   "codePromptZh": "用 CSS grid 做 3:4 瑞士朋克海报：grid-template-columns: repeat(6, 1fr) 加固定栏距，栏线画在可开关的图层上；信息用 grid-column 放成小号左对齐块；标题复制成几层叠放，每层用 clip-path: inset() 只露一条横条，并给不同的 translateX，看起来像被切开错位；第二个词在最后一栏用 writing-mode: vertical-rl 加 rotate(180deg) 竖排；色块也用 grid-column 摆放，保证贴栏。字号用容器单位（cqw）。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-retro-futurism",
+   "game": "RETRO-FUTURISM",
+   "gameZh": "复古未来风",
+   "project": "2027 trend",
+   "credits": "Posters by various designers via Pinterest (board compiled by LiKE品牌设计)",
+   "year": null,
+   "type": "poster",
+   "issue": 5,
+   "styleTags": [
+    "retro-futurism",
+    "cosmic-scifi"
+   ],
+   "techniques": [
+    "striped-sunset",
+    "horizon-grid",
+    "faded-print",
+    "film-grain",
+    "silhouette"
+   ],
+   "sourceLabel": "LiKE品牌设计, “2027设计流行趋势｜灵感大爆炸 0.2” (Xiaohongshu video, 16 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af9845a000000002a03ba6a"
+   ],
+   "images": [
+    {
+     "file": "trend-retro-futurism-1.webp",
+     "caption": "Trend board screenshot (video frame at 32.2 s, every poster flown in)",
+     "captionZh": "趋势看板截图（视频第 32.2 秒，海报全部飞入后）",
+     "w": 720,
+     "h": 915,
+     "hd": "trend-retro-futurism-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#14121E",
+     "name": "Deep space",
+     "nameZh": "深空蓝黑"
+    },
+    {
+     "hex": "#F2E6CC",
+     "name": "Old paper",
+     "nameZh": "旧纸米黄"
+    },
+    {
+     "hex": "#F28C28",
+     "name": "Sunset orange",
+     "nameZh": "落日橙"
+    },
+    {
+     "hex": "#E2445C",
+     "name": "Coral red",
+     "nameZh": "珊瑚红"
+    },
+    {
+     "hex": "#6B3FA0",
+     "name": "Nebula purple",
+     "nameZh": "星云紫"
+    },
+    {
+     "hex": "#2BB3A3",
+     "name": "Space teal",
+     "nameZh": "太空青"
+    }
+   ],
+   "summary": "Retro-futurism is the future as people imagined it in the past: the streamlined rockets, ringed planets, striped sunsets and perspective-grid horizons of 1960s–80s paperback covers and space-race posters, in faded cream, orange, coral, purple and teal, with print grain and slight misregistration. You spot it when the subject is the future (space, robots, domed cities) but the colour and surface look like an old book.",
+   "summaryZh": "复古未来是「过去的人想象的未来」：1960–80 年代科幻小说封面、太空竞赛海报里的流线火箭、带环行星、条纹落日和透视网格地平线，配上褪色的米黄、橙、珊瑚红、紫和青绿，再加印刷颗粒和轻微错版。认法：题材是未来（太空、机器人、穹顶城市），颜色和质感却像一本旧书。",
+   "read": "How to make one: on a deep navy or cream ground, place one big circle, a sun or planet in a warm gradient, and cut its lower half with horizontal bars that thicken downward; lay a vanishing-point grid below the horizon; keep the subject a simple silhouette (rocket, dome, astronaut) with no detail; set the title in a 1970s display face, a heavy rounded, italic or inline letter, and pair two eras in the numbers (1977 and 2077) for the time clash; finish with grain, a 1–2 px colour-plate offset, and whites pushed to cream. The board mixes real film posters (Interstellar, 2001: A Space Odyssey) with new work drawn to look forty years old: the look, not the date, is the style.",
+   "readZh": "怎么做：深蓝黑或米黄底上放一个大圆（暖色渐变的落日或行星），用越往下越粗的横条切开它的下半部；地平线以下铺消失点透视网格；主体用简单剪影（火箭、穹顶、宇航员），不画细节；标题用 70 年代的展示字体（粗圆体、斜体或内描线字），数字里把两个年代并置（1977 和 2077），制造时空错位；最后叠颗粒、把一层颜色错开 1–2 像素、把白色压成米黄。看板里既有真正的电影海报（《星际穿越》《2001 太空漫游》），也有新画成四十年前样子的作品：决定风格的是质感，不是年份。",
+   "layers": {
+    "grid": "Centre axis and a horizon at about 62 % height; the sun sits on the axis, the floor grid converges to the axis point on the horizon.",
+    "gridZh": "中轴线加约 62% 高度的地平线；落日压在中轴上，地面网格汇向中轴与地平线的交点。",
+    "type": "A wide 1970s display title with an inline stripe, a small spaced-out kicker above, and a two-era date line below.",
+    "typeZh": "宽体 70 年代展示标题带内描线，上方一行字距拉开的小引题，下方一行并置两个年代的日期。",
+    "focus": "The striped sun on the horizon, with the rocket silhouette crossing it.",
+    "focusZh": "地平线上的条纹落日，火箭剪影从它前面穿过。",
+    "space": "The dark sky above the sun, left almost empty except for a few stars and a ringed planet.",
+    "spaceZh": "落日上方的深色天空，几乎留空，只有几颗星和一颗带环行星。"
+   },
+   "imagePrompt": "Retro-futurist poster in the style of a 1970s sci-fi paperback: deep navy sky with sparse stars and a small ringed planet; a large sunset-gradient sun (yellow to orange to coral) on the horizon, its lower half cut by horizontal stripes that thicken downward; a magenta perspective grid floor converging to the horizon; a streamlined rocket silhouette crossing the sun; wide 1970s display title with an inline stripe, a spaced-out kicker and a date line pairing 1977 and 2077; cream instead of white, film grain, slight colour misregistration. Use your own title.",
+   "imagePromptZh": "仿 70 年代科幻平装书封面的复古未来海报：深蓝黑天空，零星几颗星和一颗小的带环行星；地平线上一个大落日（黄到橙到珊瑚红渐变），下半部被越往下越粗的横条切开；品红色透视网格地面汇向地平线；一枚流线火箭剪影从落日前穿过；宽体 70 年代展示标题带内描线，上方字距拉开的小引题，下方一行并置 1977 与 2077 的日期；用米黄代替白色，加颗粒和轻微的套色错版。标题用你自己的。",
+   "codePrompt": "Build a 3:4 retro-futurist poster in one SVG: a linear-gradient sky; a sun circle with a vertical warm gradient, masked by a <mask> of horizontal bars whose height grows toward the bottom; a floor of lines from a vanishing point on the horizon plus horizontal lines spaced by perspective (y = h + k / z); a rocket and ringed planet as simple paths; a wide display title with a thin inline stroke drawn by a second, narrower stroke on top; a feTurbulence grain filter and a 1–2 px offset copy of the title in a second colour for misregistration. Animate only the floor lines scrolling toward the viewer, off under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做 3:4 复古未来海报：线性渐变天空；落日用竖向暖色渐变的圆，再用一个 <mask> 盖上越往下越高的横条；地面是从地平线消失点放射出去的线，加上按透视间距排列的横线（y = h + k / z）；火箭和带环行星用简单路径；宽体展示标题用第二层更细的描边画出内描线；用 feTurbulence 做颗粒滤镜，标题再复制一份换第二种颜色偏移 1–2 像素做错版。只让地面横线朝观众滚动，减弱动态效果时关闭。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-expressive-type",
+   "game": "Expressive Type",
+   "gameZh": "字体即图形",
+   "project": "2027 trend board",
+   "credits": "Posters by various designers via Pinterest (board compiled by 蟹黄糕Design)",
+   "year": null,
+   "type": "poster",
+   "issue": 6,
+   "styleTags": [
+    "expressive-type",
+    "big-type"
+   ],
+   "techniques": [
+    "stretched-type",
+    "liquid-type",
+    "hand-lettering",
+    "skewed-type",
+    "type-contrast"
+   ],
+   "sourceLabel": "蟹黄糕Design, “2027年度设计流行趋势前瞻” (Xiaohongshu, 19 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afec927000000002b03d216"
+   ],
+   "images": [
+    {
+     "file": "trend-expressive-type-1.webp",
+     "caption": "Trend board screenshot: Expressive Type, all posters in (video 0:10)",
+     "captionZh": "趋势看板截图：字体即图形，海报拼满时（视频第 10 秒）",
+     "w": 720,
+     "h": 960,
+     "hd": "trend-expressive-type-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#D5FFF3",
+     "name": "Board mint",
+     "nameZh": "看板薄荷"
+    },
+    {
+     "hex": "#2747D6",
+     "name": "Cobalt",
+     "nameZh": "钴蓝"
+    },
+    {
+     "hex": "#FF6A2B",
+     "name": "Fluoro orange",
+     "nameZh": "荧光橙"
+    },
+    {
+     "hex": "#00B4B6",
+     "name": "Teal",
+     "nameZh": "青绿"
+    }
+   ],
+   "summary": "How to spot it: the headline is no longer something you read first and look at second. Letters are stretched to absurd widths, melted, bubbled, drawn by hand or bent around a shape, and the word itself is the picture; there is often no photo at all. How to make it: start from one short word in a plain heavy sans, then change the letters, not the layout: give each letter its own width, run part of it through a liquid or warp distortion, add one hand-drawn element, and keep everything else (dates, venue) in one small, quiet sans.",
+   "summaryZh": "怎么认：标题不再是「先读后看」，字母被拉到离谱的宽窄、融化、起泡、手绘或绕着形状弯折，字本身就是画面，很多张根本没有照片。怎么做：拿一个短词、一款普通的粗无衬线字，只改字、不改版式：每个字母给不同的宽度，让一部分字过一遍液态或扭曲变形，加一处手绘元素；其余信息（日期、地点）全部用一种小号、安静的无衬线字。",
+   "read": "The board’s card lists the moves: stretch, liquid, hand-drawn, extreme width, distortion, custom letters. What makes it work is restraint everywhere else. Each poster spends its whole budget on one word, keeps the colour to two or three flat inks and the information tiny, so the deformed letters have room to be the event. The specimen shows the order of work: typed, stretched, melted, then the hand-drawn numerals and fine print.",
+   "readZh": "看板卡片列了几种做法：拉伸、液态、手绘、极端字宽、字体变形、定制字。能成立的关键是别处都克制：每张海报把力气全花在一个词上，颜色只用两三种平涂，信息字很小，变形的字母才有空间成为主角。标本按制作顺序展示：先正常打字，再拉宽窄，再融化，最后加手绘数字和小字。",
+   "layers": {
+    "grid": "Two outer margins and two big baselines; the letters of each row are sized to fill the margin-to-margin width exactly, so the stretching looks deliberate.",
+    "gridZh": "左右两条边距、两条大字基线；每一行字母的宽度加起来正好撑满左右边距，拉伸才显得是有意为之。",
+    "type": "One heavy sans in two jobs: huge, deformed display letters, and one small size for every fact; the only third voice is the hand-drawn 2027.",
+    "typeZh": "一款粗无衬线字干两件事：巨大的变形标题字，和所有信息共用的一个小字号；第三个声音只有手绘的 2027。",
+    "focus": "The melting A, where the word stops being text and becomes an image.",
+    "focusZh": "融化滴落的 A：字在这里不再是文字，变成了图。",
+    "space": "A calm mint band between the two rows lets each deformed word be read on its own.",
+    "spaceZh": "两行大字之间留一条薄荷色的空带，让每一行变形字都能单独被读出来。"
+   },
+   "imagePrompt": "Experimental typography poster, flat colour, no photographs. One short word in heavy grotesk where every letter has a different extreme width (one letter very wide, the next very narrow); a second word melting like poured ink with drips; one hand-drawn numeral in a fluorescent accent colour; small sans-serif information at the top and bottom edges. Two or three flat inks on a pale ground. Use your own words.",
+   "imagePromptZh": "实验字体海报，平涂配色，不用照片。一个短词用粗无衬线字，每个字母宽度各不相同、反差极端（一个很宽，下一个很窄）；第二个词像倒出来的墨水一样融化、往下滴；一组手绘数字用荧光强调色；上下边缘放无衬线小字信息。浅色底上只用两三种平涂颜色。使用你自己的文字。",
+   "codePrompt": "Build an expressive-type poster in a single SVG (viewBox 600×800). Each letter is its own <text> with textLength and lengthAdjust=\"spacingAndGlyphs\" so widths can be set per letter to fill the margins exactly. Melt the second word with a filter: feTurbulence → feDisplacementMap (warp) → feGaussianBlur → feColorMatrix alpha threshold (gooey merge) and add rounded rects under some letters as drips that fuse in. Hand-drawn numerals are stroked paths with round caps. Add a step control: typed → stretched → melted → final, and pause SMIL animation under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG（viewBox 600×800）做字体即图形海报。每个字母单独一个 <text>，用 textLength 加 lengthAdjust=\"spacingAndGlyphs\" 逐个设定宽度，正好撑满左右边距。第二个词用滤镜融化：feTurbulence → feDisplacementMap（扭曲）→ feGaussianBlur → feColorMatrix 透明度阈值（黏合效果），再在部分字母下面加圆角矩形当滴落，被滤镜融进字里。手绘数字用圆头描边路径。加分步按钮：正常打字 → 拉伸 → 融化 → 成稿；减弱动态效果时暂停 SMIL 动画。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-neo-folk",
+   "game": "Neo Folk / Local Modern",
+   "gameZh": "新地域主义",
+   "project": "2027 trend board",
+   "credits": "Posters by various designers via Pinterest (board compiled by 蟹黄糕Design)",
+   "year": null,
+   "type": "poster",
+   "issue": 6,
+   "styleTags": [
+    "neo-folk"
+   ],
+   "techniques": [
+    "folk-pattern",
+    "papercut-symmetry",
+    "heritage-grid",
+    "type-contrast"
+   ],
+   "sourceLabel": "蟹黄糕Design, “2027年度设计流行趋势前瞻” (Xiaohongshu, 19 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afec927000000002b03d216"
+   ],
+   "images": [
+    {
+     "file": "trend-neo-folk-1.webp",
+     "caption": "Trend board screenshot: Neo Folk / Local Modern, all posters in (video 0:18)",
+     "captionZh": "趋势看板截图：新地域主义，海报拼满时（视频第 18 秒）",
+     "w": 720,
+     "h": 960,
+     "hd": "trend-neo-folk-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F3EADB",
+     "name": "Rice paper",
+     "nameZh": "米纸色"
+    },
+    {
+     "hex": "#C23B2B",
+     "name": "Vermilion",
+     "nameZh": "朱红"
+    },
+    {
+     "hex": "#24406B",
+     "name": "Indigo",
+     "nameZh": "靛蓝"
+    }
+   ],
+   "summary": "How to spot it: local motifs you would find on a temple roof, a textile or a paper cut (Vietnamese folklore, Chinese lattices and roofs, Andean weaves) appear at full strength, but the sheet around them is unmistakably current: clean grids, sans-serif type, flat colour, wide margins. How to make it: pick one real motif and redraw it flat in one ink rather than copying an old picture; repeat a smaller pattern as a border; then set the information in a strict modern grid with a sans-serif, and let one traditional-looking typeface carry the title.",
+   "summaryZh": "怎么认：庙宇屋檐、织物、剪纸上的地方图案（越南民俗、中式窗棂和屋顶、南美织纹）以完整的力度出现，但它们周围的版面一看就是当下的：干净的网格、无衬线字、平涂颜色、宽边距。怎么做：选一个真实的纹样，用一种颜色平涂重画，而不是直接贴老图；再把一个小纹样重复成边框；信息放进严格的现代网格、用无衬线字，标题交给一款有传统气质的字体。",
+   "read": "The card’s formula is two halves: folk, traditional patterns, local culture and craft, plus a modern layout and visual language. The board shows the range, from Vietnamese book covers to Chinese roofs in neon, but every poster keeps the motif intact and modernises only the frame around it. The specimen splits the halves into steps: the papercut medallion and key-fret band, the grid and type on their own, then both together.",
+   "readZh": "卡片给的公式是两半：民俗、传统纹样、地方文化、手工艺，加上现代感的排版与视觉语言。看板从越南书封到霓虹色的中式屋顶都有，但每一张都保留纹样的完整，只把它周围的框架做新。标本把两半拆成步骤：先只有剪纸团花和回纹带，再只有网格和文字，最后合起来。",
+   "layers": {
+    "grid": "Upper two-thirds belong to the motif, centred on the axis; the bottom third is a four-column grid with printed rules: title across two columns, English and craft lists in the other two.",
+    "gridZh": "上面三分之二留给纹样，对准中轴；下面三分之一是印出分隔线的四栏网格：标题占两栏，英文和手艺清单各占一栏。",
+    "type": "Two voices on purpose: a heavy Song serif for the Chinese title (the traditional side) and a bold grotesk for English and facts (the modern side); a vermilion seal is the only flourish.",
+    "typeZh": "刻意用两种声音：中文标题用粗宋体（传统那一侧），英文和信息用粗无衬线（现代那一侧）；唯一的装饰是一枚朱红小印。",
+    "focus": "The 12-fold papercut medallion, its pattern made entirely of cut-out holes.",
+    "focusZh": "十二向放射的剪纸团花，图案完全靠镂空出来。",
+    "space": "A full ring of bare paper around the motif keeps it from feeling like a souvenir print.",
+    "spaceZh": "纹样四周留出整圈纸色，避免它显得像旅游纪念品。"
+   },
+   "imagePrompt": "Contemporary folk poster: one traditional motif (paper-cut medallion, window lattice or textile pattern) redrawn flat in a single vermilion ink with cut-out holes, centred with wide margins on warm rice paper; a thin key-fret border band in indigo; below, a strict four-column grid with thin rules, a heavy serif title in the local script and small bold sans-serif English and event details. Three inks only. Use your own region and motif.",
+   "imagePromptZh": "当代民俗海报：一个传统纹样（剪纸团花、窗棂或织物图案）用一种朱红平涂重画，靠镂空出图，居中放在米色纸上、四周留宽边；一条细细的靛蓝回纹边框；下方是带细分隔线的严格四栏网格，标题用本地文字的粗衬线字，英文和活动信息用小号粗无衬线字。只用三种颜色。使用你自己的地域和纹样。",
+   "codePrompt": "Build a neo-folk poster in one SVG (viewBox 600×800). Draw the papercut medallion as a single filled rect masked by an SVG <mask>: white disc plus 24 scallop circles for the paper, black petals, diamonds, pin holes and a thin ring for the cuts, each generated by rotating one shape around the centre 8, 12 or 24 times in a loop. Make the key-fret band from an SVG <pattern>. Lay out the bottom third as a four-column grid with drawn rules. Add a step control: old pattern → new grid → together.",
+   "codePromptZh": "用一个 SVG（viewBox 600×800）做新地域主义海报。剪纸团花是一个实心矩形加 SVG <mask>：白色圆盘加 24 个小圆做花边（保留的纸），黑色花瓣、菱形、针孔和细圆环做镂空，每种形状绕中心循环旋转 8、12 或 24 次生成。回纹带用 SVG <pattern> 平铺。下三分之一做成画出分隔线的四栏网格。加分步按钮：传统纹样 → 现代网格 → 合起来。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-tactile-material",
+   "game": "Tactile Material",
+   "gameZh": "触感材质主义",
+   "project": "2027 trend board",
+   "credits": "Posters by various designers via Pinterest (board compiled by 蟹黄糕Design)",
+   "year": null,
+   "type": "poster",
+   "issue": 6,
+   "styleTags": [
+    "tactile-material"
+   ],
+   "techniques": [
+    "embossed-type",
+    "frosted-glass",
+    "film-grain",
+    "color-field"
+   ],
+   "sourceLabel": "蟹黄糕Design, “2027年度设计流行趋势前瞻” (Xiaohongshu, 19 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afec927000000002b03d216"
+   ],
+   "images": [
+    {
+     "file": "trend-tactile-material-1.webp",
+     "caption": "Trend board screenshot: Tactile Material, all posters in (video 0:26)",
+     "captionZh": "趋势看板截图：触感材质主义，海报拼满时（视频第 26 秒）",
+     "w": 720,
+     "h": 960,
+     "hd": "trend-tactile-material-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#DCA382",
+     "name": "Clay",
+     "nameZh": "陶土"
+    },
+    {
+     "hex": "#FFF1E6",
+     "name": "Wax highlight",
+     "nameZh": "蜡白高光"
+    },
+    {
+     "hex": "#6B3A26",
+     "name": "Burnt umber",
+     "nameZh": "焦褐"
+    },
+    {
+     "hex": "#2A54D4",
+     "name": "Gel blue",
+     "nameZh": "凝胶蓝"
+    }
+   ],
+   "summary": "How to spot it: you want to touch the poster. Letters are pressed into clay, poured as wax or gel, crumpled in foil, stamped into paper or seen through frosted glass; colour is muted and close to the material, and the type is read through light and shadow rather than contrast. How to make it: choose one material and one light direction; set the word in the same colour as the ground and give it only a highlight and a shadow; add grain, one translucent layer (glass or tracing paper) and at most one saturated object.",
+   "summaryZh": "怎么认：看了想伸手摸。字母压进陶土、像蜡或凝胶一样倒出来、揉皱成锡纸、压印在纸上，或隔着磨砂玻璃看；颜色低饱和、贴近材质本色，字靠光影而不是颜色反差被读出来。怎么做：选一种材质、定一个光源方向；字和底同色，只给它一道高光和一道阴影；再加颗粒、一层半透明（玻璃或硫酸纸），最多放一个饱和色的物件。",
+   "read": "The card names the materials (wax, glass, gel, frosted, stone, cloth, translucent paper, soft 3D) and the board is almost free of flat graphic colour: pink, clay, silver and white, with blue used once or twice. The skill is in lighting, not drawing. The specimen shows it in three steps: flat letters look like any poster; the same letters in the ground colour with one highlight and one shadow suddenly have mass; grain, frosted glass and a gel drop finish the surface.",
+   "readZh": "卡片列出了材质（蜡、玻璃、凝胶、磨砂、石材、布料、半透明纸、软质 3D），看板几乎没有平面感的色块：粉、陶土、银、白，蓝色只出现一两次。功夫在打光，不在画。标本分三步：平面字和普通海报没区别；同样的字改成底色、只加一道高光一道阴影，立刻有了体积；最后加颗粒、磨砂玻璃和一滴凝胶，表面就完成了。",
+   "layers": {
+    "grid": "A centred axis carries the two words; the frosted panel sits on the left margin and overlaps the second word on purpose, so the blur has something to blur.",
+    "gridZh": "两行字沿中轴排列；磨砂面板贴着左边距，故意压住第二行字，模糊才有东西可模糊。",
+    "type": "A rounded heavy sans in the ground colour, read only through a top-left highlight and bottom-right shadow; small facts in a plain sans, sharp on the glass.",
+    "typeZh": "圆头粗无衬线字，颜色与底相同，只靠左上的高光和右下的阴影读出来；信息小字用普通无衬线，在玻璃上保持清晰。",
+    "focus": "The blue gel drop, the single saturated object on a muted sheet.",
+    "focusZh": "蓝色凝胶滴：低饱和画面里唯一的饱和物件。",
+    "space": "Bare clay in the lower right, left empty so the surface itself is part of the picture.",
+    "spaceZh": "右下角空出的陶土面：留白本身就是材质的展示。"
+   },
+   "imagePrompt": "Tactile material poster: a short lowercase word pressed out of soft terracotta clay, the same colour as the background, read only by a soft top-left highlight and bottom-right shadow; one glossy blue gel droplet resting on a letter; a frosted-glass card overlapping the lower word with small sharp text; a scrap of translucent tracing paper; fine grain everywhere; muted studio lighting. Use your own word and material.",
+   "imagePromptZh": "触感材质海报：一个小写短词从柔软的陶土里压出来，和背景同色，只靠左上的柔和高光和右下的阴影读出来；一滴有光泽的蓝色凝胶停在某个字母上；一张磨砂玻璃卡片压住下面那行字，上面的小字清晰；一小片半透明硫酸纸；全画面细颗粒；低饱和的棚拍光。使用你自己的词和材质。",
+   "codePrompt": "Build a tactile poster with SVG plus one HTML layer. Ground: radial gradient for soft light. Type: draw each word three times—a dark copy blurred and offset down-right (shadow), a pale copy blurred and offset up-left (highlight), and the body filled with a gradient close to the ground. Gel drop: a circle with a radial gradient and a white ellipse highlight. Grain: a full-size rect with an feTurbulence filter blended with multiply. Frosted glass: an absolutely positioned div with backdrop-filter: blur() (plus -webkit-backdrop-filter) and container-query units for its text. Step control: flat → lit → materials.",
+   "codePromptZh": "用 SVG 加一层 HTML 做触感海报。底：径向渐变模拟柔光。字：每个词画三遍：深色副本模糊后向右下偏移（阴影），浅色副本模糊后向左上偏移（高光），本体用接近底色的渐变填充。凝胶滴：一个径向渐变圆加一个白色椭圆高光。颗粒：铺满画面的矩形加 feTurbulence 滤镜，用 multiply 混合。磨砂玻璃：绝对定位的 div 加 backdrop-filter: blur()（同时写 -webkit- 前缀），里面的字用容器查询单位缩放。分步按钮：平面 → 打光 → 加材质。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "trend-neo-brutalism",
+   "game": "Neo-Brutalism",
+   "gameZh": "新粗野主义",
+   "project": "2027 trend board",
+   "credits": "Posters by various designers via Pinterest (board compiled by 蟹黄糕Design)",
+   "year": null,
+   "type": "poster",
+   "issue": 6,
+   "styleTags": [
+    "neo-brutalism",
+    "big-type"
+   ],
+   "techniques": [
+    "exposed-grid",
+    "dense-info",
+    "mono-contrast",
+    "edge-bleed",
+    "type-contrast"
+   ],
+   "sourceLabel": "蟹黄糕Design, “2027年度设计流行趋势前瞻” (Xiaohongshu, 19 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afec927000000002b03d216"
+   ],
+   "images": [
+    {
+     "file": "trend-neo-brutalism-1.webp",
+     "caption": "Trend board screenshot: Neo-Brutalism, all posters in (video 0:33)",
+     "captionZh": "趋势看板截图：新粗野主义，海报拼满时（视频第 33 秒）",
+     "w": 720,
+     "h": 960,
+     "hd": "trend-neo-brutalism-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#0A0A0A",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    },
+    {
+     "hex": "#FFFFFF",
+     "name": "Paper white",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#FF3EA5",
+     "name": "Fluoro pink",
+     "nameZh": "荧光粉"
+    }
+   ],
+   "summary": "How to spot it: the poster looks unfinished on purpose. The grid is drawn in thick black lines instead of hidden, the headline is so large it breaks out of its cell, small text is crammed into every remaining box, and the colour is black and white with at most one loud accent (fluorescent pink, acid green). How to make it: draw the grid first and keep the lines; fill one band with a single huge word in a heavy grotesk and let the frame cut it; pack the other cells with same-size monospaced facts; leave exactly one cell empty and colour exactly one.",
+   "summaryZh": "怎么认：海报故意看起来「没收拾」。网格用粗黑线画出来而不是藏起来，标题大到撑破所在的格子，剩下的每个格子都塞满小字，颜色只有黑白，最多一个刺眼的强调色（荧光粉、酸性绿）。怎么做：先画网格并保留线条；拿一整条区域放一个超大的粗黑体单词，让边框切掉它；其余格子用同一字号的等宽字塞满信息；恰好留一格空、恰好涂一格色。",
+   "read": "The card lists grid, oversized type, information density, black and white, high contrast, and the board adds what the words leave out: concrete photos, Greek busts and stickers stuck on top, with neon pink and green as accents. It borrows Swiss typography’s grid but refuses its politeness. The specimen builds it in the same order: grid, then the word that does not fit, then the packed cells.",
+   "readZh": "卡片列的是网格、超大字体、信息密度、黑白、高对比；看板还补充了文字没说的：混凝土照片、希腊石膏像、贴纸叠在上面，霓虹粉和绿做强调。它借了瑞士风格的网格，却拒绝它的礼貌。标本按同样顺序搭：先网格，再放一个塞不下的字，最后塞满格子。",
+   "layers": {
+    "grid": "Six equal columns and five rows, every line printed in 2 px black; the headline row and the slogan band are the only cells that span the full width.",
+    "gridZh": "六等分栏、五行，所有线都用 2px 黑线印出来；只有标题行和标语条横跨整幅。",
+    "type": "A heavy grotesk at two sizes only (the huge RAW and the reversed slogan) against one monospaced size for every fact.",
+    "typeZh": "粗黑体只有两个尺寸（巨大的 RAW 和反白标语），所有信息共用一个等宽字号。",
+    "focus": "The one fluorescent pink cell with the issue number.",
+    "focusZh": "印着期号的唯一一格荧光粉。",
+    "space": "One cell left deliberately empty; without it the density would read as noise.",
+    "spaceZh": "故意空着的一格：没有它，信息密度就只是噪音。"
+   },
+   "imagePrompt": "Neo-brutalist poster, black and white with one fluorescent pink cell. Thick black grid lines drawn across the whole sheet; one huge heavy grotesk word filling the top two-thirds and cut off by the frame; a black band with a reversed bold slogan; the remaining cells crammed with small monospaced dates, coordinates, names and a barcode; one cell left empty. No gradients, no shadows. Use your own word.",
+   "imagePromptZh": "新粗野主义海报，黑白加一格荧光粉。粗黑网格线画满整张；一个巨大的粗黑体单词占上方三分之二，被边框切掉一截；一条黑底反白粗体标语；其余格子塞满等宽小字的日期、坐标、人名和一个条形码；留一格空。不用渐变、不用阴影。使用你自己的单词。",
+   "codePrompt": "Build a neo-brutalist poster in one SVG (viewBox 600×800). Draw the grid as real lines (2 px, outer frame 3 px). Set the headline as one <text> with textLength wider than the frame and clip it to its row with clipPath so the frame cuts it. Generate cell text in a loop with a monospaced font at one size; draw a barcode from a list of bar widths; fill exactly one cell with fluorescent pink and leave one empty. Step control: grid → huge type → packed cells, switching instantly (steps() easing) rather than fading softly.",
+   "codePromptZh": "用一个 SVG（viewBox 600×800）做新粗野主义海报。网格画成真的线（2px，外框 3px）。标题用一个 <text>，textLength 比画框还宽，再用 clipPath 裁进所在行，让边框切掉它。格子里的字用等宽字体、同一字号循环生成；条形码按一组条宽画出；恰好一格填荧光粉、一格留空。分步按钮：网格 → 超大字 → 塞满格子，切换用 steps() 硬切而不是柔和淡入。",
+   "specimen": "style-demo"
+  },
+  {
+   "slug": "red-accent-type",
+   "game": "BLACK, WHITE & RED",
+   "gameZh": "黑白与红",
+   "project": "Typographic posters",
+   "credits": "“Fade into You” signed KAERU; other designers unknown (compiled by 屿野_YeDesign)",
+   "year": null,
+   "type": "poster",
+   "issue": 7,
+   "styleTags": [
+    "swiss-punk",
+    "expressive-type"
+   ],
+   "techniques": [
+    "red-black-duo",
+    "directional-type",
+    "skewed-type",
+    "line-ornaments",
+    "halftone-photo",
+    "type-contrast"
+   ],
+   "sourceLabel": "屿野_YeDesign, “审美积累｜黑白与红，版式设计的力量感” (Xiaohongshu, 30 Oct 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6ae46fdf000000001802ca6c"
+   ],
+   "images": [
+    {
+     "file": "red-accent-type-1.webp",
+     "caption": "ITERATION-01 · Fade into you (signed KAERU)",
+     "captionZh": "ITERATION-01《Fade into you》（署名 KAERU）",
+     "w": 736,
+     "h": 920,
+     "hd": "red-accent-type-1@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "red-accent-type-2.webp",
+     "caption": "NOTGODENOUGH: letters wedged between red guide lines",
+     "captionZh": "NOTGODENOUGH：卡在红色辅助线楔形里的字母",
+     "w": 736,
+     "h": 920,
+     "hd": "red-accent-type-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "red-accent-type-3.webp",
+     "caption": "Red letters laid down a subway corridor",
+     "captionZh": "顺着地铁通道地面铺开的红字",
+     "w": 736,
+     "h": 981,
+     "hd": "red-accent-type-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "red-accent-type-4.webp",
+     "caption": "creation: guide circles and one crimson block",
+     "captionZh": "creation：辅助圆环和一块酒红",
+     "w": 736,
+     "h": 1040,
+     "hd": "red-accent-type-4@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#FD3738",
+     "name": "Signal red",
+     "nameZh": "信号红"
+    },
+    {
+     "hex": "#920027",
+     "name": "Crimson",
+     "nameZh": "酒红"
+    },
+    {
+     "hex": "#2A2A2A",
+     "name": "Ink grey",
+     "nameZh": "墨灰"
+    },
+    {
+     "hex": "#EFEFEF",
+     "name": "Paper grey",
+     "nameZh": "纸灰"
+    }
+   ],
+   "summary": "Four type-led posters from different designers that share one rule: black-and-white photos and type do the structure, and a single red carries the point. The words never sit level; they are turned up a margin, wedged between guide lines, or laid down a subway floor.",
+   "summaryZh": "四张出自不同设计师的文字海报，守着同一条规则：黑白照片和文字负责结构，只用一种红负责落点。字从不老实地横着放：要么竖着贴边走，要么卡在辅助线夹出的楔形里，要么铺在地铁通道的地面上。",
+   "read": "Red works here because it is rationed. In “Fade into You” the grey crowd fills the sheet and every red thing, from the ITERATION-01 block to the hairline title running up the right edge, is thin or small; the eye still goes straight to it. The second lesson is direction: each poster lets the type follow the picture's own movement, so the words feel like part of the scene rather than a caption on top of it.",
+   "readZh": "红之所以有力量，是因为用得省。《Fade into you》里灰色人群占满画面，所有红的东西都细或者小，从 ITERATION-01 色块到右边竖着往上走的细体标题，眼睛还是第一时间落到它们身上。第二点是方向：每张海报都让文字顺着画面本身的动势走，字就成了场景的一部分，而不是压在上面的说明。",
+   "layers": {
+    "grid": "A graph-paper grid covers the right fifth of “Fade into You”; the title column, the red bar and the ITERATION block all sit on its left edge. A thin red rule runs down the left margin.",
+    "gridZh": "《Fade into you》右侧约五分之一铺着方格纸网格，竖排标题、红色竖条和 ITERATION 字块都靠在它的左边线上；左边距有一条红色细线贯穿上下。",
+    "type": "Three voices: a bold condensed grotesque for ITERATION-01, an ultra-light grotesque set huge and turned 90° for “Fade into you” and “Existence”, and tiny regular labels in columns at the top left.",
+    "typeZh": "三种声音：ITERATION-01 用粗体窄黑体；「Fade into you」「Existence」用极细的黑体放到很大，并转 90° 竖排；左上角是成列排的小号常规字标签。",
+    "focus": "The red ITERATION-01 block in the top right, then the vertical red title that leads the eye back down to the crowd.",
+    "focusZh": "右上角红色的 ITERATION-01 字块，然后是竖排红色标题，把视线一路带回下方的人群。",
+    "space": "The pale paper in the top half: the crowd starts only a quarter of the way down, so the labels and the red block have quiet room to sit in.",
+    "spaceZh": "上半部浅灰的纸面：人群从四分之一高度才开始出现，左上的标签和右上的红字块因此有安静的地方待着。"
+   },
+   "imagePrompt": "Typographic poster, black-and-white with exactly one red. A grainy, halftoned photo of a receding line of identical figures fills the lower left; a graph-paper grid covers the right edge; a huge ultra-light sans-serif title turned 90° runs up the right side in red; a bold condensed red block title in the top corner; tiny grotesque labels in columns, small red square dots as bullets, one thin red rule down the left margin and a red L-shaped block in the bottom corner. Use your own title and photo subject.",
+   "imagePromptZh": "文字海报，黑白加且只加一种红。左下方是一排逐渐远去、长得一样的人物，照片带颗粒和网点；右边缘铺方格纸网格；一个很大的极细无衬线标题转 90° 用红色沿右侧往上走；角上一个红色粗体窄字标题块；成列的小号黑体标签，红色小方点当项目符号，左边距一条红色细线，左下角一块红色 L 形色块。标题和照片主题换成你自己的。",
+   "codePrompt": "Build a 4:5 poster as one SVG (viewBox 736×920): pale grey paper with a faint noise filter; a graph-paper grid pattern clipped to the right 22%; a row of figures drawn as dot-halftone silhouettes receding diagonally from bottom left to the centre; the title as huge font-weight 100 sans-serif text rotated -90° in red; a bold condensed red title block at top right; small label columns at top left with red square bullets; a red hairline down the left margin and a red L-shaped block at the bottom left. Add a toggle that greys every red element so the viewer can see how much the single colour carries. Honour prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做 4:5 海报（viewBox 736×920）：浅灰纸底加一层淡噪点滤镜；方格纸网格用 pattern，只裁在右侧 22%；一排人物用网点剪影画出，从左下往画面中心斜着退远；标题用 font-weight 100 的大号无衬线字转 -90°，红色；右上角一个红色粗体窄字标题块；左上角几列小标签，用红色小方块当项目符号；左边距一条红色细线，左下角一块红色 L 形。加一个开关，把所有红色元素换成灰色，让人看出这一种颜色撑起了多少。支持减弱动态效果。"
+  },
+  {
+   "slug": "blue-bitmap-collage",
+   "game": "BLUE",
+   "gameZh": "蓝色位图拼贴",
+   "project": "Collage posters",
+   "credits": "Original designers unknown (compiled by 因为)",
+   "year": null,
+   "type": "poster",
+   "issue": 9,
+   "styleTags": [
+    "y2k",
+    "glitch"
+   ],
+   "techniques": [
+    "bitmap-dither",
+    "slice-shift",
+    "montage-cut",
+    "typewriter-notes",
+    "color-field",
+    "line-ornaments"
+   ],
+   "sourceLabel": "因为, “blue｜审美积累（29/100）” (Xiaohongshu, 6 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6aedc4c6000000002a028dae"
+   ],
+   "images": [
+    {
+     "file": "blue-bitmap-collage-1.webp",
+     "caption": "Sliced hands, doves and blue blocks",
+     "captionZh": "错位的手、鸽子和蓝色块",
+     "w": 685,
+     "h": 1400,
+     "hd": "blue-bitmap-collage-1@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "blue-bitmap-collage-2.webp",
+     "caption": "Two-colour pixel collage on screen blue (top corners trimmed)",
+     "captionZh": "满版蓝底上的双色像素拼贴（截图圆角已裁去）",
+     "w": 1073,
+     "h": 929,
+     "hd": "blue-bitmap-collage-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "blue-bitmap-collage-3.webp",
+     "caption": "MINDLESS CONSUMPTION, OCTOBER, 2025: pixel horseman and a highlighted film list",
+     "captionZh": "MINDLESS CONSUMPTION, OCTOBER, 2025：像素骑手和荧光笔片单",
+     "w": 1060,
+     "h": 1323,
+     "hd": "blue-bitmap-collage-3@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#0311C6",
+     "name": "Electric blue",
+     "nameZh": "电光蓝"
+    },
+    {
+     "hex": "#0001B4",
+     "name": "Screen blue",
+     "nameZh": "屏幕深蓝"
+    },
+    {
+     "hex": "#E1E2C0",
+     "name": "Cream",
+     "nameZh": "米白"
+    },
+    {
+     "hex": "#A0A4E1",
+     "name": "Periwinkle",
+     "nameZh": "灰紫蓝"
+    },
+    {
+     "hex": "#CDD959",
+     "name": "Highlighter",
+     "nameZh": "荧光黄"
+    }
+   ],
+   "summary": "Three digital collages from a “blue” mood board: classical hands, doves, eyes and a galloping horse, all pushed through the look of an old screen. Photos become two-colour pixel dither or grainy cut-outs sliced into shifted strips; blue blocks, dot grids, orbit lines and typed diary sentences hold them together.",
+   "summaryZh": "「蓝」主题情绪板里的三张数字拼贴：古典雕塑的手、鸽子、眼睛、奔马，都被处理成老屏幕的质感。照片变成双色像素颗粒，或是带颗粒的抠图被横切错位；蓝色块、点阵、轨道细线和打字机式的日记短句把它们拼在一起。",
+   "read": "The pictures are old (Renaissance hands, a cathedral, a horseman) and the treatment is a computer's: every image is either reduced to pixels or glitched into strips, and one electric blue is the only colour allowed to be loud. That clash between classical subject and machine texture is what makes the set feel current, and the typed sentences (“I will be free”, “congratulations”) give it a private, diary voice.",
+   "readZh": "画面里的东西都很古老（文艺复兴的手、教堂、骑马的人），处理方式却完全是电脑的：每张图要么被降成像素，要么被切成错位的条带，而且只允许一种电光蓝大声说话。古典题材和机器质感的冲突让这组图显得很当下；打字机短句（「I will be free」「congratulations」）又给它加上了日记式的私人口吻。",
+   "layers": {
+    "grid": "In the tall collage, a solid blue band runs down the left eighth; a dotted panel outlined in blue sits on the centre column, and the other pieces hang off its edges and two tilted orbit ellipses.",
+    "gridZh": "竖长的那张拼贴，左边约八分之一是一条贯穿的蓝色竖带；中间一列是蓝框点阵面板，其余元素都挂在它的边上和两条倾斜的轨道椭圆上。",
+    "type": "Only one kind of type: a typewriter monospace set small, in a white box, a blue strip or yellow highlighter. In the horse poster the same face is simply scaled up for the one-line title.",
+    "typeZh": "只有一种字：打字机式等宽字，排得很小，放进白框、蓝色色带或荧光笔底色里。奔马那张把同一种字直接放大，做成一行标题。",
+    "focus": "The large grey hand reaching up through the middle, sliced into shifted strips, with the dark hand reaching down to meet it from the top right.",
+    "focusZh": "从中间往上伸、被横切错位的灰色大手，以及右上角往下伸、和它呼应的深色手。",
+    "space": "The blank light-grey ground between the panels; the collage stays readable because each blue piece has bare paper around it.",
+    "spaceZh": "各块面板之间留出的浅灰空地：每块蓝色元素周围都有空白，拼贴才不会糊成一团。"
+   },
+   "imagePrompt": "Tall digital collage poster in one electric blue plus grey and white. A classical sculpture hand reaching upward, grainy black-and-white, cut into horizontal strips shifted sideways like a glitch; a dark hand reaching down from the top corner; a dotted panel framed by a thin blue line; a grey circle with a white four-pointed star and white orbit ellipses; white dove silhouettes; a solid blue band down the left edge; thin blue arcs crossing the sheet; short typewriter sentences in a white box and in a blue strip. Use your own subject and words.",
+   "imagePromptZh": "竖长数字拼贴海报，只用一种电光蓝加灰与白。一只古典雕塑的手向上伸，带颗粒的黑白，被横切成几条并错开，像故障；右上角一只深色的手往下伸；一块蓝细线框住的点阵面板；一个灰色圆里有白色四角星和白色轨道椭圆；白色鸽子剪影；左边一条实心蓝色竖带；几条蓝色细弧线横穿画面；白框和蓝色色带里各有几句打字机小字。主题和文字换成你自己的。",
+   "codePrompt": "Build a tall collage (about 1:2) as one SVG on light grey: a solid electric-blue band on the left; a blue-outlined rectangle filled with a dot pattern; a grey circle with a white four-pointed star and two rotated white ellipses; white bird silhouettes; thin blue circular arcs; small monospaced sentences in a white box and a blue strip; the hands as grainy grey shapes drawn on a canvas with noise, cut into horizontal bands that are offset with transform: translateX. Add step buttons that assemble it (ground and blocks, lines and shapes, cut-outs, type) and a short glitch twitch on the slices that stops under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做竖长拼贴（约 1:2），浅灰底：左侧一条实心电光蓝竖带；一个蓝色描边、内部是点阵 pattern 的矩形；灰色圆里放白色四角星和两个旋转的白色椭圆；白色鸽子剪影；几条蓝色圆弧细线；白框和蓝色色带里排等宽小字；手用 canvas 画成带噪点的灰色形状，横切成几条，用 translateX 错开。加分步按钮按顺序装配（底色与色块、线与图形、抠图、文字），切片可以偶尔抖一下，减弱动态效果时关闭。"
+  },
+  {
+   "slug": "bison-energy",
+   "game": "BISON ENERGY",
+   "gameZh": "BISON ENERGY",
+   "project": "Brand identity redesign",
+   "credits": "TOICO Works (TOICO Design)",
+   "year": 2024,
+   "type": "brand",
+   "issue": 10,
+   "styleTags": [
+    "minimal-contrast",
+    "bold-geometry"
+   ],
+   "techniques": [
+    "merged-motif-mark",
+    "extended-wordmark",
+    "brand-sigil",
+    "red-black-duo",
+    "color-field",
+    "angled-cut",
+    "format-system"
+   ],
+   "sourceLabel": "RICO, “TOICO Works｜BISON ENERGY® 日本储能科技” (Xiaohongshu, 18 Nov 2026), posted by the design studio",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afd8e5d000000002301093b"
+   ],
+   "palette": [
+    {
+     "hex": "#ED0D1E",
+     "name": "Bison red",
+     "nameZh": "野牛红"
+    },
+    {
+     "hex": "#000000",
+     "name": "Black",
+     "nameZh": "纯黑"
+    },
+    {
+     "hex": "#E6E6E6",
+     "name": "Platinum",
+     "nameZh": "铂金灰"
+    },
+    {
+     "hex": "#151515",
+     "name": "Presentation charcoal",
+     "nameZh": "展示炭黑"
+    }
+   ],
+   "summary": "An identity redesign for Bison Energy, a Japanese renewable-energy and storage company: a lightning bolt, a charging bison and a mountain peak merged into one angular mark over a wide, heavy wordmark, then carried across posters, business cards, envelopes, workwear, a watch face and a trade-fair stand in nothing but red, black and platinum.",
+   "summaryZh": "为日本可再生能源与储能公司 Bison Energy 做的品牌升级：闪电、冲锋的野牛和山峰合成一个棱角分明的标志，下面配又宽又粗的字标，再铺到海报、名片、信封、工装、手表表盘和展台上，全程只用红、黑、铂金灰三种颜色。",
+   "read": "The old logo was a gradient bison with a lightning swoosh; the new one keeps both ideas but rebuilds them from straight cuts and small rounded corners, so it holds up as a tiny badge on a hard hat and as a slab across a site hoarding. The concept board names the ingredients (lightning, top one, bison, peak) and the construction drawing shows they are one silhouette: the bolt strikes out from behind the bison and its back is the mountain ridge. One flat red does the talking; black and platinum just take turns as the ground. (On the colour sheet the platinum HEX reads #2D2DE2, which is a blue; the swatch itself is a light grey around #E6E6E6, so it is a slip.)",
+   "readZh": "旧标是带渐变的野牛加一道闪电弧线；新标保留这两个意象，但全部改成直线切割加小圆角，所以小到安全帽上的徽标、大到工地围挡都撑得住。概念页列出四个来源（闪电、第一、野牛、山峰），结构图说明它们是同一个剪影：闪电从野牛身后劈出，野牛的背脊就是山峰的轮廓。全套只靠一种平涂红色说话，黑和铂金灰轮流当底色。（色彩页上铂金灰的 HEX 写成 #2D2DE2，那是一个蓝色；色块本身是 #E6E6E6 左右的浅灰，应是笔误。）",
+   "layers": {
+    "grid": "Everything rides one rising diagonal of about 30°: the bolt, the bison's back and the poster slats. The colour sheet splits into two equal halves with 45° corner cuts.",
+    "gridZh": "所有东西都沿一条约 30° 的上升斜线走：闪电、野牛的背脊、海报里的片状结构。色彩页左右对半分，转角处切 45° 斜角。",
+    "type": "One wide, heavy grotesque in caps for BISON ENERGY, stacked in two tight lines; COMPANY in a light geometric sans with very wide letter spacing; labels and contact lines in a small extended techno face.",
+    "typeZh": "BISON ENERGY 用又宽又粗的无衬线大写，紧密叠成两行；COMPANY 用细的几何无衬线、字距拉得很开；标注和联系方式用很小的宽体科技感字体。",
+    "focus": "The bison's head and curled horn at the top end of the diagonal.",
+    "focusZh": "斜线顶端野牛的头和上卷的牛角。",
+    "space": "Generous black around the lockup; on the business cards the left half stays almost empty apart from three small text lines.",
+    "spaceZh": "标志组合周围大片的黑；名片左半边几乎空着，只有三行小字。"
+   },
+   "imagePrompt": "Brand identity presentation for an energy company, red, black and light platinum only. A flat angular logo: a lightning bolt, a charging bull and a mountain peak fused into one silhouette with straight cuts and small rounded corners, rising on a 30° diagonal; below it a very wide, very heavy sans-serif name stacked in two lines and a lightly tracked small word underneath. Show it on a black background over glossy red glass slats, on three tall posters (one with the wordmark huge in black on red over a fan of black blades), on red and light-grey business cards and a red envelope, on a hard hat and a watch face. Clean studio mockups. Invent your own name and animal.",
+   "imagePromptZh": "能源公司的品牌视觉展示，只用红、黑和浅铂金灰。一个平涂、棱角分明的标志：闪电、冲锋的公牛和山峰熔成一个剪影，用直线切割加小圆角，沿 30° 斜线上升；下面是又宽又粗的无衬线名字分两行叠放，再下面一行字距拉开的细小单词。把它放在：黑底上叠光滑的红色玻璃片、三张竖版海报（其中一张红底上黑色巨大字标，下方是扇形散开的黑色叶片）、红色和浅灰的名片与红色信封、安全帽和手表表盘上。干净的棚拍样机。名字和动物用你自己的。",
+   "codePrompt": "Build a brand identity specimen in HTML/SVG at 3:2 with four switchable views and a gd:layout event on switch. Logo: black ground, an SVG mark drawn as one path (a lightning bolt and a bull merged on a 30° diagonal) above a two-line wide heavy wordmark and a widely tracked small line. Posters: three tall cards with 12px radius on charcoal, one grey with fine radial slats and a small red wordmark, one black with a tiny red mark at the bottom, one red with the wordmark huge in black top-left over a fan of black polygons from the bottom centre. Stationery: 2:1 business cards (red with black mark, light grey with red mark) and a red envelope with the wordmark bottom-left; tiny extended-caps contact lines. Colour: red left half and platinum/black right half with 45° clipped corners and HEX/RGB/CMYK labels. Use only #ED0D1E, #000, #E6E6E6, #151515. Scale type with a ResizeObserver; honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/SVG 按 3:2 做一个品牌视觉标本，四个视图可切换，切换时派发 gd:layout。标志：黑底，SVG 一条路径画标志（闪电和公牛沿 30° 斜线合成），下面两行又宽又粗的字标和一行字距拉开的小字。海报：炭黑底上三张圆角 12px 的竖卡，一张灰色细密放射片状纹理配小号红字标，一张黑色底部只有一个小红标，一张红底左上角黑色巨大字标、下方从底部中点扇形散开的黑色多边形。名片信封：2:1 名片（红底黑标、浅灰底红标）和红色信封，左下角放字标；联系方式用很小的宽体大写。色彩：左半红色，右半铂金灰和黑色，转角用 clip-path 切 45° 斜角，配 HEX/RGB/CMYK 标注。只用 #ED0D1E、#000、#E6E6E6、#151515。字号用 ResizeObserver 随画面缩放，支持减弱动态效果。",
+   "images": [
+    {
+     "file": "bison-energy-1.webp",
+     "caption": "Key visual over red glass slats, with three posters",
+     "captionZh": "红色玻璃片上的主标志，下方是三张海报",
+     "w": 1050,
+     "h": 1400,
+     "hd": "bison-energy-1@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "bison-energy-2.webp",
+     "caption": "Old and new logo, and the identity at a glance",
+     "captionZh": "新旧标志对比与视觉系统拼图",
+     "w": 1050,
+     "h": 1400,
+     "hd": "bison-energy-2@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "bison-energy-3.webp",
+     "caption": "Concept (lightning, top one, bison, peak) and construction of the mark",
+     "captionZh": "概念来源（闪电、第一、野牛、山峰）与标志结构图",
+     "w": 1050,
+     "h": 1400,
+     "hd": "bison-energy-3@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "bison-energy-4.webp",
+     "caption": "Colour sheet, workwear jacket and tote bag",
+     "captionZh": "色彩规范、工装外套与帆布袋",
+     "w": 1050,
+     "h": 1400,
+     "hd": "bison-energy-4@2x.webp",
+     "origin": "author"
+    },
+    {
+     "file": "bison-energy-5.webp",
+     "caption": "Watch face, USB drive, business cards and envelopes",
+     "captionZh": "手表表盘、U 盘、名片与信封",
+     "w": 1050,
+     "h": 1400,
+     "hd": "bison-energy-5@2x.webp",
+     "origin": "author"
+    }
+   ]
+  },
+  {
+   "slug": "street-yellow-type",
+   "game": "STREET SCENES",
+   "gameZh": "高亮黄街拍大字报",
+   "project": "Street-photo poster series",
+   "credits": "Original designers unknown (compiled by 珍妮弗兰克); Pen cover: Pen magazine, CE Media House",
+   "year": null,
+   "type": "poster",
+   "issue": 11,
+   "styleTags": [
+    "big-type",
+    "fine-line-editorial"
+   ],
+   "techniques": [
+    "photo-color-type",
+    "vertical-title",
+    "type-weave",
+    "data-labels",
+    "type-contrast",
+    "edge-bleed"
+   ],
+   "sourceLabel": "珍妮弗兰克, “高亮黄大字报与都市漫游美学” (Xiaohongshu, 19 Nov 2026); Pen cover from Pen Online",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afe8780000000002b037503",
+    "https://www.pen-online.jp/article/018864.html"
+   ],
+   "palette": [
+    {
+     "hex": "#F9BC0F",
+     "name": "Highlight yellow",
+     "nameZh": "高亮黄"
+    },
+    {
+     "hex": "#FDDC01",
+     "name": "Lemon yellow",
+     "nameZh": "柠檬黄"
+    },
+    {
+     "hex": "#5A5A5A",
+     "name": "Street grey",
+     "nameZh": "街道灰"
+    },
+    {
+     "hex": "#CCBEA5",
+     "name": "Sunlit wall",
+     "nameZh": "向阳墙面"
+    },
+    {
+     "hex": "#C22B31",
+     "name": "Signal red",
+     "nameZh": "信号红"
+    },
+    {
+     "hex": "#4395AC",
+     "name": "Signal blue",
+     "nameZh": "信号蓝"
+    }
+   ],
+   "summary": "Four city walks turned into magazine covers with one rule: every word on the photo is the same bright yellow. A serif Street scenes over a Hong Kong taxi, a vertical Sunlight with dots lifted from a traffic light, a giant TOKYO that the couple stands in front of, and Pen's July 2025 Taiwan issue with a vertical Japanese headline.",
+   "summaryZh": "四段城市漫步做成四张杂志封面式海报，规则只有一条：照片上的字全用同一种亮黄。香港的士上方的衬线体 Street scenes，竖排的 Sunlight 配上从信号灯取色的圆点，情侣站在巨大的 TOKYO 字母前面，以及 Pen 杂志 2025 年 7 月台湾特辑的竖排日文标题。",
+   "read": "Yellow works because almost nothing in a street photo is that saturated, so the type always floats above the scene without a box or shadow. Each poster then picks one move: a classic serif for nostalgia, a vertical word along the edge for calm, letters woven behind people for depth, a vertical CJK headline down the centre for a magazine cover. The TOKYO poster even prints its own colours (#ffba00, #5a5a5a) as part of the callouts, turning the spec sheet into decoration.",
+   "readZh": "黄色好用，是因为街拍照片里几乎没有这么饱和的东西，所以字不用加底框和阴影就能浮在画面上。之后每张只做一个动作：经典衬线体营造怀旧，贴边竖排一个单词显得安静，字母绕到人物身后制造纵深，中轴竖排中日文大标题做杂志封面。TOKYO 那张甚至把自己的配色（#ffba00、#5a5a5a）当标注印在画面上，把设计说明变成了装饰。",
+   "layers": {
+    "grid": "No shared grid: each title follows the photo's own lines. Street scenes sits in the upper-left block of tiled wall; Sunlight runs down the right edge parallel to the wall shadows; TOKYO fills the width in two rows; the Pen headline sits on the corridor's vanishing axis.",
+    "gridZh": "没有统一网格，标题都顺着照片自己的线条走：Street scenes 落在左上那块瓷砖墙上；Sunlight 沿右边缘往下，与墙上的影子平行；TOKYO 两行占满画面宽度；Pen 的大标题压在走廊透视的中轴上。",
+    "type": "A high-contrast serif for Street scenes, a slab-like serif turned 90° for Sunlight, a geometric sans at huge size for TOKYO with tiny rounded labels in brackets, a heavy Japanese gothic set vertically for Pen.",
+    "typeZh": "Street scenes 用粗细对比强的衬线体；Sunlight 用接近粗衬线的字体转 90 度竖排；TOKYO 用巨大的几何无衬线，配括号里的小号圆体标注；Pen 用粗黑体日文竖排。",
+    "focus": "Where yellow meets the warmest thing in each photo: the red taxi, the red pedestrian light, the couple, the bright end of the corridor.",
+    "focusZh": "黄字和每张照片里最暖的东西相遇的地方：红色的士、红色行人灯、那对情侣、走廊尽头的亮处。",
+    "space": "The photographs' own quiet areas: the bare wall in Sunlight, the road in Street scenes, the floor of the corridor in Pen.",
+    "spaceZh": "照片自身安静的区域：Sunlight 里空白的墙面、Street scenes 里的马路、Pen 里走廊的地面。"
+   },
+   "imagePrompt": "A series of four street-photography posters in a city-magazine style, portrait 4:5 to 3:4. Natural, slightly faded colour photos of quiet city corners in afternoon light. All lettering in one saturated highlight yellow, no boxes or shadows. Poster 1: an elegant high-contrast serif two-word title in the upper left with a small thin sans place name. Poster 2: one word in a slab serif running vertically down the right edge, short bilingual lines of poetry and a few flat red, blue and yellow dots echoing a traffic light. Poster 3: a black-and-grey photo of two people with a giant geometric sans city name in two rows behind them, partly hidden by their bodies, plus thin yellow leader lines to tiny bracketed labels and colour codes. Poster 4: a magazine cover with a big serif masthead and a heavy vertical CJK headline down the centre. Use your own places and words.",
+   "imagePromptZh": "一组四张城市杂志风格的街拍海报，竖版 4:5 到 3:4。午后光线下安静城市角落的自然、略褪色的彩色照片。所有文字只用一种饱和的高亮黄，不加底框和阴影。第 1 张：左上角优雅的高对比衬线体两词标题，下面一行很细的无衬线地名。第 2 张：一个单词用粗衬线体沿右边缘竖排，配几行中英双语短诗，以及几个呼应信号灯的红、蓝、黄平涂圆点。第 3 张：黑白灰照片里两个人，背后是两行巨大的几何无衬线城市名，被人物身体挡住一部分，再加黄色细引线连到括号里的小标注和色值。第 4 张：杂志封面，大号衬线刊名，画面中轴竖排粗黑体中日文标题。地点和文字用你自己的。",
+   "codePrompt": "Build a poster specimen in HTML/CSS/SVG with four switchable views inside a fixed 3:4 stage (each poster keeps its own ratio: 4:5, 3:4, 0.744, 0.77) and a gd:layout event on switch. Paint each photo as CSS gradients and simple shapes (a tiled wall and a red taxi; a beige wall with diagonal shadows, a pole, a two-lamp signal and zebra stripes; a grey street with two dark silhouettes; a green corridor). All type in #F9BC0F or #FDDC01: a Didone-style serif title; a serif word rotated 90° along the right edge with small bilingual lines and absolutely positioned dots; huge geometric-sans letters in two rows with the silhouettes layered above some letters, thin SVG leader lines to tiny bracketed labels; a serif masthead with a vertical CJK headline using writing-mode: vertical-rl. Scale type with a ResizeObserver; honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/CSS/SVG 做一个海报标本：固定 3:4 的舞台里四个可切换视图（每张海报保持自己的比例：4:5、3:4、0.744、0.77），切换时派发 gd:layout。照片用 CSS 渐变和简单形状代替（瓷砖墙和红色的士；带斜影的米色墙、灯杆、双灯信号灯和斑马线；灰色街道和两个深色剪影；绿植走廊）。文字只用 #F9BC0F 或 #FDDC01：Didone 风格衬线标题；衬线单词沿右边缘转 90 度，配双语小字和绝对定位的圆点；两行巨大几何无衬线字母，剪影叠在部分字母上方，SVG 细引线连到括号小标注；衬线刊名配 writing-mode: vertical-rl 的竖排中日文标题。字号用 ResizeObserver 随画面缩放，支持减弱动态效果。",
+   "images": [
+    {
+     "file": "street-yellow-type-1.webp",
+     "caption": "Street scenes, Hong Kong: serif title above a red taxi",
+     "captionZh": "香港街景：衬线标题与红色的士",
+     "w": 736,
+     "h": 920,
+     "hd": "street-yellow-type-1@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "street-yellow-type-2.webp",
+     "caption": "Sunlight: vertical title and dots taken from the traffic light",
+     "captionZh": "Sunlight：竖排标题与取自信号灯的圆点",
+     "w": 736,
+     "h": 980,
+     "hd": "street-yellow-type-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "street-yellow-type-3.webp",
+     "caption": "TOKYO: letters behind the couple, with callout labels",
+     "captionZh": "TOKYO：字母绕到人物身后，配说明书式标注",
+     "w": 736,
+     "h": 989,
+     "hd": "street-yellow-type-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "street-yellow-type-4.webp",
+     "caption": "Pen magazine, July 2025 (Taiwan issue): vertical Japanese headline",
+     "captionZh": "Pen 杂志 2025 年 7 月号（台湾特辑）封面：竖排日文标题",
+     "w": 1084,
+     "h": 1409,
+     "origin": "official"
+    }
+   ]
+  },
+  {
+   "slug": "arknights-gate-future",
+   "game": "Arknights",
+   "gameZh": "明日方舟",
+   "project": "The Gate Future",
+   "credits": "IMageDev",
+   "year": 2026,
+   "type": "game",
+   "issue": 12,
+   "styleTags": [
+    "glitch",
+    "fine-line-editorial"
+   ],
+   "techniques": [
+    "type-contrast",
+    "brand-sigil",
+    "data-labels",
+    "line-ornaments",
+    "side-fade",
+    "signal-interference",
+    "finishing-grade"
+   ],
+   "sourceLabel": "IMageDev, “【辅助设计】如何制作离解复合PV风格化平面” (Xiaohongshu video, 21 Oct 2026), frames from the designer's tutorial",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6ad8357a00000000310275cc"
+   ],
+   "images": [
+    {
+     "file": "arknights-gate-future-1.webp",
+     "caption": "Final frame after the Looks grade (video 1:04; the tutorial's subtitle bar at the bottom cropped off)",
+     "captionZh": "最终画面，Looks 调色后（视频 1:04，裁掉了底部的教程字幕条）",
+     "w": 1280,
+     "h": 616,
+     "hd": "arknights-gate-future-1@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "arknights-gate-future-2.webp",
+     "caption": "Before the grade: Signal distortion, inversion and colour balance applied (video 1:01, subtitle bar cropped)",
+     "captionZh": "调色前：已加 Signal 失真、反转和颜色平衡（视频 1:01，裁掉字幕条）",
+     "w": 1280,
+     "h": 616,
+     "hd": "arknights-gate-future-2@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#E2E2E2",
+     "name": "Paper white",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#141414",
+     "name": "Title black",
+     "nameZh": "标题黑"
+    },
+    {
+     "hex": "#A1A9B3",
+     "name": "Panel grey",
+     "nameZh": "面板灰"
+    },
+    {
+     "hex": "#363C44",
+     "name": "Graded slate",
+     "nameZh": "调色后的灰蓝暗部"
+    },
+    {
+     "hex": "#E9ECF0",
+     "name": "Graded highlight",
+     "nameZh": "调色后的冷白亮部"
+    }
+   ],
+   "summary": "A widescreen still in the style of the Arknights “Dissociative Recombination” PV: a heavy geometric The Gate Future on the right, an X-shaped propeller emblem labelled Convolution at the centre, a black-to-white fade on the left full of tab bars, boxes and tiny monospaced lines, then the whole frame broken up by signal interference and graded to slate grey.",
+   "summaryZh": "一张横版风格化平面，学《明日方舟》「离解复合」活动 PV 的味道：右边是粗几何字的 The Gate Future，中间是带 Convolution 标签的 X 形螺旋桨符号，左边从黑渐到白，堆满标签栏、细线框和等宽小字；最后整张画面加信号干扰，再调成灰蓝色调。",
+   "read": "The designer's tutorial splits it into two steps. Step 1 is pure layout: title first, then the X emblem as the “gate”, then a grid, a left-side fade for depth, and only then the information bits that make it feel like a scanning interface. Step 2 happens in After Effects: one adjustment layer with a Signal distortion, inversion and colour balance, then a Looks grade over everything. The layout already works in black and white; the effects only make it feel like a frame from the PV.",
+   "readZh": "作者的教程把它分成两步。第一步只做平面构成：先放标题，再放代表「门」的 X 形符号，然后加网格、左边加黑白渐变拉出空间层次，最后才补上让画面像扫描界面的信息小元素。第二步进 AE：一个调整图层加 Signal 失真、反转和颜色平衡，最后用 Looks 整体调色。版面在黑白阶段就已经成立，特效只负责让它像 PV 里截出来的一帧。",
+   "layers": {
+    "grid": "Hairline verticals about every 140 px of the 1280 px frame (x ≈ 590, 735, 875, 1017, 1157) and horizontals near 1/7, 1/3, 1/2 and 3/4 of the height; dots mark a few crossings, and the title's right edge sits just past the last column line.",
+    "gridZh": "1280 宽的画面里，竖向细线大约每 140 像素一条（x ≈ 590、735、875、1017、1157），横线大约落在高度的 1/7、1/3、1/2 和 3/4；几个交点上放小圆点，标题右边缘刚好越过最后一条竖线。",
+    "type": "One heavy geometric sans for The Gate Future, right-aligned on two lines; a medium sans for Convolution, Time axis and Message; a monospaced face for everything small (New tab, 42 _ Deepfakes, the scattered terminal lines).",
+    "typeZh": "一种粗几何无衬线写 The Gate Future，两行右对齐；中等字重的无衬线写 Convolution、Time axis 和 Message；所有小字（New tab、42 _ Deepfakes、零散的终端短句）都用等宽字。",
+    "focus": "The X emblem with its white Convolution label, set where the gate lines cross, between the dark left side and the title.",
+    "focusZh": "X 形符号和白底 Convolution 标签，落在「门」形线条交汇处，夹在左边暗区和标题之间。",
+    "space": "The bright band under the title, between the subtitle and Message, kept almost empty.",
+    "spaceZh": "标题下方、副标题和 Message 之间那片亮区，几乎什么都不放。"
+   },
+   "imagePrompt": "Widescreen 16:9 game-promo still, black-and-white sci-fi interface look. Right half: a heavy geometric sans title on two right-aligned lines with a tiny two-line subtitle below. Centre: an X-shaped symbol made of two tapered propeller blades with a small white label box across it, thin diagonal lines forming a door shape and faint concentric circles behind. Left side: a smooth black-to-white gradient full of grey tab bars, thin outlined boxes joined by lines, barcodes, plus-sign grids and tiny monospaced text. A hairline grid with dots at some crossings, a big four-point star in the bottom-right corner. Finish with analogue signal interference (horizontal scan streaks, shifted rows) and a cool slate-grey colour grade. Use your own title and words.",
+   "imagePromptZh": "16:9 横版游戏宣传画面，黑白科幻界面质感。右半边：粗几何无衬线标题，两行右对齐，下面两行很小的副标题。中间：两片两头粗、中间细的螺旋桨叶交叉成 X 形符号，上面横压一个白底小标签，背后有细斜线组成的「门」形和淡淡的同心圆。左边：从黑到白的平滑渐变，上面放灰色标签栏、用细线连起来的线框、条形码、加号点阵和很小的等宽字。整张画面有细线网格，部分交点放小圆点，右下角一颗大四角星。最后加模拟信号干扰（横向扫描纹、错行），再整体调成冷灰蓝色调。使用你自己的标题和文字。",
+   "codePrompt": "Build this still as one SVG with a 1280×720 viewBox. Layer in this order and add step buttons that reveal them: (1) title and emblem: a heavy sans title on two right-aligned lines ending at x≈1193, two crossed tapered blades for the X with a white label rect; (2) structure: hairline grid at x≈590/735/875/1017/1157 with a few dots, a black-to-white linearGradient over the left 45 %, thin diagonal door lines and faint concentric circles; (3) information: grey tab bars with monospaced labels, outlined boxes joined by lines, barcodes, plus-sign grids, tiny terminal lines, a concave four-point star bottom right; (4) signal: an SVG filter with feTurbulence (baseFrequency about 0.001 × 0.6) driving feDisplacementMap on x only, plus a canvas-drawn layer of horizontal noise streaks; (5) grade: feColorMatrix that lifts blacks to slate blue and pulls whites down (about 0.7·x + 0.2 to 0.29 per channel, most in blue). Honour prefers-reduced-motion.",
+   "codePromptZh": "用一个 viewBox 为 1280×720 的 SVG 做这张图。按下面顺序分层，并加分步按钮逐层显示：(1) 标题和符号：粗无衬线标题两行右对齐、右边缘在 x≈1193，两片两头粗的桨叶交叉成 X，上面压一个白色标签矩形；(2) 结构：x≈590/735/875/1017/1157 的细线网格加几个圆点，左侧 45% 用 linearGradient 从黑渐到白，细斜线组成「门」形，加淡同心圆；(3) 信息元素：灰色标签栏配等宽字、用线连起来的线框、条形码、加号点阵、零散终端短句，右下角一颗内凹四角星；(4) 信号干扰：SVG 滤镜用 feTurbulence（baseFrequency 约 0.001 × 0.6）驱动只沿 x 方向的 feDisplacementMap，再叠一层 canvas 画的横向噪点条纹；(5) 调色：feColorMatrix 把黑色提成灰蓝、白色压暗（每个通道约 0.7·x + 0.2～0.29，蓝色提得最多）。支持减弱动态效果。"
+  },
+  {
+   "slug": "beneath-the-world-tree",
+   "game": "Sinking Beneath the World Tree",
+   "gameZh": "沉沦在世界树之下",
+   "project": "Composition poster",
+   "credits": "浮白",
+   "year": 2026,
+   "type": "poster",
+   "issue": 13,
+   "styleTags": [
+    "bold-geometry",
+    "tactile-material"
+   ],
+   "techniques": [
+    "centered-hero",
+    "edge-bleed",
+    "wall-texture",
+    "radial-slice",
+    "contour-trace",
+    "orbit-ring",
+    "pixel-accents"
+   ],
+   "sourceLabel": "浮白, “《沉沦在世界树之下》构成视觉｜设计第22” (Xiaohongshu video, 11 Nov 2026), opening frame of the designer's tutorial",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af3c9fa000000001c033423"
+   ],
+   "images": [
+    {
+     "file": "beneath-the-world-tree-1.webp",
+     "caption": "Finished poster (opening frame of the tutorial video, 0:02)",
+     "captionZh": "成稿（教程视频开头 0:02 的画面）",
+     "w": 718,
+     "h": 954,
+     "hd": "beneath-the-world-tree-1@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#D4D4D4",
+     "name": "Concrete grey",
+     "nameZh": "水泥灰"
+    },
+    {
+     "hex": "#2233E5",
+     "name": "Ultramarine",
+     "nameZh": "群青蓝"
+    },
+    {
+     "hex": "#5258E4",
+     "name": "Disc blue",
+     "nameZh": "圆盘蓝"
+    },
+    {
+     "hex": "#C6C8E6",
+     "name": "Faded lavender",
+     "nameZh": "渐隐淡紫"
+    },
+    {
+     "hex": "#141414",
+     "name": "Whale black",
+     "nameZh": "鲸黑"
+    },
+    {
+     "hex": "#7C7C7C",
+     "name": "Mountain grey",
+     "nameZh": "山灰"
+    }
+   ],
+   "summary": "A portrait composition poster: a bare white world tree grows out of a black humpback whale breaching over contour-line mountains, in front of a blue disc sliced along radiating lines; thin tilted rings orbit the trunk, blue crescent moons circle the edge, and two pixel checkerboards sit in opposite corners, all on a concrete-textured grey.",
+   "summaryZh": "一张竖版构成海报：一棵光秃的白色世界树从跃出水面的黑色座头鲸背上长出来，鲸下面是等高线画的山；背后是沿放射线切开的蓝色圆盘，细细的倾斜圆环绕着树干，蓝色月牙沿边缘转一圈，对角两块像素棋盘格，底子是带水泥墙肌理的灰。",
+   "read": "The tutorial builds it strictly from the back: textured ground, a cross of guides, radiating lines, a blue disc with a fading gradient, then the disc cut along the lines. Only after the geometry stands do the photos come in, and each one is turned into lines first (contour filter, then invert) so the mountain, whale and tree speak the same flat language as the circle. One blue, one grey, black and white: that restraint is what holds so many elements together.",
+   "readZh": "教程严格从后往前搭：先做肌理底，拉参考线十字，画放射线，放渐隐的蓝色圆盘，再沿放射线把圆盘切开。几何骨架立住之后才放照片，而且每张照片都先变成线稿（等高线滤镜再反相），山、鲸和树才和圆盘说同一种「平面语言」。只有一种蓝、一种灰，加黑白，元素这么多也不乱，靠的就是这份克制。",
+   "layers": {
+    "grid": "A centred cross of guides; the disc sits on the vertical axis with its centre a little under halfway, every radiating line starts from that centre, and the trunk climbs the same vertical.",
+    "gridZh": "画面中心一对十字参考线；圆盘在竖轴上，圆心略高于画面一半，所有放射线都从圆心出发，树干也沿这条竖轴往上长。",
+    "type": "No lettering on the poster itself; the title lives in the post. Hierarchy comes from scale: disc, then tree, then whale, then moons and pixels.",
+    "typeZh": "画面上没有文字，标题只在笔记里。层级全靠大小：圆盘最大，其次是树、鲸，最后是月亮和像素。",
+    "focus": "Where the trunk meets the whale's back, crossed by the two orbit rings.",
+    "focusZh": "树干和鲸背相接的地方，两条圆环正好从这里穿过。",
+    "space": "The concrete band at the top between the checkerboard and the top moon, where only the long radiating lines reach.",
+    "spaceZh": "顶部棋盘格和最上面那枚月亮之间的一段水泥底，只有长长的放射线伸进来。"
+   },
+   "imagePrompt": "Portrait 3:4 composition poster on a light grey concrete-wall texture with fine noise. Centre: a large ultramarine disc with a soft fade to pale lavender at the bottom, a thin ring around it, sliced along thin black radiating lines (some slices removed, some pushed outward), small four-point stars on an inner ring. In front: a bare white tree with thin black outlines rising from the back of a black humpback whale rendered as white contour lines, over grey mountains drawn as contour lines. Two thin tilted ellipses orbit the trunk, partly hidden behind it; blue crescent moons around the edge; small blue pixel checkerboards in the top-left and bottom-right corners. Only one blue, grey, black and white. Use your own subjects.",
+   "imagePromptZh": "竖版 3:4 构成海报，浅灰水泥墙肌理底，带细杂色。中间：一个大的群青蓝圆盘，下半部渐隐成淡紫，外面一圈细环，沿细黑放射线切开（有的扇形挖掉、有的往外推），内圈有小四角星。前景：一棵光秃的白色树，带细黑描边，从一头黑色座头鲸的背上长出来，鲸用白色等高线表现，下面是同样用等高线画的灰色山。两条细细的倾斜椭圆环绕树干、经过树后的部分隐去；蓝色月牙沿画面边缘一圈；左上和右下各一小块蓝色像素棋盘格。只用一种蓝、灰、黑、白。使用你自己的主体。",
+   "codePrompt": "Build this poster as one SVG with a 3:4 viewBox (720×958) and step buttons that follow the tutorial: (1) ground: grey fill plus a canvas-made noise and concrete-blotch texture; (2) guides and radiating lines: a centred cross, about 48 long lines from the disc centre and an inner ring of short ticks with four-point stars; (3) disc: a circle filled with a vertical linearGradient from solid blue to transparent lavender, plus a thin ring; (4) slicing: replace the disc with sector paths, leave a few sectors out and push others outward with small detached caps; (5) mountains and whale: on a canvas, fill the shapes, then draw iso-lines of a noise field in white so they look like a contour filter; (6) tree and rings: recursive white branches drawn twice (a wider black pass first for the outline) and two rotated ellipses broken with stroke-dasharray where they pass behind the trunk; (7) crescent moons (a circle minus an offset circle) and two pixel checkerboards. Honour prefers-reduced-motion.",
+   "codePromptZh": "用一个 3:4（720×958）viewBox 的 SVG 做这张海报，分步按钮按教程顺序：(1) 底：灰色填充，再叠一张 canvas 生成的杂色和水泥斑驳纹理；(2) 参考线和放射线：中心十字，从圆心出发约 48 条长线，内圈一圈短刻度和四角星；(3) 圆盘：圆形用竖向 linearGradient 从实心蓝渐到透明淡紫，外加一圈细环；(4) 切割：把圆盘换成一组扇形 path，挖掉几块、把几块往外推并在外面加一小段断开的帽；(5) 山和鲸：在 canvas 上填好形状，再把噪声场的等值线用白色画出来，做出等高线滤镜的效果；(6) 树和圆环：递归画白色树枝，先画一遍更粗的黑色当描边；两个旋转椭圆在经过树干背后的地方用 stroke-dasharray 断开；(7) 月牙（圆减去偏移的圆）和两块像素棋盘格。支持减弱动态效果。"
   }
  ]
 }

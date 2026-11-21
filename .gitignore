@@ -16,3 +16,6 @@ __pycache__/
 .impeccable/review/
 .impeccable/build/
 .impeccable/config.local.json
+
+# Agent worktrees (Claude Code subagents)
+.claude/worktrees/

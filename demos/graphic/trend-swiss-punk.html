@@ -1,0 +1,83 @@
+<div class="demo gd-specimen gd-swisspunk">
+  <div class="sp-frame" data-gd-canvas>
+    <svg class="sp-art" viewBox="0 0 300 400" aria-hidden="true">
+      <defs>
+        <text id="sp-grid-word" x="-6" y="170" font-size="146" textLength="256" lengthAdjust="spacingAndGlyphs">GRID</text>
+        <clipPath id="sp-s1"><rect x="-40" y="40" width="380" height="60"/></clipPath>
+        <clipPath id="sp-s2"><rect x="-40" y="100" width="380" height="28"/></clipPath>
+        <clipPath id="sp-s3"><rect x="-40" y="128" width="380" height="54"/></clipPath>
+      </defs>
+      <rect width="300" height="400" fill="#F2F0EA"/>
+      <!-- The grid is part of the artwork: six columns, 12 px margins, 6 px gutters. -->
+      <g class="sp-cols" stroke="#111" stroke-opacity=".16" stroke-width=".6">
+        <path d="M12 46V392M53 46V392M59 46V392M100 46V392M106 46V392M147 46V392M153 46V392M194 46V392M200 46V392M241 46V392M247 46V392M288 46V392"/>
+      </g>
+      <!-- Colour blocks snap to column edges: acid green in column 5, fluoro pink across 1–3, blue in 4. -->
+      <rect x="200" y="52" width="41" height="102" fill="#C6F04A"/>
+      <rect x="12" y="200" width="135" height="64" fill="#FF4FA3"/>
+      <rect x="153" y="318" width="41" height="74" fill="#2F5BFF"/>
+      <!-- Swiss half: small flush-left information, set obediently in the columns. -->
+      <g font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" fill="#111">
+        <g data-ov-type="左对齐小字 · 守网格" data-ov-type-en="Flush-left small type · obeys the grid">
+          <text x="12" y="24" font-size="10" font-weight="800" letter-spacing="-.2">TYPE NOISE</text>
+          <text x="12" y="36" font-size="10" font-weight="800" letter-spacing="-.2">FESTIVAL</text>
+        </g>
+        <text x="153" y="24" font-size="6.4" font-weight="700">No. 07</text>
+        <text x="153" y="33" font-size="6.4">Edition</text>
+        <text x="200" y="24" font-size="6.4" font-weight="700">Basel — Shanghai</text>
+        <text x="200" y="33" font-size="6.4">18—21.04.2027</text>
+        <g font-size="6.2">
+          <text x="12" y="326" font-weight="700">18.04</text><text x="38" y="326">Weingart Night</text>
+          <text x="12" y="338" font-weight="700">19.04</text><text x="38" y="338">Grid Workshop</text>
+          <text x="12" y="350" font-weight="700">20.04</text><text x="38" y="350">Noise Club</text>
+          <text x="12" y="362" font-weight="700">21.04</text><text x="38" y="362">Closing Riot</text>
+          <text x="106" y="326" font-weight="700">Tickets</text>
+          <text x="106" y="338">CHF 10.–</text>
+          <text x="106" y="350">RMB 80</text>
+        </g>
+        <text x="157" y="386" font-size="5.2" font-weight="700" fill="#F2F0EA" letter-spacing=".2">STYLE DEMO</text>
+        <text x="157" y="378" font-size="5.2" font-weight="700" fill="#F2F0EA">风格示范</text>
+        <g font-size="5" fill-opacity=".5"><text x="12" y="398">01</text><text x="59" y="398">02</text><text x="106" y="398">03</text><text x="153" y="398">04</text><text x="200" y="398">05</text><text x="247" y="398">06</text></g>
+      </g>
+      <line x1="12" y1="46" x2="288" y2="46" stroke="#111" stroke-width="1.6"/>
+      <line x1="12" y1="312" x2="241" y2="312" stroke="#111" stroke-width=".8"/>
+      <!-- Punk half: the headline sliced into strips that slip sideways, bleeding off the left edge. -->
+      <g class="sp-head" font-family="'Helvetica Neue Condensed','HelveticaNeue-CondensedBlack','Arial Narrow',Impact,Haettenschweiler,sans-serif" font-weight="900" style="font-stretch:condensed">
+        <use href="#sp-grid-word" clip-path="url(#sp-s1)" fill="#111"/>
+        <use href="#sp-grid-word" clip-path="url(#sp-s2)" fill="#FF4FA3" transform="translate(-18 0)"/>
+        <use href="#sp-grid-word" clip-path="url(#sp-s3)" fill="#111" transform="translate(10 0)"/>
+        <rect x="-6" y="40" width="262" height="134" fill="transparent" data-ov-type="切片错位的巨大标题" data-ov-type-en="Huge headline, sliced and shifted"/>
+        <text x="-4" y="300" font-size="132" textLength="200" lengthAdjust="spacingAndGlyphs" fill="#111">RIOT</text>
+        <!-- A second word turned 90° to run up the last column. -->
+        <text transform="translate(288 392) rotate(-90)" font-size="56" textLength="236" lengthAdjust="spacingAndGlyphs" fill="#111" data-ov-type="竖转大字 · 沿最后一栏" data-ov-type-en="Rotated word up the last column">PUNK!</text>
+      </g>
+    </svg>
+    <span class="gd-mark" data-ov-focus="标题被切开错位的一刀" data-ov-focus-en="The slice where the headline slips" style="left:38%;top:32%;width:2%;height:2%"></span>
+    <span class="gd-mark" data-ov-space="一整栏空白纸面" data-ov-space-en="A whole column of empty paper" style="left:66.7%;top:56%;width:13.7%;height:41%"></span>
+    <svg class="gd-grid" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true"><line x1="12" y1="0" x2="12" y2="400"/><line x1="59" y1="0" x2="59" y2="400"/><line x1="106" y1="0" x2="106" y2="400"/><line x1="153" y1="0" x2="153" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/><line x1="247" y1="0" x2="247" y2="400"/><line x1="288" y1="0" x2="288" y2="400"/><line x1="0" y1="46" x2="300" y2="46"/><line x1="0" y1="312" x2="300" y2="312"/></svg>
+  </div>
+</div>
+<style>
+.gd-swisspunk{width:min(360px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-swisspunk *{box-sizing:border-box}
+.sp-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#F2F0EA}
+.sp-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gd-mark{position:absolute;pointer-events:none}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-swisspunk .sp-head use{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gd-swisspunk.sp-still .sp-head use{transform:none}
+@media (max-height:260px){.gd-swisspunk{width:min(165px,calc(100vw - 40px))}}
+@media (prefers-reduced-motion:reduce){.gd-swisspunk .sp-head use{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-swisspunk');
+  // On first view the strips start aligned and then slip apart: obey first, then break.
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window))return;
+  root.classList.add('sp-still');
+  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){setTimeout(function(){root.classList.remove('sp-still');},450);io.disconnect();}});io.observe(root);
+})();
+</script>

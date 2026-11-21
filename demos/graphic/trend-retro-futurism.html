@@ -1,0 +1,100 @@
+<div class="demo gd-specimen gd-retrofut">
+  <div class="rf-frame" data-gd-canvas>
+    <svg class="rf-art" viewBox="0 0 300 400" aria-hidden="true">
+      <defs>
+        <linearGradient id="rf-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#14121E"/><stop offset=".55" stop-color="#2A1B4A"/><stop offset="1" stop-color="#6B3FA0"/>
+        </linearGradient>
+        <linearGradient id="rf-sun" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F6D86B"/><stop offset=".5" stop-color="#F28C28"/><stop offset="1" stop-color="#E2445C"/>
+        </linearGradient>
+        <!-- Horizontal cuts through the lower half of the sun, thickening toward the horizon. -->
+        <mask id="rf-cuts" maskUnits="userSpaceOnUse" x="0" y="0" width="300" height="400">
+          <rect width="300" height="400" fill="#fff"/>
+          <g fill="#000"><rect x="0" y="176" width="300" height="2"/><rect x="0" y="190" width="300" height="3"/><rect x="0" y="203" width="300" height="4.5"/><rect x="0" y="216" width="300" height="6"/><rect x="0" y="229" width="300" height="8"/><rect x="0" y="241" width="300" height="10"/></g>
+        </mask>
+        <!-- Title colour in hard bands, the way 1970s paperbacks striped their lettering. -->
+        <linearGradient id="rf-bands" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F6D86B"/><stop offset=".33" stop-color="#F6D86B"/><stop offset=".33" stop-color="#F28C28"/><stop offset=".66" stop-color="#F28C28"/><stop offset=".66" stop-color="#E2445C"/><stop offset="1" stop-color="#E2445C"/>
+        </linearGradient>
+        <clipPath id="rf-floor-clip"><rect x="0" y="252" width="300" height="148"/></clipPath>
+        <filter id="rf-grain" filterUnits="userSpaceOnUse" x="0" y="0" width="300" height="400">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="9" stitchTiles="stitch"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 .95  0 0 0 0 .9  0 0 0 0 .8  0 0 0 -1.6 .9"/>
+        </filter>
+      </defs>
+      <rect width="300" height="400" fill="url(#rf-sky)"/>
+      <g class="rf-stars" fill="#F2E6CC"></g>
+      <!-- a small ringed planet, high and off-axis -->
+      <g transform="rotate(-18 246 118)">
+        <circle cx="246" cy="118" r="15" fill="#2BB3A3"/>
+        <path d="M222 120 A26 7 0 0 0 270 120" fill="none" stroke="#E2445C" stroke-width="2.4"/>
+        <path d="M220 118 A28 7.5 0 0 1 272 118" fill="none" stroke="#E2445C" stroke-width="2.4" opacity=".55"/>
+      </g>
+      <!-- the striped sun sitting on the horizon -->
+      <circle cx="150" cy="190" r="74" fill="url(#rf-sun)" mask="url(#rf-cuts)"/>
+      <!-- the floor: lines from the vanishing point plus perspective-spaced cross lines -->
+      <rect x="0" y="252" width="300" height="148" fill="#1A1030"/>
+      <g clip-path="url(#rf-floor-clip)" stroke="#E2445C" stroke-width=".9" fill="none">
+        <g class="rf-rays"></g>
+        <g class="rf-rungs"></g>
+      </g>
+      <line x1="0" y1="252" x2="300" y2="252" stroke="#F28C28" stroke-width="1.2"/>
+      <!-- a streamlined rocket crossing the sun, as a plain silhouette -->
+      <g transform="translate(196 150) rotate(36)">
+        <path d="M0 -46 C10 -30 12 -6 10 20 L-10 20 C-12 -6 -10 -30 0 -46 Z" fill="#14121E"/>
+        <path d="M-10 6 L-22 28 L-10 22 Z M10 6 L22 28 L10 22 Z" fill="#14121E"/>
+        <circle cx="0" cy="-16" r="3.6" fill="#2BB3A3"/>
+        <path d="M-6 22 L0 46 L6 22 Z" fill="#F2E6CC" opacity=".85"/>
+      </g>
+      <!-- type: spaced kicker, wide striped title with a teal plate printed slightly off register, two-era date line -->
+      <g font-family="Futura,'Avenir Next','Century Gothic','Trebuchet MS',sans-serif">
+        <text x="150" y="30" font-size="7.2" fill="#F2E6CC" text-anchor="middle" letter-spacing="3.6" font-weight="600">A VOYAGE PLANNED IN 1977</text>
+        <text x="151.8" y="91.6" font-size="66" font-weight="800" font-style="italic" fill="#2BB3A3" text-anchor="middle" textLength="262" lengthAdjust="spacingAndGlyphs">ORBIT</text>
+        <text x="150" y="90" font-size="66" font-weight="800" font-style="italic" fill="url(#rf-bands)" text-anchor="middle" textLength="262" lengthAdjust="spacingAndGlyphs" data-ov-type="宽体 70 年代标题 · 条纹色 · 错版" data-ov-type-en="Wide 1970s title · banded colour · off-register plate">ORBIT</text>
+        <text x="150" y="108" font-size="9" font-weight="700" fill="#F2E6CC" text-anchor="middle" letter-spacing="9">2077</text>
+        <rect x="0" y="352" width="300" height="48" fill="#14121E" opacity=".82"/>
+        <text x="150" y="370" font-size="7.4" fill="#F2E6CC" text-anchor="middle" letter-spacing="1.6" font-weight="600" data-ov-type="两个年代并置的日期行" data-ov-type-en="Date line pairing two eras">DEPARTS 07.07.2077 · PRINTED 1977</text>
+        <text x="150" y="384" font-size="5.6" fill="#F2E6CC" fill-opacity=".7" text-anchor="middle" letter-spacing="1.2">STYLE DEMO · 风格示范</text>
+      </g>
+      <rect width="300" height="400" filter="url(#rf-grain)" opacity=".22" pointer-events="none"/>
+    </svg>
+    <span class="gd-mark" data-ov-focus="地平线上的条纹落日" data-ov-focus-en="The striped sun on the horizon" style="left:49%;top:46%;width:2%;height:2%"></span>
+    <span class="gd-mark" data-ov-space="落日上方几乎留空的天空" data-ov-space-en="Near-empty sky above the sun" style="left:5%;top:30%;width:24%;height:14%"></span>
+    <svg class="gd-grid" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true"><line x1="150" y1="0" x2="150" y2="400"/><line x1="0" y1="252" x2="300" y2="252"/><circle cx="150" cy="252" r="4"/></svg>
+  </div>
+</div>
+<style>
+.gd-retrofut{width:min(360px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-retrofut *{box-sizing:border-box}
+.rf-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#14121E}
+.rf-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gd-mark{position:absolute;pointer-events:none}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .25s;pointer-events:none;z-index:6}
+.gd-grid line,.gd-grid circle{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+@media (max-height:260px){.gd-retrofut{width:min(165px,calc(100vw - 40px))}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-retrofut');
+  var NS='http://www.w3.org/2000/svg',svg=root.querySelector('.rf-art');
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e;}
+  function seeded(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  var R=seeded(77),stars=svg.querySelector('.rf-stars');
+  for(var i=0;i<46;i++){var x=R()*300,y=40+R()*200;if(y>100&&y<250&&Math.abs(x-150)<84)continue;el('circle',{cx:x.toFixed(1),cy:y.toFixed(1),r:(R()<.15?1.1:.5).toFixed(2)},stars);}
+  // Rays from the vanishing point on the horizon (150, 252).
+  var VX=150,HY=252,rays=svg.querySelector('.rf-rays'),rungs=svg.querySelector('.rf-rungs');
+  for(var k=-9;k<=9;k++)el('line',{x1:VX,y1:HY,x2:VX+k*46,y2:400},rays);
+  // Cross lines at depth z land at y = horizon + f / z, so they bunch up toward the horizon.
+  var N=12,F=150,lines=[];for(var j=0;j<N;j++)lines.push(el('line',{x1:0,x2:300,y1:HY,y2:HY},rungs));
+  function place(off){lines.forEach(function(l,j){var z=1+((j+off)%N)*.7,y=HY+F/z;l.setAttribute('y1',y.toFixed(2));l.setAttribute('y2',y.toFixed(2));});}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0,visible=true,t0=performance.now();
+  function tick(now){raf=0;if(!visible)return;place(N-((now-t0)/1000*.9)%N);raf=requestAnimationFrame(tick);}
+  place(0);
+  if(!reduce){
+    if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(tick);}).observe(root);
+    else raf=requestAnimationFrame(tick);
+  }
+})();
+</script>
