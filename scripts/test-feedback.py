@@ -8,6 +8,7 @@
 - Copy buttons without separate language spans (graphic and logo pages) also recover.
 - "Add to reference" speaks the page language, visibly and to screen readers.
 - "New" badges disappear on their own once their end date has passed.
+- Search explains a match in plain words ("you said X — this is the one"), in the page language.
 
 Usage: python3 scripts/test-feedback.py site [--base /UIUX] [--engines chromium,webkit]
 """
@@ -96,6 +97,21 @@ def main():
                 md.click(); page.wait_for_timeout(2200)
                 if md.evaluate(LABEL) != before:
                     failures.append(where(f"{path} copy-md: stuck as {md.evaluate(LABEL)!r}"))
+            # 6. Search says why a card matched in plain words, in the page language.
+            page.goto(base + "/")
+            page.locator("#search").fill("三个点")
+            page.wait_for_timeout(400)
+            reasons = page.locator(".card-match:not([hidden])").all_inner_texts()
+            if not reasons or any(r.startswith(("aka", "fuzzy", "symbol")) for r in reasons):
+                failures.append(where(f"search match reasons not in plain words: {reasons[:3]}"))
+            page.locator('.ls-btn[data-mode="en"]:visible').click(); page.wait_for_timeout(200)
+            reasons = page.locator(".card-match:not([hidden])").all_inner_texts()
+            # The quoted phrase is what matched (here Chinese, as typed); only the wording around it must switch.
+            import re as _re
+            if any(any("一" <= ch <= "鿿" for ch in _re.sub(r"“[^”]*”|「[^」]*」", "", r)) for r in reasons):
+                failures.append(where(f"search match reasons not English in English mode: {reasons[:3]}"))
+            page.locator('.ls-btn[data-mode="zh"]:visible').click()
+
             # 5. "New" badges: shown while fresh, hidden by the page itself once their date passes.
             fresh = browser.new_page()
             fresh.goto(base + "/")

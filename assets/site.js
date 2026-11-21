@@ -277,18 +277,22 @@
       return s;
     }
 
+    /* Why a card matched, in plain words: this is where "the thing you described" meets its
+       real name, so say it the way a person would, in the page language. */
     function matchReason(item, q) {
       function has(str) { return str && str.toLowerCase().indexOf(q) !== -1; }
-      if (has(item.name) || has(item.name_zh)) return "";
+      if (has(item.name) || has(item.name_zh)) return null;
       var pools = [["aka", item.aka], ["aka", item.aka_zh], ["fuzzy", item.fuzzy], ["fuzzy", item.fuzzy_zh]];
       for (var p = 0; p < pools.length; p++) {
         var arr = pools[p][1] || [];
         for (var i = 0; i < arr.length; i++) {
-          if (has(arr[i])) return pools[p][0] + ": “" + arr[i] + "”";
+          if (!has(arr[i])) continue;
+          if (pools[p][0] === "aka") return { zh: "也叫「" + arr[i] + "」", en: "Also called “" + arr[i] + "”" };
+          return { zh: "你说的「" + arr[i] + "」，就是它", en: "“" + arr[i] + "” — this is the one" };
         }
       }
-      if (has(item.symbol)) return "symbol: " + item.symbol;
-      return "";
+      if (has(item.symbol)) return { zh: "代码里叫 " + item.symbol, en: "In code: " + item.symbol };
+      return null;
     }
 
     function apply() {
@@ -315,7 +319,7 @@
               mEl.className = "card-match";
               card.querySelector(".card-meta").appendChild(mEl);
             }
-            mEl.textContent = reason;
+            mEl.textContent = mode() === "en" ? reason.en : reason.zh;
             mEl.hidden = false;
           } else if (mEl) { mEl.hidden = true; }
         } else if (mEl) { mEl.hidden = true; }
@@ -331,6 +335,7 @@
     }
 
     var applyDebounced = debounce(apply, 80);
+    document.addEventListener("learnui:languagechange", apply);
     var syncDebounced = debounce(function () {
       syncURL({ q: state.q.trim() || null, platform: state.platform === "all" ? null : state.platform });
     }, 200);
