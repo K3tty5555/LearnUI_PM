@@ -537,6 +537,7 @@ def entry_page(e):
    <span class="tag tag-platform">{esc(e["platform"])}</span>
   </h1>
   {bi(e["tagline"], z["tagline_zh"], "p", "entry-tag")}
+  {bi(e["description"], z.get("description_zh", ""), "p", "entry-desc") if e.get("description") else ""}
   <dl class="entry-meta">
    <div class="meta-row"><dt><span class="lang-en">{esc(en_ac)}</span><span class="lang-zh dt-zh">{esc(zh_ac)}</span></dt>
     <dd><span class="lang-en">{esc(aka_en)}</span><span class="lang-zh zh-line">{esc(aka_zh)}</span></dd></div>

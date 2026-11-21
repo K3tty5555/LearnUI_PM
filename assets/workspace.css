@@ -523,7 +523,7 @@ picture[data-preview] { position: absolute; inset: 0; }
 /* ---------- 文字跟随窗口宽度（用户拍板 2026-11-18，见 DESIGN.md） ----------
    宽屏上段落、列表、提示词框、简介都铺满内容栏，不设固定行宽。
    由 scripts/test-text-width.py 守护：删掉这条规则会让该测试失败。 */
-.sect, .entry-tag, .hero-sub, .guide-para, .atlas-note { max-width: none; }
+.sect, .entry-tag, .entry-desc, .hero-sub, .guide-para, .atlas-note { max-width: none; }
 
 .entry .sect > ol.dna { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); column-gap: 36px; }
 .entry .sect > ol.dna > .dna-item, .entry .sect > ol.dna > .dna-item:first-child { padding: 16px 0; border-top: 1px solid var(--line); }

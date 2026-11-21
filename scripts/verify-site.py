@@ -58,6 +58,19 @@ def verify(root, base):
             target = slug if slug.startswith(('web/', 'macos/')) else 'styles/' + slug.removeprefix('styles/')
             if f'class="rel-card" href="{prefix}/{target}/"' not in html:
                 failures.add(f'styles/{style["slug"]}: see-also card missing for {slug}')
+    # Every dictionary entry page shows its overall description in both languages: that is
+    # where sources are credited (until 2026-11-21 only the per-part text was rendered).
+    from html import escape
+    zh = {}
+    for f in sorted((data / 'zh').glob('entries-*.json')):
+        zh.update(json.loads(f.read_text(encoding='utf-8')))
+    raw = json.loads((data / 'entries.json').read_text(encoding='utf-8'))
+    for entry in raw if isinstance(raw, list) else raw['entries']:
+        page = root / entry['platform'] / entry['slug'] / 'index.html'
+        html = page.read_text(encoding='utf-8') if page.is_file() else ''
+        for text in (entry.get('description'), zh.get(entry['slug'], {}).get('description_zh')):
+            if text and escape(text, quote=True) not in html:
+                failures.add(f'{entry["platform"]}/{entry["slug"]}: description not shown on the page')
     if failures:
         raise SystemExit('\n'.join(sorted(failures)))
     print(f'Verified {len(pages)} HTML pages and {len(items)} catalog destinations.')
