@@ -21,7 +21,7 @@
   <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Photo</button><button type="button" data-step-btn="2">2 Numeral</button><button type="button" data-step-btn="3">3 Type</button><button type="button" data-step-btn="4" aria-pressed="true">4 Final</button></div>
 </div>
 <style>
-.gd-montage{width:min(430px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-montage{width:min(320px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
 .gd-montage *{box-sizing:border-box}
 .mt-frame{position:relative;width:100%;aspect-ratio:27/38;overflow:hidden;border-radius:4px;background:#F2EFE9}
 .mt-paper{position:absolute;inset:5.5%;background:#F2EFE9;display:grid;grid-template-columns:26% 1fr;grid-template-rows:auto 1fr auto;gap:3%}
@@ -31,7 +31,7 @@
 .mt-num-badge{position:absolute;left:8%;top:4%;width:14%;aspect-ratio:1;background:#D8281E}
 .mt-facts{font:700 calc(var(--mt-u,420px)*.021)/1.5 "Courier New",monospace;color:#111;letter-spacing:.04em}
 .mt-col-photo{grid-row:1/4;display:flex;flex-direction:column;gap:2.4%;min-height:0}
-.mt-photo{flex:1;min-height:0;position:relative;background:#111}
+.mt-photo{flex:1;min-height:0;position:relative;background:#F2EFE9}
 .mt-halftone{width:100%;height:100%;display:block}
 .mt-red{height:10%;background:#D8281E;width:100%}
 .mt-caption{font:700 calc(var(--mt-u,420px)*.02)/1 "Courier New",monospace;color:#111;letter-spacing:.14em}
@@ -74,7 +74,8 @@
             v=0.30+((x/w-b[0])*0.5); if(((x/d|0)+(y/d|0))%7===0)v+=0.28; break; }}
       } else { v=0.16+((y-horizon)/(h-horizon))*0.1; if(Math.abs((y-h*0.80))<d*2)v+=0.42; } // road + kerb line
       if(R()<0.02)v=Math.min(1,v+0.5);
-      var r=Math.sqrt(v)*d*0.72;
+      // v is brightness: darker areas get bigger ink dots on the paper ground.
+      var r=Math.sqrt(1-v)*d*0.72;
       if(r<0.32)continue;
       ctx.fillStyle=(x>w*0.66&&y>h*0.66)?'#D8281E':'#111';
       ctx.beginPath();ctx.arc(x,y,r,0,6.2832);ctx.fill();

@@ -10,6 +10,7 @@ For the hub and every case page, at desktop, wide and phone widths:
 - the page never scrolls sideways;
 - every specimen marks type, focus and space somewhere (a view may carry no lettering), the default
   view draws focus and space marks, and every drawn mark's centre sits inside the specimen canvas;
+- on desktop the whole specimen fits inside its fixed 520px stage in every format;
 - on phones the specimen stage hugs the specimen and keeps one height across formats;
 - headings share one left edge and size, prompt text fills its box, no stray language divider;
 - poster text is never translated when the site switches language (it is part of the artwork).
@@ -145,6 +146,22 @@ def main():
                                 failures.append(f"{where}: specimen marks no data-ov-{need} element")
                         if not {"gd-ov-focus", "gd-ov-space"} <= kinds:
                             failures.append(f"{where}: default view draws no focus or space mark ({sorted(kinds)})")
+                        if width > 760:
+                            # Desktop: the stage is a fixed 520px box that clips, so the whole specimen
+                            # (step buttons included) must fit inside it in every format (dev-log 016:
+                            # montage-red-black was 633px tall and lost its top and its buttons).
+                            fit = page.evaluate("""async () => {
+                              const st = document.querySelector('[class*="stage-detail-graphic-"]'), sp = st.querySelector('.gd-specimen');
+                              const out = [];
+                              const btns = [...sp.querySelectorAll('[data-format-btn]')];
+                              for (const b of (btns.length ? btns : [null])) {
+                                if (b) { b.click(); await new Promise(r => setTimeout(r, 650)); }
+                                const s = st.getBoundingClientRect(), q = sp.getBoundingClientRect();
+                                out.push(Math.round(Math.max(s.top - q.top, q.bottom - s.bottom, s.left - q.left, q.right - s.right)));
+                              }
+                              return out; }""")
+                            if max(fit) > 2:
+                                failures.append(f"{where}: specimen spills {max(fit)}px out of the 520px stage and is cut off")
                         if width <= 760:
                             # Phones: the stage hugs the specimen, and switching formats never changes its height.
                             fit = page.evaluate("""async () => {
