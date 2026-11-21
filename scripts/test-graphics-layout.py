@@ -38,9 +38,19 @@ PIXELS_SHORT = 0.9  # below this many of the pixels the screen needs, the image 
 PIXELS_WASTED = 2.2  # above this, bytes are being shipped that no screen can show
 RATIO_TOLERANCE = 0.015  # 1.5 % between drawn and natural aspect ratio
 
-LOAD_ALL = """() => Promise.race([
-  Promise.all([...document.images].map(i => { i.loading = 'eager'; return i.decode().catch(() => {}); })),
-  new Promise(r => setTimeout(r, 8000))])"""
+# Wait until every image has really loaded. A single decode() is not enough: if the page swaps
+# an image's source while it loads, that decode() rejects early and the check would run on a
+# half-loaded image (flaky "not loaded" on the 28-cover hub, 2026-11-21). An image that truly
+# fails to load is still pending at the deadline and gets reported.
+LOAD_ALL = """async () => {
+  [...document.images].forEach(i => { i.loading = 'eager'; });
+  const deadline = Date.now() + 15000;
+  while (Date.now() < deadline) {
+    const pending = [...document.images].filter(i => !(i.complete && i.naturalWidth > 0));
+    if (!pending.length) return;
+    await Promise.race([Promise.all(pending.map(i => i.decode().catch(() => {}))), new Promise(r => setTimeout(r, 400))]);
+  }
+}"""
 
 IMAGES = """async () => {
   const out = [];
