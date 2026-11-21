@@ -920,7 +920,7 @@
   ],
   "prompt": "Build the form field with full anatomy: a real <label for> above the input (clicking it focuses the field), placeholder text as a hint only — never as the label, helper text below linked via aria-describedby, and required marked with the required attribute plus a visual asterisk. On invalid input set aria-invalid=\"true\", style the red state with :user-invalid, and point aria-describedby at the error message.",
   "debugPrompt": "Debug my form field (label for/id, aria-describedby, placeholder). Rule out: the placeholder doing the label's job and vanishing on first keystroke; the label not associated so clicking it does not focus the input; error text not linked via aria-describedby so screen readers never hear it; autofill's yellow/blue fill overriding your styles (-webkit-autofill). The symptom:",
-  "description": "“The gray text inside the box that disappears when you type” is the placeholder — one of five parts of a form field that each have a real name. The word above the box is the label (<label for>), the little red star is the required indicator, the small gray line underneath is helper text, and the red line that replaces it is the validation message. Wiring them up (for/id, aria-describedby, aria-invalid) is what makes the field usable by screen readers, not just sighted users. A public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") shows the validation message as error feedback: a mistyped email makes the input shake twice and a red line appears beneath it.",
+  "description": "“The gray text inside the box that disappears when you type” is the placeholder — one of five parts of a form field that each have a real name. The word above the box is the label (<label for>), the little red star is the required indicator, the small gray line underneath is helper text, and the red line that replaces it is the validation message. Wiring them up (for/id, aria-describedby, aria-invalid) is what makes the field usable by screen readers, not just sighted users.",
   "parts": [
    {
     "id": "field-label",
@@ -961,7 +961,8 @@
   "related": [
    "focus-ring-web",
    "combobox",
-   "switch-checkbox-radio"
+   "switch-checkbox-radio",
+   "input-shake"
   ],
   "demo": "web/form-field"
  },
@@ -4622,13 +4623,13 @@
   ],
   "prompt": "Build an animated counter that transitions from the previous value to the next with a 450ms ease-out. Keep digits aligned with tabular numerals, format currency and separators without layout jumps, expose only the settled value to aria-live, cancel an in-flight tween when the value changes again, and render the final value immediately for prefers-reduced-motion.",
   "debugPrompt": "Debug my animated counter. Check that numeric formatting does not change width; the animation cancels cleanly on a new value; requestAnimationFrame is not left running offscreen; screen readers do not hear every intermediate number; a decrease animates as deliberately as an increase; NaN and missing values have a clear fallback; and reduced-motion renders the settled value immediately. The symptom:",
-  "description": "An animated counter turns a numeric change into a short, legible transition. It is useful when the change itself matters, such as a completed task count or a price update; it should clarify the new value rather than delay access to it. A public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\") shows a variant called number rolling: quantity and price roll digit by digit like an odometer.",
+  "description": "An animated counter turns a numeric change into a short, legible transition. It is useful when the change itself matters, such as a completed task count or a price update; it should clarify the new value rather than delay access to it.",
   "parts": [
    {"id": "counter-value", "name": "Settled value", "api": "aria-live", "description": "The formatted number users ultimately need to read and act on.", "prompt": "a single live region containing only the final formatted value after the tween settles"},
    {"id": "digit-track", "name": "Digit track", "api": "tabular-nums", "description": "The aligned visual digits that move during the transition.", "prompt": "right-aligned tabular numerals with stable width while each digit changes"},
    {"id": "counter-trigger", "name": "Value trigger", "api": "state update", "description": "The event or data update that starts a new count.", "prompt": "a clearly labelled update action that supplies the previous and next numeric values"}
   ],
-  "related": ["progress-indicators", "level-indicator", "text-scramble", "spring"],
+  "related": ["progress-indicators", "level-indicator", "text-scramble", "spring", "digit-roll"],
   "demo": "web/animated-counter"
  },
  {
@@ -8152,5 +8153,179 @@
    "dialog-drawer-sheet"
   ],
   "demo": "web/layout-animation"
+ },
+ {
+  "slug": "digit-roll",
+  "platform": "web",
+  "name": "Digit Roll (Odometer Number)",
+  "tagline": "Each digit sits in its own window and scrolls up or down to its new value, like a mechanical counter",
+  "aka": [
+   "odometer",
+   "rolling number",
+   "slot-machine digits",
+   "number ticker",
+   "flip counter"
+  ],
+  "fuzzy": [
+   "numbers that roll like an old counter",
+   "each digit scrolls to the new number",
+   "the price rolls up when I add one more",
+   "slot machine style number change",
+   "the digits spin into place"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "overflow: hidden + height: 1em",
+    "note": "one window per digit shows exactly one digit of a taller column"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "transform: translateY(-n em)",
+    "note": "the column 0–9 slides so digit n sits in the window; only changed digits move"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "font-variant-numeric: tabular-nums",
+    "note": "equal-width digits so the number does not shuffle sideways"
+   },
+   {
+    "framework": "Library",
+    "symbol": "NumberFlow / odometer.js",
+    "note": "ready-made rolling numbers"
+   },
+   {
+    "framework": "ARIA",
+    "symbol": "aria-label + aria-hidden columns",
+    "note": "screen readers get the final value once, not ten digits per column"
+   }
+  ],
+  "prompt": "Show the quantity and the bag total as rolling digits. Render each digit as a 1em-tall window with overflow: hidden containing a column of the digits 0–9 (twice over), and move the column with transform: translateY so the right digit shows, 620ms cubic-bezier(.2,.8,.2,1). Only digits that change move; when the value goes up every changing digit rolls upward (9 → 0 continues into the second set, then snaps back invisibly), and when it goes down they roll downward. Stagger columns by about 55ms from the right. Use tabular-nums, expose the final value with aria-label and hide the columns from screen readers, and switch values instantly under prefers-reduced-motion.",
+  "debugPrompt": "Debug my rolling digits (odometer). Check: digits that did not change still roll because every column is re-rendered; 9 → 0 rolls backwards through all ten digits instead of on to 0 (needs a second set of digits and a silent snap back); the snap back happens while a newer roll is running (use a token per column); columns are added or removed when the digit count changes and the number jumps sideways (tabular-nums, add columns on the left); the window clips half a digit because line-height does not match the window height; screen readers read every digit in the column; reduced-motion users still see the roll. The symptom:",
+  "description": "A digit roll changes a number the way a mechanical counter does: each digit has its own little window, and only the digits that change scroll to their new value, up when the number grows and down when it shrinks. It makes a price or quantity change easy to follow at a glance, and it differs from a count-up, which runs through every value in between. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "window",
+    "name": "Digit window",
+    "api": "overflow: hidden",
+    "description": "One window per digit, exactly one digit tall.",
+    "prompt": "a one-digit-tall window per digit with overflow hidden"
+   },
+   {
+    "id": "column",
+    "name": "Digit column",
+    "api": "translateY",
+    "description": "The 0–9 column behind the window, moved so the right digit shows.",
+    "prompt": "a 0–9 column that slides so the right digit shows"
+   },
+   {
+    "id": "direction",
+    "name": "Direction",
+    "api": "wrap + snap",
+    "description": "Up when the value rises, down when it falls, wrapping 9 → 0 without rewinding.",
+    "prompt": "rolls up when rising, down when falling, wrapping 9 → 0"
+   },
+   {
+    "id": "stagger",
+    "name": "Stagger",
+    "api": "transition-delay",
+    "description": "The right-hand digits start a moment before the left-hand ones.",
+    "prompt": "right-hand digits start about 55 ms before the next column"
+   }
+  ],
+  "related": [
+   "animated-counter",
+   "number-input",
+   "success-feedback",
+   "layout-animation"
+  ],
+  "demo": "web/digit-roll"
+ },
+ {
+  "slug": "input-shake",
+  "platform": "web",
+  "name": "Input Shake (Invalid Input Feedback)",
+  "tagline": "The field shakes side to side twice when a submission is wrong, then a red line says what to fix",
+  "aka": [
+   "shake on error",
+   "error shake",
+   "invalid input shake",
+   "login shake",
+   "head-shake animation"
+  ],
+  "fuzzy": [
+   "the input box shakes when I type something wrong",
+   "the field wiggles like saying no",
+   "shake the form when the email is invalid",
+   "login box that shakes on a wrong password",
+   "red border and the box trembles"
+  ],
+  "api": [
+   {
+    "framework": "CSS",
+    "symbol": "@keyframes translateX",
+    "note": "a short decaying side-to-side move, about 420 ms, on the whole field"
+   },
+   {
+    "framework": "JS",
+    "symbol": "remove class + reflow + add class",
+    "note": "restart the animation on every failed submit, not only the first"
+   },
+   {
+    "framework": "ARIA",
+    "symbol": "aria-invalid + aria-describedby",
+    "note": "the message is linked to the input so screen readers hear the reason"
+   },
+   {
+    "framework": "CSS",
+    "symbol": ":user-invalid",
+    "note": "style only after the user has interacted, not on page load"
+   },
+   {
+    "framework": "CSS",
+    "symbol": "prefers-reduced-motion",
+    "note": "no shake; the red border and the message carry the error"
+   }
+  ],
+  "prompt": "When the subscribe form is submitted with an invalid email, shake the whole field (input and button together) side to side: translateX -8, 7, -5, 3, -1, 0 px over 420ms with cubic-bezier(.36,.07,.19,.97), restarting the animation on every failed submit (remove the class, force a reflow, add it again). At the same time turn the border red with a soft red ring, set aria-invalid=\"true\", and show a red message under the field that says what is wrong (\"add the ending after the @, like .com\"), linked via aria-describedby; keep focus in the input. Clear the error as soon as the user types again. A valid submit does not shake: the button turns green with a tick. Under prefers-reduced-motion, skip the shake and rely on the border and message.",
+  "debugPrompt": "Debug my shake-on-error input. Check: the shake only plays the first time because the class is never removed (remove it on animationend, or remove, reflow, add); only the input shakes and the button stays still, so the field tears apart; the shake moves the layout because it animates margin or left instead of transform; the error message has no aria-describedby link and aria-invalid is not set, so screen readers hear nothing; the error appears on page load or while typing instead of on submit; the message is vague (\"invalid\") instead of saying what to fix; reduced-motion users still get the shake. The symptom:",
+  "description": "An input shake answers a wrong submission the way a person shakes their head: the field jerks side to side twice, its border turns red, and a short message underneath says what to fix. The motion catches the eye at the moment of failure; the message does the explaining. It is common on login and sign-up forms and works alongside, not instead of, a proper validation message. The name follows a public video by 泊舟的AI思考 (\"26 effects that react the moment the mouse touches them\", one of its 26 effects).",
+  "parts": [
+   {
+    "id": "shake",
+    "name": "Shake",
+    "api": "@keyframes translateX",
+    "description": "A decaying side-to-side move of the whole field, under half a second.",
+    "prompt": "the whole field shakes side to side with decaying amplitude in 420 ms"
+   },
+   {
+    "id": "error-state",
+    "name": "Error state",
+    "api": "aria-invalid",
+    "description": "Red border and ring on the field, marked invalid for assistive tech.",
+    "prompt": "red border and ring, aria-invalid=\"true\""
+   },
+   {
+    "id": "message",
+    "name": "Error message",
+    "api": "aria-describedby",
+    "description": "A short red line under the field that says what to fix.",
+    "prompt": "a red line under the field that says what to fix, linked with aria-describedby"
+   },
+   {
+    "id": "recover",
+    "name": "Recover",
+    "api": "input event",
+    "description": "Typing again clears the error; a valid submit shows success instead.",
+    "prompt": "typing clears the error; a valid submit shows a tick instead"
+   }
+  ],
+  "related": [
+   "form-field",
+   "otp-input",
+   "success-feedback",
+   "destructive-action"
+  ],
+  "demo": "web/input-shake"
  }
 ]

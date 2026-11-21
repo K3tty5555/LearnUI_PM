@@ -2,14 +2,14 @@
 
 **中文** | [English](#english)
 
-![首页：113 个可交互 UI 标本](docs/assets/home-hero.png)
+![首页：115 个可交互 UI 标本](docs/assets/home-hero.png)
 
 > UI 视觉词典的中英双语对照版：看到元素，学会它的真名（Web CSS/ARIA + macOS AppKit/SwiftUI），认出风格，学会它的学名，然后精准地指挥你的 AI 编程代理。
 > A bilingual (EN/中文) visual dictionary of UI: see it, name it, and prompt your coding agent with precision.
 
 [在线演示 Live Demo](https://www.kettywu.art/UIUX/) · [风格图鉴 Name That Vibe](https://www.kettywu.art/UIUX/styles/) · [词条示例](https://www.kettywu.art/UIUX/web/text-scramble/) · [平面设计](https://www.kettywu.art/UIUX/graphics/)
 
-**当前构建：** 303 个静态页面；113 个 UI 标本、45 个风格标本、74 个知名网站设计规范、10 个 Logo 样本、12 个平面设计案例；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
+**当前构建：** 321 个静态页面；115 个 UI 标本、45 个风格标本、74 个知名网站设计规范、10 个 Logo 样本、12 个平面设计案例；数据校验、筛选、选择导出、状态切换和移动端布局已通过回归测试；`python3 build.py` 一条命令重建全站。
 
 ## 这是什么
 
@@ -19,8 +19,8 @@
 
 本站保留原站全部内容，并为每一段英文配上中文对照：
 
-- **113 个词条**：82 个 Web + 31 个 macOS，目录直接播放原始 HTML/CSS/JS 动效，详情页保留交互；离屏或切到后台时演示停止运行。
-- **113 个详情页**：解剖（每个部件的名字）、Prompt、调试 Prompt、代码符号表、相关词条
+- **115 个词条**：84 个 Web + 31 个 macOS，目录直接播放原始 HTML/CSS/JS 动效，详情页保留交互；离屏或切到后台时演示停止运行。
+- **115 个详情页**：解剖（每个部件的名字）、Prompt、调试 Prompt、代码符号表、相关词条
 - **45 种视觉风格**：Skeuomorphism、Liquid Glass、Neubrutalism、Y2K、Frutiger Aero、Aqua、Swiss Style、Bauhaus、Memphis、Vaporwave、Art Deco、Cyberpunk、Pixel Art、Corporate Memphis、Material Design、Terminal Hacker，及新增 Frutiger Metro、Anti-design、Acid Graphics、Risograph、Zine Collage、Steampunk、Dieselpunk、Biopunk、Afrofuturism、De Stijl、Constructivism、Pop Art、Surrealism、Art Nouveau、Holographic、Isometric 3D、Line Art、Hand-drawn、Fantasy RPG、LCARS、Mono-color Editorial Print…… 每种含风格标本、完整 style DNA（定义性/辅助/可变/避免信号）、易混淆风格对比、代码起点、可复制的风格 brief
 - **3 篇指南**：AppKit vs SwiftUI、Swift vs Electron（术语对照表已于 2026-11-18 移除）
 - **两种阅读模式**：中文（默认）/ English，页眉一键切换（中英并排的对照模式已于 2026-11-18 移除）
@@ -67,7 +67,7 @@ cd site && python3 -m http.server 8000
 learnui/
 ├── build.py            # 静态站点生成器（Python 标准库，无依赖）
 ├── data/
-│   ├── entries.json    # 113 个词条的英文源数据
+│   ├── entries.json    # 115 个词条的英文源数据
 │   ├── styles.json     # 45 个视觉风格英文源数据（14 条复刻自 /styles + 31 条原创）
 │   ├── styles-meta.json# 风格图鉴首页文案
 │   ├── zh/             # 中文译文（条目/风格/指南）
@@ -77,7 +77,7 @@ learnui/
 │   ├── logos.json      # Logo 图鉴：类型、用途与样本
 │   ├── graphics.json   # 平面设计：类型、风格词汇、手法与案例
 │   └── ui.json         # 站点文案（双语）
-├── demos/<slug>.html   # 113 个 UI 标本 + 45 个 style-<slug>.html 风格标本
+├── demos/<slug>.html   # 115 个 UI 标本 + 45 个 style-<slug>.html 风格标本
 ├── demos/graphic/      # 平面设计案例的代码还原标本
 ├── vendor/sites/       # /sites/ 的本地主内容镜像
 ├── assets/graphics/    # 平面设计原作图片（官方/设计方大图、作者原稿或收录笔记截图）
@@ -124,7 +124,7 @@ A faithful content replica of [namethatui.com](https://namethatui.com/) (includi
 
 **Live demo:** <https://www.kettywu.art/UIUX/>
 
-- **113 entries** (82 Web + 31 macOS), each with a **live interactive specimen** (real HTML/CSS/JS, not screenshots)
+- **115 entries** (84 Web + 31 macOS), each with a **live interactive specimen** (real HTML/CSS/JS, not screenshots)
 - **45 visual styles** (Skeuomorphism, Liquid Glass, Neobrutalism, Y2K, Frutiger Aero, Aqua, Swiss Style, Bauhaus, Memphis, Vaporwave, Art Deco, Cyberpunk, Pixel Art, Corporate Memphis, Material Design, Terminal Hacker, plus 21 more including Mono-color Editorial Print): style specimen, full style DNA signals, look-alike comparison, code starting points, copy-ready style brief
 - **98 detail pages**: anatomy of every part, copy-ready agent prompt, debug prompt, API symbol table, related entries
 - **3 guides**: AppKit vs SwiftUI, Swift vs Electron, and a 63-row Translation Table
@@ -160,4 +160,4 @@ Maintained by 向阳乔木 · [qiaomu.ai](https://qiaomu.ai/) · X [@vista8](htt
 
 共享外壳 CSS/JS 随 HTML 提供。UI 词典的原始标本在视口附近运行，离屏、筛选隐藏或切到后台即停止。前三个标本代码内嵌，其余从 `api/specimens/` 按需加载。全库数据首次使用时获取，PWA 不预下载整站。其它参考目录保留轻量图片预览。当前动效验证见 [动态标本验证](docs/live-specimens.md)，托管网络限制见 [性能验证](docs/performance-glass.md)。
 
-动态标本回归：`python3 scripts/test-live-demos.py site --base /UIUX`（需 Playwright/Chromium，支持 `PLAYWRIGHT_CHROME_PATH` 指定本地浏览器）。CI 实测动效变化、全部 113 个标本、移动端、语言切换、减少动态效果、离屏停止与失败重试。
+动态标本回归：`python3 scripts/test-live-demos.py site --base /UIUX`（需 Playwright/Chromium，支持 `PLAYWRIGHT_CHROME_PATH` 指定本地浏览器）。CI 实测动效变化、全部 115 个标本、移动端、语言切换、减少动态效果、离屏停止与失败重试。

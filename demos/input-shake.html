@@ -1,0 +1,108 @@
+<div class="demo demo-input-shake">
+  <div class="is-stage">
+    <form class="is-form" novalidate>
+      <label class="is-label" for="is-email">Get told when new colours land</label>
+      <div class="is-field">
+        <input class="is-input" id="is-email" type="email" placeholder="you@example.com" autocomplete="off" aria-describedby="is-msg">
+        <button class="is-btn" type="submit"><span class="is-btn-label">Subscribe</span><svg class="is-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></button>
+      </div>
+      <p class="is-msg" id="is-msg" aria-live="polite"></p>
+    </form>
+    <svg class="is-ghost" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.5v12l3.4-3.1 2.2 4.8 2-.9-2.2-4.7H12z"/></svg>
+  </div>
+  <p class="is-read"><code>submit a wrong email: the field shakes twice and says why</code></p>
+</div>
+<style>
+.demo-input-shake{width:min(560px,calc(100vw - 80px));color:#1c1d21;font:13px/1.45 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.demo-input-shake *{box-sizing:border-box}
+.is-stage{position:relative;height:236px;border-radius:14px;overflow:hidden;background:#f6f5f1;border:1px solid #e4e2da;display:grid;place-items:center}
+.is-form{width:min(380px,84%);margin:0;display:flex;flex-direction:column;gap:8px}
+.is-label{font-weight:600;font-size:13px}
+/* The whole field moves, so the input and its button shake together. */
+.is-field{display:flex;gap:6px;padding:4px;border:1.5px solid #cfccc2;border-radius:12px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.is-field:focus-within{border-color:#4338ca;box-shadow:0 0 0 3px rgba(67,56,202,.14)}
+.is-field.is-error{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.12)}
+.is-field.is-ok{border-color:#16a34a}
+.is-field.is-shake{animation:is-shake .42s cubic-bezier(.36,.07,.19,.97)}
+@keyframes is-shake{0%,100%{transform:none}15%{transform:translateX(-8px)}35%{transform:translateX(7px)}55%{transform:translateX(-5px)}75%{transform:translateX(3px)}90%{transform:translateX(-1px)}}
+.is-input{flex:1;min-width:0;height:36px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:#1c1d21;font:14px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;outline:none}
+.is-btn{position:relative;flex:none;height:36px;padding:0 16px;border:0;border-radius:8px;background:#1c1d21;color:#fff;font:600 13px/1 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;cursor:pointer;transition:background-color .25s}
+.is-btn:focus-visible{outline:2px solid #4338ca;outline-offset:2px}
+.is-check{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.is-field.is-ok .is-btn{background:#16a34a}.is-field.is-ok .is-btn-label{opacity:0}.is-field.is-ok .is-check{opacity:1}
+.is-msg{min-height:18px;margin:0;font-size:12px;color:#dc2626;opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s}
+.is-msg.is-on{opacity:1;transform:none}.is-msg.is-good{color:#15803d}
+.is-ghost{position:absolute;left:0;top:0;z-index:2;width:16px;height:16px;fill:#fff;stroke:#111;stroke-width:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));pointer-events:none;opacity:0;transition:opacity .3s}
+.demo-input-shake[data-auto="on"] .is-ghost{opacity:1}
+.is-read{margin:7px 0 0;color:#6b6f7a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (prefers-reduced-motion:reduce){.is-field.is-shake{animation:none}.is-msg{transition:none;transform:none}}
+@media (max-height:260px){
+  .demo-input-shake{width:calc(100vw - 40px)}
+  .is-stage{height:calc(100vh - 40px)}
+  .is-form{width:calc(100% - 36px);gap:5px}
+  .is-label{font-size:11px}.is-field{padding:3px;border-radius:10px}
+  .is-input{height:28px;font-size:11.5px;padding:0 7px}.is-btn{height:28px;padding:0 11px;font-size:11px}
+  .is-msg{font-size:10px;min-height:15px}
+  .is-read{display:none}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.demo-input-shake');
+  var stage=root.querySelector('.is-stage'),ghost=root.querySelector('.is-ghost'),read=root.querySelector('.is-read code');
+  var form=root.querySelector('.is-form'),field=root.querySelector('.is-field'),input=root.querySelector('.is-input'),btn=root.querySelector('.is-btn'),msg=root.querySelector('.is-msg'),label=root.querySelector('.is-label');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var uid='is-email-'+Math.random().toString(36).slice(2,7);input.id=uid;label.setAttribute('for',uid);msg.id=uid+'-msg';input.setAttribute('aria-describedby',msg.id);
+  var auto=!reduce,visible=true,raf=0,start=performance.now(),idle,lastT=0,resetTimer=0;
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){label.textContent=zh()?'新配色上架，第一时间告诉你':'Get told when new colours land';root.querySelector('.is-btn-label').textContent=zh()?'订阅':'Subscribe';}
+  function setAuto(v){auto=v;root.dataset.auto=v?'on':'off';}
+  function valid(v){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);}
+  function clearState(){field.classList.remove('is-error','is-ok','is-shake');msg.classList.remove('is-on','is-good');msg.textContent='';input.removeAttribute('aria-invalid');}
+  // Wrong input: shake the field (restarting the animation each time), mark it invalid and say what is wrong.
+  function submit(){
+    clearTimeout(resetTimer);var v=input.value.trim();
+    if(!valid(v)){
+      field.classList.remove('is-ok','is-shake');void field.offsetWidth;field.classList.add('is-error','is-shake');input.setAttribute('aria-invalid','true');
+      msg.classList.remove('is-good');msg.textContent=v?(zh()?'邮箱格式不对：@ 后面还少了域名后缀，比如 .com':'That email looks incomplete: add the ending after the @, like .com'):(zh()?'先填一个邮箱':'Enter an email first');msg.classList.add('is-on');
+      read.textContent=zh()?'格式错误：输入框左右抖两下，边框变红，下面出一行红字':'invalid: the field shakes twice, the border turns red, a red line explains';
+      if(!auto)input.focus();
+      return;
+    }
+    clearState();field.classList.add('is-ok');msg.textContent=zh()?'订阅成功，上新第一个告诉你':'Subscribed. You will hear first.';msg.classList.add('is-on','is-good');
+    read.textContent=zh()?'格式正确：不抖，按钮变成对勾':'valid: no shake, the button turns into a tick';
+  }
+  form.addEventListener('submit',function(e){e.preventDefault();if(!auto)submit();});
+  input.addEventListener('input',function(){if(!auto&&field.classList.contains('is-error')){clearState();read.textContent=zh()?'重新输入时先撤掉红色，不要边打字边报错':'typing again clears the error; do not nag mid-word';}});
+  field.addEventListener('animationend',function(){field.classList.remove('is-shake');});
+  function pt(el,fx,fy){var r=el.getBoundingClientRect(),s=stage.getBoundingClientRect();return [r.left-s.left+r.width*fx,r.top-s.top+r.height*fy];}
+  function ease(p){return p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;}
+  function seg(tt,t0,t1,a,b){var k=ease(Math.min(1,Math.max(0,(tt-t0)/(t1-t0))));return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];}
+  stage.addEventListener('pointermove',function(){if(root.dataset.auto==='on'){setAuto(false);input.value='';clearState();}clearTimeout(idle);});
+  stage.addEventListener('pointerleave',function(){clearTimeout(idle);idle=setTimeout(function(){if(!reduce&&document.activeElement!==input){setAuto(true);start=performance.now();lastT=0;resume();}},1800);});
+  // Auto, 9 s: type a broken address, submit (shake), finish typing, submit (tick).
+  var BAD='hi@atlas',GOOD='hi@atlas.shop';
+  function tick(now){
+    raf=0;if(!visible||!auto)return;
+    var tt=(Math.max(0,now-start)/1000)%9,w=stage.clientWidth,h=stage.clientHeight,rest=[w*.5,h-20],I=pt(input,.3,.55),B=pt(btn,.55,.6),p;
+    if(tt<.7)p=seg(tt,0,.7,rest,I);else if(tt<1.9)p=I;else if(tt<2.4)p=seg(tt,1.9,2.4,I,B);else if(tt<3.6)p=B;else if(tt<4.1)p=seg(tt,3.6,4.1,B,I);else if(tt<5.3)p=I;else if(tt<5.8)p=seg(tt,5.3,5.8,I,B);else if(tt<7.4)p=B;else p=seg(tt,7.4,8.4,B,rest);
+    if(tt<lastT||lastT===0&&tt<.8){input.value='';clearState();}
+    if(tt>=.8&&tt<1.9)input.value=BAD.slice(0,Math.ceil((tt-.8)/1.1*BAD.length));
+    if(lastT<2.5&&tt>=2.5)submit();
+    if(tt>=4.2&&tt<5.3){if(field.classList.contains('is-error')&&tt>=4.6)clearState();input.value=BAD+GOOD.slice(BAD.length,BAD.length+Math.ceil((tt-4.2)/1.1*(GOOD.length-BAD.length)));}
+    if(lastT<5.9&&tt>=5.9){input.value=GOOD;submit();}
+    var down=(tt>=2.5&&tt<2.63)||(tt>=5.9&&tt<6.03);
+    ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)'+(down?' scale(.85)':'');
+    lastT=tt;raf=requestAnimationFrame(tick);
+  }
+  function resume(){if(!raf&&visible&&auto)raf=requestAnimationFrame(tick);}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;resume();}).observe(stage);
+  document.addEventListener('learnui:languagechange',function(){text();if(msg.textContent)submit();});
+  text();setAuto(auto);
+  if(reduce){
+    root.dataset.auto='on';input.value=BAD;submit();var p=pt(btn,.55,.6);ghost.style.transform='translate('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px)';
+    read.textContent=zh()?'减弱动态效果：不抖动，只用红框和红字提示':'reduced motion: no shake; the red border and message carry it';
+  }
+  resume();
+})();
+</script>
