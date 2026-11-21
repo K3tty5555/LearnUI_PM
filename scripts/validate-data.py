@@ -156,7 +156,7 @@ def validate_graphics():
                 errors += fail(f"graphic {slug}: image {im.get('file')} needs caption and captionZh")
             if im.get("hd") and not os.path.isfile(os.path.join(ROOT, "assets/graphics", im["hd"])):
                 errors += fail(f"graphic {slug}: missing assets/graphics/{im['hd']}")
-            if im.get("origin") not in ("note", "official", "enhanced", "official-enhanced", "author", "author-enhanced"):
+            if im.get("origin") not in ("note", "official", "enhanced", "official-enhanced", "author", "author-enhanced", "video", "video-enhanced"):
                 errors += fail(f"graphic {slug}: {im.get('file')} has unknown origin {im.get('origin')!r}")
             path = os.path.join(ROOT, "assets/graphics", im.get("file", ""))
             if os.path.isfile(path) and webp_size(path) != (im.get("w"), im.get("h")):

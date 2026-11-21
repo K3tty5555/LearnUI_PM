@@ -1051,7 +1051,8 @@ def graphic_page(case):
         labels = {"official": ("官方原图", "Official file"), "note": ("截自收录笔记", "Cropped from the note"),
                   "enhanced": ("截自收录笔记 · AI 放大 2 倍", "From the note · 2× AI upscale"),
                   "official-enhanced": ("官方原图 · AI 放大 2 倍", "Official file · 2× AI upscale"),
-                  "author": ("作者原图", "Designer's own file"), "author-enhanced": ("作者原图 · AI 放大 2 倍", "Designer's own file · 2× AI upscale")}
+                  "author": ("作者原图", "Designer's own file"), "author-enhanced": ("作者原图 · AI 放大 2 倍", "Designer's own file · 2× AI upscale"),
+                  "video": ("截自作者视频", "Frame from the designer's video"), "video-enhanced": ("截自作者视频 · AI 放大 2 倍", "Frame from the designer's video · 2× AI upscale")}
         zh, en = labels.get(im.get("origin", "note"), labels["note"])
         return f'<em class="gd-orig-src"><span class="lang-zh">{zh}</span><span class="lang-en">{en}</span></em>'
     def orig_figure(im, i, style=""):

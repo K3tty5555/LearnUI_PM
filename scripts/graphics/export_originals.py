@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export original images for a graphic case and record them in data/graphics.json.
 
-    python3 scripts/graphics/export_originals.py <slug> <source> [<source> ...] [--origin note|official|author]
+    python3 scripts/graphics/export_originals.py <slug> <source> [<source> ...] [--origin note|official|author|video]
                                                   [--no-enhance] [--start 1]
 
 Each source (PNG/JPG/WebP crop, or an official file) becomes assets/graphics/<slug>-<n>.webp at
@@ -61,8 +61,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("slug")
     ap.add_argument("sources", nargs="+", type=Path)
-    ap.add_argument("--origin", choices=["note", "official", "author"], default="note",
-                    help="note: cropped from a compiler's note; official: publisher or studio file; author: posted by the designer")
+    ap.add_argument("--origin", choices=["note", "official", "author", "video"], default="note",
+                    help="note: cropped from a compiler's note; official: publisher or studio file; author: posted by the designer; video: frame grabbed from the designer's own video")
     ap.add_argument("--no-enhance", action="store_true")
     ap.add_argument("--start", type=int, default=1, help="number of the first image (to replace or append)")
     args = ap.parse_args()

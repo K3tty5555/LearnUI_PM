@@ -25,6 +25,14 @@
    "published": "2026-09-29"
   },
   {
+   "id": 4,
+   "title": "一分钟学会！霓虹发光氛围感海报！附教程",
+   "author": "3-Brushes",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afdca85000000002b0130d4",
+   "published": "2026-11-19"
+  },
+  {
    "id": 5,
    "title": "2027设计流行趋势｜灵感大爆炸 0.2",
    "author": "LiKE品牌设计",
@@ -47,6 +55,14 @@
    "platform": "小红书",
    "url": "https://www.xiaohongshu.com/discovery/item/6ae46fdf000000001802ca6c",
    "published": "2026-10-30"
+  },
+  {
+   "id": 8,
+   "title": "aha这也是艺术｜故障风海报，越坏越好看！",
+   "author": "章章晴子",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afe6e9700000000090223ba",
+   "published": "2026-11-19"
   },
   {
    "id": 9,
@@ -723,6 +739,34 @@
    "nameZh": "像素点缀",
    "definition": "Small checkerboards of square pixels in opposite corners, in the accent colour, to balance the picture and add a digital note.",
    "definitionZh": "在对角放几块方形像素组成的棋盘格，用强调色，平衡画面，也带一点数字感。"
+  },
+  {
+   "id": "glow-silhouette",
+   "name": "Glowing silhouette",
+   "nameZh": "发光剪影",
+   "definition": "The subject turns into a white-hot silhouette with a soft coloured halo while the rest of the photo sinks into shadow, so one shape carries the whole poster.",
+   "definitionZh": "主体变成一团白亮的剪影，边缘带一圈柔和的彩色光晕，其余画面压暗，整张海报只靠这一个形状说话。"
+  },
+  {
+   "id": "gradient-map",
+   "name": "Gradient map",
+   "nameZh": "渐变映射",
+   "definition": "The photo's brightness is remapped onto a chosen colour ramp (shadows to one colour, highlights to another), so any photo takes on the poster's palette.",
+   "definitionZh": "把照片的明暗重新映射到一条自选的颜色渐变上（暗部一种颜色、亮部另一种），任何照片都能套进海报的配色。"
+  },
+  {
+   "id": "motion-poster",
+   "name": "Motion poster",
+   "nameZh": "动态海报",
+   "definition": "The finished still is animated into a short loop, for example by giving an AI video model the source photo and the poster as first and last frames.",
+   "definitionZh": "把做好的静态海报做成一段短循环动画，比如把原照片和成稿当作首尾帧交给 AI 视频模型。"
+  },
+  {
+   "id": "displace-warp",
+   "name": "Displacement warp",
+   "nameZh": "置换扭曲",
+   "definition": "A black-and-white texture is used as a displacement map (Photoshop: Filter > Distort > Displace), so the image's pixels are pushed along its stripes.",
+   "definitionZh": "用一张黑白纹理图当置换图（PS：滤镜 > 扭曲 > 置换），画面像素顺着纹理的条纹被推开、拉长。"
   }
  ],
  "cases": [
@@ -3011,7 +3055,7 @@
      "w": 1280,
      "h": 616,
      "hd": "arknights-gate-future-1@2x.webp",
-     "origin": "enhanced"
+     "origin": "video-enhanced"
     },
     {
      "file": "arknights-gate-future-2.webp",
@@ -3020,7 +3064,7 @@
      "w": 1280,
      "h": 616,
      "hd": "arknights-gate-future-2@2x.webp",
-     "origin": "enhanced"
+     "origin": "video-enhanced"
     }
    ],
    "palette": [
@@ -3103,7 +3147,7 @@
      "w": 718,
      "h": 954,
      "hd": "beneath-the-world-tree-1@2x.webp",
-     "origin": "enhanced"
+     "origin": "video-enhanced"
     }
    ],
    "palette": [
@@ -3156,6 +3200,232 @@
    "imagePromptZh": "竖版 3:4 构成海报，浅灰水泥墙肌理底，带细杂色。中间：一个大的群青蓝圆盘，下半部渐隐成淡紫，外面一圈细环，沿细黑放射线切开（有的扇形挖掉、有的往外推），内圈有小四角星。前景：一棵光秃的白色树，带细黑描边，从一头黑色座头鲸的背上长出来，鲸用白色等高线表现，下面是同样用等高线画的灰色山。两条细细的倾斜椭圆环绕树干、经过树后的部分隐去；蓝色月牙沿画面边缘一圈；左上和右下各一小块蓝色像素棋盘格。只用一种蓝、灰、黑、白。使用你自己的主体。",
    "codePrompt": "Build this poster as one SVG with a 3:4 viewBox (720×958) and step buttons that follow the tutorial: (1) ground: grey fill plus a canvas-made noise and concrete-blotch texture; (2) guides and radiating lines: a centred cross, about 48 long lines from the disc centre and an inner ring of short ticks with four-point stars; (3) disc: a circle filled with a vertical linearGradient from solid blue to transparent lavender, plus a thin ring; (4) slicing: replace the disc with sector paths, leave a few sectors out and push others outward with small detached caps; (5) mountains and whale: on a canvas, fill the shapes, then draw iso-lines of a noise field in white so they look like a contour filter; (6) tree and rings: recursive white branches drawn twice (a wider black pass first for the outline) and two rotated ellipses broken with stroke-dasharray where they pass behind the trunk; (7) crescent moons (a circle minus an offset circle) and two pixel checkerboards. Honour prefers-reduced-motion.",
    "codePromptZh": "用一个 3:4（720×958）viewBox 的 SVG 做这张海报，分步按钮按教程顺序：(1) 底：灰色填充，再叠一张 canvas 生成的杂色和水泥斑驳纹理；(2) 参考线和放射线：中心十字，从圆心出发约 48 条长线，内圈一圈短刻度和四角星；(3) 圆盘：圆形用竖向 linearGradient 从实心蓝渐到透明淡紫，外加一圈细环；(4) 切割：把圆盘换成一组扇形 path，挖掉几块、把几块往外推并在外面加一小段断开的帽；(5) 山和鲸：在 canvas 上填好形状，再把噪声场的等值线用白色画出来，做出等高线滤镜的效果；(6) 树和圆环：递归画白色树枝，先画一遍更粗的黑色当描边；两个旋转椭圆在经过树干背后的地方用 stroke-dasharray 断开；(7) 月牙（圆减去偏移的圆）和两块像素棋盘格。支持减弱动态效果。"
+  },
+  {
+   "slug": "neon-dreamcore",
+   "game": "DREAMCORE",
+   "gameZh": "霓虹发光氛围海报",
+   "project": "Poster series",
+   "credits": "3-Brushes",
+   "year": 2026,
+   "type": "poster",
+   "issue": 4,
+   "styleTags": [
+    "glow-gradient",
+    "big-type"
+   ],
+   "techniques": [
+    "glow-silhouette",
+    "gradient-map",
+    "halftone-photo",
+    "condensed-display",
+    "hand-lettering",
+    "type-contrast",
+    "motion-poster"
+   ],
+   "sourceLabel": "3-Brushes, “一分钟学会！霓虹发光氛围感海报！附教程” (Xiaohongshu video, 19 Nov 2026), posted by the designer",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afdca85000000002b0130d4"
+   ],
+   "images": [
+    {
+     "file": "neon-dreamcore-1.webp",
+     "caption": "MUTTON: the glowing lamb, lemon-to-cyan gradient map (frame at 0:04)",
+     "captionZh": "MUTTON：发光的小羊，柠檬黄到青色的渐变映射（视频 0:04 截帧）",
+     "w": 630,
+     "h": 838,
+     "hd": "neon-dreamcore-1@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "neon-dreamcore-2.webp",
+     "caption": "COUPLE: the couple on a bench, violet map (frame at 0:09; bottom 9 px cropped to remove the video subtitle)",
+     "captionZh": "COUPLE：长椅上的人影，紫色映射（视频 0:09 截帧，底边裁去 9 像素以去掉字幕）",
+     "w": 630,
+     "h": 829,
+     "hd": "neon-dreamcore-2@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "neon-dreamcore-3.webp",
+     "caption": "CLOUDS: the glowing tree, blue-to-sepia map (frame at 0:10; bottom 9 px cropped to remove the video subtitle)",
+     "captionZh": "CLOUDS：发光的树，蓝到棕褐的映射（视频 0:10 截帧，底边裁去 9 像素以去掉字幕）",
+     "w": 630,
+     "h": 829,
+     "hd": "neon-dreamcore-3@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "neon-dreamcore-4.webp",
+     "caption": "GOOSE: swans and the brushed 生命 (life), green map (frame at 0:18)",
+     "captionZh": "GOOSE：天鹅与手写「生命」，绿色映射（视频 0:18 截帧）",
+     "w": 630,
+     "h": 838,
+     "hd": "neon-dreamcore-4@2x.webp",
+     "origin": "video-enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#ECFE6C",
+     "name": "Lemon sky",
+     "nameZh": "柠檬黄天空"
+    },
+    {
+     "hex": "#75E1F5",
+     "name": "Ice cyan",
+     "nameZh": "冰青"
+    },
+    {
+     "hex": "#0A2631",
+     "name": "Deep teal shadow",
+     "nameZh": "深青暗部"
+    },
+    {
+     "hex": "#FFFDF4",
+     "name": "Glow core",
+     "nameZh": "发光核心白"
+    },
+    {
+     "hex": "#E01A1A",
+     "name": "Script red",
+     "nameZh": "手写红"
+    },
+    {
+     "hex": "#5B3A8C",
+     "name": "Violet (COUPLE)",
+     "nameZh": "紫（COUPLE）"
+    },
+    {
+     "hex": "#E83FC4",
+     "name": "Neon magenta (CLOUDS)",
+     "nameZh": "霓虹品红（CLOUDS）"
+    }
+   ],
+   "summary": "A four-poster series on one formula: in each landscape photo a single subject (a lamb, a couple on a bench, a tree, two swans) is turned into a white-hot glowing silhouette, the photo is gradient-mapped into two or three colours with a halftone screen, a giant condensed title fades into the sky, and a loose hand-written word slashes across it.",
+   "summaryZh": "一组四张、同一个配方的海报：每张风景照里只挑一个主体（小羊、长椅上的情侣、一棵树、两只天鹅）变成白亮的发光剪影，整张照片用渐变映射压成两三种颜色再叠半调网点，巨大的窄体标题渐隐进天空，一个松散的手写词斜斜划过。",
+   "read": "The tutorial's order is the lesson. First an AI image model makes only the subject glow and darkens everything else (the prompt insists the composition stays untouched). Then a Photoshop gradient map recolours the whole photo, and a duplicated colour-halftone layer adds the print grain. Only then comes type: a condensed title, a hand-written word generated from a reference lettering sample, and small columns of English. Finally the original photo and the poster become first and last frames for an AI video. Because the glow is decided before the colour, the light always lands on the brightest step of the ramp and reads as neon in every palette.",
+   "readZh": "教程的顺序本身就是要学的东西。第一步用 AI 图像模型只让主体发光、其余压暗（提示词强调构图不动）；第二步在 PS 里做渐变映射给整张照片换色，再复制一层加彩色半调做出印刷颗粒；第三步才排字：窄体大标题、参照手写样字生成的手写词、几栏英文小字；最后把原照片和成稿当首尾帧交给 AI 视频做动态。因为先定光、后定色，发光的部分永远落在渐变最亮的那一档，换哪套配色都像霓虹。",
+   "layers": {
+    "grid": "A thin margin frame: a date / handle / DESIGN row at the top, a vertical CMYK label column on the right edge, and a two-column footer of small English text.",
+    "gridZh": "一圈很窄的边距框：顶部一行日期 / 账号 / DESIGN，右边缘一列竖排的 CMYK 标注，底部两栏英文小字。",
+    "type": "Three voices: a giant condensed title in caps that fades from solid at the top to nothing over the horizon, a red hand-written word slashed diagonally across it, and tiny grotesque text set in justified columns.",
+    "typeZh": "三种声音：大写窄体巨型标题，从上到下由实变虚、在地平线处消失；一个红色手写词斜着划过；以及两端对齐的小号无衬线英文。",
+    "focus": "The glowing subject in the lower half: the only white-hot shape, with a halo in the brightest colour of the ramp.",
+    "focusZh": "下半部分的发光主体：全画面唯一白亮的形状，光晕是渐变里最亮的那一色。",
+    "space": "The dark ground around the subject, kept empty so the glow has room to bloom.",
+    "spaceZh": "主体周围的暗色地面，故意留空，让光晕有地方散开。"
+   },
+   "imagePrompt": "Dreamy neon poster from a landscape photo. Keep the composition exactly; turn only one subject (an animal, a tree or two people on a bench) into a pure white glowing silhouette with a soft coloured halo, and darken everything else. Gradient-map the whole image into three colours (deep shadow, mid tone, bright sky colour) with a visible colour-halftone print screen. A giant condensed capital title fills the top, solid at the top and fading out over the horizon; one loose hand-written word slashes diagonally across it in a contrasting colour; small grotesque text in two justified columns at the bottom, a tiny date and handle row at the top, vertical colour labels on the right edge. Use your own subject and title.",
+   "imagePromptZh": "用一张风景照做梦幻霓虹海报。构图完全不动，只把一个主体（动物、一棵树或长椅上的两个人）变成纯白发光剪影，边缘一圈柔和彩色光晕，其余画面压暗。整张图用三色渐变映射（深色暗部、中间色、明亮的天空色），叠一层看得见的彩色半调印刷网点。顶部是撑满宽度的大写窄体标题，上实下虚、在地平线处淡出；一个松散的手写词用对比色斜着划过标题；底部两栏两端对齐的小号无衬线英文，顶部一行小字日期和账号，右边缘竖排颜色标注。主体和标题换成你自己的。",
+   "codePrompt": "Build this poster in HTML/canvas/SVG at a 3:4 ratio. Draw a simple landscape on a canvas (sky, distant mountains, lake, valley, dark ground) and a subject silhouette. Steps: (1) natural colours; (2) the subject filled white with a blurred halo, the rest darkened; (3) a per-pixel gradient map from luminance onto a three-stop ramp (deep teal, cyan, lemon) plus a halftone dot screen; (4) type in SVG: a huge condensed caps title with a vertical alpha gradient fading to zero at the horizon, a red script word rotated about -20 degrees with long swash strokes, small justified columns, vertical labels on the right edge; (5) motion: the halo breathes, light specks drift up, the script draws itself with stroke-dashoffset. Provide step buttons; honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/canvas/SVG 做这张 3:4 海报。canvas 画一幅简单风景（天空、远山、湖面、山谷、暗色地面）和一个主体剪影。分步：(1) 自然色；(2) 主体填白、加模糊光晕，其余压暗；(3) 逐像素渐变映射：按亮度映射到三段渐变（深青、青、柠檬黄），再叠半调网点；(4) SVG 排字：大写窄体巨型标题加纵向透明度渐变、到地平线处透明，红色手写词旋转约 -20° 并带长拖尾笔画，两端对齐的小字栏，右边缘竖排标注；(5) 动效：光晕呼吸、光点上浮、手写字用 stroke-dashoffset 逐笔写出。做分步按钮，支持减弱动态效果。"
+  },
+  {
+   "slug": "glitch-posters",
+   "game": "SHORT CIRCUIT",
+   "gameZh": "故障风海报",
+   "project": "Poster series",
+   "credits": "章章晴子",
+   "year": 2026,
+   "type": "poster",
+   "issue": 8,
+   "styleTags": [
+    "glitch",
+    "acid-graphics"
+   ],
+   "techniques": [
+    "slice-shift",
+    "displace-warp",
+    "color-glitch",
+    "bitmap-dither",
+    "line-ornaments",
+    "type-contrast",
+    "motion-poster"
+   ],
+   "sourceLabel": "章章晴子, “aha这也是艺术｜故障风海报，越坏越好看！” (Xiaohongshu video, 19 Nov 2026), posted by the designer",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afe6e9700000000090223ba"
+   ],
+   "images": [
+    {
+     "file": "glitch-posters-1.webp",
+     "caption": "明月祈愿 (Moon prayer): the statue sliced and shifted over a displaced cyan-black ground (frame at 0:57)",
+     "captionZh": "明月祈愿：雕像切片错位，背后是置换出来的青黑底（视频 0:57 截帧）",
+     "w": 720,
+     "h": 962,
+     "hd": "glitch-posters-1@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "glitch-posters-2.webp",
+     "caption": "城市电脉 ELECTRIC ARC: a power pole breaking into pixel blocks (frame at 0:07; the bottom 116 px, about 12%, sat under a video subtitle and was cropped off)",
+     "captionZh": "城市电脉 ELECTRIC ARC：电线杆碎成像素块（视频 0:07 截帧；底部约 12%、116 像素压着视频字幕，已裁去）",
+     "w": 720,
+     "h": 846,
+     "hd": "glitch-posters-2@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "glitch-posters-3.webp",
+     "caption": "Short Circuit: a pixel-serif title over a gear machine falling apart in cyan and rust (frame at 1:13)",
+     "captionZh": "Short Circuit：像素衬线标题，齿轮机碎成青色与锈橙色块（视频 1:13 截帧）",
+     "w": 720,
+     "h": 962,
+     "hd": "glitch-posters-3@2x.webp",
+     "origin": "video-enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#17BDD3",
+     "name": "Glitch cyan",
+     "nameZh": "故障青"
+    },
+    {
+     "hex": "#0B0B0D",
+     "name": "Signal black",
+     "nameZh": "信号黑"
+    },
+    {
+     "hex": "#2B3FE0",
+     "name": "Cobalt",
+     "nameZh": "钴蓝"
+    },
+    {
+     "hex": "#E3E3E6",
+     "name": "Paper grey",
+     "nameZh": "浅灰底"
+    },
+    {
+     "hex": "#FFFFFF",
+     "name": "Statue white",
+     "nameZh": "雕像白"
+    },
+    {
+     "hex": "#D9A25B",
+     "name": "Rust (Short Circuit)",
+     "nameZh": "锈橙（Short Circuit）"
+    }
+   ],
+   "summary": "Three glitch posters by one designer: a praying statue under a spiked cobalt halo, a power pole, and a gear machine, each an AI-generated subject that is cut into horizontal strips, shifted and smeared into pixel streaks, set on a background made with a displacement map, then dressed with orbit lines, dithered image boxes and small justified English text.",
+   "summaryZh": "同一位作者的三张故障风海报：尖刺钴蓝光环下的祈祷雕像、电线杆、齿轮机。主体都是 AI 生成的素材，被切成横条、错开、拉成像素拖影，背景用置换滤镜做出来，再配上轨道线、抖动像素图框和两端对齐的英文小字。",
+   "read": "Glitch looks random but the tutorial builds it in three controlled passes. Image: duplicate the subject, run Filter > Distort > Wave with the type set to Square so it breaks into blocks, then use a layer mask to paint the face and hands back, so the damage only happens where it doesn't hurt legibility (an AI model with a 'digital deconstruction, horizontal scan-line pixel shift, colour separation' prompt makes more fragments). Poster: the background is a black-and-white stripe texture saved as a PSD and applied with Filter > Distort > Displace; type and pixel-font titles come last. Motion: background and poster go into an AI video model with a prompt describing what moves. Keeping the palette to three or four colours is what makes the mess read as designed.",
+   "readZh": "故障看着随机，教程其实分三遍、每一遍都受控。图像处理：复制主体图层，执行「滤镜 > 扭曲 > 波浪」，类型选「方形」让它碎成方块，再用图层蒙版把脸和手擦回来，让破坏只发生在不影响辨认的地方（也可以用 AI 图像模型配「数字解构拼贴、横向扫描线式像素偏移、色彩分离错位」这类提示词生成更多碎片）。海报设计：背景是一张黑白条纹图，存成 PSD，再用「滤镜 > 扭曲 > 置换」选它；文字和像素字标题最后加。动态海报：把背景和成稿交给 AI 视频模型，用提示词描述哪些部分动。全程只用三四种颜色，乱才显得是设计过的。",
+   "layers": {
+    "grid": "The sheet splits at about half height: a busy displaced cyan-black field on top, a calm light-grey field below; the title sits in a narrow left column and small text blocks hug the right edge.",
+    "gridZh": "画面在约一半高度处分开：上半是置换出来的青黑底，热闹；下半是浅灰底，安静。标题占左侧窄栏，小字块贴着右边缘。",
+    "type": "A distressed heavy CJK title stacked vertically one character per line (明月祈愿), against tiny justified English blocks and a hand-set handle; Short Circuit uses a pixel-cut serif instead.",
+    "typeZh": "粗重做旧的中文标题竖排、一行一字（明月祈愿），对比两端对齐的小号英文块和署名；Short Circuit 改用像素切过的衬线字。",
+    "focus": "The face and praying hands, the only part of the statue left intact inside the spiked halo.",
+    "focusZh": "尖刺光环里的脸和合十的双手：整座雕像唯一没被破坏的地方。",
+    "space": "The light-grey lower half, where only orbit lines and two small boxes sit, so the glitch smear has somewhere to fall.",
+    "spaceZh": "下半部分的浅灰底，只放了轨道线和两个小框，故障拖影才有地方落下。"
+   },
+   "imagePrompt": "Glitch-art poster with one AI-generated subject (a statue, a machine or a city object) on a light-grey ground. The lower part of the subject breaks into horizontal strips shifted sideways and smeared into pixel streaks, with one colour separated out (cobalt blue); the face stays intact. The top half of the background is a cyan and black field distorted with a striped displacement map. A heavy distressed title set vertically down the left edge, a spiky ring halo behind the subject, thin orbit lines with small node circles, two or three small dithered image boxes, tiny justified English text blocks. Three or four colours only. Use your own subject and title.",
+   "imagePromptZh": "故障艺术海报，一个 AI 生成的主体（雕像、机器或城市物件）放在浅灰底上。主体下半部分切成横条往旁边错开，拉成像素拖影，分离出一种颜色（钴蓝）；脸部保持完整。背景上半部分是青色与黑色，被条纹置换图扭曲。左边缘竖排粗重做旧的标题，主体背后一圈尖刺光环，细轨道线带小圆点，两三个抖动像素图框，两端对齐的小号英文块。只用三四种颜色。主体和标题换成你自己的。",
+   "codePrompt": "Build this poster in HTML/canvas/SVG at 3:4. Draw the subject on a canvas (simple shapes and gradients). Steps: (1) the subject on light grey; (2) slice and shift: copy horizontal strips of the lower half with random sideways offsets and stretch some strips into pixel streaks, tinting a few cobalt, but mask the face and hands out; (3) displaced background: generate a stripe texture, then offset each row of a cyan field by the texture value and draw black streaks, top half only; (4) layout in SVG: a vertical distressed CJK title, a spiked ring, thin orbit arcs with node circles, checkerboard-dithered boxes, small justified text; (5) motion: strips jitter on a stepped timer and the halo turns slowly. Provide step buttons; honour prefers-reduced-motion.",
+   "codePromptZh": "用 HTML/canvas/SVG 做这张 3:4 海报。canvas 用简单形状和渐变画主体。分步：(1) 主体放在浅灰底上；(2) 切片错位：把下半部分按横条复制、随机左右错开，部分横条拉成像素拖影、染成钴蓝，脸和手用蒙版保护；(3) 置换背景：生成一张条纹纹理，按纹理值逐行错开青色底并画出黑色拖影，只在上半部分；(4) SVG 排版：竖排做旧中文标题、尖刺光环、带小圆点的细轨道弧线、棋盘格抖动图框、两端对齐小字；(5) 动效：横条按步进节奏抖动，光环缓慢转动。做分步按钮，支持减弱动态效果。"
   }
  ]
 }
