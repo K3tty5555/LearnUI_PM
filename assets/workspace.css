@@ -152,7 +152,7 @@ main:focus { outline: none; }
 body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; }
 .selection-dock-button { border: 0; border-radius: 10px; background: var(--blue); color: white; box-shadow: 0 6px 24px rgba(43,43,43,.18); min-height: 46px; }
 .selection-dialog { width: min(480px, 100%); border: 0; box-shadow: var(--shadow-pop); }
-.selection-dialog[open] { display: flex; flex-direction: column; animation: drawer-in var(--dur-2) var(--ease-out); }
+.selection-dialog[open] { display: flex; flex-direction: column; }
 .selection-dialog::backdrop, .global-search-dialog::backdrop { background: rgba(29,29,29,.32); }
 .selection-head { padding: 28px 24px 22px; flex: none; }
 .selection-head h2 { font-size: 22px; letter-spacing: -.02em; }
@@ -195,7 +195,6 @@ body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; 
 .global-search-empty { padding: 18px 12px 8px; text-align: center; font-size: 13px; color: var(--gray-600); }
 .global-search-empty p { margin: 0; }
 .global-search-footer { display: flex; justify-content: space-between; padding: 12px 22px; border-top: 1px solid var(--line); font-size: 10px; color: var(--gray-500); }
-@keyframes drawer-in { from { transform: translateX(32px); opacity: .6; } to { transform: translateX(0); opacity: 1; } }
 @media (min-width: 1700px) { main.wrap { margin-left: calc(var(--sidebar) + (100vw - var(--sidebar) - 1480px)/2); } }
 @media (max-width: 1200px) {
   :root { --sidebar: 200px; }
@@ -295,7 +294,8 @@ body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; 
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .selection-dialog[open] { animation: none; }
+  .selection-dialog:not([open]) { transform: none; }
+  @starting-style { .selection-dialog[open] { transform: none; } }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 .mobile-language { display: none; }
@@ -593,3 +593,28 @@ picture[data-preview] { position: absolute; inset: 0; }
 .lang-switch:has(> .ls-btn:nth-child(2).active)::before { transform: translateX(calc(100% + 2px)); }
 .tab.active, .ls-btn.active, .tab.active:hover, .ls-btn.active:hover { background: transparent; }
 .motion-ready .tabs::before, .motion-ready .lang-switch::before { transition: transform var(--dur-2) var(--ease-out); }
+
+/* Dialogs. The command search "fogs in" (transparent and a touch small to clear, no travel); the
+   collection drawer slides in from the edge it lives on. Both leave faster than they arrive. The
+   scrim only fades: no blur on top of running specimens. Exits need the Chromium "overlay"
+   transition; Safari shows the entrance only. */
+.global-search-dialog, .selection-dialog, .global-search-dialog::backdrop, .selection-dialog::backdrop {
+  transition: opacity var(--dur-out) var(--ease-in), transform var(--dur-out) var(--ease-in),
+    overlay var(--dur-out) var(--ease-in) allow-discrete, display var(--dur-out) var(--ease-in) allow-discrete;
+}
+.global-search-dialog[open], .selection-dialog[open], .global-search-dialog[open]::backdrop, .selection-dialog[open]::backdrop {
+  transition-duration: var(--dur-2); transition-timing-function: var(--ease-out);
+}
+.global-search-dialog:not([open]) { opacity: 0; transform: scale(.98); }
+.selection-dialog:not([open]) { opacity: 0; transform: translateX(32px); }
+.global-search-dialog:not([open])::backdrop, .selection-dialog:not([open])::backdrop { opacity: 0; }
+@starting-style {
+  .global-search-dialog[open] { opacity: 0; transform: scale(.98); }
+  .selection-dialog[open] { opacity: 0; transform: translateX(32px); }
+  .global-search-dialog[open]::backdrop, .selection-dialog[open]::backdrop { opacity: 0; }
+}
+
+/* The one shared-element flight: a graphic cover into its case page's lead image (desktop). */
+@media (min-width: 761px) { .gd-orig-lead img { view-transition-name: gd-hero; } }
+::view-transition-group(gd-hero) { animation-duration: var(--dur-3); animation-timing-function: var(--ease-out); }
+::view-transition-old(gd-hero), ::view-transition-new(gd-hero) { height: 100%; object-fit: cover; }

@@ -41,6 +41,28 @@
     document.querySelectorAll("picture[data-preview]").forEach(loadPreview);
   }
 
+  /* A graphic case's cover flies into its page's lead image and back (dictionary:
+     shared-element-transition). Desktop only: on phones the lead image is below the fold. The
+     case page names its lead image in CSS; the list names only the clicked (or returned-to) card,
+     because a name must be unique on a page. */
+  if (window.matchMedia && matchMedia("(min-width: 761px)").matches) {
+    var heroName = function (img, on) { if (img) img.style.viewTransitionName = on ? "gd-hero" : ""; };
+    document.addEventListener("click", function (event) {
+      var card = event.target.closest && event.target.closest("a.graphic-card");
+      if (card) heroName(card.querySelector(".gd-cover img"), true);
+    });
+    window.addEventListener("pagereveal", function (event) {
+      document.querySelectorAll("a.graphic-card .gd-cover img").forEach(function (img) { heroName(img, false); });
+      var from = window.navigation && navigation.activation && navigation.activation.from;
+      if (!event.viewTransition || !from) return;
+      var back = [].filter.call(document.querySelectorAll("a.graphic-card"), function (a) { return a.href === from.url; })[0];
+      if (!back) return;
+      var img = back.querySelector(".gd-cover img");
+      heroName(img, true);
+      event.viewTransition.finished.finally(function () { heroName(img, false); });
+    });
+  }
+
   /* Controls animate only after the first paint has settled, so nothing slides into place on load. */
   requestAnimationFrame(function () { requestAnimationFrame(function () { document.documentElement.classList.add("motion-ready"); }); });
 
