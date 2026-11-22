@@ -494,6 +494,17 @@ picture[data-preview] { position: absolute; inset: 0; }
 .gd-ov-space span { background: #0e7490; top: 4px; left: 4px; }
 .gd-ov-palette { position: absolute; right: 6px; bottom: 6px; display: flex; gap: 3px; padding: 4px; border-radius: 6px; background: rgba(255,255,255,.92); box-shadow: 0 2px 8px rgba(0,0,0,.2); }
 .gd-ov-palette span { width: 16px; height: 16px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+/* Signature motion of the breakdown, "fog clears": a mark goes from clear and slightly blurred to sharp
+   in place (no movement), 200ms; graphics.js staggers the marks 40ms apart within 400ms. Space marks
+   cover large areas, so only their name blurs and the hatched box just fades. Closing: 120ms fade. */
+.gd-ov.is-fog, .gd-ov-palette.is-fog { animation: gd-fog 200ms var(--ease-out) backwards; }
+.gd-ov-space.is-fog { animation-name: gd-fade; }
+.gd-ov-space.is-fog span { animation: gd-fog 200ms var(--ease-out) backwards; animation-delay: inherit; }
+.gd-ov-leaving > * { animation: gd-leave 120ms ease-in forwards; }
+@keyframes gd-fog { from { opacity: 0; filter: blur(3px); } to { opacity: 1; filter: blur(0); } }
+@keyframes gd-fade { from { opacity: 0; } }
+@keyframes gd-leave { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .gd-ov.is-fog, .gd-ov-palette.is-fog, .gd-ov-space.is-fog span, .gd-ov-leaving > * { animation: none; } }
 .gd-swatches { display: flex; flex-wrap: wrap; gap: 10px; }
 .gd-swatch { display: grid; grid-template-columns: 34px auto; grid-template-rows: auto auto; column-gap: 10px; align-items: center; min-width: 150px; padding: 8px 12px 8px 8px; border: 1px solid var(--line); border-radius: var(--radius); background: white; text-align: left; cursor: copy; }
 .gd-swatch i { grid-row: 1 / 3; width: 34px; height: 34px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.1); }

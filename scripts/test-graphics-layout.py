@@ -10,6 +10,8 @@ For the hub and every case page, at desktop, wide and phone widths:
 - the page never scrolls sideways;
 - every specimen marks type, focus and space somewhere (a view may carry no lettering), the default
   view draws focus and space marks, and every drawn mark's centre sits inside the specimen canvas;
+- the breakdown's "fog clears" motion: none at all under reduced motion; otherwise the marks start
+  clear, never move, are fully opaque within 1s of "All" and gone 250ms after closing;
 - on desktop the whole specimen fits inside its fixed 520px stage in every format;
 - on phones the specimen stage hugs the specimen and keeps one height across formats;
 - headings share one left edge and size, prompt text fills its box, no stray language divider;
@@ -75,19 +77,53 @@ OVERFLOW = "() => document.scrollingElement.scrollWidth - window.innerWidth"
 LAYERS = """async () => {
   const all = document.querySelector('[data-gd-layer="all"]');
   if (!all) return {error: 'no "all layers" button'};
+  // This runs with reduced motion: the breakdown marks and the grid must appear and leave with no animation.
+  const frame = () => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const moving = () => document.getAnimations().filter(a => {
+    const t = a.effect && a.effect.target;
+    return t && t.closest && t.closest('.gd-ov-layer, .gd-grid') && (a.effect.getComputedTiming().duration || 0) > 0;
+  }).length;
   all.click();
+  await frame();
+  const movingOpen = moving();
   await new Promise(r => setTimeout(r, 700));
   const host = document.querySelector('.gd-ov-layer').parentElement.getBoundingClientRect();
   const marks = [...document.querySelectorAll('.gd-ov')].map(el => {
     const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    return {kind: el.className.replace('gd-ov ', ''), label: el.textContent,
+    return {kind: [...el.classList].find(c => c.startsWith('gd-ov-')), label: el.textContent,
             inside: cx >= host.left && cx <= host.right && cy >= host.top && cy <= host.bottom};
   });
   all.click();
+  await frame();
+  const movingClose = moving(), lingering = document.querySelectorAll('.gd-ov').length;
   // A view may legitimately carry no lettering (e.g. a key visual without text); the mark then lives in another view.
   const defined = ['type', 'focus', 'space'].filter(k => document.querySelector('.gd-specimen [data-ov-' + k + ']'));
-  return {marks, defined,
+  return {marks, defined, movingOpen, movingClose, lingering,
           host: [Math.round(host.width), Math.round(host.height)]};
+}"""
+
+# Normal motion: "All" lifts the marks with the fog-clears motion (docs/polish-plan.md). On the first
+# frame the marks are still clear (the motion exists), they never move, every one is fully opaque
+# within 1 second, and after closing nothing is left behind 250ms later.
+FOG = """async () => {
+  const all = document.querySelector('[data-gd-layer="all"]');
+  const marks = () => [...document.querySelectorAll('.gd-ov-layer:not(.gd-ov-leaving) > *')];
+  const t0 = performance.now();
+  all.click();
+  await new Promise(r => requestAnimationFrame(r));
+  const early = marks().map(m => +getComputedStyle(m).opacity);
+  const moved = marks().filter(m => getComputedStyle(m).transform !== 'none').length;
+  let full = null;
+  while (performance.now() - t0 < 1000) {
+    const now = marks();
+    if (now.length && now.every(m => +getComputedStyle(m).opacity >= 0.999)) { full = Math.round(performance.now() - t0); break; }
+    await new Promise(r => setTimeout(r, 20));
+  }
+  const count = marks().length;
+  all.click();
+  await new Promise(r => setTimeout(r, 250));
+  return {count, early: early.length ? Math.max(...early) : null, moved, full,
+          left: document.querySelectorAll('.gd-ov-leaving > *').length, open: marks().length};
 }"""
 
 
@@ -150,6 +186,10 @@ def main():
                         if result.get("error"):
                             failures.append(f"{where}: {result['error']}")
                             continue
+                        if result["movingOpen"] or result["movingClose"]:
+                            failures.append(f"{where}: breakdown animates under reduced motion ({result['movingOpen']} on open, {result['movingClose']} on close)")
+                        if result["lingering"]:
+                            failures.append(f"{where}: {result['lingering']} breakdown marks linger after closing under reduced motion")
                         kinds = {m["kind"] for m in result["marks"]}
                         for need in ("type", "focus", "space"):
                             if need not in result["defined"]:
@@ -221,6 +261,27 @@ def main():
                                 failures.append(f"{where}: {m['kind']} '{m['label']}' lies outside the canvas {result['host']}")
                 page.close()
                 context.close()
+            # The breakdown's own motion, with animation allowed (desktop, every case).
+            context = browser.new_context(viewport={"width": 1440, "height": 1000}, reduced_motion="no-preference")
+            page = context.new_page()
+            for path in paths[1:]:
+                page.goto(base + path)
+                where = f"{engine} motion {path}"
+                checked += 1
+                fog = page.evaluate(FOG)
+                if not fog["count"]:
+                    failures.append(f"{where}: 'All' drew no marks")
+                    continue
+                if fog["full"] is None:
+                    failures.append(f"{where}: breakdown marks not fully opaque within 1s of 'All'")
+                if fog["early"] is not None and fog["early"] >= 0.9:
+                    failures.append(f"{where}: breakdown marks appear at once (opacity {fog['early']:.2f} on the first frame), no fog-clears motion")
+                if fog["moved"]:
+                    failures.append(f"{where}: {fog['moved']} breakdown marks are transformed while appearing (fog clears in place)")
+                if fog["left"] or fog["open"]:
+                    failures.append(f"{where}: {fog['left'] + fog['open']} breakdown marks still on screen 250ms after closing")
+            page.close()
+            context.close()
             browser.close()
     server.shutdown()
     if failures:
