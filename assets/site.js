@@ -875,30 +875,90 @@
   var globalInput = document.getElementById("global-search-input");
   var globalResults = document.getElementById("global-search-results");
   var globalStatus = document.getElementById("global-search-status");
+  /* One selected result (the first by default); focus stays in the input and
+     aria-activedescendant tells screen readers which result is selected. Hover selects too. */
+  var gsItems = [], gsIndex = 0, gsPointer = "";
+  var GS_TYPES = {"ui-element": ["UI 元素", "UI element"], "visual-style": ["视觉风格", "Visual style"], "site-reference": ["知名网站", "Website"], "logo-reference": ["Logo 图鉴", "Logo"], "graphic-reference": ["平面设计", "Graphic design"]};
+  function gsSelect(i, scroll) {
+    globalInput.setAttribute("aria-expanded", gsItems.length ? "true" : "false");
+    if (!gsItems.length) return globalInput.removeAttribute("aria-activedescendant");
+    gsIndex = (i + gsItems.length) % gsItems.length;
+    gsItems.forEach(function (el, n) { el.setAttribute("aria-selected", n === gsIndex ? "true" : "false"); });
+    globalInput.setAttribute("aria-activedescendant", gsItems[gsIndex].id);
+    if (scroll) gsItems[gsIndex].scrollIntoView({ block: "nearest" });
+  }
   function globalSearch() {
+    var en = mode() === "en";
     globalResults.textContent = "";
-    if (!catalog) { globalStatus.textContent = catalogFailed ? "参考库加载失败，请刷新页面重试。" : "参考库正在加载，请稍后重试。"; return; }
+    gsItems = [];
+    gsSelect(0);
+    if (!catalog) { globalStatus.textContent = catalogFailed ? (en ? "Couldn't load the library. Refresh the page to retry." : "参考库加载失败，请刷新页面重试。") : (en ? "Loading the library…" : "参考库正在加载，请稍后重试。"); return; }
     var q = globalInput.value.trim().toLowerCase();
     var matches = catalog.items.filter(function (item) {
-      return !q || [item.name, item.nameZh, item.summary, item.type].concat(item.visualTraits || [], item.styles || [], item.techniques || []).join(" ").toLowerCase().indexOf(q) !== -1;
+      return !q || [item.name, item.nameZh, item.summary, item.summaryEn, item.type].concat(item.visualTraits || [], item.styles || [], item.techniques || []).join(" ").toLowerCase().indexOf(q) !== -1;
     });
-    globalStatus.textContent = q ? (matches.length ? "找到 " + matches.length + " 个参考" : "没有找到相关参考。试试「按钮」「Linear」或「极简」。") : "";
-    matches.slice(0, 30).forEach(function (item) {
+    globalStatus.textContent = q ? (matches.length ? (en ? matches.length + " found" : "找到 " + matches.length + " 个参考") : (en ? "Nothing found." : "没有找到相关参考。")) : "";
+    if (q && !matches.length) {
+      var empty = document.createElement("div");
+      var tip = document.createElement("p");
+      var examples = document.createElement("div");
+      empty.className = "global-search-empty";
+      examples.className = "no-result-examples";
+      tip.textContent = en ? "Try describing how it looks or how it moves, or start from one of these:" : "试试描述它长什么样、会怎么动，或者从这几个词开始：";
+      (en ? ["button", "glass", "Linear"] : ["按钮", "玻璃", "极简"]).forEach(function (word) {
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.textContent = word;
+        chip.addEventListener("click", function () { globalInput.value = word; globalSearch(); globalInput.focus(); });
+        examples.appendChild(chip);
+      });
+      empty.append(tip, examples);
+      globalResults.appendChild(empty);
+    }
+    matches.slice(0, 30).forEach(function (item, n) {
       var link = document.createElement("a");
       link.className = "global-search-result";
       link.href = item.url;
+      link.id = "gs-" + n;
+      link.tabIndex = -1;
+      link.setAttribute("role", "option");
+      var src = en && item.thumbEn || item.thumb;
+      var thumb = document.createElement(src ? "img" : "span");
+      thumb.className = "global-search-thumb" + (src ? "" : " is-icon");
+      thumb.setAttribute("data-type", item.type);
+      if (src) {
+        thumb.alt = "";
+        thumb.loading = "lazy";
+        thumb.decoding = "async";
+        thumb.onerror = function () { thumb.removeAttribute("src"); thumb.className += " is-icon"; };
+        thumb.src = src;
+      }
       var content = document.createElement("div");
       var title = document.createElement("strong");
-      title.textContent = mode() === "en" ? item.name : (item.nameZh + (item.name !== item.nameZh ? " · " + item.name : ""));
+      title.textContent = en ? item.name : (item.nameZh + (item.name !== item.nameZh ? " · " + item.name : ""));
       var description = document.createElement("p");
-      description.textContent = item.summary || item.name;
+      var text = (en && item.summaryEn) || item.summary || item.name, hit = q ? text.toLowerCase().indexOf(q) : -1;
+      // A match deep in a long summary would hide behind the ellipsis: start the line just before it, at a word.
+      var cut = hit > 14 ? Math.max(text.lastIndexOf(" ", hit - 2) + 1, hit - 12) : 0;
+      description.textContent = cut ? "…" + text.slice(cut) : text;
+      highlightEl(title, q);
+      highlightEl(description, q);
       var type = document.createElement("span");
-      type.textContent = {"ui-element":"UI 元素", "visual-style":"视觉风格", "site-reference":"知名网站", "logo-reference":"Logo 图鉴", "graphic-reference":"平面设计"}[item.type] || "视觉风格";
+      type.textContent = (GS_TYPES[item.type] || GS_TYPES["visual-style"])[en ? 1 : 0];
       content.append(title, description);
-      link.append(content, type);
+      link.append(thumb, content, type);
       globalResults.appendChild(link);
+      gsItems.push(link);
     });
+    gsSelect(0);
   }
+  globalResults.addEventListener("pointermove", function (event) {
+    // Ignore the synthetic moves browsers send when the list scrolls under a still pointer.
+    var at = event.clientX + "," + event.clientY, el = event.target.closest(".global-search-result");
+    if (at === gsPointer || !el) return;
+    gsPointer = at;
+    gsSelect(gsItems.indexOf(el));
+  });
   function openGlobalSearch() {
     if (globalDialog.open) return;
     globalDialog.showModal();
@@ -923,11 +983,10 @@
   });
   globalDialog.addEventListener("keydown", function (event) {
     if (event.key === "Escape") { event.preventDefault(); globalDialog.close(); return; }
-    var results = Array.prototype.slice.call(globalResults.querySelectorAll("a"));
-    var index = results.indexOf(document.activeElement);
-    if (event.key === "ArrowDown" && results.length) { event.preventDefault(); results[(index + 1) % results.length].focus(); }
-    if (event.key === "ArrowUp" && results.length) { event.preventDefault(); if (index <= 0) globalInput.focus(); else results[index - 1].focus(); }
-    if (event.key === "Enter" && document.activeElement === globalInput && results.length) { event.preventDefault(); results[0].click(); }
+    if (event.target !== globalInput || !gsItems.length) return;
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") { event.preventDefault(); gsSelect(gsIndex + (event.key === "ArrowDown" ? 1 : -1), true); }
+    // Enter that confirms an IME composition (Chinese input) must not open a result.
+    if (event.key === "Enter" && !event.isComposing && event.keyCode !== 229) { event.preventDefault(); gsItems[gsIndex].click(); }
   });
   /* Platform tabs work from the first click: mark the choice at once and ask for the search index,
      which applies the chosen platform when it arrives (until 2026-11-21 a click before the search

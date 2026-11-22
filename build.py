@@ -229,9 +229,9 @@ def selection_panel():
 def global_search_panel():
     return f'''<dialog class="global-search-dialog" id="global-search-dialog" aria-labelledby="global-search-title">
  <div class="global-search-head"><h2 id="global-search-title"><span class="lang-zh">搜索参考库</span><span class="lang-en">Search the library</span></h2><button type="button" class="icon-button" id="global-search-close" aria-label="关闭搜索">{icon("close")}</button></div>
- <label class="global-search-field">{icon("search",20)}<input type="search" id="global-search-input" placeholder="搜索组件、风格、品牌或页面…" data-ph-zh="搜索组件、风格、品牌或页面…" data-ph-en="Search components, styles, brands, or pages…" autocomplete="off" aria-label="搜索整个参考库"></label>
- <p class="global-search-status" id="global-search-status" role="status">输入关键词，搜索所有参考。</p><div class="global-search-results" id="global-search-results"></div>
- <div class="global-search-footer"><span>↑ ↓ 选择 · Enter 打开</span><span>Esc 关闭</span></div>
+ <label class="global-search-field">{icon("search",20)}<input type="search" id="global-search-input" placeholder="搜索组件、风格、品牌或页面…" data-ph-zh="搜索组件、风格、品牌或页面…" data-ph-en="Search components, styles, brands, or pages…" autocomplete="off" aria-label="搜索整个参考库" role="combobox" aria-autocomplete="list" aria-controls="global-search-results" aria-expanded="false"></label>
+ <p class="global-search-status" id="global-search-status" role="status">输入关键词，搜索所有参考。</p><div class="global-search-results" id="global-search-results" role="listbox" aria-label="搜索结果"></div>
+ <div class="global-search-footer"><span class="lang-zh">↑ ↓ 选择 · Enter 打开</span><span class="lang-en">↑ ↓ choose · Enter open</span><span class="lang-zh">Esc 关闭</span><span class="lang-en">Esc close</span></div>
 </dialog>'''
 
 
@@ -1515,14 +1515,20 @@ def search_index_data():
         })
     return items
 
+def thumb_if(path):
+    """Thumbnail for the ⌘K results, listed only when the file exists (no broken images)."""
+    return path if os.path.exists(os.path.join(ROOT, path.lstrip("/"))) else None
+
 def catalog_data():
     items = []
     for e in ENTRIES:
         z = ZH[e["slug"]]
+        thumb = e["slug"].replace("/", "-")
         items.append({
             "id": "entry:" + e["slug"], "type": "ui-element", "slug": e["slug"],
             "name": e["name"], "nameZh": z["name_zh"], "url": entry_url(e),
-            "summary": z["tagline_zh"], "tags": {"platform": [e["platform"]]},
+            "summary": z["tagline_zh"], "summaryEn": e["tagline"], "tags": {"platform": [e["platform"]]},
+            "thumb": thumb_if(f"/assets/demo-thumbs/{thumb}-zh.webp"), "thumbEn": thumb_if(f"/assets/demo-thumbs/{thumb}-en.webp"),
             "prompt": z["prompt_zh"],
             "source": {"kind": "upstream", "label": "joeseesun/learnui"}
         })
@@ -1531,7 +1537,8 @@ def catalog_data():
         items.append({
             "id": "style:" + s["slug"], "type": "visual-style", "slug": s["slug"],
             "name": s["name"], "nameZh": z.get("name_zh", s["name"]), "url": style_url(s),
-            "summary": first_para(z.get("tagline_zh", s.get("tagline", ""))),
+            "summary": first_para(z.get("tagline_zh", s.get("tagline", ""))), "summaryEn": first_para(s.get("tagline", "")),
+            "thumb": thumb_if(f'/assets/demo-thumbs/style-{s["slug"]}-zh.webp'), "thumbEn": thumb_if(f'/assets/demo-thumbs/style-{s["slug"]}-en.webp'),
             "tags": {}, "prompt": z.get("brief_zh", s.get("brief", "")),
             "source": {"kind": "upstream", "label": "joeseesun/learnui"}
         })
@@ -1539,7 +1546,8 @@ def catalog_data():
         items.append({
             "id": "site:" + site["slug"], "type": "site-reference", "slug": site["slug"],
             "name": site["nameEn"], "nameZh": site["nameZh"],
-            "url": f'/sites/{site["slug"]}/', "summary": site["summaryZh"],
+            "url": f'/sites/{site["slug"]}/', "summary": site["summaryZh"], "summaryEn": site["summaryEn"],
+            "thumb": thumb_if(f'/assets/site-thumbs/site-{site["slug"]}.webp'),
             "tags": {"category": [site["category"]]}, "prompt": site["summaryZh"],
             "source": {"kind": "external", "label": "awesome-design-md", "license": "MIT"}
         })
@@ -1547,7 +1555,8 @@ def catalog_data():
         items.append({
             "id": "graphic:" + case["slug"], "type": "graphic-reference", "slug": case["slug"],
             "name": graphic_title_en(case), "nameZh": graphic_title_zh(case), "url": graphic_url(case),
-            "summary": case["summaryZh"], "tags": {"graphicType": [case["type"]], "styles": case["styleTags"], "techniques": case["techniques"]},
+            "summary": case["summaryZh"], "summaryEn": case["summary"], "thumb": thumb_if(f'/assets/graphics/{case["slug"]}-cover.webp'),
+            "tags": {"graphicType": [case["type"]], "styles": case["styleTags"], "techniques": case["techniques"]},
             "styles": [GRAPHIC_STYLES[s]["nameZh"] for s in case["styleTags"]],
             "techniques": [GRAPHIC_TECHS[t]["nameZh"] for t in case["techniques"]], "palette": [c["hex"] for c in case["palette"]],
             "credits": case["credits"], "year": case.get("year") or None, "images": [f'/assets/graphics/{im["file"]}' for im in case["images"]], "imagePrompt": case["imagePromptZh"], "prompt": case["codePromptZh"],
@@ -1557,7 +1566,7 @@ def catalog_data():
         items.append({
             "id": "logo:" + logo["slug"], "type": "logo-reference", "slug": logo["slug"],
             "name": logo["name"], "nameZh": logo_name_zh(logo), "url": logo_url(logo),
-            "summary": logo["aboutZh"],
+            "summary": logo["aboutZh"], "summaryEn": logo["about"], "thumb": thumb_if(f'/assets/logos/{logo["image"]}.webp'),
             "tags": {"logoType": [logo["type"]], "use": [logo["use"]]},
             "logoType": LOGO_TYPES[logo["type"]]["nameZh"], "construction": logo["readZh"],
             "website": logo["url"], "license": logo["licenseZh"], "prompt": logo["promptZh"],
