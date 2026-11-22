@@ -68,6 +68,11 @@ def main():
                 failures.append(where("「按钮」: no results"))
                 browser.close()
                 continue
+            # Results whose name contains the words come before ones that only mention them
+            # (「汉堡菜单」 led a search for 按钮 because its summary says 「三条线的按钮」).
+            first = results.first.locator("strong").first.inner_text() if results.first.locator("strong").count() else results.first.inner_text().split("\n")[0]
+            if "按钮" not in first:
+                failures.append(where(f"first result for 按钮 does not have it in its name: {first!r}"))
 
             # Selected from the start: exactly one, the first, announced, and visibly highlighted.
             selected = page.locator(SELECTED)

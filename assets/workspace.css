@@ -181,7 +181,7 @@ body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; 
 .global-search-field input { width: 100%; min-width: 0; outline: none; border: 0; font-size: 16px; color: var(--fg); background: transparent; }
 .global-search-status { padding: 0 22px; font-size: 11px; color: var(--gray-500); }
 .global-search-results { overflow-y: auto; padding: 0 10px 12px; }
-.global-search-result { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; color: var(--fg); transition: background-color .12s; }
+.global-search-result { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 8px; color: var(--fg); transition: background-color var(--dur-1) var(--ease-out); }
 .global-search-result > div { flex: 1; min-width: 0; }
 .global-search-result strong { font-size: 13px; font-weight: 550; }
 .global-search-result p { margin: 3px 0 0; font-size: 11px; color: var(--gray-500); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -497,10 +497,10 @@ picture[data-preview] { position: absolute; inset: 0; }
 /* Signature motion of the breakdown, "fog clears": a mark goes from clear and slightly blurred to sharp
    in place (no movement), 200ms; graphics.js staggers the marks 40ms apart within 400ms. Space marks
    cover large areas, so only their name blurs and the hatched box just fades. Closing: 120ms fade. */
-.gd-ov.is-fog, .gd-ov-palette.is-fog { animation: gd-fog 200ms var(--ease-out) backwards; }
+.gd-ov.is-fog, .gd-ov-palette.is-fog { animation: gd-fog var(--dur-2) var(--ease-out) backwards; }
 .gd-ov-space.is-fog { animation-name: gd-fade; }
-.gd-ov-space.is-fog span { animation: gd-fog 200ms var(--ease-out) backwards; animation-delay: inherit; }
-.gd-ov-leaving > * { animation: gd-leave 120ms ease-in forwards; }
+.gd-ov-space.is-fog span { animation: gd-fog var(--dur-2) var(--ease-out) backwards; animation-delay: inherit; }
+.gd-ov-leaving > * { animation: gd-leave var(--dur-1) var(--ease-in) forwards; }
 @keyframes gd-fog { from { opacity: 0; filter: blur(3px); } to { opacity: 1; filter: blur(0); } }
 @keyframes gd-fade { from { opacity: 0; } }
 @keyframes gd-leave { to { opacity: 0; } }

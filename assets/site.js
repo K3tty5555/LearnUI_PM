@@ -894,9 +894,22 @@
     gsSelect(0);
     if (!catalog) { globalStatus.textContent = catalogFailed ? (en ? "Couldn't load the library. Refresh the page to retry." : "参考库加载失败，请刷新页面重试。") : (en ? "Loading the library…" : "参考库正在加载，请稍后重试。"); return; }
     var q = globalInput.value.trim().toLowerCase();
-    var matches = catalog.items.filter(function (item) {
-      return !q || [item.name, item.nameZh, item.summary, item.summaryEn, item.type].concat(item.visualTraits || [], item.styles || [], item.techniques || []).join(" ").toLowerCase().indexOf(q) !== -1;
-    });
+    // Rank: the name itself first (starting with the words beats containing them), then traits and
+    // techniques, then summaries. Equal scores keep the catalog order.
+    function rank(item) {
+      function has(v) { return v && String(v).toLowerCase().indexOf(q) !== -1; }
+      var names = [item.name, item.nameZh];
+      if (names.some(function (n) { return n && String(n).toLowerCase().indexOf(q) === 0; })) return 100;
+      if (names.some(has)) return 80;
+      if ([].concat(item.visualTraits || [], item.styles || [], item.techniques || [], item.type).some(has)) return 40;
+      if (has(item.summary) || has(item.summaryEn)) return 20;
+      return 0;
+    }
+    var matches = !q ? catalog.items.slice() : catalog.items
+      .map(function (item, i) { return { item: item, score: rank(item), i: i }; })
+      .filter(function (m) { return m.score > 0; })
+      .sort(function (a, b) { return b.score - a.score || a.i - b.i; })
+      .map(function (m) { return m.item; });
     globalStatus.textContent = q ? (matches.length ? (en ? matches.length + " found" : "找到 " + matches.length + " 个参考") : (en ? "Nothing found." : "没有找到相关参考。")) : "";
     if (q && !matches.length) {
       var empty = document.createElement("div");
