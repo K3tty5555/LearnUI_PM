@@ -1,5 +1,5 @@
 {
-  "description": "Card previews for /sites/. 'screenshot' = first screen of the site's real homepage (1440x900 viewport, scaled to 600px wide, top-aligned crop to 600x315). 'template-fallback' = brand-style mock rendered by scripts/gen-site-previews.py. Screenshot rights belong to each website.",
+  "description": "Card previews for /sites/. 'screenshot' = first screen of the site's real homepage (1440x900 viewport, scaled to 600x375; cards crop from the bottom). 'template-fallback' = brand-style mock rendered by scripts/gen-site-previews.py. Screenshot rights belong to each website.",
   "generator": "scripts/capture-site-screens.py",
   "viewport": {
     "width": 1440,
@@ -32,9 +32,9 @@
     },
     "mistral-ai": {
       "url": "https://mistral.ai",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "ollama": {
       "url": "https://ollama.com",
@@ -74,9 +74,9 @@
     },
     "x-ai": {
       "url": "https://x.ai",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "cursor": {
       "url": "https://cursor.com",
@@ -134,9 +134,9 @@
     },
     "hashicorp": {
       "url": "https://hashicorp.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "mongodb": {
       "url": "https://mongodb.com",
@@ -230,9 +230,9 @@
     },
     "figma": {
       "url": "https://figma.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "incomplete: hero carousel images never loaded (grey placeholders)"
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "framer": {
       "url": "https://framer.com",
@@ -242,9 +242,9 @@
     },
     "miro": {
       "url": "https://miro.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: TimeoutError"
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "webflow": {
       "url": "https://webflow.com",
@@ -256,25 +256,25 @@
       "url": "https://binance.com",
       "capturedOn": null,
       "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "reason": "obscured: 'switch to Binance.US' dialog on the runner; retry closes it"
     },
     "coinbase": {
       "url": "https://coinbase.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "kraken": {
       "url": "https://kraken.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "mastercard": {
       "url": "https://www.mastercard.com/us/en.html",
       "capturedOn": null,
       "status": "template-fallback",
-      "reason": "blocked: Akamai 'Access Denied' page"
+      "reason": "blocked: Akamai 'Access Denied' locally and on the GitHub runner (2026-11-22)"
     },
     "revolut": {
       "url": "https://revolut.com",
@@ -302,15 +302,15 @@
     },
     "meta": {
       "url": "https://meta.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://meta.com/"
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "nike": {
-      "url": "https://www.nike.com/us/",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "region: nike.com redirects to nike.com.cn; nike.com/us/ returned a 404 page"
+      "url": "https://nike.com",
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 74
     },
     "shopify": {
       "url": "https://shopify.com",
@@ -350,9 +350,9 @@
     },
     "pinterest": {
       "url": "https://pinterest.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "playstation": {
       "url": "https://www.playstation.com/en-us/",
@@ -362,15 +362,15 @@
     },
     "spacex": {
       "url": "https://spacex.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "blocked: Cloudflare error 1009, region banned"
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "spotify": {
       "url": "https://spotify.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "theverge": {
       "url": "https://theverge.com",
@@ -386,9 +386,9 @@
     },
     "vodafone": {
       "url": "https://vodafone.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "blank: page rendered only the logo; later attempts failed DNS"
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "wired": {
       "url": "https://wired.com",
@@ -400,7 +400,7 @@
       "url": "https://www.bmw.com/en/index.html",
       "capturedOn": null,
       "status": "template-fallback",
-      "reason": "region: bmw.com did not resolve; only the China site bmw.com.cn opened"
+      "reason": "region: bmw.com -> bmw.com.cn locally, -> a bmwusa.com 404 on the runner; global URL pending"
     },
     "bmw-m": {
       "url": "https://bmw-m.com",
@@ -428,27 +428,27 @@
     },
     "renault": {
       "url": "https://renault.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "tesla": {
       "url": "https://tesla.com",
       "capturedOn": null,
       "status": "template-fallback",
-      "reason": "blocked: Akamai 'Access Denied' page"
+      "reason": "blocked: Akamai 'Access Denied' locally and on the GitHub runner (2026-11-22)"
     },
     "dell-1996": {
       "url": "https://web.archive.org/web/19961220if_/http://www.dell.com/",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "nintendo-2001": {
       "url": "https://web.archive.org/web/20010401if_/http://www.nintendo.com/",
       "capturedOn": null,
       "status": "template-fallback",
-      "reason": "capture failed: Page.goto: Timeout 30000ms exceeded."
+      "reason": "archive: the 2001-04 snapshot lost its imagemap; retry with 2001-12"
     }
   }
 }

@@ -54,7 +54,10 @@ URL_OVERRIDES = {
     "claude": "https://www.claude.com/",
     # Historical specs: capture the archived homepage of that era.
     "dell-1996": "https://web.archive.org/web/19961220if_/http://www.dell.com/",
-    "nintendo-2001": "https://web.archive.org/web/20010401if_/http://www.nintendo.com/",
+    "nintendo-2001": "https://web.archive.org/web/20011201if_/http://www.nintendo.com/",
+    # bmw.com sends US visitors to a bmwusa.com 404 and China visitors to bmw.com.cn; the spec
+    # reads the global site.
+    "bmw": "https://www.bmw.com/en/index.html",
 }
 
 # Only for a capture machine in mainland China (the default): these sites geo-redirect to a
@@ -70,7 +73,12 @@ REGION_OVERRIDES = {
     "ibm": "https://www.ibm.com/us-en",
     "lamborghini": "https://www.lamborghini.com/en-en",
     "mastercard": "https://www.mastercard.com/us/en.html",
-    "bmw": "https://www.bmw.com/en/index.html",
+}
+
+# Site-specific prompts to close before the screenshot (button text, exact match).
+SITE_CLOSE = {
+    # "It looks like you're in the United States. Switch to Binance.US" dialog on the runner.
+    "binance": "Close",
 }
 
 # Pages whose hero (video, carousel, client-rendered skeleton) needs longer to settle.
@@ -80,13 +88,11 @@ SLOW = {"figma", "framer", "uber", "vodafone", "runwayml", "expo", "replicate", 
 # Filled in after reviewing the contact sheets (2026-11-21). slug -> reason the template stays.
 # Sites that never loaded are not listed here; `apply` records their last error.
 REJECT = {
-    "mastercard": "blocked: Akamai 'Access Denied' page",
-    "tesla": "blocked: Akamai 'Access Denied' page",
-    "spacex": "blocked: Cloudflare error 1009, region banned",
-    "nike": "region: nike.com redirects to nike.com.cn; nike.com/us/ returned a 404 page",
-    "bmw": "region: bmw.com did not resolve; only the China site bmw.com.cn opened",
-    "vodafone": "blank: page rendered only the logo; later attempts failed DNS",
-    "figma": "incomplete: hero carousel images never loaded (grey placeholders)",
+    "mastercard": "blocked: Akamai 'Access Denied' locally and on the GitHub runner (2026-11-22)",
+    "tesla": "blocked: Akamai 'Access Denied' locally and on the GitHub runner (2026-11-22)",
+    "bmw": "region: bmw.com -> bmw.com.cn locally, -> a bmwusa.com 404 on the runner; global URL pending",
+    "binance": "obscured: 'switch to Binance.US' dialog on the runner; retry closes it",
+    "nintendo-2001": "archive: the 2001-04 snapshot lost its imagemap; retry with 2001-12",
 }
 
 COOKIE_TEXT = re.compile(
@@ -176,7 +182,7 @@ async def capture_one(browser, site, sem, log):
             )
             page = await context.new_page()
             try:
-                resp, clicked = await asyncio.wait_for(load_page(page, site["url"], out, site["slug"] in SLOW), SITE_BUDGET_S)
+                resp, clicked = await asyncio.wait_for(load_page(page, site["url"], out, site["slug"] in SLOW, SITE_CLOSE.get(site["slug"])), SITE_BUDGET_S)
                 log[site["slug"]] = {
                     "url": site["url"], "finalUrl": page.url,
                     "status": resp.status if resp else None, "cookieClicked": clicked,
@@ -195,7 +201,7 @@ async def capture_one(browser, site, sem, log):
                 write_log(log)
 
 
-async def load_page(page, url, out, slow=False):
+async def load_page(page, url, out, slow=False, close=None):
     """goto + settle + cookie click + screenshot; the caller caps the whole thing."""
     resp = await page.goto(url, wait_until="domcontentloaded", timeout=TIMEOUT_MS)
     try:
@@ -204,6 +210,12 @@ async def load_page(page, url, out, slow=False):
         pass
     await page.wait_for_timeout(SLOW_SETTLE_MS if slow else 1500)
     clicked = await dismiss_cookies(page)
+    if close:
+        try:
+            await page.get_by_role("button", name=close, exact=True).first.click(timeout=3000)
+            clicked = True
+        except Exception:
+            pass
     await page.wait_for_timeout(2500 if clicked else 1500)
     # Banners with no clickable consent button: hide fixed overlays that talk about cookies.
     try:
@@ -287,7 +299,8 @@ def apply():
         slug, dest = site["slug"], THUMBS / f'site-{site["slug"]}.webp'
         before += dest.stat().st_size if dest.exists() else 0
         raw = CACHE / f"{slug}.png"
-        entry = {"url": site["url"], "capturedOn": CAPTURED_ON}
+        # The URL actually captured (the runner uses official links, the local machine US pins).
+        entry = {"url": log.get(slug, {}).get("url", site["url"]), "capturedOn": log.get(slug, {}).get("capturedOn", CAPTURED_ON)}
         reason = REJECT.get(slug)
         if not reason and not raw.exists():
             reason = "capture failed: " + log.get(slug, {}).get("error", "no capture")
@@ -302,7 +315,7 @@ def apply():
     shots = sum(1 for r in records.values() if r["status"] == "screenshot")
     SOURCE.write_text(json.dumps({
         "description": "Card previews for /sites/. 'screenshot' = first screen of the site's real homepage "
-                       "(1440x900 viewport, scaled to 600px wide, top-aligned crop to 600x315). "
+                       "(1440x900 viewport, scaled to 600x375; cards crop from the bottom). "
                        "'template-fallback' = brand-style mock rendered by scripts/gen-site-previews.py. "
                        "Screenshot rights belong to each website.",
         "generator": "scripts/capture-site-screens.py",
