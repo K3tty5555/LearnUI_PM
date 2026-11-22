@@ -5,6 +5,7 @@
   clicked twice in a row (the second click used to remember "Copied" as the label).
 - A copy that fails says so in the page language and recovers; it must not wipe the bilingual
   label (it used to replace the whole button with a Chinese-only sentence).
+- A copy button copies the text in the language on screen.
 - Copy buttons without separate language spans (graphic and logo pages) also recover.
 - "Add to reference" speaks the page language, visibly and to screen readers, and announces the
   new total.
@@ -27,7 +28,7 @@ spec.loader.exec_module(logo_layout)
 
 # Replace the clipboard so the test controls success or failure in every engine.
 CLIPBOARD = """ok => {
-  const fake = { writeText: () => ok ? Promise.resolve() : Promise.reject(new Error('denied')) };
+  const fake = { writeText: v => { window.__copied = v; return ok ? Promise.resolve() : Promise.reject(new Error('denied')); } };
   Object.defineProperty(navigator, 'clipboard', { configurable: true, get: () => fake });
   document.execCommand = () => ok;
 }"""
@@ -60,6 +61,12 @@ def main():
             page.wait_for_timeout(2200)
             if btn.evaluate(LABEL) != before:
                 failures.append(where(f"copy: stuck as {btn.evaluate(LABEL)!r} after a double click (was {before!r})"))
+
+            # 1b. What is copied is what the reader sees: the Chinese prompt in Chinese mode
+            #     (the English one was always copied, an upstream leftover), with a hint for what next.
+            copied = page.evaluate("window.__copied || ''")
+            if not any("一" <= ch <= "鿿" for ch in copied):
+                failures.append(where(f"copy in Chinese mode copied non-Chinese text: {copied[:40]!r}"))
 
             # 2. Failure keeps both language spans and recovers, in English mode too.
             page.locator('.ls-btn[data-mode="en"]:visible').click()

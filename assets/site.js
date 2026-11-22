@@ -1089,6 +1089,10 @@
     btn.addEventListener("click", function () {
       var target = document.getElementById(btn.getAttribute("data-copy"));
       if (!target) return;
+      // Copy what the reader sees: the Chinese text in Chinese mode, if the block has one.
+      var block = btn.closest(".copy-block");
+      var shown = block && mode() !== "en" && block.querySelector(".copy-text .lang-zh");
+      if (shown && shown.textContent.trim()) target = shown;
       copyText(target.textContent).then(function () { flash(btn); }, function () { flash(btn, false); });
     });
   });

@@ -624,3 +624,9 @@ picture[data-preview] { position: absolute; inset: 0; }
 @keyframes ink-settle { from { background: var(--fg); color: #fff; box-shadow: 0 0 0 3px var(--fg); } }
 .is-inked { border-radius: 4px; animation: ink-settle var(--dur-3) var(--ease-out); }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* A copied prompt is headed for an AI tool: a small tip fogs in above the button to say so, and
+   leaves with the "copied" state. Prompts only, not code blocks. */
+@keyframes fog-in { from { opacity: 0; filter: blur(3px); } }
+.copy-block .btn-copy.done::after { content: "可粘贴给 AI"; position: absolute; right: 0; bottom: calc(100% + 6px); padding: 3px 8px; border-radius: 5px; background: var(--fg); color: #fff; font-size: 11px; white-space: nowrap; pointer-events: none; animation: fog-in var(--dur-2) var(--ease-out); }
+[data-lang-mode="en"] .copy-block .btn-copy.done::after { content: "Paste it into your AI tool"; }
