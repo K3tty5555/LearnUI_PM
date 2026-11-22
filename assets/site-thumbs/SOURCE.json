@@ -254,9 +254,9 @@
     },
     "binance": {
       "url": "https://binance.com",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "obscured: 'switch to Binance.US' dialog on the runner; retry closes it"
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     },
     "coinbase": {
       "url": "https://coinbase.com",
@@ -400,7 +400,7 @@
       "url": "https://www.bmw.com/en/index.html",
       "capturedOn": null,
       "status": "template-fallback",
-      "reason": "region: bmw.com -> bmw.com.cn locally, -> a bmwusa.com 404 on the runner; global URL pending"
+      "reason": "region: BMW forces a regional site (bmw.com.cn locally; a bmwusa.com 404 on the runner, even from bmw.com/en) (2026-11-22)"
     },
     "bmw-m": {
       "url": "https://bmw-m.com",
@@ -445,10 +445,10 @@
       "webpQuality": 80
     },
     "nintendo-2001": {
-      "url": "https://web.archive.org/web/20010401if_/http://www.nintendo.com/",
-      "capturedOn": null,
-      "status": "template-fallback",
-      "reason": "archive: the 2001-04 snapshot lost its imagemap; retry with 2001-12"
+      "url": "https://web.archive.org/web/20010822153959if_/http://www.nintendo.com/",
+      "capturedOn": "2026-11-22",
+      "status": "screenshot",
+      "webpQuality": 80
     }
   }
 }

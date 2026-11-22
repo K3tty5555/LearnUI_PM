@@ -54,7 +54,7 @@ URL_OVERRIDES = {
     "claude": "https://www.claude.com/",
     # Historical specs: capture the archived homepage of that era.
     "dell-1996": "https://web.archive.org/web/19961220if_/http://www.dell.com/",
-    "nintendo-2001": "https://web.archive.org/web/20011201if_/http://www.nintendo.com/",
+    "nintendo-2001": "https://web.archive.org/web/20010822153959if_/http://www.nintendo.com/",
     # bmw.com sends US visitors to a bmwusa.com 404 and China visitors to bmw.com.cn; the spec
     # reads the global site.
     "bmw": "https://www.bmw.com/en/index.html",
@@ -90,9 +90,8 @@ SLOW = {"figma", "framer", "uber", "vodafone", "runwayml", "expo", "replicate", 
 REJECT = {
     "mastercard": "blocked: Akamai 'Access Denied' locally and on the GitHub runner (2026-11-22)",
     "tesla": "blocked: Akamai 'Access Denied' locally and on the GitHub runner (2026-11-22)",
-    "bmw": "region: bmw.com -> bmw.com.cn locally, -> a bmwusa.com 404 on the runner; global URL pending",
-    "binance": "obscured: 'switch to Binance.US' dialog on the runner; retry closes it",
-    "nintendo-2001": "archive: the 2001-04 snapshot lost its imagemap; retry with 2001-12",
+    "bmw": "region: BMW forces a regional site (bmw.com.cn locally; a bmwusa.com 404 on the runner, "
+           "even from bmw.com/en) (2026-11-22)",
 }
 
 COOKIE_TEXT = re.compile(

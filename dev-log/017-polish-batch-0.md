@@ -49,3 +49,11 @@
 - 知名网站 20 张模板图：换个能打开这些网站的网络环境重跑 `capture-site-screens.py capture <slug…>` → `apply`。有小瑕疵的截图（sanity 的 Cookie 框、runwayml / shopify / framer 视频没加载的黑底等）可一并重截。
 - 首页侧栏与大标题的标语重复：做出样子后问用户（标语是 2026-11-18 拍板的）。
 - 第 1 批其余项（首屏标本橱窗、平面设计图层拆解动作、复制与收藏反馈）等用户确认第 0 批方向后再做。
+
+## 追加（2026-11-22 借 GitHub 的服务器补截知名网站）
+
+用户本机网络打不开或会被跳到中国区的 20 个网站，用户要求另想办法。做法：新增只能手动触发的 `.github/workflows/capture-site-screens.yml`，在 GitHub 的美国服务器上跑截图脚本，只上传截图包、不部署；本地用 `gh run download` 取回，逐张审图后出图。截图脚本加 `SITE_SCREEN_REGION=intl`（海外不套用为躲中国区写死的美国页面，例如 nike.com/us/ 在美国是 404）。
+
+- 第一轮 20 个全部打开，15 张可用；第二轮重试 3 个：Binance 截图前点掉「请去 Binance.US」的弹窗，任天堂 2001 改用 2001-08-22 的完整存档，均可用。
+- 结果：74 张里 71 张是真实截图。剩 3 张模板：Mastercard、Tesla（本机和 GitHub 服务器上都是 Akamai「访问被拒绝」），BMW（按访问地区强制跳转：本机到 bmw.com.cn，美国到 bmwusa.com 的 404，用全球站地址也一样）。原因写在 `SOURCE.json`。
+- 用户同意了这两次推送（第二次连同「重试合格就直接上线」）。
