@@ -63,6 +63,17 @@
     });
   }
 
+  /* Hovering a link for a moment fetches that page's HTML (no images, no specimens), so the click
+     opens at once. "moderate" = only after a ~200 ms hover; verify-performance.py forbids eager
+     modes, which would spend the mirror's bandwidth. Chromium only; elsewhere nothing happens. */
+  if (window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules")) {
+    var rules = document.createElement("script");
+    rules.type = "speculationrules";
+    rules.textContent = JSON.stringify({ prefetch: [{ source: "document", eagerness: "moderate",
+      where: { and: [{ href_matches: "/*/" }, { not: { selector_matches: "[download], [target=_blank]" } }] } }] });
+    document.head.appendChild(rules);
+  }
+
   /* Controls animate only after the first paint has settled, so nothing slides into place on load. */
   requestAnimationFrame(function () { requestAnimationFrame(function () { document.documentElement.classList.add("motion-ready"); }); });
 
@@ -784,6 +795,18 @@
     return lines.join("\n");
   }
 
+  /* Taking something away: the collection counts "ink" for a moment (dictionary:
+     success-feedback) and screen readers hear the new total. */
+  var announcer = document.createElement("p");
+  announcer.id = "selection-announce";
+  announcer.className = "sr-only";
+  announcer.setAttribute("role", "status");
+  document.body.appendChild(announcer);
+  function inkCounts() {
+    document.querySelectorAll("[data-selection-total], #selection-count").forEach(function (el) {
+      el.classList.remove("is-inked"); void el.offsetWidth; el.classList.add("is-inked");
+    });
+  }
   document.querySelectorAll("[data-select-id]").forEach(function (button) {
     button.addEventListener("click", function () {
       var id = button.getAttribute("data-select-id");
@@ -795,6 +818,11 @@
       document.querySelectorAll("[data-selection-total]").forEach(function (el) { el.textContent = selectedIds.length; });
       selectionDock.hidden = !selectedIds.length;
       selectionCount.textContent = selectedIds.length;
+      if (index === -1) inkCounts();
+      var n = selectedIds.length, en = mode() === "en";
+      announcer.textContent = index === -1
+        ? (en ? "Added to your collection, " + n + " in total." : "已加入参考集，共 " + n + " 个。")
+        : (en ? "Removed from your collection, " + n + " left." : "已从参考集移除，还剩 " + n + " 个。");
       if (catalog) renderSelection();
     });
   });

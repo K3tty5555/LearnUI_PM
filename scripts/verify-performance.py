@@ -71,6 +71,11 @@ def verify(root):
         for decl in re.findall(r'(?<![-\w])(?:transition|animation)(?:-duration)?\s*:[^;}]*', css):
             if re.search(r'(?<![\w-])\d*\.?\d+m?s\b', decl) and '!important' not in decl:
                 raise AssertionError(f'{name}: literal duration in "{decl.strip()}"; use a --dur-* token')
+    # Hover prefetch must stay "moderate" or "conservative": eager modes would fetch every link on
+    # sight and spend the mirror's limited bandwidth (2026-11-21).
+    runtime = (shell / 'site.js').read_text()
+    for mode in re.findall(r'eagerness\s*:\s*["\']([a-z]+)', runtime):
+        assert mode in ('moderate', 'conservative'), f'site.js: speculation eagerness "{mode}" is too eager'
     worker = (root / 'sw.js').read_text()
     assert 'GENERATED_PAGES' not in worker and '.addAll(' not in worker, 'Whole-library prefetch must not return'
     assert (root / 'offline.html').stat().st_size < 4096, 'Offline install shell grew beyond 4 KB'

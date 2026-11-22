@@ -207,7 +207,7 @@ def select_button(item_id, compact=False):
 def selection_panel():
     return f'''<div class="selection-dock" id="selection-dock" hidden>
  <button type="button" class="selection-dock-button" id="selection-open" aria-controls="selection-dialog">
-  已选参考 <b id="selection-count">0</b>
+  <span class="lang-zh">已选参考</span><span class="lang-en">Collected</span> <b id="selection-count">0</b>
  </button>
 </div>
 <dialog class="selection-dialog" id="selection-dialog" aria-labelledby="selection-title">
@@ -292,6 +292,25 @@ def footer():
  <div class="def-src" id="def-src"></div>
 </div>'''
 
+def strip_js(js):
+    """The runtime is inlined into every page, so drop whole-line comments, blank lines and
+    indentation on the way in (about 10 KB per page). Only whole lines go: line breaks stay, so
+    automatic semicolons are unchanged, and trailing comments are left alone. The runtime has no
+    template literals or other multi-line strings (checked 2026-11-22)."""
+    out, in_block = [], False
+    for line in js.split("\n"):
+        t = line.strip()
+        if in_block:
+            in_block = "*/" not in t
+            continue
+        if t.startswith("/*"):
+            in_block = "*/" not in t
+            continue
+        if t and not t.startswith("//"):
+            out.append(t)
+    return "\n".join(out)
+
+
 def minify_css(css):
     """The chrome CSS is inlined into every page (no extra request), so strip comments and
     whitespace on the way in: about 10 KB per page. Only whitespace around { } ; , > goes;
@@ -365,7 +384,7 @@ def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/
 {selection_panel()}
 {global_search_panel()}
 {demo_js}
-<script data-site-runtime="{ASSET_VERSION}">{chrome_js}</script>
+<script data-site-runtime="{ASSET_VERSION}">{strip_js(chrome_js)}</script>
 </body>
 </html>'''
 

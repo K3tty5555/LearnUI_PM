@@ -6,7 +6,8 @@
 - A copy that fails says so in the page language and recovers; it must not wipe the bilingual
   label (it used to replace the whole button with a Chinese-only sentence).
 - Copy buttons without separate language spans (graphic and logo pages) also recover.
-- "Add to reference" speaks the page language, visibly and to screen readers.
+- "Add to reference" speaks the page language, visibly and to screen readers, and announces the
+  new total.
 - "New" badges disappear on their own once their end date has passed.
 - The platform tabs (All / Web / macOS) filter on the very first click.
 - Search explains a match in plain words ("you said X — this is the one"), in the page language.
@@ -84,6 +85,10 @@ def main():
             for value, what in ((text, "label"), (aria, "aria-label")):
                 if any("一" <= ch <= "鿿" for ch in value):
                     failures.append(where(f"add to reference: Chinese {what} {value!r} in English mode"))
+            # Screen readers hear what happened and how many are collected now.
+            said = page.locator("#selection-announce").inner_text() if page.locator("#selection-announce").count() else ""
+            if "1" not in said or any("一" <= ch <= "鿿" for ch in said):
+                failures.append(where(f"add to reference: no English announcement with the total ({said!r})"))
             add.click()  # leave the collection empty
             page.locator('.ls-btn[data-mode="zh"]:visible').click()
 
