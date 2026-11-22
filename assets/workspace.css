@@ -617,9 +617,10 @@ picture[data-preview] { position: absolute; inset: 0; }
 }
 
 /* The one shared-element flight: a graphic cover into its case page's lead image (desktop). */
-@media (min-width: 761px) { .gd-orig-lead img { view-transition-name: gd-hero; } }
-::view-transition-group(gd-hero) { animation-duration: var(--dur-3); animation-timing-function: var(--ease-out); }
+@media (min-width: 761px) { .gd-orig-lead img { view-transition-name: gd-hero; } .logo-showcase .logo-plate-light .logo-art { view-transition-name: logo-hero; } }
+::view-transition-group(gd-hero), ::view-transition-group(logo-hero) { animation-duration: var(--dur-3); animation-timing-function: var(--ease-out); }
 ::view-transition-old(gd-hero), ::view-transition-new(gd-hero) { height: 100%; object-fit: cover; }
+::view-transition-old(logo-hero), ::view-transition-new(logo-hero) { height: 100%; object-fit: contain; }
 
 /* Collection counts "ink" when something is added: the number briefly turns ink-on-white then
    settles back, no bounce (dictionary: success-feedback). */
@@ -659,3 +660,9 @@ picture[data-preview] { position: absolute; inset: 0; }
 .colophon-table th { text-align: left; font-size: 12px; font-weight: 500; color: var(--gray-500); padding: 0 12px 10px 0; border-bottom: 1px solid var(--line-strong); }
 .colophon-table td { padding: 13px 12px 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
 .colophon-table td:nth-child(2) { white-space: nowrap; }
+
+/* Type chips (graphic design, logos) only change colour; the results under them fade in again
+   after a filter instead of jumping or reflowing (a masonry reflow would criss-cross the page). */
+.logo-type-chip { transition: background-color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out); }
+@keyframes results-in { from { opacity: 0; } }
+.is-refiltered { animation: results-in var(--dur-2) var(--ease-out); }

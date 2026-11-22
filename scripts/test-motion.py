@@ -3,7 +3,8 @@
 
 Normal motion (Chromium; the view-transition checks need its cross-document support):
 - following a link cross-fades the page with the sidebar kept as its own still layer;
-- a graphic cover flies into its case page (gd-hero) and back to its card;
+- a graphic cover flies into its case page (gd-hero) and back to its card; a logo flies into
+  its detail page (logo-hero);
 - the platform tabs' pill slides; the command search dialog animates in;
 - hover prefetch is set to "moderate".
 Reduced motion (Chromium and WebKit):
@@ -68,6 +69,14 @@ def main():
                 layers = page.evaluate("window.__vt")
                 if not isinstance(layers, list) or not any("gd-hero" in l for l in layers):
                     failures.append(where(f"cover did not fly back to its card ({layers})"))
+
+                page.goto(base + "/logos/")
+                page.wait_for_timeout(1000)
+                page.locator("a.logo-card").nth(1).click()
+                page.wait_for_timeout(900)
+                layers = page.evaluate("window.__vt")
+                if not isinstance(layers, list) or not any("logo-hero" in l for l in layers):
+                    failures.append(where(f"logo did not fly into its detail page ({layers})"))
 
                 page.goto(base + "/")
                 page.wait_for_timeout(800)

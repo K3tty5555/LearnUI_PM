@@ -15,7 +15,9 @@ def prefix_root_urls(text: str, base: str) -> str:
         return text
     # Every generated root-relative URL is quoted. Keep protocol URLs and already
     # prefixed paths untouched so the script remains safe to run twice.
-    pattern = re.compile(r'(["\'])/(?!/)(?!' + re.escape(base.lstrip("/")) + r'(?:/|["\']))')
+    # A quote followed by "/" starts a root path, except "/>" which closes a tag (an SVG path's
+    # last attribute ends in a quote, so `d="..."/>` was rewritten to `d="..."/UIUX/>`).
+    pattern = re.compile(r'(["\'])/(?![/>])(?!' + re.escape(base.lstrip("/")) + r'(?:/|["\']))')
     text = pattern.sub(lambda match: match.group(1) + base + "/", text)
     # srcset lists several URLs; candidates after the first follow a comma, not a quote.
     candidate = re.compile(r'(,\s*)/(?!/)(?!' + re.escape(base.lstrip("/")) + r'/)')

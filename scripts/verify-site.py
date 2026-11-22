@@ -40,6 +40,9 @@ def verify(root, base):
     if not pages:
         raise SystemExit('No generated HTML pages found.')
     for page in pages:
+        # The base-path rewrite must not touch self-closing tags (it turned `"/>` into `"/UIUX/>`).
+        if prefix and (prefix + '/>') in page.read_text(encoding='utf-8'):
+            failures.add(f'{page.relative_to(root)}: base path written into a self-closing tag ("{prefix}/>")')
         parser = PageLinks()
         parser.source = page.relative_to(root)
         parser.feed(page.read_text(encoding='utf-8'))

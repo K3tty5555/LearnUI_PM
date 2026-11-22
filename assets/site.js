@@ -41,25 +41,30 @@
     document.querySelectorAll("picture[data-preview]").forEach(loadPreview);
   }
 
-  /* A graphic case's cover flies into its page's lead image and back (dictionary:
-     shared-element-transition). Desktop only: on phones the lead image is below the fold. The
-     case page names its lead image in CSS; the list names only the clicked (or returned-to) card,
-     because a name must be unique on a page. */
+  /* An image card flies into its detail page and back (dictionary: shared-element-transition):
+     a graphic case's cover into its lead original, a logo into its showcase plate. Desktop only:
+     on phones the target sits below the fold. Detail pages name their image in CSS; the list
+     names only the clicked (or returned-to) card, because a name must be unique on a page. */
   if (window.matchMedia && matchMedia("(min-width: 761px)").matches) {
-    var heroName = function (img, on) { if (img) img.style.viewTransitionName = on ? "gd-hero" : ""; };
+    var flights = [["a.graphic-card", ".gd-cover img", "gd-hero"], ["a.logo-card", ".logo-art", "logo-hero"]];
+    var heroName = function (img, name) { if (img) img.style.viewTransitionName = name || ""; };
     document.addEventListener("click", function (event) {
-      var card = event.target.closest && event.target.closest("a.graphic-card");
-      if (card) heroName(card.querySelector(".gd-cover img"), true);
+      flights.forEach(function (f) {
+        var card = event.target.closest && event.target.closest(f[0]);
+        if (card) heroName(card.querySelector(f[1]), f[2]);
+      });
     });
     window.addEventListener("pagereveal", function (event) {
-      document.querySelectorAll("a.graphic-card .gd-cover img").forEach(function (img) { heroName(img, false); });
       var from = window.navigation && navigation.activation && navigation.activation.from;
-      if (!event.viewTransition || !from) return;
-      var back = [].filter.call(document.querySelectorAll("a.graphic-card"), function (a) { return a.href === from.url; })[0];
-      if (!back) return;
-      var img = back.querySelector(".gd-cover img");
-      heroName(img, true);
-      event.viewTransition.finished.finally(function () { heroName(img, false); });
+      flights.forEach(function (f) {
+        document.querySelectorAll(f[0] + " " + f[1]).forEach(function (img) { heroName(img, ""); });
+        if (!event.viewTransition || !from) return;
+        var back = [].filter.call(document.querySelectorAll(f[0]), function (a) { return a.href === from.url; })[0];
+        if (!back) return;
+        var img = back.querySelector(f[1]);
+        heroName(img, f[2]);
+        event.viewTransition.finished.finally(function () { heroName(img, ""); });
+      });
     });
   }
 
@@ -85,6 +90,14 @@
       glass.classList.add("is-lit");
     });
     glass.addEventListener("pointerleave", function () { glass.classList.remove("is-lit"); });
+  }
+
+  /* After a type filter, the result grid fades in again (no reflow animation). */
+  function refade(itemSelector) {
+    var item = document.querySelector(itemSelector);
+    var grid = item && item.parentElement;
+    if (!grid) return;
+    grid.classList.remove("is-refiltered"); void grid.offsetWidth; grid.classList.add("is-refiltered");
   }
 
   /* Controls animate only after the first paint has settled, so nothing slides into place on load. */
@@ -522,7 +535,7 @@
     var syncGraphics = function () { syncURL({ q: gdInput.value.trim() || null, type: gdType || null, style: gdStyle && gdStyle.value || null }); };
     var syncGraphicsD = debounce(syncGraphics, 200);
     gdInput.addEventListener("input", function () { applyGraphics(); syncGraphicsD(); });
-    gdChips.forEach(function (chip) { chip.addEventListener("click", function () { gdType = chip.getAttribute("data-gd-type"); applyGraphics(); syncGraphics(); }); });
+    gdChips.forEach(function (chip) { chip.addEventListener("click", function () { gdType = chip.getAttribute("data-gd-type"); applyGraphics(); syncGraphics(); refade(".graphic-item"); }); });
     if (gdStyle) gdStyle.addEventListener("change", function () { applyGraphics(); syncGraphics(); });
     if (gdReset) gdReset.addEventListener("click", function () { gdInput.value = ""; gdType = ""; if (gdStyle) { gdStyle.value = ""; gdStyle.dispatchEvent(new Event("change")); } applyGraphics(); syncGraphics(); gdInput.focus(); });
     gdInput.value = gdParams.get("q") || "";
@@ -574,7 +587,7 @@
     var syncLogosD = debounce(syncLogos, 200);
     logoInput.addEventListener("input", function () { applyLogos(); syncLogosD(); });
     logoChips.forEach(function (chip) {
-      chip.addEventListener("click", function () { logoType = chip.getAttribute("data-logo-type"); applyLogos(); syncLogos(); });
+      chip.addEventListener("click", function () { logoType = chip.getAttribute("data-logo-type"); applyLogos(); syncLogos(); refade(".logo-item"); });
     });
     if (logoUse) logoUse.addEventListener("change", function () { applyLogos(); syncLogos(); });
     if (logoReset) logoReset.addEventListener("click", function () {
