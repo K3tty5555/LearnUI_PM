@@ -304,6 +304,12 @@ def minify_css(css):
 
 def page(title_en, title_zh, desc_en, desc_zh, body, path="", og_image="/assets/og/_default.png", jsonld=""):
     body = body.replace('<main ', '<main id="main-content" tabindex="-1" ', 1)
+    # Mark the current section in the static HTML (site.js used to add it after load), so the
+    # first painted frame, and a page-to-page transition, already shows the right nav item.
+    top = path.split("/")[0]
+    section = "/#top" if top in ("", "web", "macos") else f"/{top}/" if top in ("sites", "logos", "graphics", "styles") else None
+    if section:
+        body = body.replace(f'<a href="{section}">', f'<a href="{section}" class="current" aria-current="page">', 1)
     chrome_css = minify_css("\n".join(open(os.path.join(ROOT, "assets", name), encoding="utf-8").read() for name in ("site.css", "workspace.css")))
     chrome_js = open(os.path.join(ROOT, "assets/site.js"), encoding="utf-8").read()
     if 'data-live-demo=' in body:

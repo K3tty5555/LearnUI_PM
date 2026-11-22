@@ -8,6 +8,7 @@
 - Copy buttons without separate language spans (graphic and logo pages) also recover.
 - "Add to reference" speaks the page language, visibly and to screen readers.
 - "New" badges disappear on their own once their end date has passed.
+- The platform tabs (All / Web / macOS) filter on the very first click.
 - Search explains a match in plain words ("you said X — this is the one"), in the page language.
 
 Usage: python3 scripts/test-feedback.py site [--base /UIUX] [--engines chromium,webkit]
@@ -97,6 +98,17 @@ def main():
                 md.click(); page.wait_for_timeout(2200)
                 if md.evaluate(LABEL) != before:
                     failures.append(where(f"{path} copy-md: stuck as {md.evaluate(LABEL)!r}"))
+            # 7. Platform tabs filter on the first click, before the search box was ever used
+            #    (they did nothing until the search index happened to load, 2026-11-21).
+            page.goto(base + "/")
+            page.locator('.tab[data-filter="macos"]').click()
+            page.wait_for_timeout(1500)
+            shown = page.locator(".catalog-item[data-platform]:visible").evaluate_all("els => els.map(e => e.dataset.platform)")
+            if not shown or set(shown) != {"macos"}:
+                failures.append(where(f"platform tab did not filter on first click: {sorted(set(shown))}"))
+            if not page.locator('.tab[data-filter="macos"].active').count():
+                failures.append(where("platform tab not marked active after click"))
+
             # 6. Search says why a card matched in plain words, in the page language.
             page.goto(base + "/")
             page.locator("#search").fill("三个点")

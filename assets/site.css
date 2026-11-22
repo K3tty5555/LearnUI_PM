@@ -20,6 +20,14 @@
   --ring: rgba(0, 112, 243, 0.28);
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* Motion tokens (2026-11-21, docs/polish-plan.md). Every transition and animation in the shell
+     uses these; verify-performance.py rejects literal durations. Exits are shorter than entries. */
+  --dur-press: 60ms;   /* a pressed control */
+  --dur-1: 120ms;      /* hover, colour, small state changes */
+  --dur-2: 200ms;      /* segmented controls, menus, fog-in of small layers */
+  --dur-3: 320ms;      /* dialogs, the one shared-element flight */
+  --dur-out: 140ms;    /* anything leaving */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --shadow-pop: 0 8px 30px rgba(0, 0, 0, 0.12);
   --radius: 8px;
 }
@@ -81,7 +89,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .site-nav::-webkit-scrollbar { display: none; }
 .site-nav a {
   font-size: 13.5px; color: var(--gray-600); display: inline-flex; align-items: baseline; gap: 5px;
-  white-space: nowrap; transition: color 120ms var(--ease-out);
+  white-space: nowrap; transition: color var(--dur-1) var(--ease-out);
 }
 .site-nav a:hover { color: var(--fg); }
 .site-nav a.current { color: var(--fg); font-weight: 600; box-shadow: inset 0 -2px 0 var(--blue); }
@@ -91,7 +99,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .ls-btn {
   border: 0; background: transparent; padding: 4px 10px; font-size: 12px;
   font-family: var(--font-sans); color: var(--gray-600); cursor: pointer;
-  transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out);
+  transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
 }
 .ls-btn + .ls-btn { border-left: 1px solid var(--line); }
 .ls-btn:hover { background: var(--fill); }
@@ -118,7 +126,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
   display: flex; align-items: center; gap: 8px; flex: 1; min-width: 240px; max-width: 440px;
   background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 0 12px; height: 40px; color: var(--gray-400);
-  transition: border-color 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
+  transition: border-color var(--dur-1) var(--ease-out), box-shadow var(--dur-1) var(--ease-out);
 }
 .search-box:focus-within { border-color: var(--fg); box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06); }
 .search-box input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--fg); min-width: 0; }
@@ -132,7 +140,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
   display: inline-flex; align-items: center; gap: 6px;
   border: 1px solid var(--line); border-radius: 6px; background: var(--bg);
   padding: 0 14px; height: 40px; font: inherit; font-size: 13.5px; color: var(--fg);
-  cursor: pointer; transition: border-color 120ms var(--ease-out), background-color 120ms var(--ease-out), transform 60ms var(--ease-out);
+  cursor: pointer; transition: border-color var(--dur-1) var(--ease-out), background-color var(--dur-1) var(--ease-out), transform var(--dur-press) var(--ease-out);
 }
 .btn:hover { border-color: var(--gray-400); }
 .btn:active { transform: scale(0.97); }
@@ -140,7 +148,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .tab {
   border: 0; background: transparent; padding: 0 16px; font: inherit;
   font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px;
-  color: var(--gray-600); cursor: pointer; transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out);
+  color: var(--gray-600); cursor: pointer; transition: background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
 }
 .tab + .tab { border-left: 1px solid var(--line); }
 .tab:hover { background: var(--fill); }
@@ -158,7 +166,7 @@ mark { background: var(--blue-soft); color: inherit; border-radius: 2px; padding
 .stage {
   position: relative; overflow: hidden; border: 1px solid var(--line);
   border-radius: var(--radius); background: var(--bg-2);
-  transition: border-color 160ms var(--ease-out);
+  transition: border-color var(--dur-1) var(--ease-out);
 }
 .stage-card { height: 200px; }
 .card:hover .stage { border-color: var(--gray-400); }
@@ -304,7 +312,7 @@ input[type="search"]::-webkit-search-cancel-button, .search-box input::-webkit-s
 .rel-card {
   display: flex; flex-direction: column; gap: 4px; padding: 14px 16px;
   border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg);
-  color: var(--fg); transition: border-color 120ms var(--ease-out);
+  color: var(--fg); transition: border-color var(--dur-1) var(--ease-out);
 }
 .rel-card:hover { border-color: var(--gray-400); color: var(--fg); text-decoration: none; }
 .rel-name { font-size: 13.5px; font-weight: 500; display: flex; flex-direction: column; }
@@ -385,7 +393,7 @@ input[type="search"]::-webkit-search-cancel-button, .search-box input::-webkit-s
   min-height: 38px; padding: 8px 12px; display: inline-flex; flex: none; align-items: center; justify-content: center;
   border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--gray-600);
   font: 500 13px/1.35 var(--font-sans); white-space: nowrap; cursor: pointer;
-  transition: border-color 120ms var(--ease-out), background-color 120ms var(--ease-out), color 120ms var(--ease-out), transform 60ms var(--ease-out);
+  transition: border-color var(--dur-1) var(--ease-out), background-color var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), transform var(--dur-press) var(--ease-out);
 }
 .cat-tab:hover { border-color: var(--gray-400); color: var(--fg); }
 .cat-tab:active { transform: scale(.97); }

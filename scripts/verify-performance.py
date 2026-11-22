@@ -62,6 +62,15 @@ def verify(root):
         assert len(data) < 380_000, f'{name}: HTML exceeds 380 KB budget'
         assert len(gzip.compress(data)) < 85_000, f'{name}: compressed HTML exceeds 85 KB budget'
         print(f'{name}: {len(data)} bytes, {len(gzip.compress(data))} gzip bytes, {parsed.scripts} scripts')
+    # Motion uses the tokens in site.css (--dur-*), never literal durations, so the whole shell keeps
+    # one rhythm (2026-11-21). The reduced-motion overrides (!important) are the only exception.
+    import re
+    shell = Path(__file__).resolve().parents[1] / 'assets'
+    for name in ('site.css', 'workspace.css'):
+        css = re.sub(r'/\*.*?\*/', '', (shell / name).read_text(), flags=re.S)
+        for decl in re.findall(r'(?<![-\w])(?:transition|animation)(?:-duration)?\s*:[^;}]*', css):
+            if re.search(r'(?<![\w-])\d*\.?\d+m?s\b', decl) and '!important' not in decl:
+                raise AssertionError(f'{name}: literal duration in "{decl.strip()}"; use a --dur-* token')
     worker = (root / 'sw.js').read_text()
     assert 'GENERATED_PAGES' not in worker and '.addAll(' not in worker, 'Whole-library prefetch must not return'
     assert (root / 'offline.html').stat().st_size < 4096, 'Offline install shell grew beyond 4 KB'

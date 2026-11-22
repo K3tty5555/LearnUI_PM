@@ -41,6 +41,9 @@
     document.querySelectorAll("picture[data-preview]").forEach(loadPreview);
   }
 
+  /* Controls animate only after the first paint has settled, so nothing slides into place on load. */
+  requestAnimationFrame(function () { requestAnimationFrame(function () { document.documentElement.classList.add("motion-ready"); }); });
+
   /* "New" badges carry their end date: hide them once it has passed, even without a rebuild. */
   (function () {
     var today = new Date().toISOString().slice(0, 10);
@@ -260,7 +263,8 @@
     var noResult = document.getElementById("no-result");
     var countNote = document.getElementById("count-note");
     var tabBtns = Array.prototype.slice.call(document.querySelectorAll(".tab[data-filter]"));
-    var state = { q: searchInput ? searchInput.value : "", platform: "all" };
+    var activeTab = document.querySelector(".tab.active[data-filter]");
+    var state = { q: searchInput ? searchInput.value : "", platform: activeTab ? activeTab.getAttribute("data-filter") : "all" };
 
     function score(item, q) {
       var s = 0;
@@ -368,7 +372,7 @@
       searchInput.value = qq;
       state.q = qq;
     }
-    if (qp || qq || state.q) apply();
+    if (qp || qq || state.q || state.platform !== "all") apply();
 
     // no-result example chips
     document.querySelectorAll(".no-result-examples button[data-q]").forEach(function (btn) {
@@ -407,6 +411,7 @@
       };
       var searchInput = document.getElementById("search");
       if (searchInput) searchInput.addEventListener("focus", loadSearch, { once: true });
+      document.addEventListener("learnui:needsearch", loadSearch);
       var params = new URLSearchParams(location.search);
       if (params.get("q") || params.get("platform")) loadSearch();
     } else {
@@ -924,10 +929,17 @@
     if (event.key === "ArrowUp" && results.length) { event.preventDefault(); if (index <= 0) globalInput.focus(); else results[index - 1].focus(); }
     if (event.key === "Enter" && document.activeElement === globalInput && results.length) { event.preventDefault(); results[0].click(); }
   });
+  /* Platform tabs work from the first click: mark the choice at once and ask for the search index,
+     which applies the chosen platform when it arrives (until 2026-11-21 a click before the search
+     box was ever focused did nothing). */
   document.querySelectorAll(".tab[data-filter]").forEach(function (button) {
     button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
     button.addEventListener("click", function () {
-      document.querySelectorAll(".tab[data-filter]").forEach(function (tab) { tab.setAttribute("aria-pressed", tab === button ? "true" : "false"); });
+      document.querySelectorAll(".tab[data-filter]").forEach(function (tab) {
+        tab.classList.toggle("active", tab === button);
+        tab.setAttribute("aria-pressed", tab === button ? "true" : "false");
+      });
+      document.dispatchEvent(new Event("learnui:needsearch"));
     });
   });
 

@@ -111,11 +111,11 @@ main:focus { outline: none; }
 /* Styled filter dropdown: the native <select> popup cannot be themed, so site.js adds a button + glass menu and hides the select. */
 .site-filter-select select.is-enhanced { display: none; }
 .filter-dropdown { position: relative; min-width: 0; }
-.filter-dd-button { width: 100%; height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px 0 13px; border: 1px solid rgba(155,155,172,.24); border-radius: 8px; background: rgba(255,255,255,.58); box-shadow: inset 0 1px 0 rgba(255,255,255,.95); color: var(--fg); font: 500 12px var(--font-sans); cursor: pointer; transition: border-color 120ms var(--ease-out); }
+.filter-dd-button { width: 100%; height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px 0 13px; border: 1px solid rgba(155,155,172,.24); border-radius: 8px; background: rgba(255,255,255,.58); box-shadow: inset 0 1px 0 rgba(255,255,255,.95); color: var(--fg); font: 500 12px var(--font-sans); cursor: pointer; transition: border-color var(--dur-1) var(--ease-out); }
 .filter-dd-button:hover { border-color: var(--gray-400); }
 .filter-dd-button:focus-visible { outline: none; border-color: var(--blue); box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 0 0 3px color-mix(in srgb, var(--blue) 18%, transparent); }
 .filter-dd-button .filter-dd-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.filter-dd-button svg { flex: none; color: var(--gray-500); transition: transform 140ms var(--ease-out); }
+.filter-dd-button svg { flex: none; color: var(--gray-500); transition: transform var(--dur-1) var(--ease-out); }
 .filter-dropdown.open .filter-dd-button { border-color: var(--blue); }
 .filter-dropdown.open .filter-dd-button svg { transform: rotate(180deg); }
 .filter-dd-menu { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 60; max-height: 316px; overflow-y: auto; overscroll-behavior: contain; margin: 0; padding: 6px; list-style: none; border: 1px solid rgba(155,155,172,.28); border-radius: 10px; background: rgba(255,255,255,.9); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 18px 42px rgba(37,37,51,.16), inset 0 1px 0 #fff; }
@@ -152,7 +152,7 @@ main:focus { outline: none; }
 body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; }
 .selection-dock-button { border: 0; border-radius: 10px; background: var(--blue); color: white; box-shadow: 0 6px 24px rgba(43,43,43,.18); min-height: 46px; }
 .selection-dialog { width: min(480px, 100%); border: 0; box-shadow: var(--shadow-pop); }
-.selection-dialog[open] { display: flex; flex-direction: column; animation: drawer-in 240ms var(--ease-out); }
+.selection-dialog[open] { display: flex; flex-direction: column; animation: drawer-in var(--dur-2) var(--ease-out); }
 .selection-dialog::backdrop, .global-search-dialog::backdrop { background: rgba(29,29,29,.32); }
 .selection-head { padding: 28px 24px 22px; flex: none; }
 .selection-head h2 { font-size: 22px; letter-spacing: -.02em; }
@@ -294,7 +294,7 @@ body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; 
 .mobile-language { display: none; }
 @media (max-width: 760px) {
   .header-in { grid-template-columns: 1fr auto auto auto; gap: 0 5px; }
-  .mobile-language { display: flex; grid-row: 1; grid-column: 2; align-self: center; margin: 0; }
+  .mobile-language { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; grid-row: 1; grid-column: 2; align-self: center; margin: 0; }
   .mobile-language .ls-btn { min-height: 28px; padding: 0 9px; font-size: 12px; }
   .global-search-open { grid-row: 1; grid-column: 3; }
   .sidebar-selection { grid-column: 4; }
@@ -499,7 +499,7 @@ picture[data-preview] { position: absolute; inset: 0; }
 .graphics-grid .graphic-item { display: inline-block; width: 100%; margin: 0 0 28px; break-inside: avoid; }
 .graphics-grid .graphic-item[hidden] { display: none; }
 .gd-cover { overflow: hidden; border-radius: var(--radius); background: #111; }
-.gd-cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.gd-cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-3) var(--ease-out); }
 .graphic-card:hover .gd-cover img { transform: scale(1.02); }
 .graphic-card .card-meta { padding-top: 12px; }
 .gd-originals { margin-top: 42px; }
@@ -544,3 +544,34 @@ picture[data-preview] { position: absolute; inset: 0; }
 
 .entry .sect > ol.dna { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); column-gap: 36px; }
 .entry .sect > ol.dna > .dna-item, .entry .sect > ol.dna > .dna-item:first-child { padding: 16px 0; border-top: 1px solid var(--line); }
+
+/* ---------- motion (polish release, 2026-11-21; docs/polish-plan.md) ----------
+   Claim: every motion in the shell is an effect from the UI dictionary, quiet and material:
+   "fog" (appear: transparent and soft to clear, no travel) and "ink" (settle: crisp, no bounce). */
+
+/* Page to page: a short cross-fade of the content only. The sidebar keeps its own snapshot so it
+   stays still while the page under it changes (dictionary: shared-element-transition). */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation-duration: var(--dur-out); animation-timing-function: var(--ease-in); }
+::view-transition-new(root) { animation-duration: var(--dur-2); animation-timing-function: var(--ease-out); }
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation-duration: var(--dur-2); }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
+/* Segmented controls (platform tabs, reading language): one white "ink" pill slides to the chosen
+   segment and settles without bouncing (dictionary: segmented-control). Segments are equal width,
+   so the pill's position is pure CSS (:has), no measuring script. It only animates after the page
+   has settled (html.motion-ready), so it doesn't sweep across on load. */
+.tabs, .lang-switch:not(.mobile-language) { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.tabs, .lang-switch { position: relative; isolation: isolate; }
+.tabs::before, .lang-switch::before { content: ""; position: absolute; z-index: -1; top: 3px; bottom: 3px; left: 3px; border-radius: 5px; background: rgba(255,255,255,.92); box-shadow: 0 1px 2px rgba(20,20,30,.08); }
+.tabs::before { width: calc((100% - 10px) / 3); }
+.lang-switch::before { width: calc((100% - 8px) / 2); }
+.tabs:not(:has(.tab.active))::before, .lang-switch:not(:has(.ls-btn.active))::before { opacity: 0; }
+.tabs:has(> .tab:nth-child(2).active)::before { transform: translateX(calc(100% + 2px)); }
+.tabs:has(> .tab:nth-child(3).active)::before { transform: translateX(calc(200% + 4px)); }
+.lang-switch:has(> .ls-btn:nth-child(2).active)::before { transform: translateX(calc(100% + 2px)); }
+.tab.active, .ls-btn.active, .tab.active:hover, .ls-btn.active:hover { background: transparent; }
+.motion-ready .tabs::before, .motion-ready .lang-switch::before { transition: transform var(--dur-2) var(--ease-out); }
