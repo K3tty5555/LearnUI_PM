@@ -448,6 +448,7 @@ def homepage():
   <div class="home-intro-copy">
    <h1><span class="lang-zh">寻之于目，<br>识美于此</span><span class="lang-en">Seek with your eyes.<br>Know beauty here.</span></h1>
    <p class="home-description"><span class="lang-zh">察有形之美，汇万象之观</span><span class="lang-en">Behold beauty in form. Gather views of everything.</span></p>
+   <div class="hero-showcase" data-live-showcase hidden><div class="hero-showcase-stage"></div><p class="hero-showcase-name"></p></div>
   </div>
   <div class="hero-specimen">
    <div class="hero-command">

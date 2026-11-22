@@ -149,4 +149,52 @@
   addEventListener("online", function () { desired.forEach(start); });
   addEventListener("pagehide", function () { slots.forEach(stop); });
   addEventListener("pageshow", function () { desired.forEach(start); });
+
+  /* Phone home screen: the dictionary's specimens are its main act, but on a phone the first card
+     sits below the fold. A small showcase under the title plays the first specimens (already
+     inlined, no request) and names each one as it appears ("see it, then name it"). It rotates
+     every 4.5 s while on screen, holds the first one under reduced motion, and stops off screen. */
+  var showcase = document.querySelector("[data-live-showcase]");
+  if (showcase && matchMedia("(max-width: 760px)").matches && "IntersectionObserver" in window) {
+    var showSlugs = Object.keys(cache).slice(0, 3), showAt = 0, showTimer = 0;
+    var showStage = showcase.querySelector(".hero-showcase-stage"), showLabel = showcase.querySelector(".hero-showcase-name");
+    var showName = function (slug, cls) {
+      var item = document.querySelector('[data-live-demo="' + slug + '"]');
+      var el = item && item.closest(".catalog-item") && item.closest(".catalog-item").querySelector(cls);
+      return el ? el.textContent.trim() : slug;
+    };
+    var showOne = function () {
+      var slug = showSlugs[showAt];
+      var frame = document.createElement("iframe");
+      frame.className = "hero-showcase-frame";
+      frame.tabIndex = -1;
+      frame.setAttribute("aria-hidden", "true");
+      frame.setAttribute("sandbox", "allow-scripts");
+      frame.srcdoc = documentFor(cache[slug]);
+      showStage.textContent = "";
+      showStage.appendChild(frame);
+      showLabel.innerHTML = "";
+      [["lang-zh", ".card-name-zh"], ["lang-en", ".card-name .lang-en"]].forEach(function (pair) {
+        var span = document.createElement("span");
+        span.className = pair[0];
+        span.textContent = showName(slug, pair[1]);
+        showLabel.appendChild(span);
+      });
+      showLabel.classList.remove("is-fogging"); void showLabel.offsetWidth; showLabel.classList.add("is-fogging");
+    };
+    var showStop = function () { clearTimeout(showTimer); showStage.textContent = ""; };
+    var showRun = function () {
+      clearTimeout(showTimer);
+      showOne();
+      if (reduced.matches || showSlugs.length < 2) return;
+      showTimer = setTimeout(function () { showAt = (showAt + 1) % showSlugs.length; showRun(); }, 4500);
+    };
+    if (showSlugs.length) {
+      showcase.hidden = false;
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && !document.hidden) showRun(); else showStop();
+      }).observe(showcase);
+      document.addEventListener("learnui:languagechange", function () { if (showStage.firstChild) showRun(); });
+    }
+  }
 })();

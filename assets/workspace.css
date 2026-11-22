@@ -630,3 +630,11 @@ picture[data-preview] { position: absolute; inset: 0; }
 @keyframes fog-in { from { opacity: 0; filter: blur(3px); } }
 .copy-block .btn-copy.done::after { content: "可粘贴给 AI"; position: absolute; right: 0; bottom: calc(100% + 6px); padding: 3px 8px; border-radius: 5px; background: var(--fg); color: #fff; font-size: 11px; white-space: nowrap; pointer-events: none; animation: fog-in var(--dur-2) var(--ease-out); }
 [data-lang-mode="en"] .copy-block .btn-copy.done::after { content: "Paste it into your AI tool"; }
+
+/* Phone home: the specimen showcase under the title (live-demos.js shows it on phones only). */
+.hero-showcase { margin-top: 22px; }
+.hero-showcase-stage { position: relative; height: 176px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.9), 0 8px 24px rgba(44,44,44,.06); }
+.hero-showcase-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; pointer-events: none; }
+.hero-showcase-name { margin: 10px 2px 0; font-size: 13px; font-weight: 600; color: var(--fg); }
+.hero-showcase-name.is-fogging { animation: fog-in var(--dur-3) var(--ease-out); }
+@media (min-width: 761px) { .hero-showcase { display: none; } }
