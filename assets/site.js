@@ -74,6 +74,19 @@
     document.head.appendChild(rules);
   }
 
+  /* The one surprise: a faint light that follows the pointer across the home command panel's glass
+     (dictionary: liquid-glass-material). Mouse and trackpad only; none under reduced motion. */
+  var glass = document.querySelector(".hero-command");
+  if (glass && window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    glass.addEventListener("pointermove", function (event) {
+      var box = glass.getBoundingClientRect();
+      glass.style.setProperty("--gx", (event.clientX - box.left) + "px");
+      glass.style.setProperty("--gy", (event.clientY - box.top) + "px");
+      glass.classList.add("is-lit");
+    });
+    glass.addEventListener("pointerleave", function () { glass.classList.remove("is-lit"); });
+  }
+
   /* Controls animate only after the first paint has settled, so nothing slides into place on load. */
   requestAnimationFrame(function () { requestAnimationFrame(function () { document.documentElement.classList.add("motion-ready"); }); });
 

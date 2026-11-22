@@ -286,7 +286,7 @@ def header():
 </header>'''
 
 def footer():
-    return '''<footer class="library-footer"><span>Learn UIUX <span class="lang-zh">· 让灵感有据可依</span><span class="lang-en">· A shared language for design</span></span><div><a href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span></a><a href="#top"><span class="lang-zh">回到顶部</span><span class="lang-en">Back to top</span></a></div></footer><div class="def-pop" id="def-pop" hidden>
+    return '''<footer class="library-footer"><span>Learn UIUX <span class="lang-zh">· 让灵感有据可依</span><span class="lang-en">· A shared language for design</span></span><div><a href="/colophon/"><span class="lang-zh">本站动效</span><span class="lang-en">Motion</span></a><a href="/sources/"><span class="lang-zh">来源与许可证</span><span class="lang-en">Sources &amp; license</span></a><a href="#top"><span class="lang-zh">回到顶部</span><span class="lang-en">Back to top</span></a></div></footer><div class="def-pop" id="def-pop" hidden>
  <div class="def-word" id="def-word"></div>
  <div class="def-body" id="def-body"></div>
  <div class="def-src" id="def-src"></div>
@@ -594,6 +594,7 @@ def entry_page(e):
   </h1>
   {bi(e["tagline"], z["tagline_zh"], "p", "entry-tag")}
   {bi(e["description"], z.get("description_zh", ""), "p", "entry-desc") if e.get("description") else ""}
+  {entry_site_uses(e["slug"])}
   <dl class="entry-meta">
    <div class="meta-row"><dt><span class="lang-en">{esc(en_ac)}</span><span class="lang-zh dt-zh">{esc(zh_ac)}</span></dt>
     <dd><span class="lang-en">{esc(aka_en)}</span><span class="lang-zh zh-line">{esc(aka_zh)}</span></dd></div>
@@ -727,6 +728,57 @@ def guide_page(slug):
 </main>
 {footer()}'''
     return page(g["title"], gz["title_zh"], g["lede"], gz["lede_zh"], body, f"guides/{slug}/")
+
+# "Every motion on this site has a name" (docs/polish-plan.md, 2026-11-21): each effect the shell
+# uses, where it appears, and the dictionary entry that teaches it. Feeds /colophon/ and a line on
+# each of those entry pages. Keep it in step with the motion rules in assets/workspace.css.
+SITE_MOTION = [
+    ("页面跳转时正文淡入，侧栏不动", "Pages cross-fade while the sidebar stays still", "/", "shared-element-transition"),
+    ("平面设计封面飞进案例页，返回时飞回原卡片", "A graphic cover flies into its case page and back", "/graphics/", "shared-element-transition"),
+    ("「全部 / Web / macOS」与中英文切换的滑块", "The sliding pill on All / Web / macOS and the language switch", "/", "toggle-group"),
+    ("⌘K 搜索由虚到实地出现，结果带缩略图", "⌘K search fogs in, results carry thumbnails", "/", "command-palette"),
+    ("「我的参考集」从右侧滑出", "My collection slides in from the right", "/", "dialog-drawer-sheet"),
+    ("弹窗背后的遮罩只渐变透明度", "The scrim behind dialogs only fades", "/", "scrim"),
+    ("加入参考时计数落墨一下，读屏播报总数", "Adding to the collection inks the count and announces the total", "/", "success-feedback"),
+    ("复制提示词后浮出「可粘贴给 AI」", "A copied prompt shows \u201cpaste it into your AI tool\u201d", "/web/tilt-card/", "popover-dropdown-tooltip"),
+    ("动效跑起来之前先显示静态预览图", "A still preview shows until a specimen starts", "/", "skeleton-spinner"),
+    ("平面设计的拆解图层依次浮现", "Graphic breakdown layers appear one after another", "/graphics/glitch-posters/", "loading-choreography"),
+    ("首页命令面板边缘随鼠标移动的光泽", "A light following the pointer along the home command panel", "/", "liquid-glass-material"),
+    ("键盘焦点描边", "The keyboard focus ring", "/", "focus-ring-web"),
+    ("手机首页轮播几个标本并报出名字", "On phones the home page cycles specimens and names them", "/", "carousel"),
+]
+
+
+def colophon_page():
+    by_slug = {e["slug"]: e for e in ENTRIES}
+    rows = []
+    for zh, en, where, slug in SITE_MOTION:
+        e = by_slug[slug]
+        rows.append(f'<tr><td><span class="lang-zh">{esc(zh)}</span><span class="lang-en">{esc(en)}</span></td>'
+                    f'<td><a href="{esc(where)}"><span class="lang-zh">去看看</span><span class="lang-en">See it</span></a></td>'
+                    f'<td><a href="{entry_url(e)}"><span class="lang-zh">{esc(ZH[slug]["name_zh"])}</span><span class="lang-en">{esc(e["name"])}</span></a></td></tr>')
+    body = f'''{header()}
+<main class="wrap entry">
+ <nav class="crumbs"><a href="/"><span class="lang-zh">首页</span><span class="lang-en">Home</span></a><span class="crumb-sep">/</span><span class="crumb-cur"><span class="lang-zh">本站动效</span><span class="lang-en">Motion on this site</span></span></nav>
+ <header class="entry-head"><h1 class="entry-title"><span class="lang-zh">本站动效</span><span class="lang-en">Motion on this site</span></h1>
+  <p class="entry-tag"><span class="lang-zh">站里的每一个动静，都能叫出名字：下面每一处动效都来自 UI 词典里的一个词条，点进去就能学会它。</span><span class="lang-en">Every motion here has a name: each effect below is an entry in the UI dictionary, so you can open it and learn how it works.</span></p></header>
+ <section class="sect"><table class="code-table colophon-table"><thead><tr><th><span class="lang-zh">效果</span><span class="lang-en">Effect</span></th><th><span class="lang-zh">在哪里</span><span class="lang-en">Where</span></th><th><span class="lang-zh">对应词条</span><span class="lang-en">Dictionary entry</span></th></tr></thead><tbody>{"".join(rows)}</tbody></table></section>
+ <section class="sect"><h2 class="section-title"><span class="lang-zh">分寸</span><span class="lang-en">Restraint</span></h2>
+  <p><span class="lang-zh">磁吸按钮、光标拖尾、聚光灯、粒子、点击涟漪、倾斜卡片这些效果只放在词典里供学习，不用在网站本身：参考站的主角是标本，外壳要安静。开启「减弱动态效果」时，以上动效全部关闭。</span><span class="lang-en">Magnetic buttons, cursor trails, spotlights, particles, click ripples and tilt cards stay in the dictionary as exhibits, not on the site itself: on a reference site the specimens are the show and the frame stays quiet. With reduced motion on, all of the above is off.</span></p></section>
+</main>
+{footer()}'''
+    return page("Motion on this site", "本站动效", "Every motion on this site, and the UI dictionary entry that teaches it.",
+                "本站用到的每一处动效，以及教它的 UI 词典词条。", body, "colophon/")
+
+
+def entry_site_uses(slug):
+    uses = [(zh, en, where) for zh, en, where, s in SITE_MOTION if s == slug]
+    if not uses:
+        return ""
+    zh = "；".join(u[0] for u in uses); en = "; ".join(u[1] for u in uses)
+    return (f'<p class="entry-used"><span class="lang-zh">本站哪里用了它：{esc(zh)}。<a href="/colophon/">看本站全部动效</a></span>'
+            f'<span class="lang-en">Where this site uses it: {esc(en)}. <a href="/colophon/">All motion on this site</a></span></p>')
+
 
 def sources_page():
     body = f'''{header()}
@@ -1624,6 +1676,7 @@ def build():
     os.makedirs(OUT)
     write("index.html", homepage())
     write("sources/index.html", sources_page())
+    write("colophon/index.html", colophon_page())
     if SITES:
         write("sites/index.html", sites_hub_page())
         for site in SITES:

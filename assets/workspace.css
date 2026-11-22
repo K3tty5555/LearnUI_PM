@@ -638,3 +638,22 @@ picture[data-preview] { position: absolute; inset: 0; }
 .hero-showcase-name { margin: 10px 2px 0; font-size: 13px; font-weight: 600; color: var(--fg); }
 .hero-showcase-name.is-fogging { animation: fog-in var(--dur-3) var(--ease-out); }
 @media (min-width: 761px) { .hero-showcase { display: none; } }
+
+/* Home command panel: a faint light follows the pointer along the glass edge (site.js). */
+.hero-command { position: relative; }
+.hero-command::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; padding: 1px;
+  background: radial-gradient(200px circle at var(--gx, 50%) var(--gy, 0), rgba(118,118,140,.55), rgba(118,118,140,0) 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  box-shadow: inset 0 0 0 0 transparent; transition: opacity var(--dur-2) var(--ease-out); }
+.hero-command.is-lit::after { opacity: 1; }
+.hero-command::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(240px circle at var(--gx, 50%) var(--gy, 0), rgba(214,216,232,.28), rgba(214,216,232,0) 65%); transition: opacity var(--dur-2) var(--ease-out); }
+.hero-command.is-lit::before { opacity: 1; }
+
+/* "Where this site uses it" under an entry's description, and the /colophon/ table. */
+.entry-used { margin: 10px 0 0; font-size: 13px; color: var(--gray-600); }
+.entry-used a, .colophon-table a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
+.colophon-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.colophon-table th { text-align: left; font-size: 12px; font-weight: 500; color: var(--gray-500); padding: 0 12px 10px 0; border-bottom: 1px solid var(--line-strong); }
+.colophon-table td { padding: 13px 12px 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.colophon-table td:nth-child(2) { white-space: nowrap; }
