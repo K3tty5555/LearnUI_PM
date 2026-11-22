@@ -2,7 +2,8 @@
 """Browser regression: the shell's motion happens, and stops for people who ask it to.
 
 Normal motion (Chromium; the view-transition checks need its cross-document support):
-- following a link cross-fades the page with the sidebar kept as its own still layer;
+- following a link cross-fades old and new page on exactly the same timing (otherwise the
+  additive cross-fade washes out to a white flash), with the sidebar kept as its own still layer;
 - a graphic cover flies into its case page (gd-hero) and back to its card; a logo flies into
   its detail page (logo-hero);
 - the platform tabs' pill slides; the command search dialog animates in;
@@ -28,8 +29,13 @@ spec.loader.exec_module(logo_layout)
 REVEAL = """window.__vt = 'pending';
 addEventListener('pagereveal', e => {
   if (!e.viewTransition) { window.__vt = 'none'; return; }
-  e.viewTransition.ready.then(() => { window.__vt = [...new Set(document.getAnimations()
-    .map(a => a.effect && a.effect.pseudoElement).filter(Boolean))]; }, () => { window.__vt = 'skipped'; });
+  e.viewTransition.ready.then(() => {
+    const anims = document.getAnimations();
+    window.__vt = [...new Set(anims.map(a => a.effect && a.effect.pseudoElement).filter(Boolean))];
+    // Timing of every animation on the old / new root image (fade + blend-mode helpers).
+    window.__pair = ['old', 'new'].map(k => anims.filter(a => a.effect && a.effect.pseudoElement === '::view-transition-' + k + '(root)')
+      .map(a => { const t = a.effect.getComputedTiming(); return t.duration + ' ' + t.easing; }).sort().join(' | '));
+  }, () => { window.__vt = 'skipped'; });
 });"""
 RUNNING = """() => document.getAnimations().filter(a => a.playState === 'running'
   && (a.effect.getComputedTiming().duration || 0) > 5).map(a => (a.effect.target && a.effect.target.className || '') + ' ' + (a.animationName || a.transitionProperty || ''))"""
@@ -60,10 +66,17 @@ def main():
                 layers = page.evaluate("window.__vt")
                 if not isinstance(layers, list) or not any("root" in l for l in layers):
                     failures.append(where(f"no page cross-fade on navigation ({layers})"))
-                elif not any("site-header" in l for l in layers):
-                    failures.append(where("the sidebar is not kept as its own layer during navigation"))
-                elif not any("gd-hero" in l for l in layers):
-                    failures.append(where("graphic cover did not fly into the case page"))
+                else:
+                    # The cross-fade adds the two images, so it only stays at normal brightness when the
+                    # old page fades out exactly as the new fades in: same duration, same curve.
+                    # Mismatched timing (140 ms vs 200 ms, two curves) washed pages out to white (2026-11-22).
+                    old, new = page.evaluate("window.__pair")
+                    if not old or old != new:
+                        failures.append(where(f"old and new page fade on different timing, the cross-fade flashes: old [{old}] new [{new}]"))
+                    if not any("site-header" in l for l in layers):
+                        failures.append(where("the sidebar is not kept as its own layer during navigation"))
+                    if not any("gd-hero" in l for l in layers):
+                        failures.append(where("graphic cover did not fly into the case page"))
                 page.go_back()
                 page.wait_for_timeout(900)
                 layers = page.evaluate("window.__vt")

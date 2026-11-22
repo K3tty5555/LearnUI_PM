@@ -8,7 +8,9 @@
   --accent: #e1e1e7; --sidebar: 224px; --radius: 12px;
   --shadow-pop: 0 18px 64px rgba(36,36,36,.16);
 }
-html { scroll-behavior: smooth; scroll-padding-top: 28px; scrollbar-color: #bcbcc6 var(--bg); }
+/* The canvas under the page is the page colour, never white: whatever shows between two pages
+   (a slow load, a browser without view transitions) is the same fog grey. */
+html { background: var(--bg); scroll-behavior: smooth; scroll-padding-top: 28px; scrollbar-color: #bcbcc6 var(--bg); }
 body { background: var(--bg); font-size: 15px; }
 input, textarea { caret-color: var(--blue); }
 button, input, select, textarea { font-family: var(--font-sans); }
@@ -572,8 +574,12 @@ picture[data-preview] { position: absolute; inset: 0; }
 /* Page to page: a short cross-fade of the content only. The sidebar keeps its own snapshot so it
    stays still while the page under it changes (dictionary: shared-element-transition). */
 @view-transition { navigation: auto; }
-::view-transition-old(root) { animation-duration: var(--dur-out); animation-timing-function: var(--ease-in); }
-::view-transition-new(root) { animation-duration: var(--dur-2); animation-timing-function: var(--ease-out); }
+/* Same duration and curve for the old and the new page, everything else the browser default.
+   The default cross-fade adds the two images (plus-lighter), which only balances while one fades
+   out exactly as the other fades in. Until 2026-11-22 the old page left in 140 ms on one curve
+   and the new arrived in 200 ms on another: mid-way they summed past 100% and light pages washed
+   out to a white flash. test-motion.py checks the pair stays matched. */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--dur-2); }
 .site-header { view-transition-name: site-header; }
 ::view-transition-group(site-header) { animation-duration: var(--dur-2); }
 @media (prefers-reduced-motion: reduce) {
