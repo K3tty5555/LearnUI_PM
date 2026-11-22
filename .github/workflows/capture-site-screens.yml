@@ -1,0 +1,48 @@
+name: Capture site screenshots (manual)
+
+# Homepage screenshots for famous-site cards that the maintainer's network cannot reach
+# (mainland China: blocked or geo-redirected sites). Runs only when started by hand, captures
+# on GitHub's runner and uploads the raw 1440x900 PNGs plus contact sheets as an artifact.
+# It does not build or deploy the site. Afterwards, locally:
+#   gh run download <run id> -n site-screens -D /tmp/learnui-site-screens
+#   python3 scripts/capture-site-screens.py sheet   # review, update REJECT
+#   python3 scripts/capture-site-screens.py apply
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: "Site slugs to capture, space separated"
+        required: true
+        default: "mistral-ai x-ai hashicorp figma miro binance coinbase kraken mastercard meta nike pinterest spacex spotify vodafone bmw renault tesla dell-1996 nintendo-2001"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install browser
+        run: |
+          python3 -m pip install playwright==1.58.0 pillow
+          python3 -m playwright install --with-deps chromium
+      - name: Capture
+        env:
+          SITE_SCREEN_REGION: intl
+          SITE_SCREEN_CACHE: site-screens
+          SLUGS: ${{ inputs.slugs }}
+        run: |
+          python3 scripts/capture-site-screens.py capture $SLUGS
+          python3 scripts/capture-site-screens.py sheet
+      - name: Keep the captures
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-screens
+          path: site-screens/
+          retention-days: 7
