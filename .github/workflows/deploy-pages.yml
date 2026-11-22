@@ -58,6 +58,8 @@ jobs:
         run: python3 scripts/test-feedback.py site --base /UIUX
       - name: Verify ⌘K search results
         run: python3 scripts/test-command-search.py site --base /UIUX
+      - name: Verify motion runs, and stops under reduced motion
+        run: python3 scripts/test-motion.py site --base /UIUX
       - name: Rsync site to the Singapore mirror
         # Deploy only when every check above passes. SSH key is a repository secret
         # (SG_MIRROR_KEY); the server address is a secret too (SG_MIRROR_HOST) so it never

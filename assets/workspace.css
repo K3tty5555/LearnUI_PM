@@ -294,6 +294,8 @@ body:has(.selection-dock:not([hidden])) .library-footer { padding-bottom: 76px; 
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  /* The global reset covers elements, ::before and ::after, but not dialog scrims. */
+  ::backdrop { transition: none !important; animation: none !important; }
   .selection-dialog:not([open]) { transform: none; }
   @starting-style { .selection-dialog[open] { transform: none; } }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
