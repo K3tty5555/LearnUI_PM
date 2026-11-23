@@ -1,0 +1,144 @@
+<div class="demo gd-specimen gd-jazzatlan" data-step="4">
+  <div class="jz-frame" data-gd-canvas>
+    <svg class="jz-svg" viewBox="0 0 750 1000" role="img" aria-label="Brazilian Collective Trio jazz club poster">
+      <defs>
+        <filter id="jz-speck" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="5" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 .95"/>
+        </filter>
+      </defs>
+
+      <rect width="750" height="1000" fill="#F8F21A"/>
+
+      <!-- (2) The green panel with a trumpet player cut out of it -->
+      <g class="jz-panel">
+        <rect x="128" y="139" width="540" height="196" fill="#0F8E47" opacity=".9"/>
+        <rect x="132" y="137" width="536" height="194" fill="#12B059"/>
+        <!-- the player: straight-edged cuts only, one shape breaking above the panel edge -->
+        <path d="M352 120l40-6 14 34-6 34-40 8-18-32Z" fill="#0B0B0B"/>
+        <path d="M330 194l86-12 44 22 20 64-18 76-146-6-10-80Z" fill="#F8F21A"/>
+        <path d="M344 208l66-8 32 18 14 52-14 58-100-4-8-62Z" fill="#0B0B0B"/>
+        <path d="M444 214l78-16 46-34 26 22-62 62-84 10Z" fill="#0B0B0B"/>
+        <path d="M330 216l-56-22-52 30 14 28 86-14Z" fill="#0B0B0B"/>
+        <path d="M246 252l-44 48 58-6 30-26Z" fill="#F8F21A"/>
+        <path d="M540 170l70-6-52 46Z" fill="#F8F21A"/>
+        <path d="M164 182l56 26-52 22Z" fill="#0B0B0B"/>
+        <path d="M330 292l126 6-38 36-96-8Z" fill="#F8F21A"/>
+        <circle cx="618" cy="158" r="36" fill="#F8F21A"/>
+        <!-- cut nicks -->
+        <path d="M200 150h18v5h-18ZM560 300h22v6h-22ZM300 320h14v5h-14Z" fill="#F8F21A" opacity=".8"/>
+      </g>
+
+      <!-- (4) The two picture blocks, the date stack and the footer -->
+      <g class="jz-blocks">
+        <rect x="77" y="548" width="206" height="348" fill="#17857B"/>
+        <path d="M158 572l42-4 10 28-8 30-38 4-12-30Z" fill="#F8F21A"/>
+        <path d="M126 612l76-10 46 24 16 58-22 162-14 48h-92l-12-122 10-116Z" fill="#0B0B0B"/>
+        <path d="M100 586l128 250-18 12-128-244Z" fill="#F8F21A"/>
+        <path d="M186 700l26 8-50 148-24-6Z" fill="#17857B"/>
+        <path d="M200 826l46 20-12 30-48-18Z" fill="#F8F21A"/>
+        <rect x="434" y="566" width="246" height="304" fill="#0B0B0B"/>
+        <path d="M512 572l38-4 10 26-10 26-34 4-10-26Z" fill="#F8F21A"/>
+        <path d="M466 606l92-8 56 22 18 46-26 30-136-12-18-44Z" fill="#F8F21A"/>
+        <path d="M470 688l44-10 14 46-12 34-40-6-14-38Z" fill="#F8F21A"/>
+        <path d="M560 684l48-8 16 44-14 34-42-6-14-38Z" fill="#F8F21A"/>
+        <path d="M492 700l10 46M522 696l8 44M578 696l8 44M606 692l8 44" stroke="#0B0B0B" stroke-width="4" fill="none"/>
+        <g class="jz-keys"></g>
+        <g class="jz-date" font-family="'Avenir Next Condensed','Arial Narrow','Helvetica Neue',Impact,sans-serif" font-weight="800" fill="#12B059" text-anchor="middle">
+          <text x="345" y="668" font-size="48">$250</text>
+          <text x="345" y="700" font-size="34">VIERNES</text>
+          <text x="345" y="748" font-size="56" fill="#0B0B0B">4</text>
+          <text x="345" y="782" font-size="34">ABRIL</text>
+          <text x="345" y="816" font-size="34">2014</text>
+          <path d="M330 846h32l-8 14h10l-26 30 8-22h-10Z" fill="#12B059"/>
+        </g>
+        <g font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="700" fill="#0B0B0B">
+          <text x="85" y="912" font-size="20" letter-spacing="1.2">PETER SLAVOV</text>
+          <text x="672" y="906" font-size="20" letter-spacing="1.2" text-anchor="end">HELIO ALVES</text>
+          <text x="375" y="944" font-size="11" letter-spacing="2.2" text-anchor="middle" fill="#2E8B2E">2 SUR 102 SAN PEDRO CHOLULA · JAZZATLAN.COM · /JAZZATLANCLUBDEJAZZ · 1782470</text>
+        </g>
+        <g class="jz-sponsors" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="800" font-size="15" fill="#12B059" text-anchor="middle"></g>
+      </g>
+
+      <!-- (1) The ground, the presenter line and the ornaments -->
+      <g class="jz-ground" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" fill="#0B0B0B">
+        <text x="375" y="52" text-anchor="middle" font-size="22" font-weight="700" letter-spacing="7">JAZZATLÁN</text>
+        <text x="375" y="68" text-anchor="middle" font-size="11" letter-spacing="5" fill="#2E8B2E">PRESENTA</text>
+        <path d="M65 76h620" stroke="#2E8B2E" stroke-width="1.4"/>
+        <text x="142" y="136" font-size="17" font-weight="700" letter-spacing="1.8">ALEXANDRE KAUTZ</text>
+        <g fill="#12B059">
+          <path d="M576 94l5 12 12 5-12 5-5 12-5-12-12-5 12-5Z"/>
+          <path d="M650 116l4 10 10 4-10 4-4 10-4-10-10-4 10-4Z"/>
+          <path d="M100 268l4 10 10 4-10 4-4 10-4-10-10-4 10-4Z"/>
+          <path d="M72 352q14-22 36-20-6 20-24 24 14 6 18 22-20 2-30-14-8 16-26 12 8-16 26-24Z"/>
+        </g>
+      </g>
+
+      <!-- (3) The title: three lines, three colours, each nudged off square -->
+      <g class="jz-title" font-family="'Avenir Next Condensed','Arial Narrow','Helvetica Neue',Impact,sans-serif" font-weight="800"
+         data-ov-type="三行全大写粗窄体标题，每行换一个颜色"
+         data-ov-type-en="Three all-caps condensed lines, a different colour each">
+        <text x="106" y="430" textLength="540" lengthAdjust="spacingAndGlyphs" font-size="96" fill="#12B059" transform="rotate(-.5 106 430)">BRAZILIAN</text>
+        <text x="106" y="512" textLength="556" lengthAdjust="spacingAndGlyphs" font-size="96" fill="#17857B" transform="rotate(-.4 106 512)">COLLECTIVE</text>
+        <text x="248" y="598" textLength="318" lengthAdjust="spacingAndGlyphs" font-size="106" fill="#0B0B0B" transform="rotate(-.4 246 606)">TRIO</text>
+        <path d="M486 564h62v9h-62Z" fill="#0B0B0B" transform="rotate(-.4 486 564)"/>
+      </g>
+
+      <rect class="jz-quiet" x="12" y="12" width="726" height="110" fill="none"
+            data-ov-space="四周的纯黄留边，三个高饱和色因此不打架"
+            data-ov-space-en="The flat yellow margin that keeps three saturated colours apart"/>
+      <circle class="jz-focus" cx="372" cy="188" r="88" fill="none"
+            data-ov-focus="绿面板里刻出的小号手，唯一冲出面板上沿的形状"
+            data-ov-focus-en="The player cut out of the green panel, the only shape breaking above its edge"/>
+      <rect width="750" height="1000" filter="url(#jz-speck)" opacity=".30" style="mix-blend-mode:multiply" pointer-events="none"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="10.3" y1="0" x2="10.3" y2="100"/><line x1="37.7" y1="0" x2="37.7" y2="100"/><line x1="54.7" y1="0" x2="54.7" y2="100"/><line x1="90.7" y1="0" x2="90.7" y2="100"/><line x1="0" y1="13.7" x2="100" y2="13.7"/><line x1="0" y1="33.5" x2="100" y2="33.5"/><line x1="0" y1="54.8" x2="100" y2="54.8"/><line x1="0" y1="89.6" x2="100" y2="89.6"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Ground</button><button type="button" data-step-btn="2">2 Panel</button><button type="button" data-step-btn="3">3 Title</button><button type="button" data-step-btn="4" aria-pressed="true">4 Final</button></div>
+</div>
+<style>
+.gd-jazzatlan{width:min(336px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-jazzatlan *{box-sizing:border-box}
+.jz-frame{position:relative;width:100%;aspect-ratio:750/1000;overflow:hidden;border-radius:4px;background:#F8F21A}
+.jz-svg{display:block;width:100%;height:100%}
+.gd-jazzatlan .jz-panel,.gd-jazzatlan .jz-title,.gd-jazzatlan .jz-blocks{transition:opacity var(--dur-3) ease}
+.gd-jazzatlan[data-step="1"] .jz-panel,.gd-jazzatlan[data-step="1"] .jz-title,.gd-jazzatlan[data-step="1"] .jz-blocks{opacity:0}
+.gd-jazzatlan[data-step="2"] .jz-title,.gd-jazzatlan[data-step="2"] .jz-blocks{opacity:0}
+.gd-jazzatlan[data-step="3"] .jz-blocks{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-jazzatlan{width:min(174px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-jazzatlan .jz-panel,.gd-jazzatlan .jz-title,.gd-jazzatlan .jz-blocks{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-jazzatlan');
+  var svg=root.querySelector('.jz-svg'),NS='http://www.w3.org/2000/svg';
+  function el(name,attrs,parent,txt){var n=document.createElementNS(NS,name);for(var k in attrs)n.setAttribute(k,attrs[k]);if(txt!=null)n.textContent=txt;parent.appendChild(n);return n;}
+  // Piano keys under the hands: white keys as yellow slabs, black keys between them.
+  var keys=svg.querySelector('.jz-keys');
+  for(var i=0;i<11;i++){
+    el('rect',{x:424+i*23,y:742,width:19,height:118,fill:'#F8F21A',transform:'rotate(-7 424 742)'},keys);
+    if([0,1,3,4,5,7,8,10].indexOf(i)>=0)el('rect',{x:438+i*23,y:742,width:10,height:72,fill:'#0B0B0B',transform:'rotate(-7 424 742)'},keys);
+  }
+  // Sponsor marks along the bottom edge: wordmark-sized blocks, as on the original.
+  var sp=svg.querySelector('.jz-sponsors');
+  ['BOSE','Mac Music','SonicCenter','SOLO JAZZ','RADIO','EL FUSIL'].forEach(function(name,i){
+    el('text',{x:112+i*104,y:978},sp,name);
+  });
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 底色','1 Ground'],2:['2 面板','2 Panel'],3:['3 标题','3 Title'],4:['4 成稿','4 Final']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%4+1);cycle();},3000);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

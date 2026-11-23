@@ -1,0 +1,111 @@
+<div class="demo gd-specimen gd-retroarc" data-step="3">
+  <div class="ra-frame" data-gd-canvas>
+    <svg class="ra-svg" viewBox="0 0 600 777" role="img" aria-label="Retro archive collage with Italian handwriting">
+      <defs>
+        <!-- Screened photograph: grey dots stand in for the halftone print. -->
+        <pattern id="ra-halftone" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(15)">
+          <circle cx="3.5" cy="3.5" r="1.9" fill="#5c5b50"/>
+        </pattern>
+        <pattern id="ra-halftone-dark" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+          <circle cx="3" cy="3" r="2.6" fill="#33332c"/>
+        </pattern>
+        <!-- Aged print: uneven ink over the toned sheet. -->
+        <filter id="ra-paper" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="9" result="n"/>
+          <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+          <feComposite in="g" in2="SourceGraphic" operator="in" result="gi"/>
+          <feBlend in="SourceGraphic" in2="gi" mode="multiply"/>
+        </filter>
+        <filter id="ra-smudge" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+        <radialGradient id="ra-vig" cx="50%" cy="42%" r="80%">
+          <stop offset="60%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#20201a" stop-opacity=".35"/>
+        </radialGradient>
+        <clipPath id="ra-sheet"><rect width="600" height="777"/></clipPath>
+      </defs>
+
+      <g clip-path="url(#ra-sheet)">
+      <rect width="600" height="777" fill="#B7B5A4"/>
+
+      <!-- 1 · the screened photograph, full bleed with a dark top band -->
+      <g class="ra-s1">
+        <rect x="0" y="108" width="600" height="550" fill="#8f8e80" filter="url(#ra-paper)"/>
+        <rect x="0" y="108" width="600" height="550" fill="url(#ra-halftone)" opacity=".8"
+              data-ov-space="照片上下的浅橄榄纸边" data-ov-space-en="The pale olive margins above and below the photograph"/>
+        <rect x="0" y="108" width="600" height="550" fill="url(#ra-halftone-dark)" opacity=".5" filter="url(#ra-smudge)"/>
+        <rect x="0" y="108" width="600" height="105" fill="#4c4b41" opacity=".85"/>
+        <rect x="0" y="560" width="600" height="98" fill="#6b6a5e" opacity=".6"/>
+        <rect x="536" y="215" width="64" height="345" fill="#c2c0b0" opacity=".55" filter="url(#ra-smudge)"/>
+        <!-- the figure: one dark silhouette, small and centred -->
+        <g fill="#1d1c17" data-ov-focus="灰调照片中央的深色人影" data-ov-focus-en="The dark figure in the grey photograph">
+          <circle cx="300" cy="408" r="27"/>
+          <path d="M300 436C278 436 262 452 256 474L246 530 236 600 258 606 270 548 276 600 268 662 292 662 300 590 312 660 336 658 324 600 330 548 342 606 364 600 354 530 344 474C338 452 322 436 300 436Z"/>
+        </g>
+        <ellipse cx="300" cy="470" rx="90" ry="80" fill="#cbc9b8" opacity=".3" filter="url(#ra-smudge)"/>
+      </g>
+
+      <!-- 2 · handwriting across the top, past both edges -->
+      <g class="ra-s2" fill="#23211c" font-family="'Snell Roundhand','Segoe Script','Bradley Hand',cursive"
+         data-ov-type="横穿顶部的意大利文手写" data-ov-type-en="Italian handwriting across the top">
+        <text x="8" y="42" font-size="33" transform="rotate(-1.6 8 42)">L'incerto sguardo che, una</text>
+        <text x="30" y="72" font-size="29" transform="rotate(1 30 72)">notte ancora, foglie al vento</text>
+        <text x="12" y="98" font-size="30" transform="rotate(-.8 12 98)">e il passo che ritorna al fiume</text>
+        <text x="250" y="96" font-size="26" opacity=".9">— la camera sosta qui</text>
+      </g>
+
+      <!-- 3 · the red marks: hand-written numeral, stamped serial row, smudged ring -->
+      <g class="ra-s3">
+        <g fill="#A51E12" filter="url(#ra-smudge)" opacity=".9">
+          <circle cx="130" cy="702" r="40" fill="none" stroke="#A51E12" stroke-width="8" opacity=".45"/>
+          <circle cx="142" cy="712" r="26" fill="none" stroke="#A51E12" stroke-width="4" opacity=".35"/>
+        </g>
+        <text x="10" y="730" font-size="84" fill="#8f1a10" opacity=".92"
+              font-family="'Brush Script MT','Snell Roundhand',cursive" transform="rotate(-4 10 730)"
+              data-ov-focus="左下手写的红色编号" data-ov-focus-en="The hand-written red numeral, lower left">1540</text>
+        <g fill="#9d3226" font-family="'Courier New',Courier,monospace" font-weight="700" font-size="23"
+           letter-spacing="6" opacity=".9" transform="rotate(-2 400 706)">
+          <text x="398" y="706">2 2 5 2 7 4 2 0</text>
+          <text x="424" y="734" font-size="17" opacity=".85">N. 32 / ARCHIVIO</text>
+        </g>
+      </g>
+
+      <rect width="600" height="777" fill="url(#ra-vig)"/>
+      <rect width="600" height="777" fill="#B7B5A4" filter="url(#ra-paper)" opacity=".12"/>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="13.9" x2="100" y2="13.9"/><line x1="0" y1="84.7" x2="100" y2="84.7"/><line x1="44" y1="47" x2="56" y2="82"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3" aria-pressed="true">3</button></div>
+</div>
+<style>
+.gd-retroarc{width:min(316px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-retroarc *{box-sizing:border-box}
+.ra-frame{position:relative;width:100%;aspect-ratio:600/777;overflow:hidden;border-radius:4px;background:#B7B5A4}
+.ra-svg{display:block;width:100%;height:100%}
+.gd-retroarc .ra-s2,.gd-retroarc .ra-s3{transition:opacity var(--dur-3,320ms) var(--ease-out,ease)}
+.gd-retroarc[data-step="1"] .ra-s2,.gd-retroarc[data-step="1"] .ra-s3,.gd-retroarc[data-step="2"] .ra-s3{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-retroarc{width:min(334px,calc(100vw - 80px))}}
+@media (max-height:260px){.gd-retroarc{width:min(150px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-retroarc .ra-s2,.gd-retroarc .ra-s3{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-retroarc');
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 照片','1 Photo'],2:['2 手写','2 Handwriting'],3:['3 红色标记','3 Red marks']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    root.dataset.step=b.dataset.stepBtn;
+    btns.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  });});
+  document.addEventListener('learnui:languagechange',text);
+  text();
+})();
+</script>

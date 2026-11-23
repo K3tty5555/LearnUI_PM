@@ -1,0 +1,120 @@
+<div class="demo gd-specimen gd-orange" data-step="4">
+  <div class="or-frame" data-gd-canvas>
+    <svg class="or-svg" viewBox="0 0 600 1093" role="img" aria-label="Orange wash collage">
+      <defs>
+        <!-- Orange wash: turbulence pushed through an orange ramp, clipped to a ragged shape. -->
+        <filter id="or-wash" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".012 .02" numOctaves="3" seed="11" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 .9  0 0 0 0 .55  0 0 0 0 .22  0 0 0 -1.15 1.4" result="o"/>
+          <feComposite in="o" in2="SourceAlpha" operator="in"/>
+        </filter>
+        <!-- Photo block: grey with grain, standing in for the photograph. -->
+        <filter id="or-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="5" result="n"/>
+          <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+          <feComposite in="g" in2="SourceGraphic" operator="in" result="gi"/>
+          <feBlend in="SourceGraphic" in2="gi" mode="multiply"/>
+        </filter>
+        <linearGradient id="or-photo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#B7A99C"/><stop offset=".45" stop-color="#8d7f74"/>
+          <stop offset=".75" stop-color="#4d423b"/><stop offset="1" stop-color="#3a322c"/>
+        </linearGradient>
+        <clipPath id="or-sheet"><rect width="600" height="1093"/></clipPath>
+      </defs>
+
+      <g clip-path="url(#or-sheet)">
+      <rect width="600" height="1093" fill="#FAF7F2"/>
+
+      <!-- 1 · ground: a wash column down the whole left edge, plus the big top and bottom spills -->
+      <g class="or-s1" data-ov-space="页面四周留出的米白纸边" data-ov-space-en="The cream page margins">
+        <path filter="url(#or-wash)" fill="#D59E54" d="M0 60C40 40 96 58 112 96 128 140 122 320 112 560 104 760 108 960 96 1020 88 1064 44 1088 0 1080Z"/>
+        <path filter="url(#or-wash)" fill="#E9963F" d="M14 52C110 8 250 20 320 88 378 148 376 226 322 280 254 344 120 346 62 292 10 236 0 120 14 52Z"/>
+        <path filter="url(#or-wash)" fill="#E28C33" opacity=".9" d="M96 872C190 830 302 848 344 918 384 984 348 1052 266 1078 176 1104 70 1082 34 1014 2 952 40 906 96 872Z"/>
+        <path filter="url(#or-wash)" fill="#EEA252" opacity=".7" d="M150 940C210 912 274 928 288 976 300 1022 264 1058 206 1066 148 1074 96 1046 90 1002 84 966 112 958 150 940Z"/>
+      </g>
+
+      <!-- 2 · the photograph, standing in as a grey block with grain -->
+      <g class="or-s2">
+        <rect x="126" y="240" width="380" height="570" fill="url(#or-photo)" filter="url(#or-grain)"
+              data-ov-focus="中央的旧照片块，页面上唯一的重色" data-ov-focus-en="The old photograph, the page's only heavy mass"/>
+        <rect x="126" y="240" width="380" height="150" fill="#d6cabb" opacity=".55" filter="url(#or-grain)"/>
+        <rect x="126" y="660" width="380" height="150" fill="#2f2823" opacity=".6" filter="url(#or-grain)"/>
+      </g>
+
+      <!-- 3 · cards and clippings: the Spotify card over the photo's right edge, the dark music card, clippings -->
+      <g class="or-s3">
+        <g filter="url(#or-grain)">
+          <rect x="418" y="592" width="150" height="92" rx="8" fill="#FBF8F3" stroke="#e2dccd" stroke-width="2"/>
+          <rect x="430" y="606" width="64" height="64" fill="#D9B98F"/>
+          <path d="M443 621v34l26-17z" fill="#FBF8F3"/>
+        </g>
+        <g filter="url(#or-grain)">
+          <rect x="120" y="706" width="212" height="76" fill="#3a332c"/>
+          <rect x="132" y="718" width="52" height="52" fill="#8a7462"/>
+        </g>
+        <g filter="url(#or-grain)">
+          <path d="M300 900 470 884 462 964 296 976Z" fill="#E9D597" opacity=".9"/>
+          <path d="M60 500 148 492 144 584 56 590Z" fill="#E4CBA4" opacity=".85"/>
+          <path d="M470 830 546 822 540 902 466 908Z" fill="#F3E6CB" opacity=".9"/>
+        </g>
+      </g>
+
+      <!-- 4 · type: handwriting, printed card labels, one serif line -->
+      <g class="or-s4" data-ov-type="手写葡语、印刷卡片字和一句衬线" data-ov-type-en="Portuguese handwriting, printed labels, one serif line">
+        <g fill="#5A4634" font-family="'Snell Roundhand','Segoe Script','Bradley Hand',cursive" font-size="21">
+          <text x="322" y="266" transform="rotate(-2 322 266)">Borrifou</text>
+          <text x="330" y="292" transform="rotate(-1 330 292)">um segredo</text>
+          <text x="340" y="318">pra fazer a Luz.</text>
+          <text x="510" y="648" transform="rotate(90 510 648)" font-size="15" opacity=".8">incdeclame</text>
+          <text x="36" y="668" font-size="16" opacity=".75">— puro</text>
+          <text x="30" y="806" font-size="17" opacity=".8">Mistura de Rita</text>
+          <text x="30" y="830" font-size="17" opacity=".8">com Amoedo.</text>
+        </g>
+        <g fill="#6b5c4c" font-family="'Helvetica Neue',Arial,sans-serif">
+          <text x="506" y="622" font-size="14" letter-spacing=".5">✳ A laranja.</text>
+          <text x="506" y="640" font-size="14" letter-spacing=".5">Playlist do tears.</text>
+          <text x="506" y="658" font-size="11" opacity=".75">© Spotify</text>
+          <text x="196" y="748" font-size="17" fill="#E4CBA4" letter-spacing="1.6">MARIA BETHÂNIA</text>
+        </g>
+        <text x="360" y="944" font-size="20" fill="#4a3d30" letter-spacing="3" opacity=".85"
+              font-family="Georgia,'Times New Roman',serif">a luz volta</text>
+      </g>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="29.3" y1="0" x2="29.3" y2="100"/><line x1="76.7" y1="0" x2="76.7" y2="100"/><line x1="0" y1="22" x2="100" y2="22"/><line x1="0" y1="73.2" x2="100" y2="73.2"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3">3</button><button type="button" data-step-btn="4" aria-pressed="true">4</button></div>
+</div>
+<style>
+.gd-orange{width:min(262px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-orange *{box-sizing:border-box}
+.or-frame{position:relative;width:100%;aspect-ratio:600/1093;overflow:hidden;border-radius:4px;background:#FAF7F2}
+.or-svg{display:block;width:100%;height:100%}
+.gd-orange .or-s2,.gd-orange .or-s3,.gd-orange .or-s4{transition:opacity var(--dur-3,320ms) var(--ease-out,ease)}
+.gd-orange[data-step="1"] .or-s2,.gd-orange[data-step="1"] .or-s3,.gd-orange[data-step="2"] .or-s3,.gd-orange[data-step="1"] .or-s4,.gd-orange[data-step="2"] .or-s4,.gd-orange[data-step="3"] .or-s4{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-orange{width:min(292px,calc(100vw - 80px))}}
+@media (max-height:260px){.gd-orange{width:min(104px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-orange .or-s2,.gd-orange .or-s3,.gd-orange .or-s4{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-orange');
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 底色晕染','1 Ground'],2:['2 照片','2 Photo'],3:['3 卡片剪报','3 Cards'],4:['4 文字','4 Type']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    root.dataset.step=b.dataset.stepBtn;
+    btns.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  });});
+  document.addEventListener('learnui:languagechange',text);
+  text();
+})();
+</script>

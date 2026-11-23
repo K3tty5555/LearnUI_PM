@@ -1,0 +1,147 @@
+<div class="demo gd-specimen gd-ripe" data-step="4">
+  <div class="sr-frame" data-gd-canvas>
+    <svg class="sr-svg" viewBox="0 0 720 960" role="img" aria-label="Slow ripe — 文字嵌进物体的水果海报还原">
+      <defs>
+        <linearGradient id="sr-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E8E7E4"/><stop offset="1" stop-color="#DCDCDA"/>
+        </linearGradient>
+        <radialGradient id="sr-skin" cx=".38" cy=".3" r=".85">
+          <stop offset="0" stop-color="#F6C3AC"/><stop offset=".42" stop-color="#E79478"/>
+          <stop offset=".74" stop-color="#D26855"/><stop offset="1" stop-color="#A8402F"/>
+        </radialGradient>
+        <radialGradient id="sr-blush" cx=".66" cy=".22" r=".4">
+          <stop offset="0" stop-color="#C0362B" stop-opacity=".55"/><stop offset="1" stop-color="#C0362B" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="sr-slice" x1=".1" y1="0" x2=".9" y2="1">
+          <stop offset="0" stop-color="#FDF0E2"/><stop offset=".6" stop-color="#F8D9C2"/><stop offset="1" stop-color="#E9A98C"/>
+        </linearGradient>
+        <filter id="sr-fuzz" x="-6%" y="-20%" width="112%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="sr-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="9"/>
+          <feColorMatrix values="0 0 0 0 .6  0 0 0 0 .5  0 0 0 0 .45  0 0 0 .07 0"/>
+        </filter>
+        <!-- the three lines curve with the fruit: each sits on its own arc -->
+        <path id="sr-l1" d="M96 470 Q300 410 482 452"/>
+        <path id="sr-l2" d="M110 582 Q320 520 520 566"/>
+        <path id="sr-l3" d="M126 694 Q346 630 588 684"/>
+        <g id="sr-emb" font-family="'Quicksand','Varela Round','Avenir Next Rounded','Nunito',system-ui,sans-serif" font-weight="700" letter-spacing="1">
+          <text font-size="78"><textPath href="#sr-l1" startOffset="2%">Ripe</textPath></text>
+          <text font-size="78"><textPath href="#sr-l2" startOffset="2%">enough</textPath></text>
+          <text font-size="78"><textPath href="#sr-l3" startOffset="2%">to squeeze</textPath></text>
+        </g>
+      </defs>
+
+      <!-- 1 the fruit -->
+      <g class="sr-g1">
+        <rect width="720" height="960" fill="url(#sr-sky)"/>
+        <g>
+          <ellipse cx="360" cy="690" rx="470" ry="440" fill="url(#sr-skin)"/>
+          <ellipse cx="360" cy="690" rx="470" ry="440" fill="url(#sr-blush)"/>
+          <path d="M352 256 q-36 60 -10 118 q20 44 2 86" fill="none" stroke="#B9513C" stroke-width="9" opacity=".45"/>
+          <g fill="#FFFFFF" opacity=".55">
+            <ellipse cx="470" cy="330" rx="21" ry="15" transform="rotate(-18 470 330)"/>
+            <ellipse cx="528" cy="362" rx="13" ry="10" transform="rotate(-12 528 362)"/>
+            <ellipse cx="432" cy="372" rx="9" ry="7"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- 3 the line pressed into the skin -->
+      <g class="sr-g3" filter="url(#sr-fuzz)" data-ov-focus="浮雕字：从左上受光被顶起来，颜色取自皮下果肉" data-ov-focus-en="Embossed line: raised, lit from the upper left, in the colour of the flesh">
+        <use href="#sr-emb" fill="#FFEEDB" opacity=".85" transform="translate(-3.5,-4)"/>
+        <use href="#sr-emb" fill="#B9754A" opacity=".7" transform="translate(3.5,5)"/>
+        <use href="#sr-emb" fill="#F6DEC4"/>
+      </g>
+
+      <!-- 2 the wordmark -->
+      <g class="sr-g2">
+        <text x="360" y="30" text-anchor="middle" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="14" fill="#9B8E8A" letter-spacing="1.1">INFUSE WITH ROOM-WARM PATIENCE AND ALL THE RIPENESS UNDER FUR</text>
+        <text x="124" y="96" font-family="'PingFang SC','Hiragino Sans GB',sans-serif" font-weight="800" font-size="30" fill="#B44339">软桃<tspan font-size="15" dy="-12">®</tspan></text>
+        <g data-ov-type="字标：极粗圆头字，其中一个字母换成一瓣果肉" data-ov-type-en="Wordmark: very heavy rounded type with one letter swapped for a slice of fruit">
+          <text x="22" y="226" font-family="'Quicksand','Varela Round','Avenir Next Rounded','Nunito',system-ui,sans-serif" font-weight="700" font-size="150" fill="#B44339" letter-spacing="-2">Sl<tspan fill="none">o</tspan>w ripe</text>
+          <g transform="translate(198 180) rotate(-12)">
+            <ellipse cx="0" cy="0" rx="48" ry="40" fill="url(#sr-slice)"/>
+            <ellipse cx="0" cy="0" rx="34" ry="27" fill="#F2BC9C" opacity=".6"/>
+            <ellipse cx="2" cy="2" rx="13" ry="16" fill="#9C5A3C"/>
+          </g>
+        </g>
+        <text x="22" y="276" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="22" fill="#B44339" letter-spacing=".6">[sl&#601;&#650;]</text>
+        <text x="698" y="276" text-anchor="end" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="22" fill="#B44339" letter-spacing=".6">[ra&#618;p]</text>
+      </g>
+
+      <!-- 4 tags, claims and the scalloped band -->
+      <g class="sr-g4">
+        <g fill="none" stroke="#B44339" stroke-width="2.4">
+          <rect x="18" y="12" width="104" height="36" rx="18"/>
+          <rect x="598" y="12" width="104" height="36" rx="18"/>
+          <rect x="150" y="736" width="96" height="40" rx="20"/>
+          <rect x="474" y="736" width="96" height="40" rx="20"/>
+          <rect x="14" y="878" width="134" height="38" rx="19"/>
+          <rect x="572" y="878" width="134" height="38" rx="19"/>
+        </g>
+        <g font-family="'PingFang SC','Hiragino Sans GB',sans-serif" font-size="19" fill="#B44339" text-anchor="middle">
+          <text x="70" y="37">鲜桃系列</text><text x="650" y="37">当季限定</text>
+          <text x="198" y="763">回熟</text><text x="522" y="763">上手</text>
+          <text x="81" y="903">&#60; 绒毛一刻</text><text x="639" y="903">满手甜 &#62;</text>
+        </g>
+        <text x="360" y="738" text-anchor="middle" font-family="'PingFang SC','Hiragino Sans GB',sans-serif" font-weight="800" font-size="44" fill="#A8382C" letter-spacing="3">刚好能捏</text>
+        <g text-anchor="middle" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-weight="700" font-size="17" fill="#A8382C" letter-spacing="1.4">
+          <text x="360" y="766">RIPE ENOUGH</text><text x="360" y="788">TO SQUEEZE</text>
+        </g>
+        <text x="360" y="852" text-anchor="middle" font-family="'Quicksand','Varela Round','Nunito',system-ui,sans-serif" font-weight="700" font-size="60" fill="#FFF4E2" letter-spacing="1">No.06</text>
+        <path d="M0 884a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0a30 16 0 0 1 60 0V960H0Z" fill="#FAEEDC"/>
+        <text x="236" y="930" text-anchor="end" font-family="'Snell Roundhand','Brush Script MT','Apple Chancery',cursive" font-style="italic" font-size="46" fill="#B44339">Fuzzy</text>
+        <text x="248" y="928" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-weight="800" font-size="34" fill="#A8382C" letter-spacing="1">ON PURPOSE</text>
+        <text x="360" y="952" text-anchor="middle" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12" fill="#B07A62" letter-spacing="1.6">FRESH PEACH &#183; ROOM TEMPERATURE &#183; SERVE SOFT</text>
+      </g>
+
+      <rect x="430" y="58" width="266" height="150" fill="none"
+            data-ov-space="字标背后那片冷灰白的天光，全画唯一安静的地方" data-ov-space-en="The cool grey sky behind the wordmark, the only quiet area"/>
+      <rect width="720" height="960" filter="url(#sr-grain)" pointer-events="none"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 720 960" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="22" y1="0" x2="22" y2="960"/><line x1="698" y1="0" x2="698" y2="960"/>
+      <line x1="360" y1="0" x2="360" y2="960"/>
+      <line x1="0" y1="248" x2="720" y2="248"/><line x1="0" y1="712" x2="720" y2="712"/><line x1="0" y1="884" x2="720" y2="884"/>
+    </svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps">
+    <button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3">3</button><button type="button" data-step-btn="4" aria-pressed="true">4</button>
+  </div>
+</div>
+<style>
+.gd-ripe{width:min(336px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-ripe *{box-sizing:border-box}
+.sr-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#E8E7E4}
+.sr-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sr-g2,.sr-g3,.sr-g4{transition:opacity var(--dur-3,320ms) var(--ease-out,ease)}
+.gd-ripe[data-step="1"] .sr-g2,.gd-ripe[data-step="1"] .sr-g3,.gd-ripe[data-step="1"] .sr-g4,
+.gd-ripe[data-step="2"] .sr-g3,.gd-ripe[data-step="2"] .sr-g4,
+.gd-ripe[data-step="3"] .sr-g4{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-ripe{width:min(150px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.sr-g2,.sr-g3,.sr-g4{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-ripe');
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 果','1 Fruit'],2:['2 字标','2 Wordmark'],3:['3 浮雕字','3 Embossed'],4:['4 标签','4 Tags']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%4+1);cycle();},2900);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

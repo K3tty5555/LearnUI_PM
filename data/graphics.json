@@ -103,6 +103,102 @@
    "platform": "小红书",
    "url": "https://www.xiaohongshu.com/discovery/item/6af3c9fa000000001c033423",
    "published": "2026-11-11"
+  },
+  {
+   "id": 14,
+   "title": "中式梦核新中式动态海报",
+   "author": "妃妮FEINII文创",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afd7bf0000000002b01991e",
+   "published": "2026-11-18"
+  },
+  {
+   "id": 15,
+   "title": "整理了8种中国古典艺术视觉灵感",
+   "author": "是鼠鼠我呀",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6b026d390000000018026dd6",
+   "published": "2026-11-22"
+  },
+  {
+   "id": 16,
+   "title": "橘色梦境｜审美积累（35/100）",
+   "author": "因为",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6b01b191000000001603cf7d",
+   "published": "2026-11-21"
+  },
+  {
+   "id": 17,
+   "title": "审美积累No.81｜黑白杂志风创意海报",
+   "author": "布噜设计师（blue_design）",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6aeb54c70000000007001192",
+   "published": "2026-11-04"
+  },
+  {
+   "id": 18,
+   "title": "审美积累No.69｜故障人像复古拼贴创意海报",
+   "author": "布噜设计师（blue_design）",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6ada2de4000000002a039caf",
+   "published": "2026-10-22"
+  },
+  {
+   "id": 19,
+   "title": "审美积累｜游离与虚空",
+   "author": "姜sama",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6afa682b000000002a02ac06",
+   "published": "2026-11-16"
+  },
+  {
+   "id": 20,
+   "title": "有手就会！让文字嵌进物体！高级感海报教程",
+   "author": "来颗香菜",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6af17a3500000000330288c7",
+   "published": "2026-11-10"
+  },
+  {
+   "id": 21,
+   "title": "审美积累｜海报排版设计",
+   "author": "塔克威力",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6ae1accb0000000028007225",
+   "published": "2026-10-28"
+  },
+  {
+   "id": 22,
+   "title": "复古解构｜审美积累（32/100）",
+   "author": "因为",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6af5ccd6000000002303c29f",
+   "published": "2026-11-12"
+  },
+  {
+   "id": 23,
+   "title": "黑白拓印肌理海报｜解锁拓痕美学设计方法",
+   "author": "黄小粘",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6adec89b000000001603f8e4",
+   "published": "2026-10-26"
+  },
+  {
+   "id": 24,
+   "title": "设计灵感私藏Vol.10｜构成主义",
+   "author": "海豹设",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6ae9534d00000000160052cc",
+   "published": "2026-11-03"
+  },
+  {
+   "id": 25,
+   "title": "以色彩捕捉爵士律动｜用画面奏响自由即兴",
+   "author": "潘多拉视觉设计",
+   "platform": "小红书",
+   "url": "https://www.xiaohongshu.com/discovery/item/6b00284b000000002301323f",
+   "published": "2026-11-20"
   }
  ],
  "types": [
@@ -247,6 +343,46 @@
    "id": "glitch",
    "name": "Glitch",
    "nameZh": "故障风"
+  },
+  {
+   "id": "magazine-editorial",
+   "name": "Magazine editorial",
+   "nameZh": "杂志编辑风"
+  },
+  {
+   "id": "jazz-illustration",
+   "name": "Jazz illustration",
+   "nameZh": "爵士插画"
+  },
+  {
+   "id": "warm-film",
+   "name": "Warm film tone",
+   "nameZh": "暖调胶片"
+  },
+  {
+   "id": "void-blur",
+   "name": "Void and blur",
+   "nameZh": "虚空失焦"
+  },
+  {
+   "id": "retro-deconstruction",
+   "name": "Retro deconstruction",
+   "nameZh": "复古解构"
+  },
+  {
+   "id": "chinese-dreamcore",
+   "name": "Chinese dreamcore",
+   "nameZh": "中式梦核"
+  },
+  {
+   "id": "ink-wash",
+   "name": "Ink wash",
+   "nameZh": "水墨"
+  },
+  {
+   "id": "botanical-print",
+   "name": "Botanical print",
+   "nameZh": "植物标本风"
   }
  ],
  "techniques": [
@@ -767,6 +903,167 @@
    "nameZh": "置换扭曲",
    "definition": "A black-and-white texture is used as a displacement map (Photoshop: Filter > Distort > Displace), so the image's pixels are pushed along its stripes.",
    "definitionZh": "用一张黑白纹理图当置换图（PS：滤镜 > 扭曲 > 置换），画面像素顺着纹理的条纹被推开、拉长。"
+  },
+  {
+   "id": "masthead-serif",
+   "name": "Masthead serif",
+   "nameZh": "刊头衬线大字",
+   "definition": "A high-contrast serif set as wide as the sheet, the way a magazine prints its own name on the cover.",
+   "definitionZh": "把笔画粗细反差大的衬线字排到和画面一样宽，像杂志封面上印自己的刊名。"
+  },
+  {
+   "id": "moire-rings",
+   "name": "Moiré rings",
+   "nameZh": "同心波纹底",
+   "definition": "A ground of dense concentric rings; neighbouring lines interfere and the sheet reads like a screen losing its signal.",
+   "definitionZh": "底图是一圈圈密集的同心线，线与线互相干涉出水波纹，画面看起来像信号不稳的屏幕。"
+  },
+  {
+   "id": "chrome-type",
+   "name": "Chrome type",
+   "nameZh": "镜面金属字",
+   "definition": "Letters filled with a bright-to-dark metal gradient and a thin highlight edge, so the word looks bent out of polished steel.",
+   "definitionZh": "字的填充从亮到暗像金属反光，边缘再加一道细高光，整个词像用抛光钢板折出来的。"
+  },
+  {
+   "id": "linocut-marks",
+   "name": "Linocut marks",
+   "nameZh": "版画刻痕",
+   "definition": "Shapes keep the nicks and ragged edges of a cut block, and the ink is printed slightly off, so the poster reads as hand-printed.",
+   "definitionZh": "形状边缘留着刀刻的缺口和毛边，油墨还略微错位，一看就是手工印出来的。"
+  },
+  {
+   "id": "sticker-overlay",
+   "name": "Sticker overlay",
+   "nameZh": "贴纸叠加",
+   "definition": "Flat cut-out shapes — stars, dots, tape — are pasted on top of a finished photo, some in front of the subject, so the picture reads as a page in a scrapbook.",
+   "definitionZh": "把星星、圆点、胶带这类平面小图形直接贴在照片上，有些压在主体前面，整张图像手账里的一页。"
+  },
+  {
+   "id": "torn-edge",
+   "name": "Torn paper edge",
+   "nameZh": "撕纸毛边",
+   "definition": "Clippings keep the ragged white edge of paper torn by hand instead of a clean rectangular crop.",
+   "definitionZh": "剪报不裁成干净的方块，保留手撕出来的毛糙白边。"
+  },
+  {
+   "id": "viewfinder-frame",
+   "name": "Viewfinder frame",
+   "nameZh": "取景框线",
+   "definition": "A thin white rectangle and a small crosshair are laid over the picture, as if the camera's focus box had been left in the final image.",
+   "definitionZh": "画面上压一个白色细线矩形和一个小十字准星，像把相机的对焦框留在了成片里。"
+  },
+  {
+   "id": "series-template",
+   "name": "Series template",
+   "nameZh": "同版式系列",
+   "definition": "One fixed layout is reused across a set: the title, the margins and the type blocks never move, and only the subject and a few lines of copy change from sheet to sheet.",
+   "definitionZh": "一整组海报共用一套固定版式：标题、页边和文字块的位置都不动，只换中间的主体和几行说明。"
+  },
+  {
+   "id": "ghost-text",
+   "name": "Ghosted background text",
+   "nameZh": "幽灵底文",
+   "definition": "A long paragraph is set in a tone barely darker than the paper and used as texture; it can be read if you lean in, but it works as a grey field.",
+   "definitionZh": "把一整段长文字印成比纸只深一点点的灰，当作底纹用；凑近能读，远看只是一片灰。"
+  },
+  {
+   "id": "photo-tile-grid",
+   "name": "Photo tiles on a grid",
+   "nameZh": "照片拼块网格",
+   "definition": "Photographs are cut into rectangles and snapped to one grid, so different pictures share edges and read as a single surface.",
+   "definitionZh": "把照片切成矩形拼块，统一对齐到同一套网格上，不同的照片边对边拼成一个平面。"
+  },
+  {
+   "id": "stamp-numerals",
+   "name": "Stamped serial numbers",
+   "nameZh": "编号戳印",
+   "definition": "Rows of numbers that look rubber-stamped or hand-written in red are dropped on the sheet as if it were an archive document.",
+   "definitionZh": "画面上盖几排红色的数字，像橡皮章或手写的编号，把画面当成一份档案。"
+  },
+  {
+   "id": "stencil-sans",
+   "name": "Geometric stencil letters",
+   "nameZh": "几何拼装字母",
+   "definition": "Letters are drawn from the same circles, bars and triangles as the rest of the poster, so the words sit in the picture as shapes rather than as a caption.",
+   "definitionZh": "字母用和画面其他部分一样的圆、方条和三角拼出来，词和图形是同一套零件，所以文字是画面的一部分，不是说明。"
+  },
+  {
+   "id": "seal-script-block",
+   "name": "Seal-script character block",
+   "nameZh": "篆书方阵字",
+   "definition": "Four seal-script characters set as a 2x2 square instead of a line, with a small line of English underneath doing the translating.",
+   "definitionZh": "四个篆书字排成 2×2 的方块，而不是一行；下面压一行英文小字负责解释。"
+  },
+  {
+   "id": "red-seal-stamp",
+   "name": "Red seal stamp",
+   "nameZh": "朱红印章",
+   "definition": "One vermilion seal on an otherwise cold, low-saturation sheet: the only pure colour in the picture, used as a full stop.",
+   "definitionZh": "在整张冷调低饱和的画面上盖一枚朱红印：全画唯一的纯色，当句号用。"
+  },
+  {
+   "id": "misty-gradient",
+   "name": "Misty gradient ground",
+   "nameZh": "薄雾渐变底",
+   "definition": "The ground fades from near-black at one edge to pale dust at the other, so everything collaged on top looks seen through mist.",
+   "definitionZh": "底色从一端的近黑渐变到另一端的灰白，拼贴在上面的素材看上去都像隔着一层雾。"
+  },
+  {
+   "id": "bilingual-title",
+   "name": "Bilingual title lock-up",
+   "nameZh": "中英双标题",
+   "definition": "The Chinese title and its English name are locked together as one block: Chinese heavy and bracketed, English in spaced capitals right under it.",
+   "definitionZh": "中文标题和英文名锁成一个整体：中文粗、加方括号，英文全大写、加字距，紧贴在下面。"
+  },
+  {
+   "id": "image-mosaic",
+   "name": "Image mosaic wall",
+   "nameZh": "图片拼贴墙",
+   "definition": "Reference pictures of different heights are tiled into columns with even gaps, so a pile of unrelated sources reads as one wall.",
+   "definitionZh": "把高度不一的参考图按等间距铺成几列，一堆来源各异的图片于是读成一面墙。"
+  },
+  {
+   "id": "series-numbering",
+   "name": "Series numbering",
+   "nameZh": "系列编号",
+   "definition": "Every sheet carries the same numbered line (01, 02, 03 ...) in the same place, which is what turns separate pictures into one archive.",
+   "definitionZh": "每张都在同一个位置带一行同样格式的编号（01、02、03……），这行字把一张张图变成一套档案。"
+  },
+  {
+   "id": "letter-swap-photo",
+   "name": "Photo in place of a letter",
+   "nameZh": "字母换成实物",
+   "definition": "One letter of the wordmark is replaced by a cut-out photo of the product that happens to have the same shape.",
+   "definitionZh": "字标里的某个字母换成一张抠好的实物照片，因为那个实物刚好是这个字母的形状。"
+  },
+  {
+   "id": "pill-tags",
+   "name": "Pill tags",
+   "nameZh": "胶囊标签",
+   "definition": "Short phrases boxed in thin rounded outlines and scattered along the edges, like the claims printed on a package.",
+   "definitionZh": "短句装进细线圆角框里，散放在画面边缘，像包装上印的那些小标语。"
+  },
+  {
+   "id": "scallop-edge",
+   "name": "Scalloped edge",
+   "nameZh": "云边花框",
+   "definition": "The edge of a block or the frame itself is drawn as a row of arcs instead of a straight line, which softens an otherwise loud sheet.",
+   "definitionZh": "色块或画框的边缘不画直线，改画成一排弧，把本来很吵的画面压软。"
+  },
+  {
+   "id": "corner-anchored-title",
+   "name": "Title split into the corners",
+   "nameZh": "四角布字",
+   "definition": "A four-character title is broken apart and one character set in each corner of the sheet, framing the subject instead of labelling it.",
+   "definitionZh": "四字标题拆开，四个角各放一个字，用标题把主体框起来，而不是给它贴标签。"
+  },
+  {
+   "id": "rice-paper-ground",
+   "name": "Rice-paper ground",
+   "nameZh": "宣纸肌理底",
+   "definition": "The whole sheet sits on a paper texture with visible fibres and faint fold lines, so printed black reads as ink soaked into paper.",
+   "definitionZh": "整张画面垫在一层看得见纤维和折痕的纸纹上，印出来的黑于是像墨洇进纸里。"
   }
  ],
  "cases": [
@@ -3454,6 +3751,1365 @@
    "imagePromptZh": "故障艺术海报，一个 AI 生成的主体（雕像、机器或城市物件）放在浅灰底上。主体下半部分切成横条往旁边错开，拉成像素拖影，分离出一种颜色（钴蓝）；脸部保持完整。背景上半部分是青色与黑色，被条纹置换图扭曲。左边缘竖排粗重做旧的标题，主体背后一圈尖刺光环，细轨道线带小圆点，两三个抖动像素图框，两端对齐的小号英文块。只用三四种颜色。主体和标题换成你自己的。",
    "codePrompt": "Build this poster in HTML/canvas/SVG at 3:4. Draw the subject on a canvas (simple shapes and gradients). Steps: (1) the subject on light grey; (2) slice and shift: copy horizontal strips of the lower half with random sideways offsets and stretch some strips into pixel streaks, tinting a few cobalt, but mask the face and hands out; (3) displaced background: generate a stripe texture, then offset each row of a cyan field by the texture value and draw black streaks, top half only; (4) layout in SVG: a vertical distressed CJK title, a spiked ring, thin orbit arcs with node circles, checkerboard-dithered boxes, small justified text; (5) motion: strips jitter on a stepped timer and the halo turns slowly. Provide step buttons; honour prefers-reduced-motion.",
    "codePromptZh": "用 HTML/canvas/SVG 做这张 3:4 海报。canvas 用简单形状和渐变画主体。分步：(1) 主体放在浅灰底上；(2) 切片错位：把下半部分按横条复制、随机左右错开，部分横条拉成像素拖影、染成钴蓝，脸和手用蒙版保护；(3) 置换背景：生成一张条纹纹理，按纹理值逐行错开青色底并画出黑色拖影，只在上半部分；(4) SVG 排版：竖排做旧中文标题、尖刺光环、带小圆点的细轨道弧线、棋盘格抖动图框、两端对齐小字；(5) 动效：横条按步进节奏抖动，光环缓慢转动。做分步按钮，支持减弱动态效果。"
+  },
+  {
+   "slug": "feinii-magpie-branch",
+   "game": "Magpie Weaving Branches",
+   "gameZh": "灵鹊衔枝",
+   "project": "Motion poster",
+   "projectZh": "动态海报",
+   "credits": "妃妮FEINII文创",
+   "year": 2026,
+   "type": "poster",
+   "issue": 14,
+   "styleTags": [
+    "chinese-dreamcore",
+    "ink-wash"
+   ],
+   "techniques": [
+    "motion-poster",
+    "montage-cut",
+    "misty-gradient",
+    "folk-pattern",
+    "seal-script-block",
+    "red-seal-stamp",
+    "vertical-title"
+   ],
+   "sourceLabel": "妃妮FEINII文创, “中式梦核新中式动态海报” (Xiaohongshu video, 18 Nov 2026), posted by the designer",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6afd7bf0000000002b01991e"
+   ],
+   "palette": [
+    {
+     "hex": "#121619",
+     "name": "Ink ground",
+     "nameZh": "墨色底"
+    },
+    {
+     "hex": "#5C7272",
+     "name": "Misty pine",
+     "nameZh": "雾松绿"
+    },
+    {
+     "hex": "#A3B0AF",
+     "name": "Pale celadon",
+     "nameZh": "云灰绿"
+    },
+    {
+     "hex": "#C4B3BC",
+     "name": "Blossom mauve",
+     "nameZh": "花瓣藕粉"
+    },
+    {
+     "hex": "#D6C8C8",
+     "name": "Dusk beige",
+     "nameZh": "暮霭米色"
+    },
+    {
+     "hex": "#C92431",
+     "name": "Seal vermilion",
+     "nameZh": "朱红印"
+    }
+   ],
+   "summary": "A new-Chinese motion poster for a cultural-goods studio. A temple eave, a pine branch, magnolia blossoms and a scholar's rock are collaged over a ground that fades from ink black at the top to dusk beige at the bottom, with a brocade band running the full height just left of centre. Four seal-script characters and one vermilion stamp carry the title; everything else is cold grey-green. Almost nothing moves — the branch breathes, the mist drifts — so it still reads as a poster rather than a video.",
+   "summaryZh": "文创工作室的一张新中式动态海报。古建筑飞檐、松枝、玉兰花和一块太湖石拼贴在一片从顶部墨黑渐变到底部暮色米白的底上，中轴偏左一条织锦纹样带贯通上下。标题是四个篆书字加一枚朱红印，其余全是冷灰绿。画面几乎不动——枝条轻摆、雾气缓缓流——所以它仍然读作一张海报，而不是一段视频。",
+   "read": "Chinese dreamcore is usually described as a mood, but this sheet shows it is a method. First, one temperature: every photographed piece — tiles, pine needles, petals, stone — is pushed to the same cold grey-green and the same low contrast, which is what lets fragments from four different sources sit in one picture without looking cut out. Second, one gradient: the ground runs from near-black at the top to pale dust at the bottom, so depth comes from the background rather than from perspective in the objects. Third, one exception: a single vermilion seal is the only saturated colour on the sheet, and the eye goes there first. Fourth, the lettering never competes — the Chinese title is four seal-script characters in a 2x2 block, the English is small spaced serif capitals pinned to the top-right and bottom-right corners, and the studio name runs down the left edge rotated. The motion in the published version is tiny on purpose: a few pixels of sway on the branch and a slow drift in the mist. Anything larger would turn the poster into a scene.",
+   "readZh": "中式梦核常被当成一种气氛来讲，这张海报说明它其实是一套做法。第一，统一色温：所有摄影素材——瓦当、松针、花瓣、山石——都被压到同一种冷灰绿、同一档低对比，来自四处的碎片才能同处一张画面而不显得是剪贴上去的。第二，统一渐变：底色从顶部近黑走到底部灰白，纵深交给背景，而不是靠物体自身的透视。第三，留一个例外：全画唯一的饱和色是那枚朱红印，视线第一眼就落在那里。第四，文字从不抢戏：中文标题是四个篆书字排成 2×2 的方块，英文是加了字距的小号衬线大写、钉在右上和右下两角，工作室名竖着跑在左边缘。发布版里的动效故意做得极小：枝条摆动几个像素，雾气缓慢流动。再大一点，海报就变成一个场景了。",
+   "layers": {
+    "grid": "The brocade band just left of centre divides the sheet into three unequal strips: a narrow left margin for the studio marks, the tall patterned middle band, and a wide right field holding the eave, the title block and the rock. Text is pushed into the four corners, so the middle stays picture.",
+    "gridZh": "中轴偏左的织锦纹样带把画面切成三条不等宽的竖条：左边窄条放工作室标记，中间是满高的纹样带，右边大块放飞檐、标题和山石。文字全被推到四个角，中间留给画面。",
+    "type": "Four voices, each kept small: seal script for the title (2x2, not a line), a spaced serif capital for the English lines, a rotated sans for FEINII VISUAL DESIGN down the left edge, and single characters inside rounded-square frames as punctuation.",
+    "typeZh": "四种字各司其职，每一种都压得很小：标题用篆书（排成 2×2，不排成一行），英文用加了字距的衬线大写，左边缘竖排的 FEINII VISUAL DESIGN 用无衬线，圆角方框里的单字当标点使。",
+    "focus": "The vermilion seal beside the seal-script block: the only saturated colour on an otherwise cold sheet.",
+    "focusZh": "篆书方阵旁边那枚朱红印：整张冷调画面里唯一的饱和色。",
+    "space": "The pale dusk-beige bottom right, where the gradient has washed everything out and only two lines of small English are left.",
+    "spaceZh": "右下角那片暮色米白，渐变把一切都冲淡了，只剩两行英文小字。"
+   },
+   "imagePrompt": "New-Chinese dreamcore poster, 3:4. Collage photographic fragments — a curved temple eave with grey tiles, a pine branch, large magnolia petals, a pitted scholar's rock — over a vertical gradient from near-black at the top to pale dust beige at the bottom. Push every fragment to the same cold grey-green and the same low contrast so they read as one misty scene. A full-height brocade band of pale celadon florals sits just left of centre. Title: four seal-script characters in a 2x2 block at centre right with one small vermilion round seal beside them and a line of spaced serif capitals under them. Small spaced serif capitals in the top-right and bottom-right corners, a studio name rotated down the left edge, single characters in rounded-square outline frames in two corners. One saturated colour only (the seal). Use your own motif and characters.",
+   "imagePromptZh": "新中式梦核海报，3:4。把摄影碎片拼在一起——灰瓦飞檐、一枝松、几片大玉兰花瓣、一块嶙峋太湖石——压在从顶部近黑到底部灰白米色的竖向渐变上。所有碎片都压到同一种冷灰绿、同一档低对比，让它们读成同一片雾中景。中轴偏左一条满高的青瓷色花卉织锦带。标题：中右位置四个篆书字排成 2×2 方块，旁边一枚朱红圆印，下面一行加字距的衬线大写英文。右上角和右下角各放一组加字距的衬线大写小字，左边缘竖排工作室名，两个角各有一个圆角方框包住的单字。全画只允许一处饱和色（那枚印）。换成你自己的意象和文字。",
+   "codePrompt": "Build this as one SVG poster (viewBox 720x960) plus a thin layer of CSS motion. Ground: a vertical linearGradient from #121619 to #D6C8C8, with an feTurbulence mist layer over it at low opacity. Objects: do not try to draw photographs — build the eave from a stack of repeated tile arcs on a skewed group, the pine branch from a few cubic paths with needle fans cloned along them, the blossoms from five rotated petal paths each, the rock from one blobby path with lighter inner shapes. Desaturate everything into the same grey-green family. Brocade band: an SVG <pattern> of a simple flower repeated, clipped to a tall rect left of centre. Type: the four title characters as a 2x2 <text> grid, a <circle> seal with a thin inner ring, spaced serif capitals in the corners, a rotated sans wordmark. Motion: give the branch group and the mist slow infinite animations and derive every duration from the shell's --dur-* tokens with calc(), and stop them under prefers-reduced-motion. Add step buttons that reveal ground, branches, architecture and lettering in turn, plus a still/animated toggle.",
+   "codePromptZh": "用一个 SVG（viewBox 720×960）加一层很薄的 CSS 动效来做。底：从 #121619 到 #D6C8C8 的竖向 linearGradient，上面叠一层低透明度的 feTurbulence 雾。物体：不要试图画照片——飞檐用一排重复的瓦弧放在倾斜的组里，松枝用几条三次贝塞尔路径加沿路径克隆的针叶扇，花朵每朵用五片旋转的花瓣路径，山石用一条起伏的路径加几块更亮的内形。全部去饱和到同一族灰绿。纹样带：用 SVG <pattern> 平铺一朵简化的花，裁进中轴偏左的高矩形里。文字：标题四字用 2×2 的 <text> 网格，印章用 <circle> 加一圈细内环，四角放加字距的衬线大写，左边缘放旋转的无衬线字标。动效：给枝条组和雾层加缓慢的无限动画，所有时长都用 calc() 从站点的 --dur-* 变量推出，并在 prefers-reduced-motion 下停掉。再加分步按钮，依次显示底图、花枝、建筑、文字，以及一个静止 / 动态的开关。",
+   "images": [
+    {
+     "file": "feinii-magpie-branch-1.webp",
+     "caption": "Magpie Weaving Branches: a temple eave, a pine branch, magnolia blossoms and a scholar's rock collaged over an ink-to-dusk gradient, with the seal-script title and a vermilion stamp at centre right",
+     "captionZh": "灵鹊衔枝：飞檐、松枝、玉兰与太湖石拼在墨色到暮色的渐变底上，中右是篆书四字标题和一枚朱红印",
+     "w": 720,
+     "h": 960,
+     "hd": "feinii-magpie-branch-1@2x.webp",
+     "origin": "video-enhanced"
+    }
+   ]
+  },
+  {
+   "slug": "chinese-art-archive",
+   "game": "Forms of Chinese Art",
+   "gameZh": "中国古典艺术",
+   "project": "Inspiration boards",
+   "projectZh": "灵感看板 8 张",
+   "credits": "Artwork images via Pinterest (board compiled by 是鼠鼠我呀)",
+   "year": 2026,
+   "type": "poster",
+   "issue": 15,
+   "styleTags": [
+    "magazine-editorial",
+    "neo-folk"
+   ],
+   "techniques": [
+    "image-mosaic",
+    "bilingual-title",
+    "series-numbering",
+    "color-field",
+    "gutter-grid",
+    "heritage-grid",
+    "type-contrast"
+   ],
+   "sourceLabel": "是鼠鼠我呀, “整理了8种中国古典艺术视觉灵感” (Xiaohongshu video, 22 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6b026d390000000018026dd6"
+   ],
+   "palette": [
+    {
+     "hex": "#651B14",
+     "name": "Lacquer red",
+     "nameZh": "朱漆红"
+    },
+    {
+     "hex": "#245048",
+     "name": "Pine green",
+     "nameZh": "松石绿"
+    },
+    {
+     "hex": "#253B49",
+     "name": "Night blue",
+     "nameZh": "夜青蓝"
+    },
+    {
+     "hex": "#D4E5DD",
+     "name": "Celadon",
+     "nameZh": "青瓷色"
+    },
+    {
+     "hex": "#F2EDE3",
+     "name": "Rice-paper cream",
+     "nameZh": "宣纸白"
+    },
+    {
+     "hex": "#EFE7D5",
+     "name": "Pale parchment",
+     "nameZh": "素笺米"
+    }
+   ],
+   "summary": "Eight inspiration boards on one template: Dunhuang murals, shanshui painting, traditional ornament, ceramics, calligraphy, ritual bronzes, Chinese opera and folk paper arts. Each board is a flat field of one heritage colour, two side columns tiled with museum photographs, and a quiet middle column holding an episode number, a bracketed Chinese title, its English name in spaced capitals, two lines of description and the search terms used to find the pictures.",
+   "summaryZh": "同一套模板做出的八张灵感看板：敦煌佛韵、山水意境、传统纹样、陶瓷之美、翰墨书法、青铜礼器、梨园风华、纸上民艺。每张都是一块单色平涂的底，左右两列铺满博物馆照片，中间留一条安静的竖栏，放着期号、加方括号的中文标题、加字距的英文名、两行说明，以及找图用的检索词。",
+   "read": "What makes a set of reference pictures feel like a publication rather than a folder is the template, and this one is worth copying. The sheet is three columns: pictures, text, pictures. The outer columns are a mosaic — images of different heights with one gap size everywhere, so a pile of unrelated museum photographs reads as a single wall. The middle column holds nothing but type, centred, and it is the same five blocks on every board: a small italic episode marker, the Chinese title in a heavy sans with thin bracket marks around it, the English name in spaced capitals, a numbered series line, and under a small x divider two lines of description plus the Pinterest search terms. The background colour is the only thing that changes with the subject, and it is always taken from the material itself: lacquer red for Dunhuang, pine green for landscape and bronze, night blue for ink on paper, celadon for porcelain, parchment for paper arts. Because the frame never moves, you can read eight boards in sixteen seconds and still know which is which.",
+   "readZh": "一堆参考图看上去像一本刊物而不是一个文件夹，靠的是模板，这套模板值得照抄。画面分三栏：图、字、图。外侧两栏是拼贴墙——图片高度不一，但间距处处相同，一堆互不相干的博物馆照片于是读成一面墙。中间一栏只有文字，居中，每张都是同样的五块：一行小号斜体期号、加细方括号的粗体中文标题、加字距的英文名、一行系列编号，再在一个小小的 × 分隔之下放两行说明和 Pinterest 检索词。随主题变化的只有底色，而且底色总是取自材料本身：敦煌用朱漆红，山水和青铜用松石绿，纸上墨迹用夜青蓝，瓷器用青瓷色，民艺用素笺米。因为框架从不挪动，十六秒看完八张，你还能分清哪张是哪张。",
+   "layers": {
+    "grid": "Three columns at roughly 1 : 1.1 : 1. The outer two are picture mosaics on a single gutter size; the middle one is type only and stays empty top and bottom, so the text block floats in the middle third of the sheet.",
+    "gridZh": "三栏，宽度大约是 1 : 1.1 : 1。外侧两栏是用同一个间距铺的图片墙，中间一栏只放文字、上下留空，所以文字块浮在画面中段。",
+    "type": "Four sizes in one centred stack: a small italic serif marker, the heavy bracketed Chinese title, the English name in spaced capitals, and the numbered series line in italic serif again; the two description lines and the search terms sit smaller still, below a tiny x.",
+    "typeZh": "一列居中的文字里有四档字号：小号斜体衬线的期号、加方括号的粗体中文标题、加字距的英文大写、再回到斜体衬线的系列编号；说明两行和检索词更小，压在一个小小的 × 下面。",
+    "focus": "The bracketed Chinese title with its English name directly beneath: the one place where the eye lands before it starts browsing pictures.",
+    "focusZh": "加了方括号的中文标题和紧贴其下的英文名：视线在开始看图之前落的那个点。",
+    "space": "The flat colour above and below the text block, which is what keeps a wall of photographs from feeling like a contact sheet.",
+    "spaceZh": "文字块上下那两片什么都没有的纯色，正是它让一墙照片不至于显得像一张印样。"
+   },
+   "imagePrompt": "Archive-style inspiration board, 3:4, flat single-colour ground taken from the subject itself (lacquer red, pine green, night blue, celadon or parchment). Three columns: left and right are mosaics of museum photographs at different heights with one identical gap everywhere; the middle column is type only, centred, floating in the middle third. In the middle column, top to bottom: a small italic serif marker in parentheses, a heavy sans Chinese title inside thin square brackets, its English name in spaced capitals, a small italic serif line reading ARCHIVE / 01, a small x divider, two short lines of description, then a label and two search terms in small type. Everything but the pictures is one warm off-white. Use your own subject and pictures.",
+   "imagePromptZh": "档案式灵感看板，3:4，整块平涂底色取自主题材料本身（朱漆红、松石绿、夜青蓝、青瓷色或素笺米）。三栏：左右两栏是高度不一的博物馆照片拼贴墙，间距处处相同；中间一栏只有文字，居中，浮在画面中段。中栏自上而下：括号里的小号斜体衬线标记、加细方括号的粗体中文标题、加字距的英文大写名、一行小号斜体衬线的 ARCHIVE / 01、一个小小的 × 分隔、两行简短说明，最后一行标签和两个检索词。除照片外全用同一种暖白。主题和图片换成你自己的。",
+   "codePrompt": "Build one board as an SVG (viewBox 720x960) and keep it template-driven: a data array of nine tiles with x, y, width and height, and a second array for the five text blocks, so changing the subject means changing data, not markup. Tiles: rounded-free rects filled with simple SVG gradients, silhouettes and pattern fills standing in for the photographs (never fake a real artefact). Middle column: centred text, four type sizes, thin bracket strokes drawn as two small paths rather than typed characters so they can be sized independently. Add format buttons that switch the ground colour and the whole text block between the boards of the set, and dispatch gd:layout when they switch so the breakdown marks re-measure.",
+   "codePromptZh": "用一个 SVG（viewBox 720×960）做一张看板，并且做成数据驱动的：一个九个图块的数组（x、y、宽、高），另一个数组放五块文字，换主题时改数据而不是改结构。图块：无圆角矩形，填入简单的 SVG 渐变、剪影和图案平铺来代替照片（不要去伪造真实文物）。中栏：居中文字，四档字号，方括号用两条小路径画，而不是打字符，这样可以单独调大小。再加切换按钮，在同一套看板之间切换底色和整块文字，切换时派发 gd:layout，让拆解标注重新测量位置。",
+   "specimen": "style-demo",
+   "images": [
+    {
+     "file": "chinese-art-archive-1.webp",
+     "caption": "Board 01 Dunhuang art: Mogao cave murals, ceiling patterns and painted clay figures on lacquer red",
+     "captionZh": "看板 01 敦煌佛韵：莫高窟壁画、藻井图案与彩塑，朱漆红底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-1@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-2.webp",
+     "caption": "Board 02 Shanshui: blue-green and ink landscape painting on pine green",
+     "captionZh": "看板 02 山水意境：青绿山水与水墨山水，松石绿底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-2@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-3.webp",
+     "caption": "Board 03 Chinese ornament: nine numbered traditional patterns on rice-paper cream",
+     "captionZh": "看板 03 传统纹样：九种编号排开的传统纹样，宣纸白底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-3@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-4.webp",
+     "caption": "Board 04 Ceramics: celadon, blue-and-white and famille-rose vessels on pale celadon",
+     "captionZh": "看板 04 陶瓷之美：青瓷、青花与粉彩器物，青瓷色底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-4@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-5.webp",
+     "caption": "Board 05 Calligraphy: running and cursive script masterworks on night blue",
+     "captionZh": "看板 05 翰墨书法：行书与草书名帖，夜青蓝底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-5@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-6.webp",
+     "caption": "Board 06 Ritual bronzes: Shang and Zhou vessels, masks and animal forms on deep pine green",
+     "captionZh": "看板 06 青铜礼器：商周青铜器、面具与兽形器，深松绿底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-6@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-7.webp",
+     "caption": "Board 07 Chinese opera: headdresses, painted faces and stage photography on lacquer red",
+     "captionZh": "看板 07 梨园风华：头面、脸谱与舞台摄影，朱漆红底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-7@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "chinese-art-archive-8.webp",
+     "caption": "Board 08 Folk arts: paper cuts, New Year woodblock prints and shadow puppets on warm parchment",
+     "captionZh": "看板 08 纸上民艺：剪纸、年画与皮影，暖米纸底",
+     "w": 720,
+     "h": 960,
+     "hd": "chinese-art-archive-8@2x.webp",
+     "origin": "video-enhanced"
+    }
+   ]
+  },
+  {
+   "slug": "orange-dreamscape",
+   "game": "ORANGE DREAM",
+   "gameZh": "橘色梦境",
+   "project": "Mood-board collages",
+   "projectZh": "情绪板拼贴",
+   "credits": "Original designers unknown (compiled by 因为)",
+   "year": null,
+   "type": "poster",
+   "issue": 16,
+   "styleTags": [
+    "warm-film",
+    "diffuse-gradient"
+   ],
+   "techniques": [
+    "finishing-grade",
+    "faded-print",
+    "film-grain",
+    "sticker-overlay",
+    "torn-edge",
+    "crayon-scribble",
+    "viewfinder-frame"
+   ],
+   "sourceLabel": "因为, “橘色梦境｜审美积累（35/100）” (Xiaohongshu, 21 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6b01b191000000001603cf7d"
+   ],
+   "images": [
+    {
+     "file": "orange-dreamscape-1.webp",
+     "caption": "Orange wash collage: an old photograph, torn clippings, Portuguese notes and a “Playlist do tears.” Spotify card",
+     "captionZh": "橘色水彩拼贴：一张旧照片、撕边剪报、葡萄牙文手写和一张「Playlist do tears.」Spotify 卡片",
+     "w": 769,
+     "h": 1400,
+     "hd": "orange-dreamscape-1@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "orange-dreamscape-2.webp",
+     "caption": "A backlit photograph washed in orange, with the “neurons trained to remember you” line set small at the bottom",
+     "captionZh": "一张压成暖橘调的逆光照片，下方排着「被训练来记住你的神经元」那行小字",
+     "w": 1094,
+     "h": 1417,
+     "origin": "note"
+    },
+    {
+     "file": "orange-dreamscape-3.webp",
+     "caption": "Olive-and-orange sheet with the sentence “I miss having the privilege of not knowing how the world works”",
+     "captionZh": "橄榄绿与橘色的一版，配句子「I miss having the privilege of not knowing how the world works」",
+     "w": 1050,
+     "h": 1014,
+     "hd": "orange-dreamscape-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "orange-dreamscape-4.webp",
+     "caption": "A near-black sheet with one warm highlight strip and a small white line at the bottom",
+     "captionZh": "一张近黑的画面，只有一条暖色高光带，底部一行白色小字",
+     "w": 1087,
+     "h": 1088,
+     "hd": "orange-dreamscape-4@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#EEA252",
+     "name": "Sunlit orange",
+     "nameZh": "日光橘"
+    },
+    {
+     "hex": "#D59E54",
+     "name": "Faded apricot",
+     "nameZh": "褪色杏"
+    },
+    {
+     "hex": "#FAF7F2",
+     "name": "Paper cream",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#9D8B41",
+     "name": "Olive",
+     "nameZh": "橄榄绿"
+    },
+    {
+     "hex": "#4B372A",
+     "name": "Cocoa shadow",
+     "nameZh": "深可可"
+    }
+   ],
+   "summary": "Four sheets from an “orange” mood board. A collage page with orange washes, a photograph, torn clippings and a Spotify card; a backlit photograph with a sentence about forgetting; an olive-and-orange sheet with another sentence; a near-black sheet with one small line. One warm film grade covers everything, and the sentences do the talking.",
+   "summaryZh": "「橘」主题情绪板里的四张。一张拼贴页：橘色晕染、旧照片、剪报和 Spotify 卡片；一张逆光照片，配一句关于遗忘的英文短句；一张橄榄绿与橘色的版面，又是一句短句；一张近黑的画面，只留一行小字。四张全部压成同一种暖调胶片色，说话的是那几句短句。",
+   "read": "The colour does the editing. These pictures have nothing in common — a collage of clippings, a backlit portrait, a dark still — but one warm grade over all of them turns a pile of saved images into a single body of work. After that each sheet adds at most one or two moves: a wash, a card, one sentence set small. The lines are plain and a little sad (“I miss having the privilege of not knowing how the world works”), so you read the picture first and the sentence second.",
+   "readZh": "真正在做编辑的是颜色。这几张图本来毫无关系——拼贴、逆光人像、暗调静物——但统一压上同一种暖橘调之后，一堆存图就变成了一组作品。接下来每张只加一两个动作：一片晕染、一张卡片、一句排得很小的短句。句子写得平白又有点伤感（「I miss having the privilege of not knowing how the world works」），所以你总是先看画面、后读字。",
+   "layers": {
+    "grid": "The collage page works on a cream ground with wide margins: orange washes enter from the top and bottom left, the photograph block sits centre, a white Spotify card hangs middle-right and a dark music card lower left. The other sheets split top-to-bottom: photograph above, a light panel with the sentence below.",
+    "gridZh": "拼贴页在米白底上做文章，四边留白很宽：橘色晕染从左上和左下伸进来，照片块在中间，白色 Spotify 卡片挂在中部右侧，深色音乐卡片在左下。另外几张上下分段：上面是照片，下面一块浅色板放短句。",
+    "type": "The Spotify card and clippings keep their own printed labels (“A laranja.”, “Playlist do tears.”, “MARIA BETHÂNIA”); the sentences are set as letter-spaced serif capitals; handwriting carries the Portuguese notes. Nothing is set large.",
+    "typeZh": "Spotify 卡片和剪报保留自己的印刷字（「A laranja.」「Playlist do tears.」「MARIA BETHÂNIA」）；两句英文短句用拉开字距的衬线大写；葡萄牙文笔记用手写体。全组没有大字。",
+    "focus": "The photograph block in the centre of the collage — the only heavy mass on a cream page. On the dark sheet the single warm highlight strip carries the eye instead.",
+    "focusZh": "拼贴页中央那块照片——米白页面上唯一的重色块。近黑那张则是左上那条暖色高光带把眼睛带走。",
+    "space": "The cream margins of the collage page: washes and cards are allowed to touch them, but the page edges stay light, so the busy centre never reaches the trim.",
+    "spaceZh": "拼贴页四周的米白边：晕染和卡片可以伸过去，但纸边始终保持浅色，中央再热闹也不碰边。"
+   },
+   "imagePrompt": "A mood-board collage page on cream paper. Loose orange watercolour washes enter from the top left and bottom left. In the centre sits one photograph (do not redraw it — use a flat grey block). On the middle right, a small white music-streaming card with a square thumbnail and two printed lines of type; lower left, a dark card with a performer's name. A few torn clippings and handwritten Portuguese notes cross the page, and one short serif sentence sits upper-centre. Keep everything under one warm orange film grade with grain.",
+   "imagePromptZh": "米白纸面上的一页情绪板拼贴。松散的橘色水彩晕染从左上和左下伸进来。中间放一张照片（不要重画照片，用一块平涂灰色代替）。中部右侧一张白色音乐卡片，带方形缩略图和两行印刷小字；左下一张深色卡片，印着表演者名字。几条撕边剪报和手写葡萄牙文横过页面，中上偏右一句衬线短句。整页统一压一种带颗粒的暖橘胶片调。",
+   "codePrompt": "Build one tall sheet (about 3:4.3) as a single SVG on #FAF7F2. Left third: two loose orange washes (feTurbulence plus feColorMatrix clipped to ragged shapes) at the top and bottom. Centre: a dark grey photo block with a noise filter. Middle right: a white rounded card with a small square, two lines of tiny sans type and a play glyph; lower left: a dark card with one name. Add two or three small clipping rectangles and two lines of handwriting along tilted paths, plus three serif capitals lines upper-centre. Finish with one multiply-orange overlay and one grain filter so every layer shares the grade. Add step buttons — ground and washes, photo block, cards and clippings, type — fading each group in with the site's duration tokens.",
+   "codePromptZh": "用一个 SVG 做竖版海报（约 3:4.3），底色 #FAF7F2。左侧三分之一：上下两片松散的橘色晕染（feTurbulence 加 feColorMatrix，裁进毛边形状里）。中间：深灰照片块加噪点滤镜。中部右侧：白色圆角卡片，里面有方块、两行极小无衬线字和一个播放图标；左下：深色卡片印一个名字。再放两三个剪报小矩形、两行沿倾斜路径的手写字，中上偏右三行衬线大写。最后整张压一层正片叠底的橘色和一层颗粒滤镜，让所有图层共用同一个调子。加分步按钮——底色与晕染、照片块、卡片与剪报、文字——每组淡入用站点的时长变量。"
+  },
+  {
+   "slug": "mono-magazine-type",
+   "game": "MONO EDITORIAL",
+   "gameZh": "黑白杂志风",
+   "project": "Magazine-style posters",
+   "projectZh": "杂志感海报",
+   "credits": "Original designers unknown (compiled by 布噜设计师); “street.” credits photographer Moeed Khan",
+   "year": null,
+   "type": "poster",
+   "issue": 17,
+   "styleTags": [
+    "magazine-editorial",
+    "big-type"
+   ],
+   "techniques": [
+    "masthead-serif",
+    "type-weave",
+    "gutter-grid",
+    "extended-wordmark",
+    "rotated-type",
+    "type-contrast",
+    "mono-contrast"
+   ],
+   "sourceLabel": "布噜设计师（blue_design）, “审美积累No.81｜黑白杂志风创意海报” (Xiaohongshu, 4 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6aeb54c70000000007001192"
+   ],
+   "images": [
+    {
+     "file": "mono-magazine-type-1.webp",
+     "caption": "VELVET, issue 07: a dancer threaded through the masthead, “GRACE IN EVERY MOTION” in the right column",
+     "captionZh": "VELVET 第 07 期：舞者穿进刊头大字里，右栏排「GRACE IN EVERY MOTION」",
+     "w": 735,
+     "h": 919,
+     "hd": "mono-magazine-type-1@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "mono-magazine-type-2.webp",
+     "caption": "MONARC “PRISM MOTION”: a figure study clamped between two blocks of serif display type, thin arcs across the page",
+     "captionZh": "MONARC《PRISM MOTION》：人像被上下两块衬线大字夹住，细圆弧划过画面",
+     "w": 476,
+     "h": 843,
+     "hd": "mono-magazine-type-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "mono-magazine-type-3.webp",
+     "caption": "“street.”: one heavy lowercase word over three photo columns on black; photography credited to Moeed Khan",
+     "captionZh": "「street.」：一个粗体小写词压在黑底三栏照片上，摄影署名 Moeed Khan",
+     "w": 735,
+     "h": 1040,
+     "hd": "mono-magazine-type-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "mono-magazine-type-4.webp",
+     "caption": "MONO fan meeting: the word turned on its side twice, once outlined and once solid, with the date stacked at the left edge",
+     "captionZh": "MONO 见面会：同一个词转 90° 排两遍，一遍空心一遍实心，日期竖叠在左边缘",
+     "w": 736,
+     "h": 981,
+     "hd": "mono-magazine-type-4@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F4F4F4",
+     "name": "Paper white",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#0A0A0A",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    },
+    {
+     "hex": "#DEDEDE",
+     "name": "Panel grey",
+     "nameZh": "面板灰"
+    },
+    {
+     "hex": "#C3C3C3",
+     "name": "Mid grey",
+     "nameZh": "中灰"
+    },
+    {
+     "hex": "#808080",
+     "name": "Studio grey",
+     "nameZh": "影棚灰"
+    },
+    {
+     "hex": "#B8B1A0",
+     "name": "Linen (street.)",
+     "nameZh": "亚麻米（street.）"
+    }
+   ],
+   "summary": "Four black-and-white editorial posters from one aesthetics round-up. A dancer is threaded through the masthead of VELVET; MONARC clamps a figure study between two blocks of serif display type; “street.” lays one heavy lowercase word across three photo columns on black; a fan-meeting sheet turns the word MONO on its side twice, once outlined and once solid. Grey panels, hairline rules and a hard size jump do all the work — no colour anywhere.",
+   "summaryZh": "同一条审美积累笔记里的四张黑白杂志感海报。VELVET 把舞者穿进刊头大字里；MONARC 用上下两块衬线大字夹住一张人像；「street.」把一个粗体小写词压在黑底三栏照片上；见面会那张把 MONO 转 90° 排两遍，一遍空心一遍实心。全靠灰面板、细线和字号的硬落差撑场，一点颜色都没有。",
+   "read": "Without colour, only three things can carry a poster: size, weight and where the photo sits relative to the type. All four sheets push the size jump to the limit — a masthead that fills the width against 10 px captions, with nothing in between — so the eye has no middle step to rest on and lands on the picture. The photo then breaks the rule the type just set: the dancer's arm crosses in front of VELVET's second L but behind the V, so type and body share one depth instead of sitting in layers. The greys are doing quiet structural work too: the panels behind the dancer are four slightly different values with white gutters between them, which is a magazine grid made visible rather than a decoration. And every sheet keeps one unused area — the upper right of VELVET, the black band under “street.” — so the heavy type has somewhere to breathe out.",
+   "readZh": "没有颜色，撑住一张海报就只剩三样东西：字号、字重，以及照片和文字的前后关系。这四张都把字号落差拉到极限——撑满画面宽的刊头，旁边就是 10 像素的小字，中间什么都不放——眼睛没有中间档可以停，只能落到画面上。接着照片再把文字刚立下的规矩打破：舞者的手臂从 VELVET 第二个 L 前面穿过，却绕到 V 的后面，文字和身体处在同一个空间里，而不是上下两层。灰色也在干正经活：舞者背后那几块面板是四个差一点点的灰，中间留白缝，这是把杂志的网格显出来，不是装饰。每张还都留一块空地——VELVET 的右上、「street.」下面那条黑带——让笨重的大字有地方喘气。",
+   "layers": {
+    "grid": "A three-column modular grid. The masthead occupies the full width of the top eighth; below it a field of grey panels on a four-column rhythm with white gutters; the right-hand column from mid-height down carries the copy block; the bottom strip holds barcode, volume number and web address.",
+    "gridZh": "三栏模块网格。刊头占满顶部约八分之一的整宽；下面是按四栏节奏排的灰面板，面板之间留白缝；中部往下的右栏放文案块；最下面一条压条形码、期号和网址。",
+    "type": "Two voices only: a high-contrast Didone serif for VELVET and the tiny all-caps labels around it, and a heavy condensed grotesque for “GRACE IN EVERY MOTION”. The jump between them is about 14:1.",
+    "typeZh": "只有两种声音：高反差的衬线字用于 VELVET 和周围的小号全大写标签，粗窄无衬线用于「GRACE IN EVERY MOTION」。两者字号差约 14 倍。",
+    "focus": "The dancer's raised hand, which crosses in front of the masthead at the top right and is the only place type and body overlap.",
+    "focusZh": "舞者举起的那只手：它在右上角从刊头前面穿过，是全页唯一文字和身体重叠的地方。",
+    "space": "The pale grey panel in the lower left, left empty apart from one rule and the three-line KINESIS note.",
+    "spaceZh": "左下那块浅灰面板，除了一条短线和三行 KINESIS 小字，什么都没放。"
+   },
+   "imagePrompt": "Black-and-white fashion magazine cover poster, 3:4. A high-contrast Didone serif masthead (one invented word) set as wide as the sheet across the top; a dancer in loose black clothing photographed against light grey, arms extended, overlapping the masthead so one arm passes in front of a letter and the body passes behind another. Behind the dancer a modular grid of four slightly different grey panels with thin white gutters. In the right-hand column a three-line headline in heavy condensed grotesque caps, with a four-word list beneath it in tiny letterspaced type. Bottom edge: a barcode, a volume number, a web address. No colour at all, only paper white, four greys and black. Use your own masthead word and headline.",
+   "imagePromptZh": "黑白时装杂志封面式海报，3:4。顶部一行高反差衬线刊头大字（自拟一个词），排到和画面一样宽；一位穿宽松黑衣的舞者在浅灰背景前张开手臂，与刊头重叠——一只手臂从字母前面穿过，身体从另一个字母后面绕过。舞者背后是模块网格：四块灰度略有差别的面板，之间留细白缝。右栏是三行粗窄无衬线大写标题，下面跟一列四个词的小号字距拉开的小字。底边放条形码、期号和网址。完全无彩，只有纸白、四级灰和黑。刊名和标题换成你自己的。",
+   "codePrompt": "Build this cover in one SVG whose viewBox matches a 3:4 sheet. Order: (1) paper-white ground and the modular panel grid — four grey rects on a four-column rhythm with white gutters; (2) the figure: do not redraw the photograph, build it from a few black rounded shapes and soft grey gradients (head, torso, two arms, a skirt) sitting on the grid; (3) the masthead: one <text> element with textLength so the word spans the sheet, drawn under the arm shape but over the torso so the depth reads as a woven photo; (4) the copy column: a 3-line condensed heading plus a letterspaced four-item list, a short rule and a small note block in the lower left; (5) bottom strip with a barcode built from rects. Mark the masthead with data-ov-type, the overlapping hand with data-ov-focus and the empty lower-left panel with data-ov-space. Offer step buttons that reveal the four stages; any transition must use the site's --dur-* tokens and be switched off under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做这张封面，viewBox 取 3:4。顺序：(1) 纸白底和模块网格——按四栏节奏排四块灰矩形，之间留白缝；(2) 人物：不要重画照片，用几块黑色圆角形状和柔和灰渐变搭出来（头、躯干、两条手臂、裙摆），落在网格上；(3) 刊头：一个 <text> 元素配 textLength，让这个词撑满画面，画在手臂形状之下、躯干之上，前后关系才像照片穿进文字里；(4) 文案栏：三行窄体标题加一列字距拉开的四项小字，左下放一条短线和一小段说明；(5) 底部压条，条形码用矩形拼。刊头标 data-ov-type，重叠的那只手标 data-ov-focus，左下空面板标 data-ov-space。做分步按钮逐步显示这四层；写过渡一律用站点的 --dur-* 变量，并在减弱动态效果时关掉。"
+  },
+  {
+   "slug": "glitch-portrait-collage",
+   "game": "SYSTEM FAILURE",
+   "gameZh": "系统故障",
+   "project": "Portrait collage posters",
+   "projectZh": "故障人像拼贴海报",
+   "credits": "“SYSTEM FAILURE” signed @peshkova.des; “4.48” by Designer.qiongye for the aranya theatre festival; other designers unknown (compiled by 布噜设计师)",
+   "year": null,
+   "type": "poster",
+   "issue": 18,
+   "styleTags": [
+    "glitch",
+    "expressive-type"
+   ],
+   "techniques": [
+    "moire-rings",
+    "color-glitch",
+    "soft-blur-blobs",
+    "liquid-type",
+    "duotone-photo",
+    "perspective-repeat",
+    "rotated-type"
+   ],
+   "sourceLabel": "布噜设计师（blue_design）, “审美积累No.69｜故障人像复古拼贴创意海报” (Xiaohongshu, 22 Oct 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6ada2de4000000002a039caf"
+   ],
+   "images": [
+    {
+     "file": "glitch-portrait-collage-1.webp",
+     "caption": "SYSTEM FAILURE: a smeared figure on a field of moiré rings, red error lines and three two-colour star bursts; signed @peshkova.des",
+     "captionZh": "SYSTEM FAILURE：拉糊的人像压在同心波纹底上，配红色报错行和三颗双色星芒；署名 @peshkova.des",
+     "w": 735,
+     "h": 1040,
+     "hd": "glitch-portrait-collage-1@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "glitch-portrait-collage-2.webp",
+     "caption": "ITERATION-01: one figure repeated into a receding file on graph paper, “Fade into you” running up the right edge in red",
+     "captionZh": "ITERATION-01：同一个人在方格纸上往后重复成一列，「Fade into you」红字竖着爬上右边缘",
+     "w": 736,
+     "h": 920,
+     "hd": "glitch-portrait-collage-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "glitch-portrait-collage-3.webp",
+     "caption": "4.48: the title and a clock face melting into blue water, for Sarah Kane's play at the aranya theatre festival",
+     "captionZh": "4.48：标题和钟面化进蓝色水里，Sarah Kane 的戏在阿那亚戏剧节的海报",
+     "w": 646,
+     "h": 861,
+     "hd": "glitch-portrait-collage-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "glitch-portrait-collage-4.webp",
+     "caption": "FORGOTTEN: an orange-and-teal duotone sitter whose hands cut the headline in half",
+     "captionZh": "FORGOTTEN：橙与青双色调的人像，她的手把标题拦腰切断",
+     "w": 736,
+     "h": 1040,
+     "hd": "glitch-portrait-collage-4@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#E8E8E8",
+     "name": "Interference white",
+     "nameZh": "干扰白"
+    },
+    {
+     "hex": "#111111",
+     "name": "Signal black",
+     "nameZh": "信号黑"
+    },
+    {
+     "hex": "#E8402A",
+     "name": "Error red",
+     "nameZh": "报错红"
+    },
+    {
+     "hex": "#16566B",
+     "name": "Star teal",
+     "nameZh": "星芒蓝绿"
+    },
+    {
+     "hex": "#2567BD",
+     "name": "Water blue (4.48)",
+     "nameZh": "水蓝（4.48）"
+    },
+    {
+     "hex": "#2BB3A8",
+     "name": "Duotone teal (FORGOTTEN)",
+     "nameZh": "双色青（FORGOTTEN）"
+    }
+   ],
+   "summary": "Four posters that damage a portrait on purpose. SYSTEM FAILURE blurs a figure to a smear behind a field of concentric moiré rings and shoots three two-colour stars through it; ITERATION-01 repeats one figure into a receding file and runs “Fade into you” up the right edge; 4.48 melts the title and a clock face into blue water for Sarah Kane's play; FORGOTTEN prints a sitter in orange and teal and lets her hands cut the headline in half. In every one, the face is the part that is destroyed.",
+   "summaryZh": "四张故意把人像做坏的海报。SYSTEM FAILURE 把人糊成一团，压在一片同心波纹底上，再射穿三颗双色星芒；ITERATION-01 把同一个人往后重复成一列，「Fade into you」竖着爬上右边缘；4.48 把标题和钟面化进蓝色水里，是 Sarah Kane 那出戏的海报；FORGOTTEN 把人像印成橙与青两色，让她的手把标题拦腰切断。四张里被破坏的都是脸。",
+   "read": "The trick is that the damage is aimed, not sprayed. Each sheet keeps one thing perfectly sharp — the red mono error lines, the red grid marks, the clock hands, the headline — and ruins everything around it, so the ruin reads as a decision rather than a bad file. Second, every poster is built on one ground texture that is the same everywhere: concentric rings, graph grid, water grain, halftone. A uniform texture is what lets a wrecked subject still feel like one picture. Third, the palettes are tiny: black, white and one accent (red, blue, orange-and-teal). Glitch work falls apart when the colours are as random as the shapes, so the colour has to be the disciplined part. Finally the type never glitches and smears at the same time: either the letters are clean and the photo is wrecked (ITERATION-01, FORGOTTEN), or the letters melt and the ground stays flat (4.48).",
+   "readZh": "关键在于破坏是瞄准过的，不是乱喷的。每张都留一样东西绝对清晰——红色等宽的报错行、红色网格标记、钟的指针、大标题——周围全毁掉，破坏才像一个决定，而不像文件坏了。第二，每张都建立在一层从头铺到尾的均匀底纹上：同心圆、方格纸、水面颗粒、网点。正因为底纹统一，被毁掉的主体才还像同一张画面。第三，配色极少：黑、白，加一个强调色（红、蓝，或橙配青）。故障风一旦颜色和形状一样随机就散了，所以颜色必须是守纪律的那一方。最后，文字和画面不会同时出事：要么字是干净的、照片被毁（ITERATION-01、FORGOTTEN），要么字在化掉、底子保持平整（4.48）。",
+   "layers": {
+    "grid": "A single column. The title band fills the top seventh edge to edge; a left block of error copy sits under it; the figure runs down the centre from a quarter height to the bottom edge; a right block of copy sits at mid height; a six-line log and the signature close the bottom edge.",
+    "gridZh": "单栏。标题带满宽占顶部约七分之一；下面左侧是报错文案块；人物从四分之一高处一直落到下边缘；右侧文案块在中部；底边收口是六行日志和署名。",
+    "type": "One distorted heavy display face for the title, jittered and stretched so the letters lose their contours, against clean monospaced caps for everything else; the only colour in the type is red on two phrases.",
+    "typeZh": "标题用一款做坏的粗显示字，抖动拉伸到轮廓都认不全，其余全部是干净的等宽大写；文字里唯一的颜色是两处红字。",
+    "focus": "The star burst over the face: two spiky polygons in teal and red, offset from each other, pinned exactly where the eyes would be.",
+    "focusZh": "脸上那颗星芒：蓝绿和红两片尖刺多边形互相错开，正钉在眼睛的位置。",
+    "space": "The right half between the title and the mid-height copy block, left as bare moiré so the smear has room to fall.",
+    "spaceZh": "标题和中部文案之间的右半块，只留波纹底，拖影才有地方落下。"
+   },
+   "imagePrompt": "Glitch portrait poster, 3:4, on an off-white ground covered edge to edge with dense concentric interference rings (moiré). A single human figure, arms raised toward the face, photographed and then smeared vertically into a dark blur with faint red chromatic ghosting; the face is unreadable. Across the top, a heavy display title in black whose letters are jittered and stretched so their outlines break up. Under it a block of monospaced caps in black and red, two short lines of red at mid right, and a six-line machine log along the bottom left. Three spiky star bursts, each drawn twice in teal and red slightly offset, pinned over the face, the shoulder and the lower right. Only off-white, black, red and teal. Use your own title and log text.",
+   "imagePromptZh": "故障人像海报，3:4，米白底满铺密集同心干扰环（波纹）。画面中一个人举手护住脸，照片被纵向拉糊成深色一团，带微弱的红色重影，脸完全看不清。顶部横排一行粗重的黑色显示字标题，字母经过抖动和拉伸，轮廓已经碎掉。标题下面是一块黑红相间的等宽大写文案，中部偏右两行红字，左下角六行机器日志。三颗尖刺星芒，每颗都用蓝绿和红画两遍、互相错开，分别钉在脸、肩膀和右下。只用米白、黑、红、蓝绿四色。标题和日志文字换成你自己的。",
+   "codePrompt": "Build this poster as one SVG with a 3:4 viewBox. Layers bottom to top: (1) the moiré ground — a repeating radial pattern of thin rings, or many concentric <circle> elements with a hairline stroke, covering the sheet; (2) the figure: do not redraw a photograph, stack a few blurred dark ellipses and a tall tapered body shape behind a strong feGaussianBlur, then duplicate them once in red at a small offset with low opacity for the chromatic ghost; (3) the title: one <text> per word, each letter wrapped in a <tspan> given a small random dy and a scale so the word reads as damaged, plus a feTurbulence/feDisplacementMap on the title group; (4) monospaced copy blocks, two in black and red at top left, two red lines at mid right, a log list bottom left, a signature line bottom; (5) three star bursts, each a 10-point spiky polygon drawn twice (teal, then red offset by ~1.5% of the width). Mark the title data-ov-type, the star over the face data-ov-focus, the bare ring field data-ov-space. Provide step buttons for ground → figure → type → stars; use the site's --dur-* tokens for any transition and disable it under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做这张海报，viewBox 取 3:4。自下而上分层：(1) 波纹底——用重复的放射状细环图案，或者画很多同心 <circle>、描边极细，铺满画面；(2) 人物：不要重画照片，用几个模糊的深色椭圆加一个上窄下宽的身体形状，整组加强高斯模糊；再把它整体复制一份、染红、小幅偏移、降低不透明度，做出色散重影；(3) 标题：每个词一个 <text>，每个字母包一层 <tspan>，给随机的 dy 和缩放，让词看起来是坏的，再给标题组加 feTurbulence/feDisplacementMap；(4) 等宽文案块：左上黑红两段，中右两行红字，左下一列日志，底部一行署名；(5) 三颗星芒，每颗是十角尖刺多边形画两遍（先蓝绿，再红色、偏移约画面宽的 1.5%）。标题标 data-ov-type，脸上那颗星标 data-ov-focus，空着的波纹区标 data-ov-space。做「底纹 → 人物 → 文字 → 星芒」的分步按钮；过渡一律用站点的 --dur-* 变量，减弱动态效果时关掉。"
+  },
+  {
+   "slug": "voyage-of-senses",
+   "game": "IN THE VOYAGE OF SENSES",
+   "gameZh": "器游五感",
+   "project": "Exhibition poster series",
+   "projectZh": "展览海报系列",
+   "credits": "LIANG 椋木「器游五感」exhibition series, poster designer unknown (compiled by 姜sama)",
+   "year": 2024,
+   "type": "poster",
+   "issue": 19,
+   "styleTags": [
+    "void-blur",
+    "fine-line-editorial"
+   ],
+   "techniques": [
+    "soft-blur-blobs",
+    "vertical-title",
+    "type-weave",
+    "type-contrast",
+    "data-labels",
+    "series-template",
+    "ghost-text"
+   ],
+   "sourceLabel": "姜sama, “审美积累｜游离与虚空” (Xiaohongshu, 16 Nov 2026)",
+   "sourceUrls": [
+    "https://liangmu.co/"
+   ],
+   "images": [
+    {
+     "file": "voyage-of-senses-1.webp",
+     "caption": "“Sunset Glow Whiskey Glass”, 500 ml — the tumbler blurred into a soft grey mass",
+     "captionZh": "「Sunset Glow 威士忌杯」500 ml——杯子虚化成一团柔软的灰影",
+     "w": 1050,
+     "h": 1400,
+     "hd": "voyage-of-senses-1@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "voyage-of-senses-2.webp",
+     "caption": "“Red Lacquer Crystal Whiskey Glass”, 190 ml — the only sheet with colour in it",
+     "captionZh": "「红漆水晶威士忌杯」190 ml——整组里唯一带颜色的一张",
+     "w": 1050,
+     "h": 1400,
+     "hd": "voyage-of-senses-2@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "voyage-of-senses-3.webp",
+     "caption": "“Harvest Tea Set”, 120 ml / 25 ml — clay brown, blurred until only the stacked silhouette is left",
+     "captionZh": "「Harvest 茶器」120 ml / 25 ml——陶土棕，虚到只剩上下叠起的轮廓",
+     "w": 1059,
+     "h": 1400,
+     "hd": "voyage-of-senses-3@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "voyage-of-senses-4.webp",
+     "caption": "“Cloudy Dewdrop Baijiu Pot”, 150 ml — the pot and its ring handle dissolving into the paper",
+     "captionZh": "「Cloudy Dewdrop 酒壶」150 ml——壶身和环形把手化进纸里",
+     "w": 1050,
+     "h": 1400,
+     "hd": "voyage-of-senses-4@2x.webp",
+     "origin": "note"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#EFEAE4",
+     "name": "Paper off-white",
+     "nameZh": "纸白"
+    },
+    {
+     "hex": "#D8D5CD",
+     "name": "Pale grey",
+     "nameZh": "浅灰"
+    },
+    {
+     "hex": "#988772",
+     "name": "Clay brown",
+     "nameZh": "陶土棕"
+    },
+    {
+     "hex": "#AB837C",
+     "name": "Faded lacquer red",
+     "nameZh": "褪色漆红"
+    },
+    {
+     "hex": "#1C1A17",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    }
+   ],
+   "summary": "Four posters for LIANG 椋木's “In the Voyage of Senses” showcase at Design Shanghai 2024, one per vessel: a whiskey glass, a red lacquer crystal glass, a tea set and a baijiu pot. Each object is photographed so far out of focus that it survives only as a soft grey mass, and everything else — title, vertical product name, capacity, venue, a whole paragraph of brand copy — is held at the same whisper-thin weight around it.",
+   "summaryZh": "椋木 LIANG 在 2024 设计上海的「器游五感」展览海报，四张四件器物：威士忌杯、红漆水晶杯、茶器、酒壶。每件器物都拍到完全失焦，只剩一团柔软的灰影；其余所有东西——标题、竖排品名、容量、展位、整段品牌文案——都用同一种极细极轻的分量围在它周围。",
+   "read": "Blur is usually an accident; here it is the whole argument. Because the vessel never resolves, your eye has nothing to grip and starts reading the type instead — which is exactly what an object brand wants you to do before a launch. The series works because the template never moves: the same title block, the same vertical name on the right, the same capacity line, the same logotype at the bottom. Put the four side by side and only the grey shape in the middle and one colour cast change, which is how you can tell at a glance that they belong to one family.",
+   "readZh": "虚焦一般是失误，这里却是全部主张。器物始终不成形，眼睛抓不住东西，只好转去读字——这正是一个器物品牌在新品发布前希望你做的事。这组能成立，靠的是版式一动不动：同一块标题、同样竖排在右边的品名、同一行容量、同一个落款。四张并排，只有中间那团灰和一点色偏在变，所以一眼就能认出是一家人。",
+   "layers": {
+    "grid": "A tall sheet with wide margins. Two narrow columns of rotated type run down the far left and far right edges; the title block sits in the upper middle, the vessel occupies the centre, the product name and capacity hang on the right of it, and the logotype closes the bottom centre.",
+    "gridZh": "竖版，四边留白很宽。最左和最右各有一条竖排小字；标题块在中上，器物占住中间，品名和容量挂在它右边，落款收在正下方。",
+    "type": "Three weights and nothing in between: a heavy black Chinese title, a medium English subtitle in capitals, and everything else in a hairline set at a tenth of the title's size — including a full paragraph of brand copy printed barely darker than the paper.",
+    "typeZh": "只有三个层级，中间没有过渡：粗黑的中文标题、中等字重的英文大写副题，其余全是标题十分之一大小的细线字——包括一整段只比纸深一点点的品牌文案。",
+    "focus": "The out-of-focus vessel in the middle. It is the only thing with mass on the sheet, and the title's lower characters pass behind it so the blur reads as nearer to you than the type.",
+    "focusZh": "中间那件失焦的器物。整张纸上只有它有体量，标题下半的字从它后面穿过去，所以这团虚影看上去比文字更靠前。",
+    "space": "The paper itself. More than half the sheet is empty off-white, and the brand paragraph is printed so lightly that it counts as empty too — the blank is what makes the one grey shape feel like an event.",
+    "spaceZh": "纸本身。超过一半的版面是空的米白，连那段品牌文案也印得太浅，实际上也算空的——正是这片空，让中间那团灰显得像一件事。"
+   },
+   "imagePrompt": "A set of four tall exhibition posters for one object brand, almost white. Each sheet shows a single drinking vessel — a whiskey tumbler, a red lacquered crystal cup, a stacked tea set, a wine pot — photographed so far out of focus that it is only a soft grey or faintly tinted mass floating in the middle of the page. A heavy two-line Chinese title sits in the upper middle with an English subtitle in capitals under it; the lower characters of the title disappear behind the blurred object. Down the right side of the object, the product name is set vertically in hairline capitals with a small asterisk, and a capacity in millilitres sits beside it. A long paragraph of brand text is printed across the background in a tone barely darker than the paper. A small two-character logotype closes the bottom centre. Narrow columns of rotated small type run down both outer edges. Keep every sheet on the same template and change only the vessel and a trace of colour.",
+   "imagePromptZh": "一组四张竖版展览海报，接近全白。每张中间只有一件饮器——威士忌杯、红漆水晶杯、叠起来的茶器、酒壶——拍得完全失焦，只剩一团柔软的灰影或淡淡带色的影子浮在版面中央。中上方是一个两行的粗黑中文标题，下面压一行英文大写副题；标题下半的字从虚影后面穿过去。器物右侧竖排品名，用极细的大写字母，前面带一个小星号，旁边标注毫升容量。整个底面印着一长段品牌文案，颜色只比纸深一点点。正下方是一个两字落款。左右最外侧各有一条竖排小字。四张共用同一套版式，只换器物和一点点色偏。",
+   "codePrompt": "Build one tall sheet (3:4) as a single SVG on #EFEAE4 with buttons that switch between four vessels. Draw each vessel as two or three plain shapes (a rounded rectangle, an ellipse, a stacked pair) in grey or a muted tint, then apply one strong feGaussianBlur so no edge survives; put the title text in two groups, one above the blurred shape and one below it, so the object sits between them. Set the product name vertically with writing-mode or a rotate transform in a 0.3-weight hairline, add a capacity line, a paragraph of background copy at about 12 percent opacity, and rotated columns of small type on both outer edges. Switching vessels should cross-fade the blurred shape and the two label lines using the site's duration tokens, and dispatch gd:layout.",
+   "codePromptZh": "用一个 SVG 做竖版海报（3:4），底色 #EFEAE4，加四个按钮切换四件器物。每件器物用两三个简单形状画（圆角矩形、椭圆、上下叠的两块），灰色或很淡的色，然后整体加一次很强的 feGaussianBlur，让边缘完全化掉；标题分成上下两组，分别放在虚影上方和下方，器物夹在中间。品名用 writing-mode 或 rotate 竖排，字重极细；旁边加一行容量；底面铺一段约 12% 不透明度的文案；左右最外侧各加一列旋转的小字。切换器物时，虚影和两行标签用站点的时长变量交叉淡入淡出，并派发 gd:layout。"
+  },
+  {
+   "slug": "slow-ripe-peach",
+   "game": "Slow ripe",
+   "gameZh": "刚好能捏",
+   "project": "Peach poster No.06",
+   "projectZh": "水蜜桃海报",
+   "credits": "来颗香菜",
+   "year": 2026,
+   "type": "poster",
+   "issue": 20,
+   "styleTags": [
+    "big-type",
+    "tactile-material"
+   ],
+   "techniques": [
+    "embossed-type",
+    "letter-swap-photo",
+    "pill-tags",
+    "scallop-edge",
+    "edge-bleed",
+    "type-contrast",
+    "hand-lettering"
+   ],
+   "sourceLabel": "来颗香菜, “有手就会！让文字嵌进物体！高级感海报教程” (Xiaohongshu video, 10 Nov 2026), posted by the designer",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af17a3500000000330288c7"
+   ],
+   "palette": [
+    {
+     "hex": "#B44339",
+     "name": "Brick red",
+     "nameZh": "砖红"
+    },
+    {
+     "hex": "#E3E3E1",
+     "name": "Cool grey white",
+     "nameZh": "冷灰白"
+    },
+    {
+     "hex": "#D26855",
+     "name": "Peach skin",
+     "nameZh": "桃皮红"
+    },
+    {
+     "hex": "#F8E3D3",
+     "name": "Peach flesh",
+     "nameZh": "桃肉奶油"
+    },
+    {
+     "hex": "#DBA46F",
+     "name": "Honey shadow",
+     "nameZh": "蜜色阴影"
+    },
+    {
+     "hex": "#FAEEDC",
+     "name": "Cream",
+     "nameZh": "奶油白"
+    }
+   ],
+   "summary": "A fruit poster whose headline is not printed on the picture but pressed into it: “Ripe enough to squeeze” is modelled into the skin of a peach, keeping the fuzz, the colour and the light direction of the fruit. Above it a heavy brick-red wordmark reads Slow ripe with a slice of peach standing in for the O; around the edges, pill-shaped tags, phonetic brackets and a scalloped cream band finish it like a package.",
+   "summaryZh": "一张水果海报，它的大标题不是印在画面上，而是压进画面里：「Ripe enough to squeeze」被塑进水蜜桃的表皮，绒毛、颜色和光的方向都跟着桃子走。上方是粗重的砖红字标 Slow ripe，其中的 O 换成了一瓣桃肉；四周是胶囊标签、音标括号和一条云边奶油色带，收得像一件包装。",
+   "read": "The whole poster turns on one idea: make the type part of the object's surface instead of a sticker on top of it. Four things have to be true at once for that to read. The letters have to follow the curvature — they shrink and lean as the peach turns away, and their baseline is an arc, not a line. They have to inherit the material: the same fuzz, the same pores, the same colour as the flesh just under the skin, which is why the lettering here is cream and honey rather than white. The light has to agree: every stroke is lit from the same upper-left direction as the fruit, with a bright top edge and a warm shadow below, so the letters look raised rather than drawn. And the shapes have to be soft — a rounded, almost hand-drawn alphabet survives being pressed into a curved surface; a sharp grotesk does not. Around that centre the sheet is deliberately flat: a heavy wordmark locked to the top edge with a cut-out fruit replacing one letter, phonetic brackets left and right, pill tags in the corners, a scalloped cream band at the bottom. The flat frame is what makes the raised middle look real.",
+   "readZh": "整张海报只押一个想法：让文字成为物体表面的一部分，而不是贴在上面的一张纸。要让它读得通，四件事必须同时成立。笔画要跟着曲面走——桃子转过去的地方字就变小、变斜，基线是一道弧而不是一条直线。文字要继承材质：同样的绒毛、同样的皮孔、同样是表皮之下那层果肉的颜色，所以这里的字是奶油色和蜜色，而不是白色。光必须一致：每一笔都和桃子一样从左上受光，上缘发亮、下方落一道暖影，字才像被顶起来而不是画上去的。形状还得软——圆头、近乎手写的字母经得起被压进曲面，锋利的无衬线体经不起。围着这个中心，画面是刻意做平的：顶边锁着粗重字标，其中一个字母换成抠好的果肉；左右两边是音标括号；四角是胶囊标签；底部一条云边奶油色带。正是这个平的框，让中间的浮雕看上去是真的。",
+   "layers": {
+    "grid": "Three horizontal bands locked to the edges: a type band at the top (micro line, wordmark, phonetics), the photograph bleeding across the whole middle, and an information band at the bottom that ends in a scalloped cream strip. Nothing is centred on a column grid; everything is hung from the top or the bottom edge.",
+    "gridZh": "三条横带，各自锁在画面边上：上面是文字带（小字、字标、音标），中间是满幅出血的照片，下面是信息带，以一条云边奶油色带收尾。没有任何东西对齐竖向网格，所有元素不是吊在上边缘就是吊在下边缘。",
+    "type": "Five sizes and three personalities: a very heavy rounded sans for the wordmark, the same family soft and embossed on the fruit, a bold Chinese sans for 刚好能捏, a script for Fuzzy, and tiny spaced capitals for the ingredient lines.",
+    "typeZh": "五档字号、三种性格：字标用极粗的圆头无衬线，果面上的浮雕字是同一家族的柔化版，「刚好能捏」用粗中文黑体，Fuzzy 用手写体，配料行用极小的加字距大写。",
+    "focus": "The embossed line on the peach: raised letters lit from the upper left, in the colour of the flesh under the skin.",
+    "focusZh": "桃子上那行浮雕字：从左上受光被顶起来的字母，颜色取自表皮之下的果肉。",
+    "space": "The cool grey-white sky behind the wordmark, the only quiet area on an otherwise warm and busy sheet.",
+    "spaceZh": "字标背后那片冷灰白的天光，是这张又暖又满的画面上唯一安静的地方。"
+   },
+   "imagePrompt": "Commercial fruit poster, 3:4. A close-up peach fills the frame and bleeds off three edges, lit from the upper left, with water drops on the skin. Press a three-line phrase into the skin as raised lettering in a soft rounded alphabet: the baseline curves with the fruit, the letters shrink where the surface turns away, they are the cream-honey colour of the flesh under the skin, they keep the fuzz and the pores, and each stroke has a bright top edge and a warm shadow below. Above, locked to the top edge, a very heavy brick-red wordmark with one letter replaced by a cut-out slice of the fruit, a phonetic transcription in brackets at each end, and a line of tiny spaced capitals. Around the edges: four pill-shaped outline tags, a bold two-word Chinese claim, a large issue number, a script word, and a cream band with a scalloped top edge at the bottom. Use your own fruit and words.",
+   "imagePromptZh": "商业水果海报，3:4。一只水蜜桃特写撑满画面、三边出血，从左上受光，表皮上有水珠。把一句三行的短语压进表皮做成浮雕字，字母用圆头柔和的字形：基线跟着桃子弯，表面转过去的地方字母变小，颜色取自表皮之下的奶油蜜色果肉，保留绒毛和皮孔，每一笔上缘发亮、下方落一道暖影。上方贴着顶边：一个极粗的砖红字标，其中一个字母换成抠好的一瓣果肉，两端各一组方括号音标，再加一行极小的加字距大写。四周：四个胶囊形细线标签、一句四字粗体中文、一个大号期号、一个手写体单词，底部一条顶边做成云弧的奶油色带。水果和文案换成你自己的。",
+   "codePrompt": "Build this in HTML plus one SVG at 3:4. Draw the fruit on a canvas or with layered radial gradients — a warm sphere, a crease, a few highlight drops — never a photograph. For the embossed line, set the three words as SVG <text> on three <path> arcs with textPath, fill them with the flesh colour, and give the group two offset copies underneath: one lighter shifted up-left, one warmer shifted down-right, so the letters read as raised; add a feTurbulence displacement at very low scale for the fuzz. Lock the wordmark to the top with a <tspan> gap where a clipped ellipse of fruit sits in place of the letter. Draw the pill tags as rects with rx equal to half their height, and the bottom band's top edge as a path of repeated arcs. Give the step buttons four stages: photo, wordmark, embossed line, tags and band. Any transition must take its duration from the shell's --dur-* tokens.",
+   "codePromptZh": "用 HTML 加一个 3:4 的 SVG 来做。水果用 canvas 或几层径向渐变画——一个暖色球体、一道凹缝、几颗高光水珠——不要用照片。浮雕字：三个词用 SVG <text> 配 textPath 贴在三条 <path> 弧线上，填果肉色，再在下面垫两份偏移副本：一份更亮、往左上挪，一份更暖、往右下挪，字母就被顶起来了；再加一个极小 scale 的 feTurbulence 置换做绒毛。字标锁在顶边，用 <tspan> 留出一个缺口，缺口里放一个被裁成椭圆的果肉形状代替那个字母。胶囊标签用 rx 等于半高的矩形画，底部色带的上边缘用一串重复圆弧的路径画。分步按钮分四步：照片、字标、浮雕字、标签与色带。所有过渡的时长都从站点的 --dur-* 变量取。",
+   "images": [
+    {
+     "file": "slow-ripe-peach-1.webp",
+     "caption": "Slow ripe: “Ripe enough to squeeze” pressed into the skin of a peach, under a heavy brick-red wordmark whose O is a slice of the fruit",
+     "captionZh": "Slow ripe：「Ripe enough to squeeze」压进水蜜桃表皮，上方粗重砖红字标里的 O 换成了一瓣桃肉",
+     "w": 720,
+     "h": 960,
+     "hd": "slow-ripe-peach-1@2x.webp",
+     "origin": "video-enhanced"
+    }
+   ]
+  },
+  {
+   "slug": "exhibition-type-posters",
+   "game": "POSTER TYPOGRAPHY",
+   "gameZh": "海报排版",
+   "project": "Four exhibition and tour sheets",
+   "projectZh": "四张展览与巡演海报",
+   "credits": "Original designers unknown (compiled by 塔克威力); sheets made for M_DSK / Modern Sky, the Taipei Fine Arts Museum and the Hengshan Calligraphy Art Center",
+   "year": null,
+   "type": "poster",
+   "issue": 21,
+   "styleTags": [
+    "big-type",
+    "fine-line-editorial"
+   ],
+   "techniques": [
+    "chrome-type",
+    "dense-info",
+    "vertical-title",
+    "red-black-duo",
+    "exposed-grid",
+    "duotone-photo",
+    "film-grain"
+   ],
+   "sourceLabel": "塔克威力, “审美积累 | 海报排版设计” (Xiaohongshu, 28 Oct 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6ae1accb0000000028007225"
+   ],
+   "images": [
+    {
+     "file": "exhibition-type-posters-1.webp",
+     "caption": "BL4CK OUT 2021 M_DSK LIVE: a chrome title over fifteen orange lines of acts, circuit diagrams down the left margin",
+     "captionZh": "BL4CK OUT 2021 M_DSK LIVE：镜面金属标题压着十五行橙色阵容，左边留白走电路图",
+     "w": 933,
+     "h": 1400,
+     "hd": "exhibition-type-posters-1@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "exhibition-type-posters-2.webp",
+     "caption": "一一重構 A ONE AND A TWO: the Edward Yang retrospective at the Taipei Fine Arts Museum, red type over a grainy portrait",
+     "captionZh": "一一重構 A ONE AND A TWO：台北市立美术馆的杨德昌回顾展，红字压在颗粒人像上",
+     "w": 1000,
+     "h": 1415,
+     "origin": "note"
+    },
+    {
+     "file": "exhibition-type-posters-3.webp",
+     "caption": "生活決定意識 Re-Present: Kao Chung-Li — grey brush characters over a cobalt sheet of working sketches",
+     "captionZh": "生活決定意識 Re-Present：高重黎个展，灰色毛笔字压在一整片钴蓝手稿上",
+     "w": 933,
+     "h": 1400,
+     "hd": "exhibition-type-posters-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "exhibition-type-posters-4.webp",
+     "caption": "Hengshan Calligraphy Art Center open call: brush strokes abstracted into numbered arrows on a folded grid",
+     "captionZh": "横山书法艺术馆征件：笔画抽象成带编号的箭头，落在一张带折痕的网格上",
+     "w": 1080,
+     "h": 1527,
+     "origin": "note"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#0D0D0F",
+     "name": "Grain black",
+     "nameZh": "颗粒黑"
+    },
+    {
+     "hex": "#EF5D2E",
+     "name": "Bill orange",
+     "nameZh": "阵容橙"
+    },
+    {
+     "hex": "#D01C27",
+     "name": "Retrospective red",
+     "nameZh": "回顾展红"
+    },
+    {
+     "hex": "#2BE05C",
+     "name": "Tag green",
+     "nameZh": "标签绿"
+    },
+    {
+     "hex": "#1B0E86",
+     "name": "Cobalt scribble",
+     "nameZh": "钴蓝草图"
+    },
+    {
+     "hex": "#C9C9CB",
+     "name": "Chrome grey",
+     "nameZh": "镜面灰"
+    }
+   ],
+   "summary": "Four sheets where the typography is the whole image. A hip-hop tour bill bends BL4CK OUT out of polished chrome and lists fifteen lines of acts in orange over circuit diagrams; the Taipei Fine Arts Museum prints its Edward Yang retrospective in red across a grainy portrait, Chinese running vertically down both edges; a Kao Chung-Li show hides grey brush characters in a cobalt scribble sheet; a calligraphy centre's open call abstracts brush strokes into numbered arrows floating on a folded grid.",
+   "summaryZh": "四张把排版本身当画面的海报。一张说唱巡演阵容把 BL4CK OUT 用抛光金属折出来，橙色阵容名排了十五行，压在电路图上；台北市立美术馆的杨德昌回顾展把红字压在颗粒人像上，中文沿两侧竖排；高重黎个展把灰色毛笔字藏进一片钴蓝草图里；书法艺术馆的征件把笔画抽象成编号箭头，飘在一张折痕网格上。",
+   "read": "Three of these four have no illustration at all, and the fourth uses a portrait only as a grey ground — the composition is made of words. What keeps them from reading as flyers is that each one chooses a single organising move and repeats it. The tour bill centres every line and lets the ragged edges of fifteen different name lengths become the shape; the retrospective runs Chinese vertically down the left and right edges so the Latin block in the middle sits inside a frame of language; the calligraphy open call turns the strokes of a character into numbered arrows and scatters them on the fold lines of the paper, which teaches stroke order and fills the sheet at once. Second lesson: all four are near-monochrome with one hot colour, and that colour is reserved for the information you must read — the line-up, the title, the dates. Everything else is grey, so there is no competition for the eye.",
+   "readZh": "四张里有三张完全没有插画，第四张的人像也只当灰底用——画面是由文字搭出来的。它们没有沦为传单，是因为每张都选定一个组织动作然后重复到底。巡演阵容把每行都居中，十五个长短不一的名字自然形成参差的边，这个边就是形；回顾展把中文沿左右两边竖排，中间的拉丁字块因此被一圈语言框住；书法征件把一个字的笔画拆成带编号的箭头，撒在纸的折痕上，既讲了笔顺又填满了画面。第二条：四张都接近单色，只留一个热色，而这个热色只给必须读到的信息——阵容、展名、日期。其余一律是灰的，眼睛没有第二个竞争对象。",
+   "layers": {
+    "grid": "One centred column on a black sheet. The chrome title takes the top quarter in two lines; the orange bill fills the middle half, every line centred inside a thin rectangle that starts beside the second title line; a schematic runs down the left margin; a boxed “2021 M_DSK LIVE” and a city strip close the bottom.",
+    "gridZh": "黑底上的一根居中栏。镜面标题两行占顶部四分之一；橙色阵容占中间一半，每行居中、外面套一个细矩形框，框从标题第二行右侧起；左边留白处走一条电路图；底部是框起来的「2021 M_DSK LIVE」和一条城市名压条。",
+    "type": "Two sizes and two colours: a chrome display face for the four title letters per line, and one heavy grotesque for the bill, set at a single size with slashes between names so fifteen lines read as one block.",
+    "typeZh": "两种字号、两种颜色：标题每行四个字母用镜面显示字；阵容全部一个字号的粗无衬线，名字之间用斜杠分隔，十五行因此读成一整块。",
+    "focus": "The two headline acts at the top of the bill, the only lines allowed to be longer than the rest and the first thing read after the title.",
+    "focusZh": "阵容最上面那两个压轴名字：全场唯一允许排得更长的两行，看完标题第一眼就落在这里。",
+    "space": "The left margin, kept almost empty except for the thin schematic, which is what stops fifteen lines of names from feeling like a wall.",
+    "spaceZh": "左边那条留白，除了细电路图几乎空着——十五行名字没变成一堵墙，靠的就是它。"
+   },
+   "imagePrompt": "Black concert line-up poster, 2:3, heavy film grain over the whole sheet. At the top, a two-line title of four letters each, drawn as polished chrome: a bright-to-dark metal gradient inside the letters, thin white highlight edges, a trace of orange reflection. Below it, fifteen centred lines of artist names in a heavy grotesque, bright orange, separated by grey slashes, every line a different length so the block has a ragged silhouette; a thin rectangle outlines the whole bill. Down the left margin, a faint white electronic schematic with amplifier triangles and “Mic IN” labels. Bottom left, a year and the word LIVE in grey inside a thin box; a small vertical green tag reading AND MORE; a bottom strip of city names in grey on a light bar. Only black, orange, grey and one green accent. Use your own band names and title.",
+   "imagePromptZh": "黑色演出阵容海报，2:3，整张压厚实的胶片颗粒。顶部两行标题、每行四个字母，做成抛光金属：字内从亮到暗的金属渐变，边缘细白高光，带一点橙色反光。下面是十五行居中的艺人名，粗无衬线、亮橙色，名字之间用灰色斜杠分隔，每行长短不一，整块轮廓参差；外面套一个细矩形框。左边留白里走一条浅白色电路图，有放大器三角和「Mic IN」标注。左下角一个细框，里面是年份和灰色的 LIVE；旁边一枚竖排的绿色小标签写 AND MORE；最下面一条浅色压条排灰色城市名。只用黑、橙、灰和一点绿。乐队名和标题换成你自己的。",
+   "codePrompt": "Build this bill as one SVG with a 2:3 viewBox. Order: (1) black ground plus a feTurbulence grain rect at low opacity over everything; (2) the schematic: thin white polylines, triangles and small rects down the left margin, drawn with a loop; (3) the chrome title: two <text> elements with textLength, filled with a linearGradient running light-grey → white → dark-grey → white and stroked with a hairline white, plus a copy behind them offset by one unit in a warm orange to fake the reflection; (4) the bill: an array of name strings rendered as centred <text> lines at one font size, slashes in grey, wrapped in a stroked rect; (5) the footer: a boxed year and LIVE, a rotated green tag, and a light bar of city names. Mark the title data-ov-type, the top two bill lines data-ov-focus and the left margin data-ov-space. Offer step buttons for schematic → title → bill → footer; any transition must use the site's --dur-* tokens and be off under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做这张阵容海报，viewBox 取 2:3。顺序：(1) 黑底，再在最上层盖一层 feTurbulence 颗粒、不透明度压低；(2) 电路图：左边留白里用循环画细白折线、三角和小矩形；(3) 镜面标题：两个 <text> 配 textLength，填充用「浅灰→白→深灰→白」的线性渐变，再描一道极细白边；背后另放一份偏移一个单位的暖橙副本当反光；(4) 阵容：把名字数组渲染成一行行居中的 <text>，统一字号，斜杠用灰色，外面套一个描边矩形；(5) 页脚：带框的年份与 LIVE、一枚旋转的绿色标签、一条排城市名的浅色压条。标题标 data-ov-type，阵容最上面两行标 data-ov-focus，左边留白标 data-ov-space。做「电路图 → 标题 → 阵容 → 页脚」的分步按钮；过渡用站点的 --dur-* 变量，减弱动态效果时关闭。"
+  },
+  {
+   "slug": "retro-archive-collage",
+   "game": "RETRO DECONSTRUCTION",
+   "gameZh": "复古解构",
+   "project": "Archive collages",
+   "projectZh": "档案拼贴",
+   "credits": "Original designers unknown (compiled by 因为)",
+   "year": null,
+   "type": "poster",
+   "issue": 22,
+   "styleTags": [
+    "retro-deconstruction",
+    "fine-line-editorial"
+   ],
+   "techniques": [
+    "hand-lettering",
+    "exposed-grid",
+    "data-labels",
+    "halftone-photo",
+    "photo-tile-grid",
+    "stamp-numerals",
+    "accent-block"
+   ],
+   "sourceLabel": "因为, “复古解构｜审美积累（32/100）” (Xiaohongshu, 12 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6af5ccd6000000002303c29f"
+   ],
+   "images": [
+    {
+     "file": "retro-archive-collage-1.webp",
+     "caption": "A figure in a screened photograph, under four lines of Italian handwriting, with a red “1540” lower left",
+     "captionZh": "加网照片里的一个人影，上方四行意大利文手写，左下角红色「1540」",
+     "w": 1097,
+     "h": 1420,
+     "origin": "note"
+    },
+    {
+     "file": "retro-archive-collage-2.webp",
+     "caption": "Photograph blocks side by side on aged paper, with a row of small stamped numerals along the bottom",
+     "captionZh": "泛黄纸面上并排的照片块，底部一行小编号戳",
+     "w": 1064,
+     "h": 1300,
+     "hd": "retro-archive-collage-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "retro-archive-collage-3.webp",
+     "caption": "A dark photograph split by thin light rules, against a rust-orange field at the right",
+     "captionZh": "一张深色照片被细亮线分成几块，右侧压着一大块锈橘",
+     "w": 1045,
+     "h": 1266,
+     "hd": "retro-archive-collage-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "retro-archive-collage-4.webp",
+     "caption": "A research sheet on hand gestures: interface verbs (search, select, slide, tap) and a full column of HCI text",
+     "captionZh": "一张关于手部动作的研究海报：search、select、slide、tap 等界面动词标注，左缘一整列 HCI 研究正文",
+     "w": 1118,
+     "h": 1626,
+     "origin": "note"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#EFEBD2",
+     "name": "Aged paper",
+     "nameZh": "泛黄纸"
+    },
+    {
+     "hex": "#22221E",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    },
+    {
+     "hex": "#B32317",
+     "name": "Vermilion ink",
+     "nameZh": "朱砂红"
+    },
+    {
+     "hex": "#A55C3C",
+     "name": "Rust",
+     "nameZh": "锈橘"
+    },
+    {
+     "hex": "#938B76",
+     "name": "Dust grey",
+     "nameZh": "尘灰"
+    }
+   ],
+   "summary": "Four collages that treat an old picture the way an archivist treats a file: a figure walks out of a screened photograph under Italian handwriting with a red “1540” and stamped numerals; photographs are cut into blocks with rows of small stamped numbers along the bottom; a dark photograph is split by thin light rules against a rust-orange field; a research sheet on hand gestures is covered with interface verbs and a full body of text.",
+   "summaryZh": "四张把旧图当档案处理的拼贴：人影从加网照片里走出来，压着意大利文手写、一个红色「1540」和成排的编号戳；老照片切成块，底部排一行小编号戳；一张深色照片被细亮线分成几块，配一大块锈橘；一张讲手部动作的研究海报，标注满界面动词和整段研究正文。",
+   "read": "Deconstruction here does not mean breaking the picture up; it means showing the apparatus around it. Every sheet keeps the things a printer or a draughtsman would normally remove — handwriting over the image, archive numbers, stamped serial rows, interface labels like search, select, slide, tap. Those leftovers date the image twice over: the photograph is old, and so is the working method that produced it. One red accent per sheet is all the colour allowed, which is why these stay quiet instead of turning into scrapbook noise.",
+   "readZh": "这里的「解构」不是把画面打碎，而是把画面周围的工作痕迹露出来。每张都保留了印厂或制图员本该擦掉的东西——直接压在图上的手写字、档案编号、成排的戳印数字、search、select、slide、tap 这类界面动词标注。这些残留给画面打了两重年代：照片是旧的，做照片的工作方式也是旧的。每张只允许一处红，所以它们始终是安静的，没有变成手账式的热闹。",
+   "layers": {
+    "grid": "The handwriting sheet keeps wide cream margins left and right with the photo mass in the middle; the gesture sheet runs a text column down the whole left edge against labelled photos on the right; the dark sheet is divided by thin light rules into unequal panels.",
+    "gridZh": "手写那张左右留宽米白边，照片块在中间；手势那张沿左边缘排了一整列正文，右边是带标注的照片；深色那张用细亮线分成几块不等的面板。",
+    "type": "Three kinds of mark that never mix: looping handwriting that runs edge to edge across the top, machine-small archive numerals and stamps, and justified body copy in a plain sans.",
+    "typeZh": "三种互不混用的字：从左到右横穿顶部的连笔手写、机器般细小的档案数字和戳印、以及两端对齐的无衬线正文。",
+    "focus": "On the handwriting sheet, the dark figure mass in the middle of the greys, with the red number placed low and to the left so the eye swings between the two.",
+    "focusZh": "手写那张，一片灰色中间的深色人影；红色编号放在左下，眼睛就在这两点之间来回。",
+    "space": "The bare aged paper at the edges. Handwriting is allowed to cross it, but no picture is — the collage never reaches the trim, so the sheet still reads as a page from a folder.",
+    "spaceZh": "纸边那圈空的泛黄纸。手写字可以压过去，图片不行——拼贴从不碰到纸边，所以整张看上去仍然像档案夹里的一页。"
+   },
+   "imagePrompt": "A tall collage on aged cream paper, almost monochrome. A screened black-and-white photograph fills the middle, with one dark figure standing in it. Across the top, four lines of looping Italian handwriting in black ink run past both edges of the sheet. At the lower left, a large hand-written red number; at the lower right, a row of small red stamped numerals and a smudged ink ring. A cream margin runs down both sides. Keep everything grey and cream except the red marks.",
+   "imagePromptZh": "一张泛黄米色纸上的竖版拼贴，几乎全是灰。中间是一张加过网的黑白照片，里面立着一个人影。顶部四行意大利文连笔手写，黑墨，两头都写出了纸外。左下角一个手写的大红色数字；右下角一排红色小编号戳和一个晕开的墨圈。左右两侧各留一条米白边。除了红色标记，其余全部保持灰与米色。",
+   "codePrompt": "Build a tall sheet (about 11:14) as one SVG on #EFEBD2. Photo block: a grey rectangle filled with a halftone pattern of grey dots so the photograph is suggested, not redrawn, with one dark silhouette standing in it. Handwriting: four lines along slightly tilted paths in a cursive web-safe stack, allowed to run past the viewBox edges. Add the large red numeral, a row of small red numerals, a smudged ring drawn as a stroked circle with a turbulence filter, and keep cream margins down both sides. Add step buttons — paper and photo, handwriting, red marks — and fade each group in with the site's duration tokens.",
+   "codePromptZh": "用一个 SVG 做竖版（约 11:14），底色 #EFEBD2。照片块：灰色矩形填灰色网点 pattern，提示这是照片而不是重画照片，里面立一条深色剪影。手写：四行沿略微倾斜的路径排，用手写体字体栈，允许写出 viewBox 之外。再加大的红色数字、一排红色小编号、一个用描边圆加 turbulence 滤镜做出的晕开墨圈，两侧保留米白纸边。加分步按钮——纸与照片、手写、红色标记——每组淡入用站点的时长变量。"
+  },
+  {
+   "slug": "ink-rubbing-botanicals",
+   "game": "Ink Rubbing Botanicals",
+   "gameZh": "黑白拓印肌理海报",
+   "project": "Poster series",
+   "projectZh": "海报系列 4 张",
+   "credits": "黄小粘",
+   "year": 2026,
+   "type": "poster",
+   "issue": 23,
+   "styleTags": [
+    "botanical-print",
+    "ink-wash"
+   ],
+   "techniques": [
+    "contour-trace",
+    "mono-contrast",
+    "rice-paper-ground",
+    "corner-anchored-title",
+    "vertical-title",
+    "data-labels",
+    "faded-print"
+   ],
+   "sourceLabel": "黄小粘, “黑白拓印肌理海报｜解锁拓痕美学设计方法” (Xiaohongshu video, 26 Oct 2026), posted by the designer",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6adec89b000000001603f8e4"
+   ],
+   "palette": [
+    {
+     "hex": "#1B1B1B",
+     "name": "Rubbing black",
+     "nameZh": "拓印黑"
+    },
+    {
+     "hex": "#6E6E6D",
+     "name": "Dry-brush grey",
+     "nameZh": "飞白灰"
+    },
+    {
+     "hex": "#C7C6C5",
+     "name": "Press grey",
+     "nameZh": "压痕灰"
+    },
+    {
+     "hex": "#DCD8D0",
+     "name": "Hemp paper",
+     "nameZh": "麻纸米"
+    },
+    {
+     "hex": "#EEEDEB",
+     "name": "Rice paper",
+     "nameZh": "宣纸白"
+    },
+    {
+     "hex": "#FBFBFA",
+     "name": "Pristine white",
+     "nameZh": "素白"
+    }
+   ],
+   "summary": "Four posters from one recipe: a plant, a wing, a branch or a tree-ring slice reduced to its skeleton in black on white, laid on a paper texture, and framed by a four-character Chinese title split into the corners with small English lines running vertically down the sides. No colour, no photographic realism, no vector outlines — only the pressed trace of the thing and a great deal of empty paper.",
+   "summaryZh": "同一套做法下的四张海报：一株植物、一对蝶翅、一棵树、一片年轮，都被减到只剩骨架，黑印在白纸上，垫一层纸纹，再用一个拆到四角的四字中文标题框住，两侧竖排英文小字。没有颜色，没有照片式的写实，也没有矢量描边——只有物体被压下去的那道痕，和大片空着的纸。",
+   "read": "Rubbing aesthetics is a reduction exercise, and the method is easier to state than to resist breaking. Take one subject and remove everything that is not structure: colour first, then volume, then outline. What should remain is the contour trace — veins, fibres, growth rings, torn edges — printed as if the object had been inked and pressed onto paper, which means ink gaps, dry-brush streaks, uneven pressure and genuinely worn edges rather than a clean cut-out. Keep the ground pure paper, give it a real fibre texture, and leave most of it empty: in all four posters the subject occupies the middle and the margins stay bare. Then let the type do the framing rather than the explaining. Three of the four split a four-character title into the corners so the words surround the subject; the English is always small, always set vertically along an edge, and always a sentence rather than a slogan. The fourth sheet, the butterfly, swaps the corners for herbarium labels — leader lines pointing at parts, each with a Chinese name and its English equivalent — which is the same instinct one step further: present the thing as a specimen, not as an illustration.",
+   "readZh": "拓痕美学是一道做减法的题，方法说起来容易，忍住不破坏才难。拿一个对象，把不属于结构的东西依次去掉：先去色，再去体积，最后去描边。应该留下的是那道等高线般的痕迹——叶脉、纤维、年轮、残缺的边——像是把实物上了墨压在纸上印出来的，所以要有断墨、飞白、轻重不匀的压力和真正磨损的边，而不是干净的抠图。底保持纯纸，给它真实的纤维肌理，并且大半留空：四张海报的主体都在中间，四周一直空着。然后让文字负责框住画面，而不是负责解释画面。四张里有三张把四字标题拆到四个角，让词把主体围起来；英文永远是小号、永远竖排在边缘、永远是一句话而不是一句口号。第四张蝶翅换掉了四角布字，改用标本标签——引线指向部位，每个部位一个中文名加对应英文——这是同一种本能再往前走一步：把它当标本陈列，而不是当插画。",
+   "layers": {
+    "grid": "A wide margin all round and a tall centre column for the subject. The title characters sit in the four corners of that margin; the vertical English lines run just inside the left and right edges; the signature sits on the bottom centre line. One sheet replaces the corner characters with two vertical bands of tone behind the subject.",
+    "gridZh": "四周一圈宽边距，中间一条高窄的主体栏。标题四个字落在边距的四个角上，竖排英文贴着左右内缘跑，署名在底部中线。其中一张把四角的字换成了主体背后两条竖向的色带。",
+    "type": "Two voices only: a heavy Song serif, very large, for the four title characters, and a small spaced serif, often rotated 90 degrees, for the English. The leader-line sheet adds a third, smaller size for the part names.",
+    "typeZh": "只有两种声音：标题四个字用极大的粗宋体，英文用小号加字距的衬线、多数旋转 90 度。带引线的那张另加一档更小的字号给部位名称。",
+    "focus": "The pressed trace itself: the veins and torn edges of the subject, printed black on bare paper with the ink breaking up where the pressure was light.",
+    "focusZh": "那道压出来的痕本身：主体的脉络和残破的边，黑印在素纸上，压力轻的地方墨自然断开。",
+    "space": "The empty paper around the subject, which is doing more work than anything printed on the sheet.",
+    "spaceZh": "主体四周空着的纸，它干的活比画面上任何印出来的东西都多。"
+   },
+   "imagePrompt": "Black-and-white rubbing poster, 3:4, on a pure white hand-made paper ground with visible fibres and faint fold lines. One natural subject in the centre — a lily stem, a butterfly wing, a bare tree, a slice of tree rings — reduced to a pressed ink trace: veins, fibres and growth rings in black, torn and worm-eaten edges, ink gaps and dry-brush streaks from uneven pressure, no outline, no colour, no photographic shading. Large empty margins. A four-character Chinese title in a heavy Song serif, one character in each corner of the sheet, and two or three lines of small spaced serif English set vertically along the left and right edges. A small signature on the bottom centre. Nothing else. Use your own subject and title.",
+   "imagePromptZh": "黑白拓印海报，3:4，底是看得见纤维和淡折痕的纯白手工纸。画面中央一个自然物——一枝百合、一对蝶翅、一棵枯树、一片年轮——减到只剩压出来的墨痕：脉络、纤维、年轮是黑的，边缘残破虫蚀，压力不匀处有断墨和飞白，没有描边、没有颜色、没有照片式的明暗。四周留大片空白。一个四字中文标题用粗宋体，四个角各放一个字；左右内缘竖排两三行小号加字距的衬线英文。底部中线一个小署名。再无别的。主体和标题换成你自己的。",
+   "codePrompt": "Build one SVG at 3:4. Paper: a near-white rect plus an feTurbulence fractalNoise layer at low opacity for fibres, and two or three very faint vertical lines for fold creases. Subject: generate the trace with code rather than drawing it — a recursive branch function (angle, length, thickness, each call spawning two shorter children with jitter) for the stem and the tree, or a loop of concentric wobbly ellipses for the rings; stroke everything with a dark colour, then punch ink gaps by overlaying short paper-coloured dashes along the same paths so the pressure looks uneven. Add a few torn notches on the leaves. Type: four <text> characters anchored to the corners, English lines rotated 90 degrees against the left and right edges. Add step buttons for paper, trace, ink gaps and lettering, and a second control that switches between the corner-title layout and a herbarium-label layout with leader lines. Any transition must take its duration from the shell's --dur-* tokens.",
+   "codePromptZh": "用一个 3:4 的 SVG 做。纸：一块近白矩形，加一层低透明度的 feTurbulence fractalNoise 做纤维，再加两三条极淡的竖线做折痕。主体：用代码生成痕迹而不是手画——枝干和树用递归函数（角度、长度、粗细，每次调用带抖动地生出两条更短的子枝），年轮用一圈圈带扰动的同心椭圆循环；全部用深色描边，再沿同样的路径叠上短的纸色虚线打出断墨，压力就显得不匀了。叶子上再切几个残破的缺口。文字：四个 <text> 单字钉在四角，英文行旋转 90 度贴在左右内缘。加分步按钮：纸、痕、断墨、文字；再加一个控件在「四角布字」和「带引线的标本标签」两种版式之间切换。所有过渡的时长都从站点的 --dur-* 变量取。",
+   "images": [
+    {
+     "file": "ink-rubbing-botanicals-1.webp",
+     "caption": "花骨墨影: a lily stem reduced to veins and torn edges, with the four title characters set one in each corner",
+     "captionZh": "花骨墨影：百合只剩脉络和残破的边，标题四个字分放在画面四角",
+     "w": 680,
+     "h": 908,
+     "hd": "ink-rubbing-botanicals-1@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "ink-rubbing-botanicals-2.webp",
+     "caption": "素白翅骨纹理: a butterfly wing labelled like a herbarium sheet, leader lines pointing at ground, bone and texture",
+     "captionZh": "素白翅骨纹理：蝶翅像标本一样被标注，引线分别指向素白、翅骨与纹理",
+     "w": 680,
+     "h": 908,
+     "hd": "ink-rubbing-botanicals-2@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "ink-rubbing-botanicals-3.webp",
+     "caption": "素木拓痕: a bare tree pressed onto paper, two bands of tone behind it and the title split into the corners",
+     "captionZh": "素木拓痕：枯树压印在纸上，背后两条竖向色带，标题拆到四角",
+     "w": 680,
+     "h": 908,
+     "hd": "ink-rubbing-botanicals-3@2x.webp",
+     "origin": "video-enhanced"
+    },
+    {
+     "file": "ink-rubbing-botanicals-4.webp",
+     "caption": "时间的年轮 Wood Grain — Rings of Time: a tree-ring slice over a grey upper field and outlined display type below",
+     "captionZh": "时间的年轮 WOOD GRAIN — RINGS OF TIME：一片年轮压在上半的灰场上，下方是空心大字",
+     "w": 680,
+     "h": 908,
+     "hd": "ink-rubbing-botanicals-4@2x.webp",
+     "origin": "video-enhanced"
+    }
+   ]
+  },
+  {
+   "slug": "constructivist-posters",
+   "game": "CONSTRUCTIVISM",
+   "gameZh": "构成主义",
+   "project": "Poster collection",
+   "projectZh": "海报合集",
+   "credits": "Gustav Klutsis (Spartakiada postcard); four later posters by designers unknown (compiled by 海豹设)",
+   "year": 1928,
+   "type": "poster",
+   "issue": 24,
+   "styleTags": [
+    "constructivism",
+    "bold-geometry"
+   ],
+   "techniques": [
+    "red-black-duo",
+    "diagonal-split",
+    "montage-cut",
+    "rotated-type",
+    "skewed-type",
+    "edge-bleed",
+    "stencil-sans"
+   ],
+   "sourceLabel": "海豹设, “设计灵感私藏Vol.10｜构成主义” (Xiaohongshu, 3 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6ae9534d00000000160052cc"
+   ],
+   "images": [
+    {
+     "file": "constructivist-posters-1.webp",
+     "caption": "“Refugees Welcome”: red and black wedges with cut-out figures on a chain-link fence; the two words set three times; designer unknown",
+     "captionZh": "《Refugees Welcome》：红与黑的楔形、铁丝网上的抠图人物，两个词排三遍；作者待考",
+     "w": 873,
+     "h": 1310,
+     "hd": "constructivist-posters-1@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "constructivist-posters-2.webp",
+     "caption": "Gustav Klutsis, 1928: postcard for the Spartakiada in Moscow (Red Sport International), photomontage of divers",
+     "captionZh": "克卢齐斯《斯巴达克运动会·莫斯科 1928》（红色体育国际）明信片，跳水运动员的摄影蒙太奇",
+     "w": 468,
+     "h": 633,
+     "hd": "constructivist-posters-2@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "constructivist-posters-3.webp",
+     "caption": "Tribute poster to El Lissitzky — “…design as an agent of change”; designer unknown",
+     "captionZh": "致敬李西茨基的海报——「…design as an agent of change」；作者待考",
+     "w": 473,
+     "h": 633,
+     "hd": "constructivist-posters-3@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "constructivist-posters-4.webp",
+     "caption": "Tribute poster to Alexander Rodchenko, 1891–1956; designer unknown",
+     "captionZh": "致敬罗德琴科（1891–1956）的海报；作者待考",
+     "w": 473,
+     "h": 633,
+     "hd": "constructivist-posters-4@2x.webp",
+     "origin": "enhanced"
+    },
+    {
+     "file": "constructivist-posters-5.webp",
+     "caption": "“Stop Pollution”: stencil capitals over a dark diagonal and a lead-orange field; designer unknown",
+     "captionZh": "《Stop Pollution》：铅丹橘色块与黑色对角带上的拼装大写字母；作者待考",
+     "w": 872,
+     "h": 1309,
+     "hd": "constructivist-posters-5@2x.webp",
+     "origin": "enhanced"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#E71A1B",
+     "name": "Agitprop red",
+     "nameZh": "宣传红"
+    },
+    {
+     "hex": "#CE4B22",
+     "name": "Lead orange",
+     "nameZh": "铅丹橘"
+    },
+    {
+     "hex": "#1C3B9C",
+     "name": "Poster blue",
+     "nameZh": "海报蓝"
+    },
+    {
+     "hex": "#F0E4CE",
+     "name": "Newsprint cream",
+     "nameZh": "新闻纸米"
+    },
+    {
+     "hex": "#121211",
+     "name": "Ink black",
+     "nameZh": "墨黑"
+    }
+   ],
+   "summary": "Five posters from a constructivism collection. One is the real article: Gustav Klutsis's 1928 photomontage for the Spartakiada, the workers' answer to the Olympic Games, with divers thrown across a blue field and SPARTAKIADA running down a band of letters. The other four are later work in the same grammar — Refugees Welcome, Stop Pollution and two tribute sheets to El Lissitzky and Alexander Rodchenko — and we could not trace their designers.",
+   "summaryZh": "一组构成主义海报里的五张。其中一张是真迹：克卢齐斯 1928 年为斯巴达克运动会（工人阶级对奥运会的回应）做的摄影蒙太奇，跳水的人横穿蓝色块，SPARTAKIADA 沿着一条字带往下排。另外四张是后人用同一套语法做的——Refugees Welcome、Stop Pollution，以及两张致敬李西茨基和罗德琴科的海报——作者没能查到。",
+   "read": "Constructivism was never a decorative style; it was a working method. It appeared in Russia around 1913 and after the 1917 revolution turned into a design philosophy that argued art should be functional and serve social change, which puts it next to the Bauhaus and De Stijl at the root of modern design. The toolkit is small on purpose: red, black and yellow (or the cream of cheap paper) and almost nothing else; geometry and a diagonal to force movement into a flat sheet; photomontage instead of drawn illustration, because a photograph is evidence and a drawing is an opinion; and type treated as an independent visual element — letters sized, tilted and stacked like the other shapes, not set as a caption underneath. That is why the four modern sheets here still read as constructivist a century on: change the subject to refugees or to smokestacks and the grammar carries over intact.",
+   "readZh": "构成主义从来不是一种装饰样式，而是一套工作方法。它 1913 年前后兴起于俄国，1917 年革命后成为倡导功能性艺术、服务社会变革的设计哲学，与包豪斯、风格派并列为现代设计的重要源头。手法刻意极简：红、黑、黄（或者廉价纸的米色）三色，别的几乎不用；用几何形和对角线把动势压进一张平面；用摄影蒙太奇取代手绘插画，因为照片是证据而画是观点；字体当作独立视觉元素——字母像其他形状一样被放大、倾斜、堆叠，而不是老老实实排在图下面当说明。所以一百年后这几张当代作品看起来仍然是构成主义的：题材换成难民、换成烟囱，这套语法照样成立。",
+   "layers": {
+    "grid": "No column grid at all — a single diagonal does the dividing. One corner-to-corner line cuts the sheet into a red field and a dark field, a second diagonal crosses it, and every element is hung on one of those two lines.",
+    "gridZh": "没有栏位网格，分区完全靠一条对角线。一条从角到角的斜线把版面切成红色区和深色区，另一条斜线横过来，所有元素都挂在这两条线上。",
+    "type": "Letters built from the same geometry as the picture: square-shouldered stencil capitals, stacked vertically or skewed into the perspective of the diagonal, running off the edge of the sheet when the line demands it. There is no small print competing with them.",
+    "typeZh": "字母和画面用同一套几何：方肩的拼装式大写字，要么竖着堆，要么顺着对角线的透视压斜，需要时直接写出纸外。旁边没有小字来跟它们抢。",
+    "focus": "The cut-out photographic figures — the diver, the marching line of refugees, the man leaning into the orange disc. They are the only organic shapes among the flat planes, so they take the eye immediately.",
+    "focusZh": "抠出来的照片人物——跳水的人、列队走来的难民、斜靠在橘色圆盘上的男人。在一堆平面色块里，只有他们是有机形状，眼睛立刻落在那里。",
+    "space": "The cream field left on the open side of the diagonal. It is never filled; it is what lets the red wedge look as if it is moving into something.",
+    "spaceZh": "对角线敞开那一侧留下的米色空场。它从不填满——正因为空着，那块红色楔形才像是正在往里推进。"
+   },
+   "imagePrompt": "A tall agitprop poster in three colours only: a hot red, black, and the cream of cheap paper. One broad red band runs from the top left corner down to the bottom right, and a black band crosses it the other way, so the sheet is cut into wedges. Over the black band, a diamond-shaped grid of chain-link fence is drawn in thin lines across two corners. Cut-out black-and-white photographs of people walking with bundles are pasted along the lower red band, marching up the diagonal, with a plume of dark smoke at the left. The same two words are set three times in square stencil capitals — once reversed out of the red at the top, once stacked vertically down the black band, once small and skewed into the red at the bottom left — each one tilted into the perspective of the band it sits on and allowed to run off the edge of the sheet. Use your own words and photographs.",
+   "imagePromptZh": "一张竖版宣传海报，只用三色：高饱和的红、黑，和廉价纸的米色。一条宽红带从左上角斜到右下角，一条黑带反向横过来，把版面切成几块楔形。黑带上方，两个角落用细线画出菱形的铁丝网。下方那条红带上贴着抠出来的黑白人物照片，背着包袱沿对角线往上走，左侧升起一股深色浓烟。同样两个词用方肩拼装式大写排三遍——顶部从红色里反白一次，沿黑带竖排一次，左下角压小并斜进红色里一次——每一遍都顺着所在色带的透视倾斜，需要时直接写出纸外。文字和照片换成你自己的。",
+   "codePrompt": "Build a tall poster (2:3) as one SVG on #F0E4CE. Lay a red polygon from the top-left corner to the lower right and a black polygon crossing it, leaving cream wedges. Draw the chain-link fence as a pattern of rotated squares stroked in dark grey, clipped to two corner polygons. Draw the walking figures as dark silhouette paths of different sizes along the lower diagonal and a smoke plume as overlapping blurred circles. Set the two words three times with transform=skewY/rotate so each copy sits on its band's perspective, in a heavy condensed sans with square terminals, letting one copy overflow the viewBox. Add step buttons — diagonals, fence and bands, figures, type — fading each group with the site's duration tokens, and mark the title with data-ov-type, the figures with data-ov-focus and the cream wedge with data-ov-space.",
+   "codePromptZh": "用一个 SVG 做竖版海报（2:3），底色 #F0E4CE。先铺一个从左上角斜到右下的红色多边形，再叠一个反向的黑色多边形，留出米色楔形。铁丝网用旋转 45 度的方格 pattern 描深灰细线，裁进两个角上的多边形里。走路的人用深色剪影路径沿下方对角线排，大小不一；浓烟用几个叠在一起的模糊圆。两个词排三遍，用 transform=skewY/rotate 让每一遍都落在所在色带的透视上，字体用方头的粗窄无衬线，其中一遍允许写出 viewBox。加分步按钮——对角线、网与色带、人物、文字——每组淡入用站点的时长变量；标题加 data-ov-type，人物加 data-ov-focus，米色空场加 data-ov-space。"
+  },
+  {
+   "slug": "jazz-color-posters",
+   "game": "JAZZ IN COLOUR",
+   "gameZh": "色彩里的爵士",
+   "project": "Gig posters",
+   "projectZh": "演出海报",
+   "credits": "Original designers unknown (compiled by 潘多拉视觉设计); sheets for Jazzatlán, Cotton Tree Terrace, Berlioz and Weird Wax",
+   "year": null,
+   "type": "poster",
+   "issue": 25,
+   "styleTags": [
+    "jazz-illustration",
+    "flat-blocks"
+   ],
+   "techniques": [
+    "linocut-marks",
+    "silhouette",
+    "clash-colors",
+    "angled-cut",
+    "hand-lettering",
+    "rotated-type",
+    "color-field"
+   ],
+   "sourceLabel": "潘多拉视觉设计, “以色彩捕捉爵士律动｜用画面奏响自由即兴” (Xiaohongshu, 20 Nov 2026)",
+   "sourceUrls": [
+    "https://www.xiaohongshu.com/discovery/item/6b00284b000000002301323f"
+   ],
+   "images": [
+    {
+     "file": "jazz-color-posters-1.webp",
+     "caption": "Jazzatlán presents Brazilian Collective Trio: acid yellow, green and black cut like a lino block",
+     "captionZh": "Jazzatlán 呈现 Brazilian Collective Trio：酸黄、绿、黑，形状像版画刻出来的",
+     "w": 1049,
+     "h": 1400,
+     "hd": "jazz-color-posters-1@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "jazz-color-posters-2.webp",
+     "caption": "Cotton Tree Terrace Jazz Nights: a double-bass player built from pink, blue and red facets on black",
+     "captionZh": "Cotton Tree Terrace Jazz Nights：黑底上用粉、蓝、红的切面拼出一位贝斯手",
+     "w": 1050,
+     "h": 1400,
+     "hd": "jazz-color-posters-2@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "jazz-color-posters-3.webp",
+     "caption": "Berlioz, “Live at the Cat Rooms”: a quartet as cubist colour slabs under one continuous black line",
+     "captionZh": "Berlioz《Live at the Cat Rooms》：四重奏画成立体派色块，上面罩一根不断的黑线",
+     "w": 1049,
+     "h": 1400,
+     "hd": "jazz-color-posters-3@2x.webp",
+     "origin": "note"
+    },
+    {
+     "file": "jazz-color-posters-4.webp",
+     "caption": "Weird Wax 004: a turntable tilted into a flat orange-and-purple field, with hands that have eyes",
+     "captionZh": "Weird Wax 004：唱机斜放进橙紫撞色的平面里，手上长着眼睛",
+     "w": 1049,
+     "h": 1400,
+     "hd": "jazz-color-posters-4@2x.webp",
+     "origin": "note"
+    }
+   ],
+   "palette": [
+    {
+     "hex": "#F8F21A",
+     "name": "Acid yellow",
+     "nameZh": "酸性黄"
+    },
+    {
+     "hex": "#12B059",
+     "name": "Press green",
+     "nameZh": "印刷绿"
+    },
+    {
+     "hex": "#0B0B0B",
+     "name": "Block black",
+     "nameZh": "版画黑"
+    },
+    {
+     "hex": "#E3959F",
+     "name": "Stage pink",
+     "nameZh": "舞台粉"
+    },
+    {
+     "hex": "#3350A0",
+     "name": "Night blue",
+     "nameZh": "夜蓝"
+    },
+    {
+     "hex": "#E5423B",
+     "name": "Bass red",
+     "nameZh": "贝斯红"
+    }
+   ],
+   "summary": "Four jazz gig posters that translate the music into colour and cut shapes. A Jazzatlán club sheet prints a trio in acid yellow, green and black with the ragged edges of a cut block; a Cotton Tree Terrace night builds a double bass player out of pink, blue and red facets on black; Berlioz draws a quartet as crayon-coloured cubist slabs with one continuous black line over them; and Weird Wax tilts a turntable into a flat orange-and-purple field with hands that have eyes. Loud colour, flat shapes, and the instrument always read before the words.",
+   "summaryZh": "四张爵士演出海报，把音乐译成颜色和刀刻的形状。Jazzatlán 俱乐部那张用酸黄、绿和黑印一支三重奏，边缘留着版画的毛刺；Cotton Tree Terrace 的爵士夜用粉、蓝、红的切面在黑底上拼出一位贝斯手；Berlioz 把四重奏画成蜡笔色的立体派色块，上面罩一根连续的黑线；Weird Wax 把一台唱机斜放进橙紫撞色里，手上还长着眼睛。颜色很响，形状很平，乐器永远比文字先被看见。",
+   "read": "Jazz posters have one job: make a still sheet feel like it is moving. These four do it without drawing a single motion line. The Jazzatlán sheet tilts every element a degree or two off square and lets the ink misregister, so the whole thing looks played rather than typeset. Cotton Tree Terrace cuts the bass player into facets that each face a different way, and because the facets disagree the figure seems to be mid-swing. Berlioz runs one unbroken black contour over flat colour slabs that do not line up with it — the drawing and the colour are out of sync by a few millimetres, exactly like a horn sitting behind the beat. Weird Wax just rotates the whole turntable about eight degrees and the poster swings. The colour follows the same rule: two or three saturated hues that nearly clash (yellow/green, pink/blue/red, orange/purple), never a gradient, never a soft one — a smooth blend would make the surface quiet, and quiet is the wrong answer here.",
+   "readZh": "爵士海报只有一个任务：让一张不动的纸看起来在动。这四张都没画一根动感线。Jazzatlán 把每个元素都歪上一两度，油墨还故意套印不准，整张看着像是被弹出来的，不是排出来的。Cotton Tree Terrace 把贝斯手切成朝向各不相同的切面，切面彼此不一致，人就像正摆在半途。Berlioz 用一根不断的黑色轮廓线罩在平涂色块上，线和色块差了几毫米对不齐——跟管乐手故意慢半拍是一回事。Weird Wax 干脆把整台唱机转了八度，海报就摇起来了。颜色遵循同一条规矩：两三个接近打架的高饱和色（黄配绿、粉蓝红、橙配紫），不做渐变，也不选柔和色——平滑过渡会让画面安静下来，而这里安静是错的答案。",
+   "layers": {
+    "grid": "A yellow sheet in three stacked bands. A hairline-ruled presenter line across the top; a green panel with a cut-out trumpeter in the upper third; the three-line title overlapping the panel's lower edge; two unequal picture blocks at the bottom with the price and date wedged in the gutter between them; a line of address type and a row of sponsor marks on the bottom edge.",
+    "gridZh": "黄底，自上而下三段。顶部一行主办方小字配细分隔线；上三分之一是一块绿色面板，里面刻着一位小号手；三行标题压在面板下沿；底部是两块大小不等的图块，票价和日期塞在两块之间的缝里；最下边一行地址小字和一排赞助商标。",
+    "type": "One heavy condensed grotesque at three sizes, all caps, each line a different colour (green, teal, black); the date is set in the same face but smaller and stacked, filling the gap between the two bottom blocks.",
+    "typeZh": "一款粗窄无衬线用三个字号，全大写，每行一个颜色（绿、青、黑）；日期用同一款字缩小竖叠，正好填满底部两块之间的缝。",
+    "focus": "The black trumpeter cut out of the green panel at the top — the only shape that breaks out above the panel's edge.",
+    "focusZh": "顶部绿面板里刻出来的黑色小号手：全页唯一冲出面板上沿的形状。",
+    "space": "The flat yellow margin around everything, about 6% of the width, which is what keeps three saturated colours from fighting.",
+    "spaceZh": "四周那圈约占画面宽 6% 的纯黄留边：三个高饱和色没有打起来，靠的就是它。"
+   },
+   "imagePrompt": "Screen-printed jazz club poster, 3:4, on an acid-yellow ground with visible print speckle and slight ink misregistration. Top: a small letterspaced presenter name with a thin rule under it. Upper third: a green rectangular panel with a trumpet player cut out of it in black and yellow, in the style of a linocut, the figure breaking above the panel edge. Middle: a three-line all-caps title in a heavy condensed grotesque, each line a different colour — green, teal, black — the last line sitting over two picture blocks. Bottom: a tall block on the left with a double-bass player in black on teal, a wider block on the right with hands over piano keys in black on yellow, and the price and date stacked in the gutter between them. Bottom edge: one line of small address type and a row of sponsor marks. Only acid yellow, green, teal and black; every shape keeps the nicks of a cut block. Use your own band name and date.",
+   "imagePromptZh": "丝网印爵士俱乐部海报，3:4，酸黄底，带明显的印刷噪点和轻微套印错位。顶部：一行字距拉开的主办方小字，下面一条细线。上三分之一：一块绿色矩形面板，里面用版画刀法刻出一位小号手（黑与黄），人物冲出面板上沿。中部：三行全大写粗窄无衬线标题，每行一个颜色——绿、青、黑——最后一行压在下面两块图上。底部：左边一块竖的，青底黑色贝斯手；右边一块宽的，黄底黑色双手按在琴键上；票价和日期竖叠在两块之间的缝里。最下边一行地址小字和一排赞助商标。只用酸黄、绿、青、黑；每个形状都保留刀刻的缺口。乐队名和日期换成你自己的。",
+   "codePrompt": "Build this poster as one SVG with a 3:4 viewBox. Order: (1) the acid-yellow ground plus a speckle layer (feTurbulence at low opacity, or a seeded scatter of tiny rects) and give every coloured group a 0.3–0.8 unit offset copy underneath in a second colour to fake misregistration; (2) the green panel and the trumpeter — build the player from straight-edged polygons only, no curves, and let one polygon cross the panel's top edge; (3) the title: three <text> lines with textLength, different colours, each rotated by about half a degree; (4) the two bottom blocks: a bassist and a pair of hands over keys, again polygons plus a row of rects for the keys; (5) the date stack in the gutter, the address line and sponsor marks. Mark the title data-ov-type, the trumpeter data-ov-focus and the yellow margin data-ov-space. Provide step buttons for ground → panel → title → blocks; use the site's --dur-* tokens for any transition and switch it off under prefers-reduced-motion.",
+   "codePromptZh": "用一个 SVG 做这张海报，viewBox 取 3:4。顺序：(1) 酸黄底加一层噪点（低不透明度的 feTurbulence，或按种子随机撒一堆小矩形）；每组有颜色的图形下面再放一份偏移 0.3–0.8 个单位、换个颜色的副本，伪造套印错位；(2) 绿色面板和小号手——人物只用直边多边形、不要曲线，让其中一块越过面板上沿；(3) 标题：三行 <text> 配 textLength，颜色各不相同，每行旋转约半度；(4) 底部两块：贝斯手和按琴键的双手，同样用多边形，琴键用一排矩形；(5) 缝里的竖叠日期、地址行和赞助商标。标题标 data-ov-type，小号手标 data-ov-focus，黄色留边标 data-ov-space。做「底色 → 面板 → 标题 → 图块」的分步按钮；过渡用站点的 --dur-* 变量，减弱动态效果时关闭。"
   }
  ]
 }

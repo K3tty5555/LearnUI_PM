@@ -1,0 +1,131 @@
+<div class="demo gd-specimen gd-constr" data-step="4">
+  <div class="cn-frame" data-gd-canvas>
+    <svg class="cn-svg" viewBox="0 0 600 900" role="img" aria-label="Refugees Welcome constructivist poster">
+      <defs>
+        <!-- Chain-link fence: one diamond cell tiled, stroked only (the cream shows through). -->
+        <pattern id="cn-mesh" width="52" height="52" patternUnits="userSpaceOnUse" patternTransform="rotate(8)">
+          <path d="M0 26 26 0 52 26 26 52Z" fill="none" stroke="#3b382e" stroke-width="2.4" opacity=".75"/>
+        </pattern>
+        <!-- Cheap paper: uneven ink and a dark rim. -->
+        <filter id="cn-paper" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
+          <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+          <feComposite in="g" in2="SourceGraphic" operator="in" result="gi"/>
+          <feBlend in="SourceGraphic" in2="gi" mode="multiply"/>
+        </filter>
+        <filter id="cn-smoke" x="-40%" y="-30%" width="180%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+        <radialGradient id="cn-vig" cx="45%" cy="40%" r="75%">
+          <stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".3"/>
+        </radialGradient>
+        <!-- One walking figure, used at several sizes along the diagonal. -->
+        <g id="cn-walk">
+          <path d="M12 0C6 12 2 36 0 58L10 62 14 44 11 96 22 96 26 62 32 96 42 94 34 58 46 54C44 34 38 12 32 0Z"/>
+          <circle cx="22" cy="-12" r="11"/>
+        </g>
+        <clipPath id="cn-sheet"><rect width="600" height="900"/></clipPath>
+      </defs>
+
+      <g clip-path="url(#cn-sheet)">
+      <rect width="600" height="900" fill="#DDD2A8"/>
+
+      <!-- 1 · the two diagonals: a red band off the top-left corner, a black beam from the upper right,
+           and a second red wedge driven up from the bottom-left. -->
+      <g class="cn-s1">
+        <polygon points="0,0 435,0 447,108 443,240 0,116" fill="#E21D1C"/>
+        <polygon points="0,462 150,487 430,900 120,900" fill="#E21D1C"/>
+        <polygon points="447,108 530,141 600,300 600,900 408,900 298,702" fill="#121211"/>
+        <polygon points="505,268 537,414 471,418" fill="#E8E1C8"/>
+        <rect x="40" y="250" width="200" height="170" fill="none"
+              data-ov-space="对角线敞开那一侧的米色空场" data-ov-space-en="The cream field on the open side of the diagonal"/>
+      </g>
+
+      <!-- 2 · the fence: diamond mesh in the corners the colour fields leave open -->
+      <g class="cn-s2">
+        <polygon points="420,0 600,0 600,180 455,118" fill="url(#cn-mesh)"/>
+        <polygon points="330,620 600,560 600,900 300,900" fill="url(#cn-mesh)" opacity=".5"/>
+        <polygon points="408,900 600,300 600,900" fill="#0d0d0c"/>
+        
+      </g>
+
+      <!-- 3 · photomontage: cut-out walkers marching up the red wedge, one lone figure inside the beam,
+           and a plume of smoke behind them (the photographs are not redrawn — flat silhouettes stand in). -->
+      <g class="cn-s3">
+        <g fill="#2a2924" filter="url(#cn-smoke)">
+          <circle cx="58" cy="212" r="30"/><circle cx="96" cy="242" r="20"/><circle cx="30" cy="248" r="34"/>
+          <circle cx="84" cy="296" r="27"/><circle cx="40" cy="326" r="38"/><circle cx="88" cy="368" r="22"/>
+          <circle cx="48" cy="402" r="33"/><circle cx="80" cy="442" r="17"/><circle cx="44" cy="470" r="21"/>
+          <circle cx="22" cy="182" r="13"/><circle cx="110" cy="202" r="9"/><circle cx="66" cy="166" r="8"/>
+          <circle cx="54" cy="508" r="13"/><circle cx="62" cy="540" r="8"/>
+        </g>
+        <g fill="#26251f" data-ov-focus="沿对角线走上来的抠图人物" data-ov-focus-en="Cut-out figures marching up the diagonal">
+          <use href="#cn-walk" transform="translate(58 522) rotate(-5) scale(.60)"/>
+          <use href="#cn-walk" transform="translate(104 532) rotate(-7) scale(.72)"/>
+          <use href="#cn-walk" transform="translate(158 548) rotate(-4) scale(.86)"/>
+          <use href="#cn-walk" transform="translate(212 602) rotate(-8) scale(1.02)"/>
+          <use href="#cn-walk" transform="translate(278 644) rotate(-3) scale(1.18)"/>
+          <use href="#cn-walk" transform="translate(338 692) rotate(-7) scale(1.42)"/>
+        </g>
+        <g fill="#a7a295">
+          <use href="#cn-walk" transform="translate(462 462) rotate(-6) scale(.58)"/>
+          <ellipse cx="492" cy="470" rx="14" ry="11" transform="rotate(-18 492 470)"/>
+        </g>
+      </g>
+
+      <!-- 4 · type: the same two words three times, each tilted into the band it sits on -->
+      <g class="cn-s4" font-family="'Avenir Next Condensed','Bahnschrift','Arial Narrow',Impact,sans-serif"
+         font-weight="900" fill="#F2ECD6" letter-spacing="1.5">
+        <g transform="rotate(13 250 20)" data-ov-type="顶部反白标题，顺着红带倾斜" data-ov-type-en="Reversed title, tilted with the red band">
+          <polygon points="238,14 238,44 200,29" fill="#F2ECD6"/>
+          <text x="250" y="34" font-size="40">REFUGEES</text>
+          <text x="258" y="80" font-size="40">WELCOME</text>
+        </g>
+        <text transform="translate(422 272) rotate(90)" font-size="46">REFUGEES</text>
+        <text transform="translate(562 288) rotate(90)" font-size="46">WELCOME</text>
+        <g transform="rotate(52 110 650)" opacity=".92">
+          <text x="110" y="650" font-size="27">REFUGEES</text>
+          <text x="110" y="684" font-size="27">WELCOME</text>
+          <polygon points="112,706 164,706 138,742" fill="#F2ECD6"/>
+        </g>
+      </g>
+
+      <rect width="600" height="900" fill="url(#cn-vig)"/>
+      <rect width="600" height="900" fill="#DDD2A8" filter="url(#cn-paper)" opacity=".16"/>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="12.9" x2="74" y2="26.7"/><line x1="74.5" y1="12" x2="49.7" y2="78"/><line x1="0" y1="51.3" x2="71.7" y2="100"/><line x1="25" y1="54.1" x2="100" y2="73.3"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3">3</button><button type="button" data-step-btn="4" aria-pressed="true">4</button></div>
+</div>
+<style>
+.gd-constr{width:min(272px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-constr *{box-sizing:border-box}
+.cn-frame{position:relative;width:100%;aspect-ratio:600/900;overflow:hidden;border-radius:4px;background:#DDD2A8}
+.cn-svg{display:block;width:100%;height:100%}
+.gd-constr .cn-s2,.gd-constr .cn-s3,.gd-constr .cn-s4{transition:opacity var(--dur-3,320ms) var(--ease-out,ease)}
+.gd-constr[data-step="1"] .cn-s2,.gd-constr[data-step="1"] .cn-s3,.gd-constr[data-step="2"] .cn-s3,.gd-constr[data-step="1"] .cn-s4,.gd-constr[data-step="2"] .cn-s4,.gd-constr[data-step="3"] .cn-s4{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-constr{width:min(300px,calc(100vw - 80px))}}
+@media (max-height:260px){.gd-constr{width:min(110px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-constr .cn-s2,.gd-constr .cn-s3,.gd-constr .cn-s4{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-constr');
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 对角线','1 Diagonals'],2:['2 铁丝网','2 Fence'],3:['3 人物','3 Figures'],4:['4 文字','4 Type']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    root.dataset.step=b.dataset.stepBtn;
+    btns.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  });});
+  document.addEventListener('learnui:languagechange',text);
+  text();
+})();
+</script>

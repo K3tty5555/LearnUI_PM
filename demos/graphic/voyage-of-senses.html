@@ -1,0 +1,156 @@
+<div class="demo gd-specimen gd-voyage" data-view="glass">
+  <div class="vy-frame" data-gd-canvas>
+    <svg class="vy-svg" viewBox="0 0 675 900" role="img" aria-label="In the Voyage of Senses exhibition poster">
+      <defs>
+        <filter id="vy-blur" x="-25%" y="-20%" width="150%" height="140%"><feGaussianBlur stdDeviation="17"/></filter>
+        <filter id="vy-blur-soft" x="-25%" y="-20%" width="150%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+        <clipPath id="vy-sheet"><rect width="675" height="900"/></clipPath>
+      </defs>
+
+      <g clip-path="url(#vy-sheet)">
+      <rect width="675" height="900" fill="#EFEAE4"/>
+
+      <!-- The brand paragraph, printed barely darker than the paper and used as a grey field.
+           Columns are generated below so the markup stays short. -->
+      <g class="vy-ghost" fill="#1C1A17" opacity=".16"
+         font-family="'Helvetica Neue',Arial,sans-serif" font-size="12.5" letter-spacing=".6"></g>
+
+      <!-- Dates and venue, rotated down the two outer edges -->
+      <g fill="#1C1A17" font-family="'Helvetica Neue',Arial,sans-serif" font-size="13" letter-spacing="1.6">
+        <text transform="translate(52 48) rotate(90)">2024 . JUN.19(WED) - JUN.22(SAT)</text>
+        <text transform="translate(52 700) rotate(90)" font-size="14">上海世博展览馆 3号馆 3F09</text>
+      </g>
+
+      <!-- Second title line sits under the vessel, so the blur passes in front of it -->
+      <text class="vy-title-b" x="345" y="196" font-size="82" font-weight="800" fill="#141210"
+            font-family="'Source Han Sans SC','Noto Sans SC','PingFang SC','Hiragino Sans GB',sans-serif">五感</text>
+
+      <!-- The vessel: two or three plain shapes, blurred until no edge survives -->
+      <g class="vy-vessels" filter="url(#vy-blur)" data-ov-focus="中间那件失焦的器物" data-ov-focus-en="The out-of-focus vessel in the middle">
+        <g class="vy-v vy-glass" fill="#8d8a84" opacity=".72">
+          <rect x="178" y="188" width="318" height="470" rx="46"/>
+          <ellipse cx="337" cy="196" rx="159" ry="34" fill="#b9b5ad"/>
+          <rect x="196" y="330" width="282" height="60" fill="#d6d2cb" opacity=".8"/>
+          <ellipse cx="337" cy="648" rx="140" ry="40" fill="#6f6c66"/>
+          <rect x="196" y="640" width="282" height="120" rx="40" fill="#8d8a84" opacity=".45"/>
+        </g>
+        <g class="vy-v vy-lacquer" fill="#a8564e" opacity=".66">
+          <path d="M206 210H470L432 560H244Z"/>
+          <g fill="#7d3a34"><rect x="236" y="230" width="14" height="330"/><rect x="286" y="222" width="14" height="338"/>
+            <rect x="336" y="218" width="14" height="342"/><rect x="386" y="222" width="14" height="338"/>
+            <rect x="436" y="230" width="14" height="330"/></g>
+          <ellipse cx="338" cy="214" rx="132" ry="26" fill="#c57a71"/>
+          <ellipse cx="338" cy="612" rx="96" ry="34" fill="#6d534e" opacity=".7"/>
+        </g>
+        <g class="vy-v vy-tea" fill="#8e7c63" opacity=".72">
+          <path d="M196 206H478L440 356H234Z"/>
+          <ellipse cx="337" cy="208" rx="141" ry="30" fill="#b3a89a"/>
+          <rect x="248" y="372" width="178" height="150" rx="26"/>
+          <path d="M268 536H406L386 650H288Z"/>
+          <ellipse cx="337" cy="660" rx="86" ry="26" fill="#6a5a46"/>
+        </g>
+        <g class="vy-v vy-pot" fill="#8a8781" opacity=".7">
+          <path d="M224 300C224 236 272 196 338 196S452 236 452 300L430 520H246Z"/>
+          <rect x="310" y="150" width="56" height="60" rx="18"/>
+          <ellipse cx="338" cy="604" rx="176" ry="54" fill="none" stroke="#6f6c66" stroke-width="30"/>
+          <ellipse cx="338" cy="690" rx="120" ry="30" fill="#6f6c66" opacity=".6"/>
+        </g>
+      </g>
+
+      <!-- Title and English subtitle, in front of the blur -->
+      <text x="345" y="112" font-size="82" font-weight="800" fill="#141210"
+            font-family="'Source Han Sans SC','Noto Sans SC','PingFang SC','Hiragino Sans GB',sans-serif"
+            data-ov-type="粗黑中文标题，下面压一行英文大写" data-ov-type-en="Heavy Chinese title over an English line">器游</text>
+      <g fill="#141210" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="500" letter-spacing="4.5">
+        <text x="352" y="272" font-size="33">IN THE VOYAGE</text>
+        <text x="352" y="314" font-size="33">OF SENSES</text>
+      </g>
+
+      <!-- Product name, mark and capacity: hairline type set vertically beside the vessel -->
+      <g font-family="'Helvetica Neue',Arial,sans-serif" fill="#1C1A17">
+        <text class="vy-mark" transform="translate(400 512) rotate(90)" font-size="22" font-weight="700" letter-spacing="2.4">✻ DRINK</text>
+        <text class="vy-n1" transform="translate(358 452) rotate(90)" font-size="16" letter-spacing="2.6">SUNSET GLOW</text>
+        <text class="vy-n2" transform="translate(378 452) rotate(90)" font-size="16" letter-spacing="2.6">WHISKEY GLASS</text>
+        <text transform="translate(494 530) rotate(90)" font-size="14" letter-spacing="2.2">CAPACITY</text>
+        <text class="vy-cap" transform="translate(514 530) rotate(90)" font-size="18" letter-spacing="1.2">500ml</text>
+      </g>
+
+      <!-- Logotype and fair mark -->
+      <g fill="#141210" text-anchor="middle">
+        <text x="388" y="726" font-size="56" font-weight="700"
+              font-family="'Source Han Serif SC','Songti SC','Noto Serif SC',serif" letter-spacing="2">椋</text>
+        <text x="388" y="782" font-size="56" font-weight="700"
+              font-family="'Source Han Serif SC','Songti SC','Noto Serif SC',serif">木</text>
+        <line x1="388" y1="798" x2="388" y2="818" stroke="#141210" stroke-width="2"/>
+        <text x="388" y="814" font-size="18" font-family="'Helvetica Neue',Arial,sans-serif" letter-spacing="5" y="812">LIANG</text>
+        <text x="388" y="862" font-size="21" font-weight="700" font-family="'Helvetica Neue',Arial,sans-serif">design</text>
+        <text x="388" y="876" font-size="9" letter-spacing="2.4" font-family="'Helvetica Neue',Arial,sans-serif">SHANGHAI</text>
+        <text x="388" y="894" font-size="13" font-family="'PingFang SC','Hiragino Sans GB',sans-serif">设计上海</text>
+      </g>
+      <rect x="92" y="640" width="90" height="200" fill="none"
+            data-ov-space="超过一半版面的空白纸面" data-ov-space-en="The empty paper, more than half the sheet"/>
+      </g>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="51.1" y1="0" x2="51.1" y2="100"/><line x1="13" y1="0" x2="13" y2="100"/><line x1="90.4" y1="0" x2="90.4" y2="100"/><line x1="0" y1="22.4" x2="100" y2="22.4"/><line x1="0" y1="75.5" x2="100" y2="75.5"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Vessels"><button type="button" data-view-btn="glass" aria-pressed="true">Whiskey</button><button type="button" data-view-btn="lacquer">Lacquer</button><button type="button" data-view-btn="tea">Tea set</button><button type="button" data-view-btn="pot">Pot</button></div>
+</div>
+<style>
+.gd-voyage{width:min(318px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-voyage *{box-sizing:border-box}
+.vy-frame{position:relative;width:100%;aspect-ratio:675/900;overflow:hidden;border-radius:4px;background:#EFEAE4}
+.vy-svg{display:block;width:100%;height:100%}
+.vy-v{opacity:0;transition:opacity var(--dur-3,320ms) var(--ease-out,ease)}
+.gd-voyage[data-view="glass"] .vy-glass,.gd-voyage[data-view="lacquer"] .vy-lacquer,.gd-voyage[data-view="tea"] .vy-tea,.gd-voyage[data-view="pot"] .vy-pot{opacity:1}
+.vy-n1,.vy-n2,.vy-cap{transition:opacity var(--dur-2,200ms) var(--ease-out,ease)}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 8px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-width:760px) and (min-height:261px){.gd-voyage{width:min(320px,calc(100vw - 80px))}}
+@media (max-height:260px){.gd-voyage{width:min(130px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.vy-v,.vy-n1,.vy-n2,.vy-cap{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-voyage');
+  var svg=root.querySelector('.vy-svg'),NS='http://www.w3.org/2000/svg';
+  // Background copy: one paragraph, broken into rotated columns and printed near the paper tone.
+  var COPY=('LIANGMU IS AN ORIGINAL DESIGN BRAND DEDICATED TO BRINGING BACK THE SPIRIT AND SENSE OF RITUAL OF '
+    +'OBJECTS INTO DAILY LIFE LIANG REFERS TO THE ORIOLE BIRD WHICH SYMBOLIZES JOY AND GROUP FLIGHT WHILE MU '
+    +'REPRESENTS TOUGH AND RESILIENT CHINESE PARASOL TREE LIANGMU USES OBJECTS AS A MEDIUM WITH PRODUCT LINES '
+    +'REVOLVING AROUND SEVEN ASPECTS OF DAILY LIFE EAT DRINK SAVOR VIEW REPOSE SIP AND SCENT TO BE LAUNCHED '
+    +'LATER DESIGNS OF 2024 START FROM REAL LIFE NEEDS FOCUSING ON LIFESTYLE EXPERIENCE AND CONTENT FOCUSING '
+    +'ON FUNCTION AND EXPERIENCE WITH A RICH ORIENTAL NATURAL PHILOSOPHY HUMAN BEINGS HAVE A KEENER PERCEPTION '
+    +'OF THE WORLD THROUGH SIMPLICITY AND NATURAL BEAUTY NINE VESSELS IN THE DRINK SERIES CONTINUE THE SENSORY '
+    +'EXPERIENCE OF SMELLING THE AROMA SIPPING AND GRIPPING SMALL BEHAVIOURS IN DRINKING ALLOW THE ENTIRE '
+    +'PROCESS TO BE MORE INTERESTING ').split(' ');
+  var ghost=svg.querySelector('.vy-ghost'),i=0;
+  for(var col=0;col<22&&i<COPY.length;col++){
+    var line='',x=84+col*27;
+    while(i<COPY.length&&line.length<58){line+=(line?' ':'')+COPY[i++];}
+    var t=document.createElementNS(NS,'text');
+    t.setAttribute('transform','translate('+x+' 36) rotate(90)');
+    t.textContent=line;ghost.appendChild(t);
+  }
+  // Four vessels, one template: only the blurred shape and three lines of label change.
+  var V={glass:{zh:'威士忌杯',en:'Whiskey',n1:'SUNSET GLOW',n2:'WHISKEY GLASS',cap:'500ml',mark:'✻ DRINK'},
+         lacquer:{zh:'红漆杯',en:'Lacquer',n1:'RED LACQUER CRYSTAL',n2:'WHISKEY GLASS',cap:'190ml',mark:'✻ DRINK'},
+         tea:{zh:'茶器',en:'Tea set',n1:'HARVEST',n2:'TEA SET',cap:'120ml/25ml',mark:'✻ SAVOR'},
+         pot:{zh:'酒壶',en:'Pot',n1:'CLOUDY DEWDROP',n2:'BAIJIU POT',cap:'150ml',mark:'✻ DRINK'}};
+  var n1=svg.querySelector('.vy-n1'),n2=svg.querySelector('.vy-n2'),cap=svg.querySelector('.vy-cap'),mark=svg.querySelector('.vy-mark');
+  var btns=[].slice.call(root.querySelectorAll('[data-view-btn]'));
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=V[b.dataset.viewBtn][zh()?'zh':'en'];});}
+  function setView(v){
+    root.dataset.view=v;n1.textContent=V[v].n1;n2.textContent=V[v].n2;cap.textContent=V[v].cap;mark.textContent=V[v].mark;
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.viewBtn===v?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setView(b.dataset.viewBtn);});});
+  document.addEventListener('learnui:languagechange',text);
+  text();
+})();
+</script>

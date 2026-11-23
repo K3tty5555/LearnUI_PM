@@ -1,0 +1,145 @@
+<div class="demo gd-specimen gd-velvet" data-step="4">
+  <div class="vl-frame" data-gd-canvas>
+    <svg class="vl-svg" viewBox="0 0 735 919" role="img" aria-label="VELVET magazine cover poster">
+      <defs>
+        <linearGradient id="vl-fabric" x1="0" y1="0" x2=".3" y2="1">
+          <stop offset="0" stop-color="#1b1b1b"/><stop offset=".55" stop-color="#101010"/><stop offset="1" stop-color="#2c2c2c"/>
+        </linearGradient>
+        <linearGradient id="vl-skin" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#3a3a3a"/><stop offset="1" stop-color="#171717"/>
+        </linearGradient>
+        <radialGradient id="vl-soft" cx=".5" cy=".4" r=".6">
+          <stop offset="0" stop-color="#8e8e8e" stop-opacity=".55"/><stop offset="1" stop-color="#8e8e8e" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <rect width="735" height="919" fill="#F4F4F4"/>
+
+      <!-- (1) The modular panel grid: four grey values with white gutters between them. -->
+      <g class="vl-panels">
+        <rect x="160" y="228" width="272" height="124" fill="#E3E3E3"/>
+        <rect x="438" y="228" width="269" height="124" fill="#EDEDED"/>
+        <rect x="28" y="360" width="404" height="330" fill="#DFDFDF"/>
+        <rect x="438" y="360" width="269" height="330" fill="#E8E8E8"/>
+        <rect x="28" y="536" width="126" height="154" fill="#EFEFEF"/>
+        <rect x="160" y="697" width="272" height="222" fill="#E6E6E6"/>
+      </g>
+
+      <!-- (2) The dancer: the photograph is not redrawn, only a few black shapes and soft greys. -->
+      <g class="vl-figure">
+        <ellipse cx="300" cy="470" rx="160" ry="230" fill="url(#vl-soft)" opacity=".55"/>
+        <!-- trousers: a wide sweep from the waist to the bottom edge -->
+        <path d="M284 392q46-6 62 14l10 96 26 160q12 68-10 126l-30 80-56-6 24-92q14-56 2-112l-24-110-26 128-20 150-54-8 28-168 20-154q4-72 48-104Z" fill="url(#vl-fabric)"/>
+        <!-- torso -->
+        <path d="M286 268q30-6 46 18l16 50q8 28-4 48l-10 18q-24 14-56 4l-14-26q-10-24-2-50l10-40q4-18 14-22Z" fill="url(#vl-fabric)"/>
+        <!-- head and hair, drawn before the masthead so the body passes behind the V -->
+        <ellipse cx="297" cy="236" rx="20" ry="24" fill="url(#vl-skin)"/>
+        <path d="M272 232q-16-26 4-44 24-22 52-6 26 14 20 44-4 18-18 12 2-18-14-24-18-6-26 10-4 10 0 20-14 4-18-12Z" fill="#131313"/>
+        <!-- trailing fabric sash -->
+        <path d="M262 430q-50 44-66 96l-6 38 20-6 14-46q18-44 56-66Z" fill="#1f1f1f" opacity=".85"/>
+        <!-- lower arm, bent down to the left -->
+        <path d="M268 288q-32 16-46 50l-18 46 15 7 22-42q14-28 38-40Z" fill="url(#vl-skin)"/>
+        <!-- bare feet -->
+        <ellipse cx="372" cy="858" rx="15" ry="8" fill="#C9C5BF" transform="rotate(-16 372 858)"/>
+        
+      </g>
+
+      <!-- (3) The masthead: one word as wide as the sheet -->
+      <text class="vl-mast" x="26" y="214" textLength="684" lengthAdjust="spacingAndGlyphs"
+            font-family="Didot,'Bodoni 72','Playfair Display','Times New Roman',Georgia,serif" font-size="232" fill="#0A0A0A"
+            data-ov-type="撑满画面宽的刊头衬线大字" data-ov-type-en="A masthead serif as wide as the sheet">VELVET</text>
+
+      <!-- the raised arm passes in front of the masthead: type and body share one depth -->
+      <g class="vl-arm" data-ov-focus="举起的手从刊头前面穿过，全页唯一文字与身体重叠处"
+         data-ov-focus-en="The raised hand crosses in front of the masthead — the only overlap of type and body">
+        <path d="M326 300q74-14 134-54l106-70q22-14 46-16l24-2 2 16-22 2q-18 2-34 12l-106 72q-64 42-142 56Z" fill="url(#vl-fabric)"/>
+        <path d="M636 158q18-12 40-14l22-2 2 15-20 2q-16 2-30 10Z" fill="url(#vl-skin)"/>
+      </g>
+
+      <!-- (4) The editorial copy -->
+      <g class="vl-copy" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" fill="#111">
+        <text x="367" y="26" text-anchor="middle" font-size="10" letter-spacing="4.4">MOVEMENT IS LANGUAGE</text>
+        <text x="30" y="242" font-size="9.5" letter-spacing="1.2">ISSUE</text>
+        <text x="30" y="256" font-size="9.5" letter-spacing="1.2">07</text>
+        <text x="705" y="242" text-anchor="end" font-size="9.5" letter-spacing="1.2">SUMMER</text>
+        <text x="705" y="256" text-anchor="end" font-size="9.5" letter-spacing="1.2">2025</text>
+        <text x="510" y="384" font-size="9.5" letter-spacing="3">THE ART OF CONTROL</text>
+        <g font-family="'Helvetica Neue Condensed','HelveticaNeue-CondensedBold','Arial Narrow','Roboto Condensed',sans-serif"
+           font-weight="800" font-stretch="condensed" font-size="56">
+          <text x="508" y="450">GRACE</text>
+          <text x="508" y="512">IN EVERY</text>
+          <text x="508" y="574">MOTION</text>
+        </g>
+        <g font-size="9.5" letter-spacing="1.6">
+          <text x="510" y="620">DISCIPLINE</text><text x="510" y="634">BALANCE</text>
+          <text x="510" y="648">FREEDOM</text><text x="510" y="662">EXPRESSED</text>
+        </g>
+        <rect x="44" y="550" width="20" height="2"/>
+        <text x="44" y="582" font-size="10.5" font-weight="700" letter-spacing="1.4">KINESIS</text>
+        <text x="44" y="604" font-size="9.5">The body speaks</text>
+        <text x="44" y="617" font-size="9.5">what words</text>
+        <text x="44" y="630" font-size="9.5">cannot.</text>
+        <g class="vl-bars"></g>
+        <text transform="translate(90 886) rotate(-90)" font-size="8" letter-spacing="2.2">VELVET STUDIO © 2025</text>
+        <text x="112" y="882" textLength="64" lengthAdjust="spacingAndGlyphs" font-family="Didot,'Bodoni 72','Playfair Display','Times New Roman',Georgia,serif" font-size="30">VOL.07</text>
+        <g font-size="9.5" font-weight="700" letter-spacing="1.1">
+          <text x="192" y="858">LIMITED</text><text x="192" y="872">EDITION</text><text x="192" y="886">COLLECTION</text>
+        </g>
+        <rect x="588" y="806" width="18" height="2"/>
+        <g font-size="9.5" font-weight="700" letter-spacing="1.1">
+          <text x="588" y="826">DEFY</text><text x="588" y="840">GRAVITY.</text>
+          <text x="588" y="854">DEFINE</text><text x="588" y="868">YOURSELF.</text>
+        </g>
+        <text x="705" y="894" text-anchor="end" font-size="8.5" letter-spacing="2">VELVETSTUDIO.COM</text>
+        <path d="M676 766h30M691 751v30" stroke="#111" stroke-width="1.4" fill="none"/>
+      </g>
+
+      <rect class="vl-quiet" x="34" y="542" width="114" height="142" fill="none"
+            data-ov-space="左下浅灰面板，只放一条短线和三行小字"
+            data-ov-space-en="The pale panel lower left, holding one rule and three short lines"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="3.8" y1="0" x2="3.8" y2="100"/><line x1="21.8" y1="0" x2="21.8" y2="100"/><line x1="58.8" y1="0" x2="58.8" y2="100"/><line x1="96.2" y1="0" x2="96.2" y2="100"/><line x1="0" y1="24.8" x2="100" y2="24.8"/><line x1="0" y1="39.2" x2="100" y2="39.2"/><line x1="0" y1="75.1" x2="100" y2="75.1"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Grid</button><button type="button" data-step-btn="2">2 Figure</button><button type="button" data-step-btn="3">3 Masthead</button><button type="button" data-step-btn="4" aria-pressed="true">4 Final</button></div>
+</div>
+<style>
+.gd-velvet{width:min(338px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-velvet *{box-sizing:border-box}
+.vl-frame{position:relative;width:100%;aspect-ratio:735/919;overflow:hidden;border-radius:4px;background:#F4F4F4}
+.vl-svg{display:block;width:100%;height:100%}
+.gd-velvet .vl-panels,.gd-velvet .vl-figure,.gd-velvet .vl-arm,.gd-velvet .vl-mast,.gd-velvet .vl-copy{transition:opacity var(--dur-3) ease}
+.gd-velvet[data-step="1"] .vl-figure,.gd-velvet[data-step="1"] .vl-arm,.gd-velvet[data-step="1"] .vl-mast,.gd-velvet[data-step="1"] .vl-copy{opacity:0}
+.gd-velvet[data-step="2"] .vl-mast,.gd-velvet[data-step="2"] .vl-copy{opacity:0}
+.gd-velvet[data-step="3"] .vl-copy{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-velvet{width:min(176px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-velvet .vl-panels,.gd-velvet .vl-figure,.gd-velvet .vl-arm,.gd-velvet .vl-mast,.gd-velvet .vl-copy{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-velvet');
+  var svg=root.querySelector('.vl-svg'),NS='http://www.w3.org/2000/svg';
+  // Barcode: uneven bars, the way the original's EAN block reads at this size.
+  var bars=svg.querySelector('.vl-bars'),x=40,widths=[1.4,.8,2,.8,1.4,2.6,.8,1.4,.8,2,1.4,.8,2.6,.8,1.4,2,.8,1.4,.8,1.4];
+  widths.forEach(function(w,i){
+    var r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',x);r.setAttribute('y',762);r.setAttribute('width',w);r.setAttribute('height',116);r.setAttribute('fill','#111');
+    bars.appendChild(r);x+=w+(i%3?.7:1.1);
+  });
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 网格','1 Grid'],2:['2 人像','2 Figure'],3:['3 刊头','3 Masthead'],4:['4 成稿','4 Final']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%4+1);cycle();},3000);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

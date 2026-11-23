@@ -1,0 +1,133 @@
+<div class="demo gd-specimen gd-sysfail" data-step="4">
+  <div class="sf-frame" data-gd-canvas>
+    <svg class="sf-svg" viewBox="0 0 735 1040" role="img" aria-label="SYSTEM FAILURE glitch poster">
+      <defs>
+        <filter id="sf-jag" x="-6%" y="-20%" width="112%" height="150%">
+          <feTurbulence type="turbulence" baseFrequency="0.014 0.55" numOctaves="1" seed="7" result="t"/>
+          <feDisplacementMap in="SourceGraphic" in2="t" scale="17" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="sf-blur" x="-30%" y="-15%" width="160%" height="130%"><feGaussianBlur stdDeviation="13"/></filter>
+        <filter id="sf-blur2" x="-30%" y="-15%" width="160%" height="130%"><feGaussianBlur stdDeviation="22"/></filter>
+        <clipPath id="sf-sheet"><rect width="735" height="1040"/></clipPath>
+      </defs>
+
+      <rect width="735" height="1040" fill="#EDEDEB"/>
+
+      <!-- (1) Moiré: two sets of concentric rings whose spacing beats against each other. -->
+      <g class="sf-rings" clip-path="url(#sf-sheet)" fill="none" stroke="#1b1b1b" stroke-width="1.1" opacity=".30"></g>
+
+      <!-- (2) The figure: not a redrawn photograph, a few blurred masses with a red colour ghost. -->
+      <g class="sf-figure" clip-path="url(#sf-sheet)">
+        <g filter="url(#sf-blur2)" opacity=".20" transform="translate(22 -6)" fill="#C8382A" style="mix-blend-mode:multiply">
+          <ellipse cx="300" cy="300" rx="72" ry="88"/>
+          <path d="M300 372q96 10 120 112l34 150 26 406H118l20-404 36-156q22-98 126-108Z"/>
+        </g>
+        <g filter="url(#sf-blur)" fill="#1a1a1a" opacity=".88">
+          <ellipse cx="300" cy="298" rx="70" ry="86"/>
+          <path d="M300 372q94 10 118 110l-12 20-42-54-16 160-98 14-96-20-16-130q24-90 162-100Z"/>
+          <path d="M214 452q-34 92-28 196l22 392H120l16-396q4-116 78-192Z"/>
+          <path d="M386 452q36 92 30 196l-22 392h88l-16-396q-4-116-80-192Z"/>
+          <path d="M236 410q-16-96 20-150l26 10-16 142Z"/>
+          <path d="M366 412q14-96-22-150l-26 10 16 142Z"/>
+        </g>
+      </g>
+
+      <!-- (3) The type: one damaged display title, everything else clean monospace. -->
+      <g class="sf-type">
+        <text class="sf-title" x="8" y="196" textLength="719" lengthAdjust="spacingAndGlyphs" filter="url(#sf-jag)"
+              font-family="'Avenir Next Condensed','Bahnschrift','Arial Narrow',Impact,sans-serif" font-weight="900" font-size="168" fill="#111"
+              data-ov-type="做坏的粗显示字标题，轮廓被打散" data-ov-type-en="A damaged heavy display title, its outlines broken up">SYSTEM FAILURE</text>
+        <g font-family="'Courier New',ui-monospace,monospace" font-weight="700">
+          <text x="664" y="248" font-size="11" fill="#111">[Y: 09.26]</text>
+          <text x="10" y="266" font-size="23" fill="#D8341F">CRITICAL ERROR <tspan fill="#111">//</tspan></text>
+          <text x="10" y="296" font-size="23" fill="#111">THE OBJECT HAS NOT</text>
+          <text x="10" y="326" font-size="23" fill="#111">BEEN <tspan fill="#D8341F">IDENTIFIED</tspan></text>
+          <text x="498" y="576" font-size="19" fill="#111">The kernel crashes.</text>
+          <text x="498" y="602" font-size="19" fill="#111">Reboot attempt...</text>
+          <text x="498" y="644" font-size="21" fill="#D8341F">ACCESS DENIED.</text>
+          <g class="sf-log" font-size="11" font-weight="400" fill="#111"></g>
+          <text x="10" y="1004" font-size="10">[X: 42.01]</text>
+          <text x="10" y="1022" font-size="12">design by @peshkova.des</text>
+          <text x="725" y="1022" font-size="11" text-anchor="end">[END OF LOG] 21.09.26</text>
+        </g>
+        <circle cx="178" cy="1017" r="9" fill="#16566B"/>
+        <path d="M172 1017a6 6 0 0 1 12 0 6 6 0 0 1-9 5" fill="none" stroke="#EDEDEB" stroke-width="2"/>
+      </g>
+
+      <!-- (4) Star bursts: each spike shape drawn twice, teal then red, slightly offset. -->
+      <g class="sf-stars"></g>
+
+      <rect class="sf-quiet" x="470" y="392" width="242" height="150" fill="none"
+            data-ov-space="标题与右侧文案之间的空波纹区，留给拖影落下"
+            data-ov-space-en="Bare ring field between the title and the right-hand copy, where the smear falls"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="1.4" y1="0" x2="1.4" y2="100"/><line x1="67.8" y1="0" x2="67.8" y2="100"/><line x1="98.6" y1="0" x2="98.6" y2="100"/><line x1="0" y1="19.9" x2="100" y2="19.9"/><line x1="0" y1="33.3" x2="100" y2="33.3"/><line x1="0" y1="79.5" x2="100" y2="79.5"/></svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps"><button type="button" data-step-btn="1">1 Rings</button><button type="button" data-step-btn="2">2 Figure</button><button type="button" data-step-btn="3">3 Type</button><button type="button" data-step-btn="4" aria-pressed="true">4 Stars</button></div>
+</div>
+<style>
+.gd-sysfail{width:min(314px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-sysfail *{box-sizing:border-box}
+.sf-frame{position:relative;width:100%;aspect-ratio:735/1040;overflow:hidden;border-radius:4px;background:#EDEDEB}
+.sf-svg{display:block;width:100%;height:100%}
+.gd-sysfail .sf-rings,.gd-sysfail .sf-figure,.gd-sysfail .sf-type,.gd-sysfail .sf-stars{transition:opacity var(--dur-3) ease}
+.gd-sysfail[data-step="1"] .sf-figure,.gd-sysfail[data-step="1"] .sf-type,.gd-sysfail[data-step="1"] .sf-stars{opacity:0}
+.gd-sysfail[data-step="2"] .sf-type,.gd-sysfail[data-step="2"] .sf-stars{opacity:0}
+.gd-sysfail[data-step="3"] .sf-stars{opacity:0}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-sysfail{width:min(164px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){.gd-sysfail .sf-rings,.gd-sysfail .sf-figure,.gd-sysfail .sf-type,.gd-sysfail .sf-stars{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-sysfail');
+  var svg=root.querySelector('.sf-svg'),NS='http://www.w3.org/2000/svg';
+  function el(name,attrs,parent){var n=document.createElementNS(NS,name);for(var k in attrs)n.setAttribute(k,attrs[k]);parent.appendChild(n);return n;}
+  // Two ring sets with slightly different spacing: where they cross, the sheet moirés.
+  var rings=svg.querySelector('.sf-rings'),r;
+  for(r=10;r<1150;r+=7.2)el('circle',{cx:300,cy:470,r:r},rings);
+  for(r=10;r<1150;r+=7.9)el('circle',{cx:452,cy:560,r:r},rings);
+  // Machine log, bottom left.
+  var log=svg.querySelector('.sf-log');
+  ['> INITIALIZING SCAN...','> BIOMETRIC DATA: ████████','> EMOTIONAL STATE: CRITICAL',
+   '> MEMORY CORRUPTION DETECTED: 98.4%','> ANOMALY DETECTED IN SECTOR 7.',
+   '> [THE SYSTEM CANNOT RECOGNIZE THE OBJECT]'].forEach(function(line,i){
+    el('text',{x:10,y:854+i*17},log).textContent=line;
+  });
+  // Star bursts: a ten-point spiky polygon, drawn teal then red at a small offset.
+  var stars=svg.querySelector('.sf-stars');
+  function spike(cx,cy,R,seedArr){
+    var pts=[],n=10;
+    for(var i=0;i<n*2;i++){
+      var a=Math.PI*i/n-0.4,rad=(i%2?R*0.26:R)*(0.72+seedArr[i%seedArr.length]*0.5);
+      pts.push((cx+Math.cos(a)*rad).toFixed(1)+','+(cy+Math.sin(a)*rad).toFixed(1));
+    }
+    return pts.join(' ');
+  }
+  [[398,296,74,[.9,.6,1,.7,.85,.55,.95,.65]],
+   [205,628,86,[.75,.6,1,.5,.9,.7,.8,.6]],
+   [548,905,66,[1,.55,.8,.7,.95,.6,.85,.5]]].forEach(function(s,i){
+    var p=spike(s[0],s[1],s[2],s[3]);
+    var g=el('g',{},stars);
+    if(i===0)g.setAttribute('data-ov-focus','脸上那颗星芒：蓝绿与红两片尖刺错开，钉在眼睛的位置');
+    if(i===0)g.setAttribute('data-ov-focus-en','The star over the face: teal and red spikes offset, pinned where the eyes would be');
+    el('polygon',{points:p,fill:'#16566B',transform:'translate(-9 6)'},g);
+    el('polygon',{points:p,fill:'#D8412B',transform:'translate(9 -6)',opacity:'.92'},g);
+  });
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var NAMES={1:['1 波纹底','1 Rings'],2:['2 人像','2 Figure'],3:['3 文字','3 Type'],4:['4 星芒','4 Stars']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});}
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%4+1);cycle();},3000);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

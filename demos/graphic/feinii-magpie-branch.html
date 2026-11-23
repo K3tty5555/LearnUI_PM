@@ -1,0 +1,259 @@
+<div class="demo gd-specimen gd-feinii" data-step="4" data-motion="on">
+  <div class="fn-frame" data-gd-canvas>
+    <svg class="fn-svg" viewBox="0 0 720 960" role="img" aria-label="灵鹊衔枝 — 新中式动态海报还原">
+      <defs>
+        <linearGradient id="fn-sky" x1="0" y1="0" x2=".25" y2="1">
+          <stop offset="0" stop-color="#0C1013"/><stop offset=".3" stop-color="#1A2326"/>
+          <stop offset=".62" stop-color="#5C7272"/><stop offset=".86" stop-color="#AFAEAC"/><stop offset="1" stop-color="#D6C8C8"/>
+        </linearGradient>
+        <linearGradient id="fn-band" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8E9C9D"/><stop offset=".55" stop-color="#A3B0AF"/><stop offset="1" stop-color="#C6C3BE"/>
+        </linearGradient>
+        <linearGradient id="fn-petal" x1=".1" y1="0" x2=".9" y2="1">
+          <stop offset="0" stop-color="#E3D6DC"/><stop offset=".55" stop-color="#C4B3BC"/><stop offset="1" stop-color="#8E8089"/>
+        </linearGradient>
+        <linearGradient id="fn-stone" x1=".2" y1="0" x2=".8" y2="1">
+          <stop offset="0" stop-color="#E4E2E6"/><stop offset=".5" stop-color="#AFB2BA"/><stop offset="1" stop-color="#7C828B"/>
+        </linearGradient>
+        <linearGradient id="fn-tile" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#5B6469"/><stop offset="1" stop-color="#2A3136"/>
+        </linearGradient>
+        <pattern id="fn-flower" width="60" height="72" patternUnits="userSpaceOnUse">
+          <g fill="none" stroke="#7E8F8C" stroke-width="2.2" opacity=".55">
+            <circle cx="30" cy="22" r="11"/><circle cx="30" cy="22" r="4"/>
+            <path d="M30 11c7-9 18-8 22 0M30 33c-7 9-18 8-22 0M0 58c12-10 26-10 34 2M60 58c-12-10-26-10-34 2"/>
+          </g>
+        </pattern>
+        <filter id="fn-mist" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency=".004 .012" numOctaves="3" seed="7"/>
+          <feColorMatrix values="0 0 0 0 .72  0 0 0 0 .76  0 0 0 0 .74  0 0 0 .55 0"/>
+        </filter>
+        <filter id="fn-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="3"/>
+          <feColorMatrix values="0 0 0 0 .5  0 0 0 0 .52  0 0 0 0 .5  0 0 0 .07 0"/>
+        </filter>
+      </defs>
+
+      <!-- 1 ground: gradient, drifting mist, brocade band -->
+      <g class="fn-g1">
+        <rect width="720" height="960" fill="url(#fn-sky)"/>
+        <g class="fn-mist"><rect x="-120" y="120" width="960" height="700" filter="url(#fn-mist)" opacity=".5"/></g>
+        <rect x="205" y="108" width="142" height="700" fill="url(#fn-band)"/>
+        <rect x="205" y="108" width="142" height="700" fill="url(#fn-flower)"/>
+        <rect x="205" y="108" width="142" height="700" fill="none" stroke="#C9CBC6" stroke-width="2" opacity=".6"/>
+      </g>
+
+      <!-- 3 architecture (drawn under the branches, revealed at step 3) -->
+      <g class="fn-g3" opacity=".92">
+        <!-- big eave, top right -->
+        <g>
+          <path d="M352 36 H716 V74 Q560 92 392 190 Q368 206 352 214 Z" fill="#4A545A"/>
+          <path d="M352 214 Q392 196 452 158 Q580 76 716 66 V300 Q560 300 452 266 Q392 246 352 232 Z" fill="#453430"/>
+          <g fill="url(#fn-tile)">
+            <path d="M352 214 Q392 196 452 158 Q580 76 716 66 V96 Q580 108 456 186 Q396 224 356 240 Z"/>
+          </g>
+          <g stroke="#2C3338" stroke-width="2" opacity=".5" fill="none">
+            <path d="M372 226 Q404 196 452 170"/><path d="M412 206 Q452 172 500 146"/><path d="M460 182 Q504 150 556 126"/>
+            <path d="M512 158 Q560 130 612 110"/><path d="M566 138 Q616 114 668 98"/>
+          </g>
+        </g>
+        <!-- small eave, left -->
+        <g>
+          <path d="M0 252 Q78 258 156 300 Q186 316 206 330 L206 366 Q150 342 92 324 Q44 310 0 306 Z" fill="#525C60"/>
+          <path d="M0 306 Q50 312 102 330 Q156 350 206 372 L206 430 Q140 402 78 384 Q38 372 0 368 Z" fill="#394447"/>
+        </g>
+      </g>
+
+      <!-- 2 branches, blossoms, scholar's rock -->
+      <g class="fn-g2">
+        <!-- scholar's rock -->
+        <g>
+          <path d="M300 760 Q318 666 366 622 Q392 598 420 610 Q436 572 470 580 Q498 586 506 620 Q546 604 568 640 Q592 680 570 716 Q596 744 578 782 Q560 818 512 820 Q498 866 450 870 Q404 874 386 838 Q336 836 314 806 Q298 786 300 760 Z" fill="url(#fn-stone)"/>
+          <g fill="#6E747D" opacity=".75">
+            <ellipse cx="398" cy="684" rx="26" ry="18" transform="rotate(-18 398 684)"/>
+            <ellipse cx="488" cy="664" rx="18" ry="26" transform="rotate(12 488 664)"/>
+            <ellipse cx="462" cy="762" rx="30" ry="20" transform="rotate(-8 462 762)"/>
+            <ellipse cx="538" cy="730" rx="14" ry="20"/>
+          </g>
+          <g fill="#C9A86A" opacity=".55"><circle cx="540" cy="686" r="6"/><circle cx="430" cy="800" r="5"/><circle cx="500" cy="812" r="4"/></g>
+        </g>
+        <!-- pine branch, swaying -->
+        <g class="fn-branch">
+          <g fill="none" stroke="#3E4A44" stroke-width="9" stroke-linecap="round">
+            <path d="M96 236 Q230 272 332 352 Q430 428 520 410 Q610 392 716 436"/>
+            <path d="M332 352 Q372 420 352 500 Q334 572 268 628"/>
+            <path d="M520 410 Q568 470 612 560 Q640 618 648 700"/>
+          </g>
+          <g fill="none" stroke="#6E7A6E" stroke-width="2.4" stroke-linecap="round" opacity=".9" class="fn-needles"></g>
+        </g>
+        <!-- magnolia blossoms -->
+        <g class="fn-blooms">
+          <g transform="translate(286 176) rotate(-14)">
+            <path d="M0 0 Q34 -56 62 -16 Q88 24 40 58 Q-8 86 -26 42 Q-40 10 0 0Z" fill="url(#fn-petal)"/>
+            <path d="M6 10 Q50 -16 64 18 Q74 48 30 62 Q-6 72 -18 44Z" fill="#D8CBD2" opacity=".55"/>
+          </g>
+          <g transform="translate(150 500) rotate(8)">
+            <path d="M0 0 Q52 -62 98 -20 Q138 18 84 60 Q22 104 -14 56 Q-38 22 0 0Z" fill="url(#fn-petal)"/>
+            <path d="M14 10 Q66 -24 94 10 Q118 42 64 66 Q18 86 -2 52Z" fill="#DCD0D6" opacity=".5"/>
+          </g>
+          <g transform="translate(386 540) rotate(-26)">
+            <path d="M0 0 Q30 -44 56 -12 Q78 20 38 48 Q0 72 -18 38 Q-30 12 0 0Z" fill="url(#fn-petal)"/>
+          </g>
+          <g transform="translate(300 300) rotate(16)">
+            <path d="M0 0 Q26 -52 54 -18 Q78 12 42 48 Q6 82 -14 44 Q-28 16 0 0Z" fill="url(#fn-petal)"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- 4 lettering -->
+      <g class="fn-g4">
+        <!-- studio marks, left edge -->
+        <g fill="none" stroke="#EDE7E9" stroke-width="2.4">
+          <path d="M44 38 h62 q10 0 10 10 v52 q0 10 -10 10 h-62 q-10 0 -10 -10 v-52 q0 -10 10 -10z"/>
+        </g>
+        <text x="75" y="80" text-anchor="middle" font-family="'Songti SC','STSong','Noto Serif CJK SC',serif" font-weight="700" font-size="30" fill="#EDE7E9" letter-spacing="2">妃妮</text>
+        <text x="75" y="100" text-anchor="middle" font-family="'Didot','Playfair Display','Times New Roman',serif" font-size="9" fill="#EDE7E9" letter-spacing="1.6">FEINII DESIGN</text>
+        <rect x="42" y="122" width="68" height="186" fill="#E6DCE1"/>
+        <g stroke="#1C2220" stroke-width="2.6" fill="none" stroke-linecap="round">
+          <path d="M58 290 Q74 236 96 196"/><path d="M64 262 Q86 250 104 236"/><path d="M62 244 Q80 228 100 222"/>
+          <path d="M70 218 Q86 202 104 196"/><path d="M52 276 Q70 268 88 268"/>
+        </g>
+        <g transform="translate(78 318) rotate(90)">
+          <text x="0" y="0" font-family="'Didot','Playfair Display','Times New Roman',serif" font-size="21" fill="#E9E3E6" letter-spacing="5.5" data-ov-type="工作室字标：竖排、旋转 90 度，贴着左边缘" data-ov-type-en="Studio wordmark: rotated 90° down the left edge">FEINII VISUAL DESIGN</text>
+        </g>
+
+        <!-- top right English block -->
+        <g fill="#EFEAEC" font-family="'Didot','Playfair Display','Times New Roman',serif">
+          <text x="482" y="70" font-size="40" letter-spacing="2" data-ov-type="英文衬线大写，钉在右上角" data-ov-type-en="Serif capitals pinned to the top-right corner">FEINII</text>
+          <text x="482" y="94" font-size="14" letter-spacing=".8">SEEKING HOPE IN THE ASHES</text>
+          <text x="482" y="112" font-size="14" letter-spacing=".8">BLOOMING IN DESPAIR.</text>
+        </g>
+        <g fill="none" stroke="#E3DEE0" stroke-width="1.6">
+          <circle cx="604" cy="146" r="15"/><circle cx="604" cy="176" r="15"/>
+        </g>
+        <text x="604" y="152" text-anchor="middle" font-family="'Songti SC','STSong',serif" font-size="15" fill="#E3DEE0">飞</text>
+        <text x="604" y="182" text-anchor="middle" font-family="'Songti SC','STSong',serif" font-size="15" fill="#E3DEE0">鹊</text>
+        <circle cx="608" cy="212" r="13" fill="#F2EAEA"/>
+
+        <!-- seal-script title block, 2x2 -->
+        <g font-family="'Songti SC','STSong','Noto Serif CJK SC',serif" font-weight="700" font-size="52" fill="#F0EBEC" letter-spacing="0"
+           data-ov-type="标题四字排成 2×2 方块，下面压一行英文" data-ov-type-en="Title: four characters in a 2×2 block over one English line">
+          <text x="490" y="398">靈</text><text x="552" y="398">鵲</text>
+          <text x="490" y="458">銜</text><text x="552" y="458">枝</text>
+        </g>
+        <text x="490" y="486" font-family="'Didot','Playfair Display','Times New Roman',serif" font-style="italic" font-size="17" fill="#E8E2E4" letter-spacing=".6">MAGPIE WEAVING</text>
+        <text x="490" y="506" font-family="'Didot','Playfair Display','Times New Roman',serif" font-style="italic" font-size="17" fill="#E8E2E4" letter-spacing=".6">BRANCHES.</text>
+        <g class="fn-seal" data-ov-focus="朱红印：全画唯一的饱和色" data-ov-focus-en="The vermilion seal: the only saturated colour">
+          <circle cx="594" cy="350" r="17" fill="#C92431"/>
+          <circle cx="594" cy="350" r="13.5" fill="none" stroke="#F2EAEA" stroke-width="1.2" opacity=".85"/>
+          <path d="M588 344h12M588 350h12M588 356h12" stroke="#F2EAEA" stroke-width="1.6" opacity=".8"/>
+        </g>
+
+        <!-- bottom left -->
+        <g fill="none" stroke="#EFEAEC" stroke-width="2">
+          <path d="M44 744 h56 q8 0 8 8 v76 q0 8 -8 8 h-56 q-8 0 -8 -8 v-76 q0 -8 8 -8z"/>
+          <path d="M72 824 V770 M72 788 Q56 774 48 760 M72 782 Q88 768 96 756 M64 824 Q52 806 48 792 M80 824 Q92 806 96 792"/>
+        </g>
+        <g fill="none" stroke="#EFEAEC" stroke-width="2"><path d="M124 786 h52 q6 0 6 6 v50 q0 6 -6 6 h-52 q-6 0 -6 -6 v-50 q0 -6 6 -6z"/></g>
+        <text x="150" y="828" text-anchor="middle" font-family="'Songti SC','STSong',serif" font-size="34" fill="#EFEAEC">鵲</text>
+        <g font-family="'Didot','Playfair Display','Times New Roman',serif" font-size="40" letter-spacing="2" fill="none" stroke="#F3EEF0" stroke-width="1.3" opacity=".9">
+          <text x="40" y="890">CHINESE</text><text x="40" y="928">STYLE</text>
+        </g>
+        <g font-family="'Didot','Playfair Display','Times New Roman',serif" font-size="10" fill="#8C8580" letter-spacing=".6">
+          <text x="200" y="906">NEW CHINESE STYLE</text><text x="200" y="920">2026</text>
+        </g>
+
+        <!-- bottom right -->
+        <g fill="none" stroke="#B9AEAE" stroke-width="1.8"><path d="M620 792 h56 q8 0 8 8 v56 q0 8 -8 8 h-56 q-8 0 -8 -8 v-56 q0 -8 8 -8z"/></g>
+        <text x="648" y="846" text-anchor="middle" font-family="'Songti SC','STSong',serif" font-size="34" fill="#B9AEAE">尊</text>
+        <g fill="#A79C9A" font-family="'Didot','Playfair Display','Times New Roman',serif" font-size="14" letter-spacing=".6" text-anchor="end">
+          <text x="700" y="902">SEEKING HOPE IN THE ASHES</text><text x="700" y="924">BLOOMING IN DESPAIR.</text>
+        </g>
+      </g>
+
+      <rect x="470" y="840" width="236" height="96" fill="none"
+            data-ov-space="右下角被渐变冲淡的米白区，只剩两行小字" data-ov-space-en="The washed-out beige corner, left with two small lines"/>
+      <rect width="720" height="960" filter="url(#fn-grain)" pointer-events="none"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 720 960" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="205" y1="0" x2="205" y2="960"/><line x1="347" y1="0" x2="347" y2="960"/>
+      <line x1="482" y1="0" x2="482" y2="960"/><line x1="40" y1="0" x2="40" y2="960"/>
+      <line x1="0" y1="108" x2="720" y2="108"/><line x1="0" y1="808" x2="720" y2="808"/>
+    </svg>
+  </div>
+  <div class="gd-controls" role="group" aria-label="Build steps">
+    <button type="button" data-step-btn="1">1</button><button type="button" data-step-btn="2">2</button><button type="button" data-step-btn="3">3</button><button type="button" data-step-btn="4" aria-pressed="true">4</button>
+    <button type="button" class="fn-toggle" data-motion-btn aria-pressed="true">动</button>
+  </div>
+</div>
+<style>
+.gd-feinii{width:min(336px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-feinii *{box-sizing:border-box}
+.fn-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#0C1013}
+.fn-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fn-g2,.fn-g3,.fn-g4{transition:opacity var(--dur-3,320ms) var(--ease-out,ease)}
+.gd-feinii[data-step="1"] .fn-g2,.gd-feinii[data-step="1"] .fn-g3,.gd-feinii[data-step="2"] .fn-g3{opacity:0}
+.gd-feinii[data-step="1"] .fn-g4,.gd-feinii[data-step="2"] .fn-g4,.gd-feinii[data-step="3"] .fn-g4{opacity:0}
+/* The published poster barely moves: a few pixels of sway and a slow drift in the mist. */
+.gd-feinii[data-motion="on"] .fn-branch{animation:fn-sway calc(var(--dur-3,320ms) * 26) ease-in-out infinite alternate;transform-origin:96px 236px}
+.gd-feinii[data-motion="on"] .fn-blooms{animation:fn-breathe calc(var(--dur-3,320ms) * 34) ease-in-out infinite alternate;transform-origin:50% 45%}
+.gd-feinii[data-motion="on"] .fn-mist{animation:fn-drift calc(var(--dur-3,320ms) * 60) linear infinite alternate}
+.gd-feinii[data-motion="on"] .fn-seal{animation:fn-pulse calc(var(--dur-3,320ms) * 22) ease-in-out infinite alternate;transform-origin:594px 350px}
+@keyframes fn-sway{from{transform:rotate(-.45deg)}to{transform:rotate(.45deg)}}
+@keyframes fn-breathe{from{transform:scale(.995) translateY(2px)}to{transform:scale(1.005) translateY(-2px)}}
+@keyframes fn-drift{from{transform:translateX(-18px)}to{transform:translateX(18px)}}
+@keyframes fn-pulse{from{opacity:.82}to{opacity:1}}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:8px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+.fn-toggle{margin-left:8px}
+@media (max-height:260px){.gd-feinii{width:min(150px,calc(100vw - 40px))}.gd-controls{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .fn-g2,.fn-g3,.fn-g4{transition:none}
+  .fn-branch,.fn-blooms,.fn-mist,.fn-seal{animation:none!important}
+}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-feinii');
+  var NS='http://www.w3.org/2000/svg';
+  // Pine needles: fans of short strokes cloned along the three branch paths.
+  var host=root.querySelector('.fn-needles');
+  var paths=[].slice.call(root.querySelectorAll('.fn-branch path'));
+  paths.forEach(function(p,pi){
+    var len=p.getTotalLength(),n=Math.round(len/26);
+    for(var i=1;i<n;i++){
+      var pt=p.getPointAtLength(i*len/n),prev=p.getPointAtLength(Math.max(0,i*len/n-6));
+      var a=Math.atan2(pt.y-prev.y,pt.x-prev.x),side=(i%2?1:-1),r=13+((i*7+pi*3)%9);
+      for(var k=-1;k<2;k++){
+        var ang=a+side*(1.15+k*0.34),e=document.createElementNS(NS,'path');
+        e.setAttribute('d','M'+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+' l'+(Math.cos(ang)*r).toFixed(1)+' '+(Math.sin(ang)*r).toFixed(1));
+        host.appendChild(e);
+      }
+    }
+  });
+  var btns=[].slice.call(root.querySelectorAll('[data-step-btn]'));
+  var toggle=root.querySelector('[data-motion-btn]');
+  var NAMES={1:['1 底','1 Ground'],2:['2 花枝','2 Branch'],3:['3 建筑','3 Eaves'],4:['4 文字','4 Type']};
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function text(){
+    btns.forEach(function(b){b.textContent=NAMES[b.dataset.stepBtn][zh()?0:1];});
+    var on=root.dataset.motion==='on';
+    toggle.textContent=zh()?(on?'动态':'静止'):(on?'Motion':'Still');
+  }
+  function setStep(n){root.dataset.step=String(n);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.stepBtn===String(n)?'true':'false');});root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  if(reduce)root.dataset.motion='off';
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);setStep(+b.dataset.stepBtn);});});
+  toggle.addEventListener('click',function(){
+    var on=root.dataset.motion!=='on';
+    root.dataset.motion=on?'on':'off';toggle.setAttribute('aria-pressed',on?'true':'false');text();
+  });
+  function cycle(){if(!auto)return;timer=setTimeout(function(){setStep(+root.dataset.step%4+1);cycle();},2800);}
+  document.addEventListener('learnui:languagechange',text);
+  text();cycle();
+})();
+</script>

@@ -1,0 +1,118 @@
+<div class="demo gd-specimen gd-cart" data-board="a">
+  <div class="ca-frame" data-gd-canvas>
+    <svg class="ca-svg" viewBox="0 0 720 960" role="img" aria-label="中国古典艺术灵感看板 — 版式示范">
+      <defs>
+        <linearGradient id="ca-t1" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="var(--ca-hi)"/><stop offset="1" stop-color="var(--ca-tile)"/></linearGradient>
+        <linearGradient id="ca-t2" x1=".2" y1="0" x2="1" y2=".9"><stop offset="0" stop-color="var(--ca-tile)"/><stop offset="1" stop-color="var(--ca-deep)"/></linearGradient>
+        <filter id="ca-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="5"/>
+          <feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .05 0"/>
+        </filter>
+      </defs>
+
+      <rect width="720" height="960" fill="var(--ca-bg)"/>
+
+      <!-- left and right picture columns: one gutter size everywhere -->
+      <g class="ca-tiles">
+        <g transform="translate(24 28)"><rect width="206" height="168" fill="url(#ca-t1)"/><circle cx="103" cy="84" r="52" fill="var(--ca-deep)" opacity=".55"/><circle cx="103" cy="84" r="22" fill="var(--ca-hi)" opacity=".7"/></g>
+        <g transform="translate(24 210)"><rect width="206" height="232" fill="url(#ca-t2)"/><path d="M103 40c26 0 40 22 34 46-7 26-34 34-34 66 0-32-27-40-34-66-6-24 8-46 34-46z" fill="var(--ca-hi)" opacity=".62"/><rect x="58" y="168" width="90" height="32" fill="var(--ca-hi)" opacity=".4"/></g>
+        <g transform="translate(24 456)"><rect width="206" height="196" fill="url(#ca-t1)"/><g fill="var(--ca-deep)" opacity=".5"><rect x="26" y="30" width="154" height="10"/><rect x="26" y="58" width="112" height="10"/><rect x="26" y="86" width="140" height="10"/><rect x="26" y="114" width="90" height="10"/><rect x="26" y="142" width="126" height="10"/></g></g>
+        <g transform="translate(24 666)"><rect width="206" height="266" fill="url(#ca-t2)"/><path d="M60 230V110q0-44 43-44t43 44v120z" fill="var(--ca-hi)" opacity=".55"/><ellipse cx="103" cy="110" rx="43" ry="14" fill="var(--ca-deep)" opacity=".5"/></g>
+
+        <g transform="translate(490 28)"><rect width="206" height="232" fill="url(#ca-t2)"/><g fill="var(--ca-hi)" opacity=".55"><circle cx="70" cy="76" r="34"/><circle cx="142" cy="130" r="48"/><circle cx="60" cy="166" r="24"/></g></g>
+        <g transform="translate(490 274)"><rect width="206" height="168" fill="url(#ca-t1)"/><path d="M18 140q46-66 88-36t82-50v64H18z" fill="var(--ca-deep)" opacity=".55"/><path d="M18 150q52-40 90-16t80-34v50H18z" fill="var(--ca-hi)" opacity=".5"/></g>
+        <g transform="translate(490 456)"><rect width="206" height="266" fill="url(#ca-t2)"/><g fill="none" stroke="var(--ca-hi)" stroke-width="7" opacity=".6"><path d="M48 54h110M48 100h110M48 146h110M48 192h110"/></g><rect x="36" y="214" width="134" height="26" fill="var(--ca-hi)" opacity=".4"/></g>
+        <g transform="translate(490 736)"><rect width="206" height="196" fill="url(#ca-t1)"/><g fill="var(--ca-deep)" opacity=".5"><path d="M103 24l22 46 50 8-36 36 9 50-45-24-45 24 9-50-36-36 50-8z"/></g></g>
+      </g>
+
+      <!-- middle column: type only -->
+      <rect class="ca-space" x="250" y="40" width="220" height="300" fill="none"
+            data-ov-space="文字块上下的大片纯色，照片墙才不像印样" data-ov-space-en="Flat colour above and below the text, so the wall of pictures is not a contact sheet"/>
+      <g class="ca-type" text-anchor="middle" data-ov-type="中栏只有文字：期号、中英双标题、编号、说明、检索词" data-ov-type-en="Middle column is type only: marker, bilingual title, number, note, search terms">
+        <text class="ca-ep" x="360" y="392" font-family="'Didot','Playfair Display','Times New Roman',serif" font-style="italic" font-size="21" fill="var(--ca-ink)" letter-spacing=".5"># (Episode 01)</text>
+        <g class="ca-title" data-ov-focus="加方括号的中文标题 + 紧贴其下的英文名" data-ov-focus-en="The bracketed Chinese title with its English name right beneath">
+          <g stroke="var(--ca-ink)" stroke-width="2.4" fill="none" opacity=".85">
+            <path class="ca-brk-l" d="M268 418h-12v58h12"/><path class="ca-brk-r" d="M452 418h12v58h-12"/>
+          </g>
+          <text class="ca-zh" x="360" y="468" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif" font-weight="800" font-size="46" fill="var(--ca-ink)" letter-spacing="2">漆器之光</text>
+          <text class="ca-en" x="360" y="508" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-weight="800" font-size="31" fill="var(--ca-ink)" letter-spacing="3.4">LACQUERWARE</text>
+        </g>
+        <text class="ca-no" x="360" y="546" font-family="'Didot','Playfair Display','Times New Roman',serif" font-style="italic" font-size="17" fill="var(--ca-ink)" letter-spacing="1.6">CHINESE ART / 01</text>
+        <g stroke="var(--ca-ink)" stroke-width="1.6" opacity=".8"><path d="M352 570l16 16M368 570l-16 16"/></g>
+        <text class="ca-d1" x="360" y="628" font-family="'PingFang SC','Hiragino Sans GB',sans-serif" font-size="16" fill="var(--ca-ink)">朱与黑叠压千层，</text>
+        <text class="ca-d2" x="360" y="654" font-family="'PingFang SC','Hiragino Sans GB',sans-serif" font-size="16" fill="var(--ca-ink)">刀锋剔出花叶的影。</text>
+        <text x="360" y="700" font-family="'PingFang SC','Hiragino Sans GB',sans-serif" font-size="13" fill="var(--ca-ink)" opacity=".8">Pinterest 艺术搜索词</text>
+        <text class="ca-k1" x="360" y="724" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12.5" fill="var(--ca-ink)" opacity=".7">Chinese carved lacquer</text>
+        <text class="ca-k2" x="360" y="744" font-family="'Helvetica Neue',Inter,Arial,sans-serif" font-size="12.5" fill="var(--ca-ink)" opacity=".7">Ming dynasty tihong</text>
+      </g>
+      <rect width="720" height="960" filter="url(#ca-grain)" pointer-events="none"/>
+    </svg>
+    <svg class="gd-grid" viewBox="0 0 720 960" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="24" y1="0" x2="24" y2="960"/><line x1="230" y1="0" x2="230" y2="960"/>
+      <line x1="490" y1="0" x2="490" y2="960"/><line x1="696" y1="0" x2="696" y2="960"/>
+      <line x1="0" y1="360" x2="720" y2="360"/><line x1="0" y1="760" x2="720" y2="760"/>
+    </svg>
+  </div>
+  <p class="ca-note"></p>
+  <div class="gd-controls" role="group" aria-label="Boards">
+    <button type="button" data-format-btn="a" aria-pressed="true">01</button><button type="button" data-format-btn="b">02</button><button type="button" data-format-btn="c">03</button>
+  </div>
+</div>
+<style>
+.gd-cart{width:min(330px,calc(100vw - 80px));font:12px/1.4 system-ui,-apple-system,"PingFang SC",sans-serif}
+.gd-cart *{box-sizing:border-box}
+.ca-frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:var(--ca-bg)}
+.ca-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gd-cart[data-board="a"]{--ca-bg:#651B14;--ca-ink:#F3EADA;--ca-tile:#8F644C;--ca-hi:#D8C7AE;--ca-deep:#401814}
+.gd-cart[data-board="b"]{--ca-bg:#D4E5DD;--ca-ink:#1C3A33;--ca-tile:#7FA79A;--ca-hi:#EFF6F2;--ca-deep:#2F5A4E}
+.gd-cart[data-board="c"]{--ca-bg:#253B49;--ca-ink:#EFE7D5;--ca-tile:#6F8597;--ca-hi:#CBD6DE;--ca-deep:#152026}
+.ca-frame,.ca-tiles g rect,.ca-type text,.ca-type path{transition:fill var(--dur-3,320ms) var(--ease-out,ease),stroke var(--dur-3,320ms) var(--ease-out,ease),background-color var(--dur-3,320ms) var(--ease-out,ease)}
+.ca-note{margin:7px 0 0;text-align:center;color:#6b7280;font-size:11px}
+.gd-grid{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--dur-2,200ms) var(--ease-out,ease);pointer-events:none;z-index:6}
+.gd-grid line{stroke:#22d3ee;stroke-width:1;stroke-dasharray:4 3;fill:none;vector-effect:non-scaling-stroke}
+[data-show-grid="on"] .gd-grid{opacity:1}
+.gd-controls{display:flex;justify-content:center;gap:4px;margin-top:6px}
+.gd-controls button{border:1px solid #d7dbe3;border-radius:999px;background:#fff;color:#5d6472;padding:4px 9px;font:600 10px/1 system-ui,-apple-system,"PingFang SC",sans-serif;cursor:pointer}
+.gd-controls button[aria-pressed="true"]{background:#1f2430;border-color:#1f2430;color:#fff}
+@media (max-height:260px){.gd-cart{width:min(146px,calc(100vw - 40px))}.gd-controls,.ca-note{display:none}}
+@media (prefers-reduced-motion:reduce){.ca-frame,.ca-tiles g rect,.ca-type text,.ca-type path{transition:none}}
+</style>
+<script>
+(function(){
+  var root=document.currentScript.parentElement.querySelector('.gd-cart');
+  var note=root.querySelector('.ca-note');
+  var BOARDS={
+    a:{zh:'漆器之光',en:'LACQUERWARE',no:'CHINESE ART / 01',ep:'# (Episode 01)',
+       d1:'朱与黑叠压千层，',d2:'刀锋剔出花叶的影。',k1:'Chinese carved lacquer',k2:'Ming dynasty tihong',w:188},
+    b:{zh:'青瓷之色',en:'CELADON GLAZE',no:'CHINESE ART / 02',ep:'# (Episode 02)',
+       d1:'雨过天青的一线，',d2:'开片把时间留在釉下。',k1:'Chinese celadon glaze',k2:'Song dynasty crackle ware',w:196},
+    c:{zh:'夜帖之墨',en:'NIGHT INK',no:'CHINESE ART / 03',ep:'# (Episode 03)',
+       d1:'灯下写坏的那几行，',d2:'比写好的更像人。',k1:'Chinese running script',k2:'Song dynasty ink rubbing',w:138}
+  };
+  var btns=[].slice.call(root.querySelectorAll('[data-format-btn]'));
+  function zh(){return document.documentElement.getAttribute('data-lang-mode')!=='en';}
+  function set(k){
+    var b=BOARDS[k];root.dataset.board=k;
+    root.querySelector('.ca-ep').textContent=b.ep;
+    root.querySelector('.ca-zh').textContent=b.zh;
+    root.querySelector('.ca-en').textContent=b.en;
+    root.querySelector('.ca-no').textContent=b.no;
+    root.querySelector('.ca-d1').textContent=b.d1;
+    root.querySelector('.ca-d2').textContent=b.d2;
+    root.querySelector('.ca-k1').textContent=b.k1;
+    root.querySelector('.ca-k2').textContent=b.k2;
+    // The brackets hug the Chinese title, so they move with its width.
+    var half=b.zh.length*24+10;
+    root.querySelector('.ca-brk-l').setAttribute('d','M'+(360-half)+' 418h-12v58h12');
+    root.querySelector('.ca-brk-r').setAttribute('d','M'+(360+half)+' 418h12v58h-12');
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x.dataset.formatBtn===k?'true':'false');});
+    root.dispatchEvent(new CustomEvent('gd:layout',{bubbles:true}));
+  }
+  function text(){note.textContent=zh()?'风格示范：标题自拟，不是看板里的原作':'Style demo: an invented board, not one from the set';}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,auto=!reduce,timer;
+  btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearTimeout(timer);set(b.dataset.formatBtn);});});
+  function cycle(){if(!auto)return;timer=setTimeout(function(){var ks=['a','b','c'];set(ks[(ks.indexOf(root.dataset.board)+1)%3]);cycle();},3400);}
+  document.addEventListener('learnui:languagechange',text);
+  set('a');text();cycle();
+})();
+</script>
